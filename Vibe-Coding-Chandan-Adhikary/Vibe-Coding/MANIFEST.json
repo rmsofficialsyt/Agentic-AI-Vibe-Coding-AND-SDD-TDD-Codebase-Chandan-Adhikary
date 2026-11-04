@@ -1,0 +1,457 @@
+{
+  "framework": "Vibe Coding",
+  "baseline": "1.0.0",
+  "created": "2026-11-04",
+  "license": "Not selected: explicit approval required",
+  "file_count_excluding_manifest": 112,
+  "files": [
+    {
+      "path": ".cursor/rules/project-policy.mdc",
+      "sha256": "18ad7a161ce98d603245a0dd2dee54038200131b44764e1c5b62664eb76ec857"
+    },
+    {
+      "path": ".cursorrules",
+      "sha256": "e6a1da6d2b0897872918b047399bbf3c914c3ea2a24dd8112416b3289dc08fcc"
+    },
+    {
+      "path": ".editorconfig",
+      "sha256": "0bf274e7d17b0a5102414a78a7261c8523b7f3fbb71e7ea3a4104cad66337b25"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "f18088b6946754d6232ca2b646eb45190dc60d9f759d17d06258331a922a97d6"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "e74499af92eba63fa8ee1d9097ea0c44c5875826536b915062afa100d6c9648a"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "sha256": "d2d9de1c10304374e74654ad6eb40c35aef085e6ec10e23e4408e5cde785cca5"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "sha256": "3c9a95711b76586a8a1e319a4d6784f978edab5642f4c85f66beb570349360da"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "sha256": "c7f6a20e3829d1fb5016f490dd8ddeb8ebbfba4bfa29e4a6bcf58f4643fb45e2"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "97a0cf7f4aeaaa9f77f41c21e7a2697ffa7cee2bd5ec3a82169327e0b3249b26"
+    },
+    {
+      "path": ".github/SECURITY.md",
+      "sha256": "84caa89f2d49fd72467e4b26eb2d588dc914d24208b169a4c143a1a885509c41"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "e56de5af9cf3e07bf995aa911a570aa99febed3cb1f956baf2fd4cc02719a42a"
+    },
+    {
+      "path": ".github/instructions/agent-policy.instructions.md",
+      "sha256": "52ba09e350b277edd9bd71563b9fdbc9ef530bcba54b291c1a5b547c7b0c46d9"
+    },
+    {
+      "path": ".github/workflows/README.md",
+      "sha256": "7cb7cd6d75bd94f1ce90fae579e091940c5b5842f9cc67df9733cce7899915bc"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "1dc624209aacc474fff25ad91bf987821f19102855ed7aea3a74122f58202ec1"
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "sha256": "cc0eacaa8ec99f5ce812a067b00861cc93c5f780cf92fcd6bfed36f78d973dd0"
+    },
+    {
+      "path": ".windsurf/rules/project-policy.md",
+      "sha256": "9421dfab85a921c1833884ce0cfdf74f2f25cdc162a02ab0b4e74926e3820c12"
+    },
+    {
+      "path": ".windsurfrules",
+      "sha256": "b800e735b452e4fd44f47a754338da708a485325c52441a1cd2a46b93b3ac142"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ea4cb2370a10ca2a4a623ab348ea9febca22413811b5cc3419afde247939d55c"
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "4ea2b462d0c35778d7d7d4d59b7e44ac58367ad580cae7cb0873dab2d80a775b"
+    },
+    {
+      "path": "LICENSE-DECISION.md",
+      "sha256": "929d2c15ad8e5bb790e6a4f6314ebb256197260be9a321ac52097e4a75e808e9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f449c445dece93749b72185a49603cbf570204c981d143642756c2bca263187b"
+    },
+    {
+      "path": "SOURCE-NOTES.md",
+      "sha256": "8541dad548304f6f27c2e12a94db9e6d19db6369bd65ec0e357a81d4e34b44ea"
+    },
+    {
+      "path": "agent/commands/README.md",
+      "sha256": "2dcca854c93413d9c963e9ee3bf8124b80cc26366bb5882b45535ee7fa02198d"
+    },
+    {
+      "path": "agent/commands/change-request.md",
+      "sha256": "d0a60abff9b8ad2211279d504906f2e159129d15405d754c7013957a068da8f8"
+    },
+    {
+      "path": "agent/commands/errorlogs.md",
+      "sha256": "4b06b5b51e5ac156988a81541055efdd8882020024b63c22d0b5315aef59701e"
+    },
+    {
+      "path": "agent/commands/gitlogs.md",
+      "sha256": "24cb9702a2d65e15adbfbfa5db0dba05dd0902834ac84f13f35c97d2fc5d9504"
+    },
+    {
+      "path": "agent/commands/handoff.md",
+      "sha256": "8a98862061b00d8599cf19c7078130ef804a27c0b15ff0dc7403f6a9d59e9195"
+    },
+    {
+      "path": "agent/commands/implement.md",
+      "sha256": "f448cf37c8a6a2d3c94bf062d1f562f39d4f4b572e63ce9bcb597079784371c8"
+    },
+    {
+      "path": "agent/commands/plan.md",
+      "sha256": "179f2bd30aee4bca18f771b5baefe2bfb3a3ebfbc1e736e46421d03fd9c8da8e"
+    },
+    {
+      "path": "agent/commands/release-check.md",
+      "sha256": "79e31b559ea495f29850ca1d57f826ca2e6bdf78774d3b1e87d69ccfdcc4b74d"
+    },
+    {
+      "path": "agent/commands/review.md",
+      "sha256": "3a08f5e89eab669616a9601e891639a4966da7719ab926c11dad9f94a5fe7903"
+    },
+    {
+      "path": "agent/commands/run.md",
+      "sha256": "702f08982af9ef14b836e9f46a8b15a3d02374e9963b938198839696ac2fd69f"
+    },
+    {
+      "path": "agent/commands/security-audit.md",
+      "sha256": "02d39e04dca1b86d94ffd639b3e74943eb114a594c1a273e158e41fbe3e87b26"
+    },
+    {
+      "path": "agent/commands/spec-check.md",
+      "sha256": "764015d6e075f093500e1300e84fa6a335e1d11c4dd9d73bff4705e8cdd70bbb"
+    },
+    {
+      "path": "agent/commands/task.md",
+      "sha256": "297c128184a0e7dfe95e2428ac18c0671bb32be47df3208f5ccc539a72d09d59"
+    },
+    {
+      "path": "agent/commands/tdd.md",
+      "sha256": "58c6fbc81e136c1abea33f8c01ee3857b266b7230f3c79cbc19f7587ad6eb291"
+    },
+    {
+      "path": "agent/commands/testing.md",
+      "sha256": "da3dc5d9b3d71f72830b3629a708147eb1922d96a77a4b0531aaf6e36443e8b1"
+    },
+    {
+      "path": "agent/commands/verify.md",
+      "sha256": "30bb6fc2cfcf59081e9a7e531645ff1a0aeafa45f95096b9a1c4e183b032a153"
+    },
+    {
+      "path": "agent/hooks/HOOK-MATRIX.md",
+      "sha256": "bbfc3fb3fb19bc995becda5b14aad7628af8d52c49db1e5083a04f9106deb70f"
+    },
+    {
+      "path": "agent/skills/accessibility-auditor/SKILL.md",
+      "sha256": "109d30f86444939e70bae7ab421e1745e64e71a64384a0b915381ea1e3131a89"
+    },
+    {
+      "path": "agent/skills/api-contract-review/SKILL.md",
+      "sha256": "4d73d7b8942d85d78ab889f46ae266b6007aa4d6117838d604c451eb3bdc8de5"
+    },
+    {
+      "path": "agent/skills/architecture-review/SKILL.md",
+      "sha256": "9bb9f6be1fd0618ae77856ebbd34c7ba05c2cbad5657d3575499ae50ae78c98a"
+    },
+    {
+      "path": "agent/skills/code-reviewer/SKILL.md",
+      "sha256": "26d3ebf9639d69c39b29ef739bb09f70b5caf5de0778c7701320ed5bc9e21833"
+    },
+    {
+      "path": "agent/skills/database-migration-review/SKILL.md",
+      "sha256": "0a8c544f9364080506667814f89449b89cd57b567511198fd214f450890bff08"
+    },
+    {
+      "path": "agent/skills/debugging-analyst/SKILL.md",
+      "sha256": "bc0d6d710db3d5f2f576e8da85f4bf28e3b786f7cf1a1ccd6fcef344c6813655"
+    },
+    {
+      "path": "agent/skills/documentation-sync/SKILL.md",
+      "sha256": "f6aee0d82241f570385dee499caf4772ca96456ee9d89f696e42de7e0ec17e67"
+    },
+    {
+      "path": "agent/skills/ml-evaluation/SKILL.md",
+      "sha256": "a9dacc5138173ce25e41e7e1e5d66ee09c3cdf17e06bc43d6c2c1ada7ff9d2b7"
+    },
+    {
+      "path": "agent/skills/performance-profiler/SKILL.md",
+      "sha256": "2863a34e2342e08d80b10822b37cd24c3637546f46874dc358166a437c72e109"
+    },
+    {
+      "path": "agent/skills/prd-writer/SKILL.md",
+      "sha256": "f6ee01b1a5b80534575c221ea8128a99c4b202e22e826c7bb0bec217bb2b613f"
+    },
+    {
+      "path": "agent/skills/release-validator/SKILL.md",
+      "sha256": "f796ec33575dcca637988f81c0c51b1daca61420da898cd7639ac1aa489c8e66"
+    },
+    {
+      "path": "agent/skills/requirements-analysis/SKILL.md",
+      "sha256": "db76a59cb77dd29c1ae48694b2c8b8ad1cee32d9a9d2a65d22f50d500be90628"
+    },
+    {
+      "path": "agent/skills/security-auditor/SKILL.md",
+      "sha256": "0d142437f857b33de4188fb8f7b01af598235f51e1628fc1d0d42633873cdbb1"
+    },
+    {
+      "path": "agent/skills/spec-validator/SKILL.md",
+      "sha256": "fd2ff20c9319118fe1d6622d0c0d7d7a4f01a7b721d23a1ff3db99c8323310ae"
+    },
+    {
+      "path": "agent/skills/task-planner/SKILL.md",
+      "sha256": "2ef167d03dcbacecf03dabd6a729085a16be6b46df6aac18404281cf72ca429d"
+    },
+    {
+      "path": "agent/skills/tdd-enforcer/SKILL.md",
+      "sha256": "4143d4c5c63cdbc3692eb8c8a2d290c3ec89f96d793c48e6a4bb903208b19f41"
+    },
+    {
+      "path": "agent/skills/ui-fidelity-review/SKILL.md",
+      "sha256": "7478aa283ba14f237b1b19cb3cf32f819098dddfa3f71f39da5ba507ddfd6b37"
+    },
+    {
+      "path": "agent/templates/AGENT-COMPLETION-REPORT.md",
+      "sha256": "a15cbba34d857452c89fc4cbba72f8660c40773f8510dd791c498d7de789e249"
+    },
+    {
+      "path": "agent/templates/AGENT-TASK-CONTRACT.md",
+      "sha256": "ac96561358c5058dedc725235d69da433c560dcbee92fb2b1eb7525e8a59f484"
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "sha256": "44f1cb64bcf8d7f8b5f1e9bb3cc216d3cb26f8d7fd652d0985cd505f4f2961db"
+    },
+    {
+      "path": "docs/INDEX.md",
+      "sha256": "7ac8130cee9aac38ca5f7837351c46ba10e200625e9c5a49de9566ce4124f176"
+    },
+    {
+      "path": "docs/acceptance-criteria.md",
+      "sha256": "bac42309705635242a5d5f524718aba7ae4e18a8dc6cfa1df6e22436df7d2371"
+    },
+    {
+      "path": "docs/accessibility.md",
+      "sha256": "2a5e6646d8ee6a803a4ea9796430d66088ec28ad8fb685f6575689201a395928"
+    },
+    {
+      "path": "docs/adrs/README.md",
+      "sha256": "f76c33b7f2d2f5c8683c4ee796e40ad69951c32baf8e266c4a229fc32e6d7d3a"
+    },
+    {
+      "path": "docs/agents.md",
+      "sha256": "51a609b59fa6c3ce54e5988415debcb1c5d30a0d51aa55d1c6c72539e6a56810"
+    },
+    {
+      "path": "docs/apis.md",
+      "sha256": "cea291c30069228397ffea86ec57d744746c9bf528a32265f82a946f29e42274"
+    },
+    {
+      "path": "docs/code-review.md",
+      "sha256": "4ed8b32f14be6e82432e4d812fa57e9910da00ead17ba8a5469a8729642bee1c"
+    },
+    {
+      "path": "docs/code-testing.md",
+      "sha256": "41ffa20580b9f7a2a87d775b4c769ca6a028f07b81e9220c7c858fea6e96f21a"
+    },
+    {
+      "path": "docs/connectors.md",
+      "sha256": "1ce21f7701f816929766144c2ad1ab868a49897d81d4b9ab52ca741e85756e04"
+    },
+    {
+      "path": "docs/constitution.md",
+      "sha256": "ac905976fe2ab5e1ce1e1236ba1b0cfa27d61627efab916d440c8b06cfba32b2"
+    },
+    {
+      "path": "docs/database.md",
+      "sha256": "0085e71116567f1f2a1dfacff194baf12715d9b8d5651565c7593ff3293c9c1a"
+    },
+    {
+      "path": "docs/decision-log.md",
+      "sha256": "aa44489da6c37c73293b68f93726ee86363ae4a61164fd38202409c81a8f6e9f"
+    },
+    {
+      "path": "docs/dependencies.md",
+      "sha256": "8e9a9998f7f7c0e6013e08928c51af8f578449057e237245cf62496e7a6b500c"
+    },
+    {
+      "path": "docs/deployment.md",
+      "sha256": "8ed8262d4131bdd13ba26d778a60737a0f6904e3c03f9ab0de3516ef70a813f0"
+    },
+    {
+      "path": "docs/design.md",
+      "sha256": "ed7cd2792a64c9007d3c943418fe8c2669e3e46cdc2ab9b99ae0311b04046b84"
+    },
+    {
+      "path": "docs/devops.md",
+      "sha256": "ef05e2b9cd27e2d0e0e552814ea0cdc3871be4de733d25302335bad4061347e0"
+    },
+    {
+      "path": "docs/domains/README.md",
+      "sha256": "e91ab1a49066c44dc6dc6211f9783abd9a00e3b4b54e8efedee5cb7f5cf825d2"
+    },
+    {
+      "path": "docs/environments.md",
+      "sha256": "8339d73aa2879b87c1d7699e2e94a15595e4d827bfcb217a1517d5e2bc34abcc"
+    },
+    {
+      "path": "docs/error-tracker.md",
+      "sha256": "5e51f24c23596b7d072477f47d9cdb719c41dc7ae81a687b3c40f8ff3b81ead5"
+    },
+    {
+      "path": "docs/features/FEATURE-TEMPLATE.md",
+      "sha256": "085a61dd9c30e5f8ffc46a38f990ad75307e4e9d4134bbcfb835587e22b275b1"
+    },
+    {
+      "path": "docs/guideline-CHANGELOG.md",
+      "sha256": "b65ab9e6b7b6b121e94d1aa6c8ac02cb871d2bac37c76a7ce17ebb2a3a6a78bd"
+    },
+    {
+      "path": "docs/handoff.md",
+      "sha256": "46853fd07970eb12fefafd1058865eddcb94dfe3706d55b9fc1a1d8dc2971837"
+    },
+    {
+      "path": "docs/hooks.md",
+      "sha256": "cff7bd2575bd72d7993f746c9b2999e8ec6bf871418014f2b993ca3cbdf470c7"
+    },
+    {
+      "path": "docs/memory.md",
+      "sha256": "f99f63adb4b7415a4f2caa6254c496e0834188806961732792421dcfd8fd404d"
+    },
+    {
+      "path": "docs/observability.md",
+      "sha256": "2dd80a2e89933b0bea7d5487e1a03b9035eb1625c349467b86fba21cb67bee17"
+    },
+    {
+      "path": "docs/performance.md",
+      "sha256": "8101c9b3609e465d1167725041a49b05cef9c34347bf506800d674ed3de91bfb"
+    },
+    {
+      "path": "docs/phases.md",
+      "sha256": "1362e964049dc91acb98cc2458f83cebd7de80c122c63b96c12afd3f674e3b69"
+    },
+    {
+      "path": "docs/plan.md",
+      "sha256": "d54b1e542cfa4e6932ca9f6699673a2b6eb9a34b26197b6a5aeee8530c0a5231"
+    },
+    {
+      "path": "docs/plugins.md",
+      "sha256": "1264e0ce2aab6bfbd6c42e0dc37766e0b928c497ca3b5672356f3a4e6f345db1"
+    },
+    {
+      "path": "docs/prd.md",
+      "sha256": "c08aa3f17f26a40e99fb15ab3c2ac814002fa1fa8572143d28372905d74d03cf"
+    },
+    {
+      "path": "docs/prompts.md",
+      "sha256": "334e97dea6aeb35c4113334b40ca8e26bd1bc9ec9062f5ed3fac05ddb2d4232a"
+    },
+    {
+      "path": "docs/release-checklist.md",
+      "sha256": "7d38d58944a80b6a235f14b1307fba141b3134a49e9aa59acca018f63658a24f"
+    },
+    {
+      "path": "docs/requirements-traceability.md",
+      "sha256": "fcc1063a4a660575429f6c5b51aa6ccf67d54186f4531bf300ff9bdd854b10dd"
+    },
+    {
+      "path": "docs/risk-register.md",
+      "sha256": "7d739380c8d574cf861c2ce48b2a058bb6740cc44cbfbca49d3a8ec1e0544206"
+    },
+    {
+      "path": "docs/rules.md",
+      "sha256": "2422345a82619cd23aa92741e83a4312eb696b07f89706f53fba053947b6740c"
+    },
+    {
+      "path": "docs/runbook.md",
+      "sha256": "2e0f280e9b2b9c2efb1ea6f42e492e0e5b815568f237cc971858946701b88dce"
+    },
+    {
+      "path": "docs/security.md",
+      "sha256": "c52313ccb28b0ace24eed03a50f431fb0054122fd743aa43e7fcd6437d1a8bb6"
+    },
+    {
+      "path": "docs/skills.md",
+      "sha256": "fda1e88f43dfd5fc6a3517de4c3db4ae3c3282304d8a3ad81bdcb199106efa42"
+    },
+    {
+      "path": "docs/system-architecture.md",
+      "sha256": "9a1af79f4f4aefc7f3e2bafa3618c9f56005a05998dd9c89fd2956d75c7da155"
+    },
+    {
+      "path": "docs/task.md",
+      "sha256": "06cf42a1a99f7fa84de37bde9fd5049a3639e5bb34cf27c3c8095a6adb398de0"
+    },
+    {
+      "path": "docs/tech-stacks.md",
+      "sha256": "2217962995c3c090210c7542e64540b09e8a0ed264e75cbb672484eccd06d2ba"
+    },
+    {
+      "path": "playbooks/01-Setup-Project.txt",
+      "sha256": "68dc401a68054c8b4958497e8491e7798ba772a5b4d1d77be9b2f1881c06e9c1"
+    },
+    {
+      "path": "playbooks/02-Project-Implementation.txt",
+      "sha256": "4050bb57b155f7812c9b0db2e3abe8daca90ebd2cecd670fbc04a517f3d833a9"
+    },
+    {
+      "path": "playbooks/03-Features-Development.txt",
+      "sha256": "43ab4b92ce8843fd01891dd8e10ffe3415886522ea2c7f32c6de02b22eff284d"
+    },
+    {
+      "path": "playbooks/04-Authentication-Security.txt",
+      "sha256": "d90e68a6f10b14bc1e425b23c8f6479cf1eb9aabb01cde7d012e7713eec25676"
+    },
+    {
+      "path": "playbooks/05-MCP-Connection.txt",
+      "sha256": "cf464e7c0dc6f0b5e08f7385a8701fb8a96222e7cb7d5e26cf265ab24c88d5d1"
+    },
+    {
+      "path": "playbooks/06-Integrations.txt",
+      "sha256": "6f7de4e794d060ccc5798572eb05c5ed3cd3d732da06867f4c805dd9e5274cad"
+    },
+    {
+      "path": "playbooks/07-Testing-QA.txt",
+      "sha256": "2317603b4c35f0f390d34d78890cb757dee3bc98460d076c42c296cd8246f4cd"
+    },
+    {
+      "path": "playbooks/08-Debugging.txt",
+      "sha256": "028dc7dabcb4f80d772902695ca0d4a2d6dd8a3a8022578b4af9782fa3467964"
+    },
+    {
+      "path": "playbooks/09-Validation.txt",
+      "sha256": "61e4cd629d6633c64c208e6ee4a0f269a2610c00cfaddf935e30e4cb036a046f"
+    },
+    {
+      "path": "playbooks/10-Error-Handling.txt",
+      "sha256": "e202275e45c2f4aa7965ed65db59d1c79ec5634448da7e2a6dc6e1cadac19832"
+    },
+    {
+      "path": "playbooks/11-Checklist.txt",
+      "sha256": "c9db15f410b256ae2c9d49e5cf11143e391979eb54421f3bb700082a22d01b26"
+    },
+    {
+      "path": "tests/README.md",
+      "sha256": "dfc5f7cbaac8749f4bbb3a5a30b9ccc2a3ba90a55ea852c2fb8180459a1c7898"
+    }
+  ]
+}

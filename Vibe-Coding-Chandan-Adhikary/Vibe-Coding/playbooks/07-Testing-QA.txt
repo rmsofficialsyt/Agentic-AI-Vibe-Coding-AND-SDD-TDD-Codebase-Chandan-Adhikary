@@ -1,0 +1,24 @@
+07-Testing-QA
+=============
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: Vibe Coding
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Select scope — MUST: Use approved spec and release-critical journeys.
+2. Execute — MUST: Run unit, integration, E2E, API, security, performance and accessibility as applicable.
+3. Evidence — MUST: Record exact commands, results, failures and coverage.
+4. Disposition — MUST: Block or approve only according to gate thresholds.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

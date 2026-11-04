@@ -1,0 +1,4 @@
+# Windsurf legacy compatibility adapter
+# MUST defer to AGENTS.md and approved docs/ policies.
+# MUST check current Windsurf rules/workflows support before relying on this legacy file.
+# MUST obey scope, approved specs, test-first checks, permissions and real evidence reporting.

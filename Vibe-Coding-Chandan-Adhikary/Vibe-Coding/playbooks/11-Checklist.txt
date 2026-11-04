@@ -1,0 +1,32 @@
+11-Checklist
+============
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: Vibe Coding
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Discovery — MUST: Problem, users, non-goals, owners confirmed.
+2. Specification — MUST: Approved version, criteria, traceability and architecture ready.
+3. Engineering — MUST: Security, test-first, build, review, config and CI evidence.
+4. Release — MUST: Monitoring, rollback, docs, changelog and approval recorded.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+
+Checklist example (record evidence for each item):
+[ ] Pending — discovery owner approved
+[ ] Pending — latest spec version approved
+[ ] Pending — red/green test results attached
+[ ] Pending — CI/security/review evidence attached
+[ ] Pending — deployment and rollback signed off
+[!] Blocked — missing approval / failing critical gate

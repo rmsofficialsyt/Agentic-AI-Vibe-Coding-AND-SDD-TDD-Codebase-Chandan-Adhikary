@@ -1,0 +1,24 @@
+10-Error-Handling
+=================
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: SDD
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Taxonomy — MUST: Classify domain, validation, infrastructure and user errors.
+2. Response — MUST: Design safe consistent errors and recovery guidance.
+3. Resilience — MUST: Specify retries, fallback and alert behavior.
+4. Prevention — MUST: Cover recurrent failures with regression tests and tracker entries.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

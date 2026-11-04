@@ -1,0 +1,24 @@
+03-Features-Development
+=======================
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: SDD
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Intake — MUST: Assign feature ID and acceptance criteria.
+2. Change review — MUST: Log CR and approve revised spec before updating SDD code.
+3. Test and build — MUST: Test first, implement scoped behavior and regression-test.
+4. Complete — MUST: Review, link evidence and log product change.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

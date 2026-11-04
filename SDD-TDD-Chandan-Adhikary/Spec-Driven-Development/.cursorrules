@@ -1,0 +1,5 @@
+# Cursor legacy compatibility adapter
+# MUST defer to AGENTS.md and approved docs/ policies.
+# MUST check whether current Cursor version prefers .cursor/rules/*.mdc before relying on this legacy file.
+# MUST obey spec-first, TDD, scoped tasks, secrets controls and approval boundaries.
+# SHOULD keep this adapter concise; do not duplicate mutable requirements here.

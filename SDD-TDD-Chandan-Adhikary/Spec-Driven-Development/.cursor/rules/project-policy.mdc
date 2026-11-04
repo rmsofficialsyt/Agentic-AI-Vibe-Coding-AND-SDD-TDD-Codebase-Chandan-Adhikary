@@ -1,0 +1,6 @@
+---
+description: Project rules and spec-first engineering standards
+alwaysApply: true
+---
+
+MUST follow `AGENTS.md`, `docs/rules.md`, approved feature specifications, test-first implementation and human approval boundaries. MUST not invent project requirements or test results.

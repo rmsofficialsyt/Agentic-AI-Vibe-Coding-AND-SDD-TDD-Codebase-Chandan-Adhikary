@@ -1,0 +1,24 @@
+08-Debugging
+============
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: SDD
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Reproduce — MUST: Collect safe symptoms, context and deterministic repro.
+2. Diagnose — MUST: Isolate root cause using observed evidence.
+3. Correct — MUST: Add regression test before production fix where feasible.
+4. Close — MUST: Run regression suite and update error tracker.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

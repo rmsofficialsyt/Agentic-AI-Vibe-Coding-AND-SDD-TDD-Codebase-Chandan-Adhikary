@@ -1,0 +1,24 @@
+01-Setup-Project
+================
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: SDD
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Discover — MUST: Confirm project objective, users, risks and boundaries.
+2. Initialize — MUST: Set up Git, root files, docs, agent instructions and owner-approved license decision.
+3. Configure — MUST: Pin tools and create secrets-safe environment examples.
+4. Validate — MUST: Verify formatter, test harness, initial CI and repeatable local setup.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

@@ -1,0 +1,24 @@
+06-Integrations
+===============
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: SDD
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Contract — MUST: Approve provider, schemas and auth.
+2. Reliability — MUST: Design timeout, retry, idempotency, circuit-breaking where applicable.
+3. Verify — MUST: Run contract and sandbox failure tests.
+4. Operations — MUST: Document quotas, alerting, rollback and ownership.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.

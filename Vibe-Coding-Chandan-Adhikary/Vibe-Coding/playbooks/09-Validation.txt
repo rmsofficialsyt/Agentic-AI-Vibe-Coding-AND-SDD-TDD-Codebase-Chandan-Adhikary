@@ -1,0 +1,24 @@
+09-Validation
+=============
+
+Purpose: Repeatable, evidence-based execution playbook.
+Read trigger: MUST read immediately before performing this activity.
+Applicability: Vibe Coding
+
+Prerequisites:
+- MUST identify project, current guideline baseline, task owner and authorized scope.
+- MUST verify latest approved specification when doing production work.
+
+Procedure:
+1. Baseline — MUST: Load approved spec and acceptance IDs.
+2. Compare — MUST: Check UI, functionality, performance and contracts against source.
+3. Deviation — MUST: Document gaps and unauthorized changes.
+4. Sign off — MUST: Record actual evidence and authorized acceptance.
+
+Required output:
+- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
+- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
+- SHOULD link canonical docs rather than copying rule text.
+
+Change policy:
+- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
