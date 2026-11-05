@@ -587,3 +587,4 @@ STOP and request final human authorization before deployment.
 1. **No Spec, No Code**: Writing implementation code without an approved specification in `specs/` is strictly prohibited.
 2. **Tests Must Precede Code**: Any pull request containing production code without accompanying or preceding tests will be rejected automatically.
 3. **Traceability Invariant**: Every commit message must cite the active Spec ID and Acceptance Criteria (e.g., `feat(enrollment): satisfy AC-ENROLL-001 unique admission number`).
+

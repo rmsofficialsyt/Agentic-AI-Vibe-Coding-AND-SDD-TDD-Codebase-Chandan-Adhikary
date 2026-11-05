@@ -526,3 +526,4 @@ Produce a comprehensive hardening summary:
 1. **Taste is your superpower**: The AI can write syntax, but you decide whether the interface feels delightful, fast, and effortless. Keep tweaking until it feels right.
 2. **Never swallow errors**: If a button feels unresponsive or a layout shifts awkwardly, stop and inspect it immediately using Karpathy's smallest-reproducible-diff rule.
 3. **Keep the prompt history clean**: Record successful prompt sequences in `docs/prompts.md` so that future teammates or AI sessions can reproduce your development journey with 100% fidelity.
+

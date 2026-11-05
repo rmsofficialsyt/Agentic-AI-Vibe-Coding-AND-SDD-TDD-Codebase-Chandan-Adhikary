@@ -105,18 +105,23 @@ flowchart TD
 ```text
 Guide-Github/
 ├── README.md                                    # Universal overview & quick-start guide
+├── LICENSE                                      # MIT License (Chandan Adhikary / RMS Officials)
 │
-├── VIBE-CODING TRACK (STANDALONE PRODUCTION GUIDE):
+├── VIBE-CODING TRACK (STANDALONE GUIDES):
 ├── Vibe-Coding-Production-Guide-SMS.md          # Complete Vibe-Coding SMS Production Guide (Markdown)
 ├── AI-Powered Project Development — Vibe...docx # Complete Vibe-Coding SMS Production Guide (Word doc)
+├── Custom-Slash-Commands-Vibe-Coding.md         # Dedicated Vibe Custom Slash Commands Guide (Markdown)
+├── AI-Powered Project Development — Custom...   # Dedicated Vibe Custom Slash Commands Guide (Word doc)
 │
-├── SDD + TDD TRACK (STANDALONE PRODUCTION GUIDE):
+├── SDD + TDD TRACK (STANDALONE GUIDES):
 ├── SDD-TDD-Production-Guide-SMS.md              # Complete SDD-TDD SMS Production Guide (Markdown)
 ├── AI-Powered Project Development — SDD...docx  # Complete SDD-TDD SMS Production Guide (Word doc)
+├── Custom-Slash-Commands-SDD-TDD.md             # Dedicated SDD Custom Slash Commands Guide (Markdown)
+├── AI-Powered Project Development — Custom...   # Dedicated SDD Custom Slash Commands Guide (Word doc)
 │
-├── CUSTOM SLASH COMMANDS & GENERAL REFERENCES:
-├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Dedicated Slash Commands Guide & SMS Demo (Markdown)
-├── AI-Powered Project Development — Custom...   # Dedicated Slash Commands Guide & SMS Demo (Word doc)
+├── MASTER REFERENCES & UNIVERSAL FRAMEWORK:
+├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Unified 15 Slash Commands & SMS Demo Reference (Markdown)
+├── AI-Powered Project Development — Custom...   # Unified 15 Slash Commands & SMS Demo Reference (Word doc)
 ├── GUIDE.md                                     # Master General Setup & Prompting Guide (Markdown)
 ├── AI-Powered Project Development — Complete... # Master General Setup & Prompting Guide (Word doc)
 │
@@ -143,6 +148,8 @@ Guide-Github/
 ```
 
 ---
+
+## ⚡ Quick-Start Guide
 
 ## ⚡ Quick-Start Guide
 
@@ -193,22 +200,24 @@ Built-in to `.agents/skills/andrej-karpathy-skill/` for both tracks:
 
 This repository provides dedicated, production-grade documentation tailored to each development methodology and command structure:
 
-### 1. Standalone Vibe-Coding Production Guide (SMS SaaS)
-- **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)** (Markdown) & **AI-Powered Project Development — Vibe Coding SMS Guide.docx** (Word document)
-- Complete, end-to-end production guide for building the EduSphere School Management SaaS website using the **Vibe-Coding Framework**. Follows the 15-section prompt pattern adapted for rapid visual prototyping, Karpathy feedback loops, 30-second attendance sheet, and progressive production hardening.
+### 1. Standalone Vibe-Coding Documentation Suite
+- **Production Guide:** **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)** & **AI-Powered Project Development — Vibe Coding SMS Guide.docx**  
+  Complete, end-to-end production guide for building the EduSphere School Management SaaS website using the **Vibe-Coding Framework** (15-section discovery, Karpathy visual loops, 30-sec attendance sheet, and progressive production hardening).
+- **Custom Slash Commands Guide:** **[Custom-Slash-Commands-Vibe-Coding.md](Custom-Slash-Commands-Vibe-Coding.md)** & **AI-Powered Project Development — Custom Slash Commands Vibe Guide.docx**  
+  Operational guide for driving Vibe-Coding exclusively via custom slash commands (`/plan-ca-agent`, `/implement-ca-agent`, `/run-ca-agent`, `/task-ca-agent`, `/review-ca-agent`, `/security-audit-ca-agent`, `/release-check-ca-agent`).
 
-### 2. Standalone Spec-Driven Development + TDD Production Guide (SMS SaaS)
-- **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)** (Markdown) & **AI-Powered Project Development — SDD-TDD SMS Guide.docx** (Word document)
-- Complete, end-to-end production guide for building the EduSphere Enterprise School Management System using **Spec-Driven Development & TDD**. Features multi-tenant PostgreSQL Row-Level Security, FERPA compliance, formal `specs/` (Flat vs. Modular), and strict Red-Green-Refactor test cycles.
+### 2. Standalone Spec-Driven Development + TDD Documentation Suite
+- **Production Guide:** **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)** & **AI-Powered Project Development — SDD-TDD SMS Guide.docx**  
+  Complete, end-to-end enterprise production guide for building the EduSphere Enterprise SMS platform using **Spec-Driven Development & TDD** (multi-tenant PostgreSQL Row-Level Security, FERPA compliance, living `specs/`, and strict Red-Green-Refactor test cycles).
+- **Custom Slash Commands Guide:** **[Custom-Slash-Commands-SDD-TDD.md](Custom-Slash-Commands-SDD-TDD.md)** & **AI-Powered Project Development — Custom Slash Commands SDD Guide.docx**  
+  Operational guide for driving SDD+TDD enterprise workflows exclusively via formal gated slash commands (`/plan-ca-agent`, `/task-ca-agent`, `/spec-check-ca-agent`, `/testing-ca-agent`, `/tdd-ca-agent`, `/review-ca-agent`, `/security-audit-ca-agent`, `/release-check-ca-agent`).
 
-### 3. Custom Slash Commands & SMS Project Demo Guide
-- **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** (Markdown) & **AI-Powered Project Development — Custom Slash Commands & SMS Demo.docx** (Word document)
-- Dedicated operational reference for all 15 portable agent commands (`.agents/commands/*-ca-agent.md`) and complete end-to-end School Management SaaS demo executed entirely via custom slash commands (`/plan-ca-agent`, `/implement-ca-agent`, `/tdd-ca-agent`, etc.).
+### 3. Unified Master References
+- **All 15 Slash Commands Reference:** **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** & **AI-Powered Project Development — Custom Slash Commands & SMS Demo.docx**  
+  Exhaustive catalog of all 15 portable agent commands (`.agents/commands/*-ca-agent.md`) and dual-track walkthrough.
+- **Master Setup & Prompting Framework:** **[GUIDE.md](GUIDE.md)** & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx**  
+  Universal 5-prompt engineering framework strictly following the project-starting lifecycle.
 
-### 4. General Master Setup & Prompting Framework
-- **[GUIDE.md](GUIDE.md)** (Markdown) & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx** (Word document)
-- Universal 5-prompt engineering framework strictly following the project-starting lifecycle (Prompt 1 Discovery -> Approval -> Prompt 2 Configuration -> Prompt 3 Spec Validation -> Prompt 4 Feature Implementation -> Prompt 5 Release Audit).
-
-### 5. Architecture & Specification References
+### 4. Architecture & Specification References
 - **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, pruning, and multi-IDE synchronization standard.
 - **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual user formats (Flat files vs Modular directories).
