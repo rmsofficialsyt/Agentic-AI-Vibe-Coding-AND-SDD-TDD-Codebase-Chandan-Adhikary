@@ -110,14 +110,14 @@ Guide-Github/
 ├── VIBE-CODING TRACK (STANDALONE GUIDES):
 ├── Vibe-Coding-Production-Guide-Universal.md        # Universal Vibe-Coding Production Guide for ANY Project (Markdown)
 ├── Vibe-Coding-Production-Guide-SMS.md              # Reference Vibe-Coding SMS Production Guide (Markdown)
-├── Custom-Slash-Commands-Vibe-Coding-Universal.md   # Universal Vibe Custom Slash Commands Guide for ANY Project (Markdown)
-├── Custom-Slash-Commands-Vibe-Coding-SMS.md         # Reference Vibe Custom Slash Commands SMS Guide (Markdown)
+├── Vibe-Coding-Custom-Slash-Command-Universal.md   # Universal Vibe Custom Slash Commands Guide for ANY Project (Markdown)
+├── Vibe-Coding-Custom-Slash-Command-SMS.md         # Reference Vibe Custom Slash Commands SMS Guide (Markdown)
 │
 ├── SDD + TDD TRACK (STANDALONE GUIDES):
 ├── SDD-TDD-Production-Guide-Universal.md            # Universal SDD-TDD Production Guide for ANY Project (Markdown)
 ├── SDD-TDD-Production-Guide-SMS.md                  # Reference SDD-TDD SMS Production Guide (Markdown)
-├── Custom-Slash-Commands-SDD-TDD-Universal.md       # Universal SDD Custom Slash Commands Guide for ANY Project (Markdown)
-├── Custom-Slash-Commands-SDD-TDD-SMS.md             # Reference SDD Custom Slash Commands SMS Guide (Markdown)
+├── SDD-TDD-Custom-Slash-Command-Universal.md       # Universal SDD Custom Slash Commands Guide for ANY Project (Markdown)
+├── SDD-TDD-Custom-Slash-Command-SMS.md             # Reference SDD Custom Slash Commands SMS Guide (Markdown)
 │
 ├── MASTER REFERENCES & UNIVERSAL FRAMEWORK:
 ├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Unified 15 Slash Commands & SMS Demo Reference (Markdown)
