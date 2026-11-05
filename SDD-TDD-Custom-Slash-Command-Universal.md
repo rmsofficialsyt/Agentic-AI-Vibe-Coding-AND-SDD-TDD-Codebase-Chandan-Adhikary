@@ -98,20 +98,71 @@ Using `/spec-check-ca-agent`, the agent automatically parses either format, vali
 
 ---
 
-## 4. The SDD + TDD Slash Command Suite
+## 4. The Complete 15 SDD + TDD Slash Commands Operational Matrix
 
-| Slash Command | File Location | Operational Scope in SDD + TDD |
-|---|---|---|
-| `/plan-ca-agent` | `.agents/commands/plan-ca-agent.md` | Scoped pre-development research, regulatory compliance modeling, and architecture baseline in read-only mode. |
-| `/task-ca-agent` | `.agents/commands/task-ca-agent.md` | Updating documentation, ADRs, and initializing automated test harnesses in `tests/`. |
-| `/spec-check-ca-agent` | `.agents/commands/spec-check-ca-agent.md` | Validating living specifications in `specs/` against PRDs and database contracts. |
-| `/testing-ca-agent` | `.agents/commands/testing-ca-agent.md` | Scaffolding and executing test suites; confirming the Red failing state without altering application code. |
-| `/tdd-ca-agent` | `.agents/commands/tdd-ca-agent.md` | Red → Green → Refactor implementation engine; enforces minimal passing code. |
-| `/review-ca-agent` | `.agents/commands/review-ca-agent.md` | Pre-commit diff, lint, and security review to prevent unauthorized changes and secret leaks. |
-| `/verify-ca-agent` | `.agents/commands/verify-ca-agent.md` | Objective quality gate verification against specifications and acceptance criteria. |
-| `/security-audit-ca-agent` | `.agents/commands/security-audit-ca-agent.md` | SAST, secret leak, dependency audit, and database data isolation verification. |
-| `/release-check-ca-agent` | `.agents/commands/release-check-ca-agent.md` | Final production gate and evidence-based release authorization in `docs/approvals/`. |
-| `/change-request-ca-agent` | `.agents/commands/change-request-ca-agent.md` | Formal change impact assessment before modifying approved specifications. |
+The SDD + TDD framework includes **15 custom slash commands** residing in .agents/commands/*-ca-agent.md. Each command enforces deterministic behavioral rules, input validation, and stop conditions.
+
+### 4.1 Master Operational Matrix of All 15 Commands
+
+| Slash Command | File Location | Lifecycle Phase | Execution Mode | Input Syntax / Parameters | Internal Agent Workings & Mechanism | Generated Output / Artifact | Invariant Rules & Stop Conditions |
+|---|---|---|---|---|---|---|---|
+| /plan-ca-agent | .agents/commands/plan-ca-agent.md | Discovery & Architecture | Read-Only (Plan Mode) | [PROJECT_NAME], [PRODUCT_TYPE], [PRODUCT_VISION], [TARGET_USERS], [COMPLIANCE_STANDARDS] | Reads AGENTS.md and docs/; prunes competitor IDE configs; performs domain and regulatory R&D; designs HLD/LLD; formulates 17-point planning report. | 17-Section Architecture & Pre-Development Report; Implementation Plan Artifact | **MUST NOT** generate application code, install packages, or mutate database schemas. Halts on missing approvals. |
+| /task-ca-agent | .agents/commands/task-ca-agent.md | Configuration & Setup | Mutating (Filesystem) | Task description, target docs/ files, ADR details, test harness options | Reads architecture baseline; updates docs/INDEX.md, system-architecture.md, database.md, security.md; initializes test runner in 	ests/; creates .env.example. | Updated docs/ files, docs/decision-log.md (ADR-001), 	ests/ directory & sanity test | **MUST NOT** implement feature endpoints or modify canonical guidelines without explicit authorization. |
+| /spec-check-ca-agent | .agents/commands/spec-check-ca-agent.md | Spec Governance | Verification (Read-Only) | Path to target specification: specs/[SPEC_FILE].md | Inspects target specification (Format 1 Flat or Format 2 Modular); validates against PRD and data contracts; verifies numbered Acceptance Criteria (AC-*). | Spec Audit Report confirming readiness for TDD or listing validation defects | **MUST** reject specifications lacking explicit, testable Acceptance Criteria or containing ambiguous requirements. |
+| /testing-ca-agent | .agents/commands/testing-ca-agent.md | Test Scaffolding & Run | Test Execution | Path to test file or suite: 	ests/[PATH].test.ts | Discovers and executes targeted test suite; verifies assertion failures; captures actual exit codes and stack traces without modifying application source code. | Terminal test runner output report verifying the intended **RED** failing state | **MUST NOT** alter production code. **MUST NOT** invent test results. Halts if tests unexpectedly pass before implementation. |
+| /tdd-ca-agent | .agents/commands/tdd-ca-agent.md | Feature Implementation | Red-Green-Refactor | Spec path, target test path, feature scope | Enforces Red-to-Green cycle: writes MINIMAL code in src/ to turn failing tests Green; runs tests continuously; performs clean refactoring; checks static types. | Production service/component, 100% Green test output, atomic commit message draft | **MUST** halt if tests are missing or unverified in RED state. **MUST NOT** add unapproved feature scope. |
+| /implement-ca-agent | .agents/commands/implement-ca-agent.md | Scope-Bound Coding | Implementation | Approved spec, target file list, task boundaries | Implements code strictly bounded by approved specifications; follows project coding conventions, type safety invariants, and architectural layers. | Created/modified source files, type-check confirmation (	sc --noEmit) | **MUST NOT** write code outside the approved spec boundary. Rejects ambiguous instructions. |
+| /run-ca-agent | .agents/commands/run-ca-agent.md | Runtime Verification | Execution / Dev Server | Shell command: 
+pm run dev, 
+pm run build, 
+pm test | Executes documented commands via terminal; monitors stdout/stderr; detects active port/URL; confirms clean startup without inventing outputs. | Actual terminal output, active verified localhost URL, exit code status | **MUST** report exact runtime errors. Never swallows crashes or suppresses stack traces. |
+| /review-ca-agent | .agents/commands/review-ca-agent.md | Pre-Commit Review | Static Analysis | Target file(s) or git diff range | Inspects staged diffs; scans for secrets (.env), hardcoded tokens, type violations, lint errors; verifies test-to-spec traceability against active AC-*. | Code review report (Clean / Warning / Critical) with suggested diff improvements | **MUST** flag unapproved modifications, untyped ny, secret leaks, or missing Acceptance Criteria citations. |
+| /verify-ca-agent | .agents/commands/verify-ca-agent.md | Quality Gate Check | Objective Verification | Target feature, spec ID, acceptance IDs | Executes end-to-end verification suite; validates input validation schemas, database foreign keys, and expected status codes against Acceptance Criteria. | Verification gate scorecard with PASS/FAIL status per Acceptance Criterion | **MUST** fail the gate if any single Acceptance Criterion test fails or is skipped. |
+| /security-audit-ca-agent | .agents/commands/security-audit-ca-agent.md | Security & Compliance | Security Scanner | Repository root or specific module path | Scans for OWASP Top 10 vulnerabilities; audits database queries for Row-Level Security (	enant_id); scans dependencies (
+pm audit); verifies audit logging triggers. | SAST audit report, dependency vulnerability table, data isolation verification | **MUST** block release on critical or high vulnerabilities or unvalidated multi-tenant database queries. |
+| /release-check-ca-agent | .agents/commands/release-check-ca-agent.md | Production Gate | Release Authorization | Target release version (e.g. 1.0.0) | Executes full test suite with coverage (>90% branch); verifies production build (
+pm run build); checks docker container build; generates release sign-off. | Formal release sign-off dossier written to docs/approvals/release-vX.Y.Z.md | **MUST NOT** authorize release if any test fails, coverage is below threshold, or security scan fails. |
+| /change-request-ca-agent | .agents/commands/change-request-ca-agent.md | Spec Modification | Impact Assessment | Proposed change description, affected spec path | Analyzes impact of requested change on approved specs, data models, and existing tests; calculates regression risk; proposes spec delta and migration path. | Formal Change Impact Assessment report, proposed spec version bump (SemVer) | **MUST** require explicit human approval before modifying any approved specification or schema. |
+| /handoff-ca-agent | .agents/commands/handoff-ca-agent.md | Documentation / Handoff | State Synchronization | Target milestone, outgoing agent / developer ID | Synthesizes current sprint state, completed AC-* items, pending blockers, active test status, and exact next commands for incoming developers or agents. | Engineering Handoff Dossier written to docs/handoff.md | **MUST** provide exact verifiable reproduction commands. Never generates vague handoff summaries. |
+| /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Diagnostics & Triage | Diagnostic Analysis | Log file path, error snippet, or stack trace | Parses error stack traces, correlates with source lines; inspects database connection states; identifies root cause (schema mismatch, null pointer, syntax). | Root cause diagnostic report with minimal-diff fix recommendation | **MUST** isolate root cause before proposing edits. Adheres to Karpathy's smallest-reproducible-fix heuristic. |
+| /gitlogs-ca-agent | .agents/commands/gitlogs-ca-agent.md | Audit & Traceability | Git History Analysis | Commit range (e.g. HEAD~5..HEAD), branch name | Audits git commit history; verifies that every commit message cites valid Spec IDs and AC-* tags; checks for unauthorized file changes or dirty branches. | Git Audit Traceability Report showing commit-to-spec correlation score | **MUST** report any orphan commits lacking Spec ID or Acceptance Criteria references. |
+
+---
+
+### 4.2 Tabular Workings by SDD-TDD Lifecycle Phase
+
+To provide actionable guidance during active pairing sessions, the 15 commands are grouped below by engineering lifecycle stage:
+
+#### Phase 1: Planning, Architecture & Specification Governance
+| Command | Primary Developer Intent | What Agent Verifies First | Primary Artifact Produced |
+|---|---|---|---|
+| /plan-ca-agent | Initialize greenfield project or major architectural pivot | Checks AGENTS.md, active IDE compatibility, and regulatory requirements | 17-Point Planning Report (Plan Mode) |
+| /task-ca-agent | Configure documentation baseline and test runners | Verifies that architecture plan has received explicit human sign-off | Updated docs/ and initialized 	ests/ harness |
+| /spec-check-ca-agent | Audit and freeze feature specifications in specs/ | Validates input schemas, foreign keys, and numbered AC-* definitions | Spec Validation Scorecard (Draft → Approved) |
+| /change-request-ca-agent | Propose modifications to already-approved specifications | Evaluates breaking changes, database migration impact, and test rewrites | Change Impact Assessment & Spec Version Delta |
+
+#### Phase 2: Test-First Harness & Strict TDD Implementation
+| Command | Primary Developer Intent | What Agent Verifies First | Primary Artifact Produced |
+|---|---|---|---|
+| /testing-ca-agent | Scaffold failing tests and execute test runs | Verifies that tests map 1:1 to approved AC-* requirements | Terminal test runner output confirming **RED** state |
+| /tdd-ca-agent | Implement minimal passing code and refactor | Verifies tests are currently failing before writing any production code | Minimal passing source code turning tests **GREEN** |
+| /implement-ca-agent | Implement bounded utility or non-TDD scaffolding | Verifies task boundaries and ensures no unapproved scope is added | Clean, type-safe source files conforming to docs/ |
+| /run-ca-agent | Start local servers and verify runtime execution | Verifies build scripts and port availability; monitors for runtime crashes | Verified localhost URL and terminal process health |
+
+#### Phase 3: Quality Gates, Security Audit & Production Release
+| Command | Primary Developer Intent | What Agent Verifies First | Primary Artifact Produced |
+|---|---|---|---|
+| /review-ca-agent | Pre-commit sanity check on staged git diffs | Scans for secret leaks (.env), missing types, and untracked files | Clean pre-commit audit & atomic commit message |
+| /verify-ca-agent | Objective acceptance testing against criteria | Evaluates all automated tests, schema validations, and error codes | Acceptance Verification Scorecard |
+| /security-audit-ca-agent | SAST scan, dependency CVE check, and RLS audit | Audits database queries for tenant isolation barriers | Security & Compliance Audit Report |
+| /release-check-ca-agent | Authorize production deployment | Executes full test coverage (>90%) and production bundle build | Signed release sign-off in docs/approvals/ |
+
+#### Phase 4: Diagnostic, Log Analysis & Team Handoff Utilities
+| Command | Primary Developer Intent | What Agent Verifies First | Primary Artifact Produced |
+|---|---|---|---|
+| /errorlogs-ca-agent | Debug runtime crashes or failed test assertions | Inspects stack traces, correlating error lines to raw source files | Diagnostic RCA Report & minimal reproducible fix |
+| /gitlogs-ca-agent | Verify commit compliance and audit trails | Inspects commit messages for valid Spec ID and AC-* citations | Git Traceability Audit Report |
+| /handoff-ca-agent | Hand off active codebase state to another developer | Captures active branch, passing/failing tests, and pending tasks | Complete Engineering Handoff Dossier (docs/handoff.md) |
 
 ---
 

@@ -91,17 +91,70 @@ Type the slash command as an isolated action instruction after completing a step
 
 ---
 
-## 4. The Vibe-Coding Slash Command Suite
+## 4. The Complete 15 Vibe-Coding Slash Commands Operational Matrix
 
-| Slash Command | File Location | Operational Scope in Vibe-Coding |
-|---|---|---|
-| `/plan-ca-agent` | `.agents/commands/plan-ca-agent.md` | Pre-development discovery, color palette selection, component hierarchy, and read-only plan artifact. |
-| `/implement-ca-agent` | `.agents/commands/implement-ca-agent.md` | Scaffolding application shell, responsive navigation, and interactive mock screens. |
-| `/run-ca-agent` | `.agents/commands/run-ca-agent.md` | Starting the local development server and reporting the active URL without inventing output. |
-| `/task-ca-agent` | `.agents/commands/task-ca-agent.md` | Fast Karpathy iterative feature execution (e.g., building interactive sheets or item drawers). |
-| `/review-ca-agent` | `.agents/commands/review-ca-agent.md` | Visual diff inspection, type checking, and component sanity reviews. |
-| `/security-audit-ca-agent` | `.agents/commands/security-audit-ca-agent.md` | Applying Zod runtime schemas, securing sessions, and scanning for secret leaks. |
-| `/release-check-ca-agent` | `.agents/commands/release-check-ca-agent.md` | Running production bundle build (`npm run build`) and generating pre-deployment checklist. |
+The Vibe-Coding framework includes the full suite of **15 custom slash commands** (.agents/commands/*-ca-agent.md), optimized for rapid visual prototyping, real-time sensory feedback (Karpathy loops), and progressive production hardening.
+
+### 4.1 Master Operational Matrix of All 15 Commands for Vibe-Coding
+
+| Slash Command | File Location | Vibe Lifecycle Phase | Execution Mode | Input Syntax / Parameters | Internal Agent Workings & Mechanism | Generated Output / UI State | Guardrails & Quality Rules |
+|---|---|---|---|---|---|---|---|
+| /plan-ca-agent | .agents/commands/plan-ca-agent.md | Phase 1: Discovery & Aesthetics | Read-Only (Plan Mode) | [PROJECT_NAME], [PRODUCT_TYPE], [PRODUCT_VISION], [TARGET_USERS], [AESTHETIC_VIBE] | Analyzes user personas; defines color tokens (Tailwind); selects modern UI kit (shadcn/ui); plans Bento Grid cards; produces 17-section report without writing code. | 17-Section Vibe Planning Report, component hierarchy, design token palette | **MUST NOT** generate code or alter files. Stops immediately for human aesthetic review. |
+| /implement-ca-agent | .agents/commands/implement-ca-agent.md | Phase 2: Rapid Scaffolding | Mutating (Build Mode) | Layout specs, approved design tokens, mock data needs | Scaffolds responsive layout (pp/page.tsx, pp/dashboard/layout.tsx); configures Tailwind tokens in globals.css; populates realistic mock data in lib/mock-data.ts. | Working visual application shell, interactive navigation sidebar, metric cards | **MUST** maintain clean component architecture. Avoids premature microservices. |
+| /run-ca-agent | .agents/commands/run-ca-agent.md | Live Runtime Verification | Execution / Dev Server | Shell command: 
+pm run dev, 
+pm run build | Starts local development server (Turbopack); monitors stdout/stderr for port binding; detects active URL (http://localhost:3000); reports live status. | Active localhost dev server URL, verified live browser route | **MUST** report true runtime state. Never invents successful build outputs or suppresses crashes. |
+| /task-ca-agent | .agents/commands/task-ca-agent.md | Phase 3: Karpathy Loops | Iterative Feature Tuning | Feature requirement, tactile interaction specs, status pills | Builds interactive UI workflows (e.g. 30-sec attendance or item drawer); implements 1-click tactile status toggle pills; adds optimistic UI updates (useOptimistic). | Interactive feature component, zero-latency status toggles, toast notifications | **MUST** keep diffs small. Verifies visual feedback immediately in the browser. |
+| /review-ca-agent | .agents/commands/review-ca-agent.md | Continuous Code Hygiene | Static Analysis & Diff | Staged files or component path | Inspects component code quality; checks client vs. server component boundaries ('use client'); scans for key warnings, inline style anti-patterns, and secret leaks. | Code Review Card (Clean / Warnings / Critical) with concise diff feedback | **MUST** prevent unneeded abstraction layers. Enforces Karpathy's anti-overengineering heuristic. |
+| /testing-ca-agent | .agents/commands/testing-ca-agent.md | Smoke & Component QA | Test Runner | Target component or smoke test path | Runs targeted Vitest or React Testing Library smoke tests; verifies component rendering, button click events, and optimistic state updates without regressions. | Terminal test runner summary verifying component interaction health | **MUST** capture actual assertion failures without modifying UI code. |
+| /tdd-ca-agent | .agents/commands/tdd-ca-agent.md | Critical Business Logic | Red-Green-Refactor | Calculation function, billing formula, or state reducer | Enforces test-first discipline on complex non-UI logic (pricing calculators, fee calculations, auth tokens); turns failing test green with minimal code. | Isolated business logic service, 100% green test assertions | **MUST** verify failing test before implementing logic. |
+| /security-audit-ca-agent | .agents/commands/security-audit-ca-agent.md | Phase 4: Production Hardening | Security Scanner | Target routes, validations, or repository root | Generates strict runtime validation schemas with Zod (lib/validations/); configures route protection middleware (middleware.ts); scans for secret leaks and CVEs. | Zod schema files, authenticated route guards, security audit summary | **MUST** block deployment if sensitive routes lack authentication or input validation. |
+| /verify-ca-agent | .agents/commands/verify-ca-agent.md | Visual & Flow Gate | Objective Verification | Target user journey, key feature route | Validates responsive viewport rendering (mobile vs desktop), keyboard accessibility (tab navigation), ARIA labels, and touch target sizes (min 44x44px). | UX & Accessibility Verification Card with score per viewport | **MUST** flag layout shifts, keyboard traps, or missing responsive breakpoints. |
+| /release-check-ca-agent | .agents/commands/release-check-ca-agent.md | Pre-Deploy Build Gate | Build Gate | Target deployment target (Vercel, Docker, etc.) | Runs production bundle build (
+pm run build); checks static export errors; verifies bundle chunk sizes and server/client splits; generates deploy checklist. | Verified production build confirmation, pre-deployment sign-off checklist | **MUST** fail if 
+pm run build exits with errors or critical type mismatches. |
+| /change-request-ca-agent | .agents/commands/change-request-ca-agent.md | UI / Feature Pivot | Impact Assessment | Proposed design or scope change description | Analyzes impact of major aesthetic or UX pivot; evaluates component refactoring cost; checks backwards compatibility of mock or database models. | Visual Pivot Assessment Report, modified component roadmap | **MUST** require human sign-off before discarding or overhauling established UI layouts. |
+| /handoff-ca-agent | .agents/commands/handoff-ca-agent.md | Session State Handoff | State Synchronization | Target milestone, developer / agent identifier | Records active UI routes, live server port, verified interactive features, pending vibe-tuning items, and prompt history in docs/prompts.md. | Complete Vibe Handoff Dossier written to docs/handoff.md | **MUST** provide exact prompt sequence and commands needed to resume development. |
+| /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Fast Browser Triage | Diagnostic Analysis | Browser console error, terminal trace, or React error boundary | Analyzes React runtime exceptions (hydration mismatch, undefined property, hook violation); correlates error to JSX line; recommends minimal fix. | Diagnostic RCA Report with single-line or single-component fix | **MUST** prioritize the smallest reproducible fix before attempting broad refactors. |
+| /gitlogs-ca-agent | .agents/commands/gitlogs-ca-agent.md | History & Diff Hygiene | Git History Analysis | Commit range (e.g. HEAD~5..HEAD), branch name | Checks commit cleanliness; verifies atomic commits corresponding to single visual iterations; ensures no generated assets or credentials were committed. | Git Cleanliness Report with squash/rebase recommendations | **MUST** flag messy multi-feature commits or accidental .env inclusions. |
+| /spec-check-ca-agent | .agents/commands/spec-check-ca-agent.md | Living Feature Spec Sync | Spec Audit | Target feature spec in docs/features/ | Verifies that living feature documentation in docs/features/ accurately reflects current UI implementation and form fields after vibe iterations. | Documentation Synchronization Report (UI vs. Docs alignment) | **MUST** report discrepancies between live UI behavior and written documentation. |
+
+---
+
+### 4.2 Tabular Workings by Vibe-Coding Lifecycle Phase
+
+#### Phase 1: Discovery, Scaffolding & Live Server (The Foundation)
+| Command | Primary Developer Intent | What Agent Verifies First | Primary UI / Artifact Output |
+|---|---|---|---|
+| /plan-ca-agent | Explore product vibe, brand colors, and component layout | Checks repository instructions and detects active IDE adapter | 17-Section Vibe Planning Report (Plan Mode) |
+| /implement-ca-agent | Build public landing page and authenticated dashboard shell | Verifies design tokens and responsive layout structure | Working Next.js shell with realistic mock data |
+| /run-ca-agent | Start dev server and visually inspect live interface | Verifies script availability; tests port binding (:3000) | Live local server URL (http://localhost:3000) |
+| /task-ca-agent | Add initial navigation drawer and executive KPI cards | Confirms dashboard shell exists before adding deeper features | Responsive metric cards and sidebar links |
+
+#### Phase 2: Conversational Karpathy Loops & Tactile UI Refinement
+| Command | Primary Developer Intent | What Agent Verifies First | Primary UI / Artifact Output |
+|---|---|---|---|
+| /task-ca-agent | Build flagship interactive feature with tactile status pills | Inspects mock data structure directly before authoring JSX | Zero-latency toggle pills and optimistic UI |
+| /review-ca-agent | Sanity check component code after iterative vibe tweaks | Scans git diff for unnecessary abstractions or prop drilling | Clean component diff & anti-overengineering check |
+| /testing-ca-agent | Verify button clicks, toggle states, and counter logic | Executes lightweight component smoke test in Vitest | Verified UI interaction test output |
+| /tdd-ca-agent | Test-drive complex business logic (pricing, calculations) | Confirms failing test exists before writing business code | Rock-solid isolated business logic module |
+
+#### Phase 3: Progressive Hardening, Runtime Zod & Pre-Deploy Gates
+| Command | Primary Developer Intent | What Agent Verifies First | Primary UI / Artifact Output |
+|---|---|---|---|
+| /security-audit-ca-agent | Lock down forms with Zod and add route auth guards | Validates input shapes, session middleware, and secret leaks | lib/validations/*.ts and protected middleware.ts |
+| /verify-ca-agent | Audit keyboard accessibility, contrast, and mobile tap sizes | Inspects touch targets (min 44x44px) and ARIA states | Accessibility & Viewport Scorecard |
+| /release-check-ca-agent | Execute production compilation (
+pm run build) | Verifies zero TypeScript errors and optimal bundle splits | 100% Green production build sign-off |
+
+#### Phase 4: Troubleshooting, Diagnostics & Team Handoff Utilities
+| Command | Primary Developer Intent | What Agent Verifies First | Primary UI / Artifact Output |
+|---|---|---|---|
+| /errorlogs-ca-agent | Diagnose React hydration error or unhandled promise | Parses browser console stack trace directly to JSX line | Targeted 1-line or 1-component bug fix |
+| /change-request-ca-agent | Execute significant visual pivot or layout redesign | Evaluates breaking changes to existing component hierarchy | Visual Pivot Impact Report & refactoring plan |
+| /spec-check-ca-agent | Synchronize living documentation with final UI state | Compares live component props to docs/features/ | Synced documentation baseline |
+| /gitlogs-ca-agent | Clean up commit history before pushing to main | Inspects commit messages for clarity and diff cleanliness | Git History Quality Report |
+| /handoff-ca-agent | Transfer project state to teammate or next AI session | Captures active prompt history (docs/prompts.md) and routes | Engineering Vibe Handoff Dossier (docs/handoff.md) |
 
 ---
 
