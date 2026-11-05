@@ -105,13 +105,23 @@ flowchart TD
 ```text
 Guide-Github/
 ├── README.md                                    # Universal overview & quick-start guide
-├── GUIDE.md                                     # Master 5-Prompt Setup & Engineering Guide (Markdown)
-├── AI-Powered Project Development — ... .docx   # Master 5-Prompt Setup Guide (Word document)
-├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Dedicated Slash Commands & SMS Demo (Markdown)
-├── AI-Powered Project Development — Custom...   # Dedicated Slash Commands & SMS Demo (Word doc)
+│
+├── VIBE-CODING TRACK (STANDALONE PRODUCTION GUIDE):
+├── Vibe-Coding-Production-Guide-SMS.md          # Complete Vibe-Coding SMS Production Guide (Markdown)
+├── AI-Powered Project Development — Vibe...docx # Complete Vibe-Coding SMS Production Guide (Word doc)
+│
+├── SDD + TDD TRACK (STANDALONE PRODUCTION GUIDE):
+├── SDD-TDD-Production-Guide-SMS.md              # Complete SDD-TDD SMS Production Guide (Markdown)
+├── AI-Powered Project Development — SDD...docx  # Complete SDD-TDD SMS Production Guide (Word doc)
+│
+├── CUSTOM SLASH COMMANDS & GENERAL REFERENCES:
+├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Dedicated Slash Commands Guide & SMS Demo (Markdown)
+├── AI-Powered Project Development — Custom...   # Dedicated Slash Commands Guide & SMS Demo (Word doc)
+├── GUIDE.md                                     # Master General Setup & Prompting Guide (Markdown)
+├── AI-Powered Project Development — Complete... # Master General Setup & Prompting Guide (Word doc)
 │
 ├── Vibe-Coding-Chandan-Adhikary/
-│   └── Vibe-Coding/                             # Framework Track 1: Vibe-Coding Template
+│   └── Vibe-Coding/                             # Framework Track 1: Vibe-Coding Baseline Template
 │       ├── AGENTS.md                            # Portable agent entry point
 │       ├── .agents/                             # Collision-free commands & skills
 │       │   ├── commands/ (*-ca-agent.md)        # Portable slash commands (/plan-ca-agent, etc.)
@@ -123,7 +133,7 @@ Guide-Github/
 │       └── tests/                               # Test contracts
 │
 └── SDD-TDD-Chandan-Adhikary/
-    └── Spec-Driven-Development/                 # Framework Track 2: SDD + TDD Template
+    └── Spec-Driven-Development/                 # Framework Track 2: SDD + TDD Baseline Template
         ├── AGENTS.md                            # Portable agent entry point
         ├── specs/                               # Official specifications (Format 1 or 2)
         ├── .agents/                             # Collision-free commands & skills
@@ -133,6 +143,8 @@ Guide-Github/
 ```
 
 ---
+
+## ⚡ Quick-Start Guide
 
 ## ⚡ Quick-Start Guide (Step-by-Step for Laymen)
 
@@ -179,16 +191,24 @@ Built-in to `.agents/skills/andrej-karpathy-skill/` for both tracks:
 
 ## 📖 Complete Documentation Suite
 
-This repository provides two specialized, high-impact guides:
+This repository provides dedicated, production-grade documentation tailored to each development methodology and command structure:
 
-### 1. Master Setup & Prompting Guide
-- **[GUIDE.md](GUIDE.md)** (Markdown) & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx** (Word document)
-- Pure, clean master 5-prompt engineering framework strictly following the standard project-starting lifecycle (Prompt 1 Discovery -> Approval -> Prompt 2 Configuration -> Prompt 3 Spec Validation -> Prompt 4 Feature Implementation -> Prompt 5 Release Audit).
+### 1. Standalone Vibe-Coding Production Guide (SMS SaaS)
+- **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)** (Markdown) & **AI-Powered Project Development — Vibe Coding SMS Guide.docx** (Word document)
+- Complete, end-to-end production guide for building the EduSphere School Management SaaS website using the **Vibe-Coding Framework**. Follows the 15-section prompt pattern adapted for rapid visual prototyping, Karpathy feedback loops, 30-second attendance sheet, and progressive production hardening.
 
-### 2. Custom Slash Commands & SMS Project Demo Guide
+### 2. Standalone Spec-Driven Development + TDD Production Guide (SMS SaaS)
+- **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)** (Markdown) & **AI-Powered Project Development — SDD-TDD SMS Guide.docx** (Word document)
+- Complete, end-to-end production guide for building the EduSphere Enterprise School Management System using **Spec-Driven Development & TDD**. Features multi-tenant PostgreSQL Row-Level Security, FERPA compliance, formal `specs/` (Flat vs. Modular), and strict Red-Green-Refactor test cycles.
+
+### 3. Custom Slash Commands & SMS Project Demo Guide
 - **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** (Markdown) & **AI-Powered Project Development — Custom Slash Commands & SMS Demo.docx** (Word document)
-- Operational reference for .agents/commands/ and complete end-to-end School Management SaaS (EduSphere SMS) walk-through executed entirely via custom slash commands (/plan-ca-agent, /implement-ca-agent, /tdd-ca-agent, etc.).
+- Dedicated operational reference for all 15 portable agent commands (`.agents/commands/*-ca-agent.md`) and complete end-to-end School Management SaaS demo executed entirely via custom slash commands (`/plan-ca-agent`, `/implement-ca-agent`, `/tdd-ca-agent`, etc.).
 
-### 3. Architecture & Specification References
+### 4. General Master Setup & Prompting Framework
+- **[GUIDE.md](GUIDE.md)** (Markdown) & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx** (Word document)
+- Universal 5-prompt engineering framework strictly following the project-starting lifecycle (Prompt 1 Discovery -> Approval -> Prompt 2 Configuration -> Prompt 3 Spec Validation -> Prompt 4 Feature Implementation -> Prompt 5 Release Audit).
+
+### 5. Architecture & Specification References
 - **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, pruning, and multi-IDE synchronization standard.
 - **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual user formats (Flat files vs Modular directories).
