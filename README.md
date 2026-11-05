@@ -11,8 +11,8 @@
 
 This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. 
 
-Both frameworks share the core rule of AI engineering:
-> **Do not ask the AI agent to start coding immediately.**
+Both frameworks share the foundational rule of AI engineering:
+> **Do not ask the AI agent to start coding immediately.**  
 > First, let the agent inspect repository governance, propose an architecture, configure safe documentation, and obtain your approval.
 
 ---
@@ -29,7 +29,7 @@ Choose the framework that matches your project requirements. Both tracks produce
             Vibe-Coding/                                    Spec-Driven-Development/
 * Workflow: 4 Fluid Prompts (Karpathy Loops)     * Workflow: 5 Formal Quality Gated Prompts
 * Philosophy: Intuitive, visual, rapid UI        * Philosophy: Contract-first, zero regression
-* Specs: Lightweight working memory             * Specs: Formal 'specs/' (Flat or Modular)
+* Specs: Lightweight living feature docs        * Specs: Formal 'specs/' (Flat or Modular)
 * Testing: Visual runtime & sanity harnesses    * Testing: Test-First (TDD Red-Green-Refactor)
 * Best For: Rapid SaaS MVPs, UI-heavy apps,     * Best For: Enterprise SaaS, multi-tenant core,
   consumer dashboards, interactive web tools      fintech, healthcare, mission-critical systems
@@ -57,14 +57,14 @@ flowchart TD
     HumanV1 -->|"Revisions needed"| PV1
     HumanV1 -->|"Approved"| PV2["Prompt V2: Scaffold & Working Live UI<br/>(Layout, mock data, /run-ca-agent)"]
     
-    PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection)"]
+    PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
     
     LiveCheck --> PV3["Prompt V3: Conversational Vibe-Tuning<br/>(Karpathy Loops: iterate UI, polish interactions)"]
     PV3 --> Loop{"Vibe feels right?"}
     Loop -->|"No: adjust styling or features"| PV3
     Loop -->|"Yes: ready to harden"| PV4["Prompt V4: Production Hardening & Pre-Deploy<br/>(Zod validation, error boundaries, security)"]
     
-    PV4 --> Audits["Run /security-audit-ca-agent & /review-ca-agent"]
+    PV4 --> Audits["Run /security-audit-ca-agent & /release-check-ca-agent"]
     Audits --> Ship["Production-Ready Deployment"]
 ```
 
@@ -83,9 +83,9 @@ flowchart TD
     
     PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
     HumanS1 -->|"Revise plan"| PS1
-    HumanS1 -->|"Approved"| PS2["Prompt S2: Configure Complete Codebase<br/>(docs/, playbooks/, tests/, activate -ca-agent commands)"]
+    HumanS1 -->|"Approved"| PS2["Prompt S2: Configure Complete Codebase<br/>(docs/, ADR-001, tests/, activate -ca-agent commands)"]
     
-    PS2 --> PS3["Prompt S3: Spec Approval & Test Harness<br/>(Select specs/ Format 1 or 2, Acceptance Criteria)"]
+    PS2 --> PS3["Prompt S3: Spec Validation & Test Scaffolding<br/>(Select specs/ Format 1 or 2, Acceptance Criteria AC-*)"]
     PS3 --> RedPhase["Scaffold Failing Tests (Red Phase)<br/>(Run /testing-ca-agent -> Confirm failures)"]
     
     RedPhase --> PS4["Prompt S4: TDD Feature Implementation<br/>(Minimal code -> All tests PASS -> Refactor)"]
@@ -95,129 +95,136 @@ flowchart TD
     NextFeature -->|"Yes"| PS3
     NextFeature -->|"All complete"| PS5["Prompt S5: Production Readiness Audit<br/>(SAST scans, release checklist, signed approval)"]
     
-    PS5 --> Release["Production Release Authorization<br/>(docs/approvals/RELEASE-AUTHORIZATION.md)"]
+    PS5 --> Release["Production Release Authorization<br/>(docs/approvals/release-v1.0.0.md)"]
 ```
 
 ---
 
-## 📁 Repository Map
+## 📁 Symmetrical 4 + 4 Repository Architecture
+
+The repository is organized into a clean **4 + 4 symmetrical documentation suite** providing both **Universal blueprints for ANY software project** and **Concrete reference implementations for a School Management System (SMS)**:
 
 ```text
 Guide-Github/
-├── README.md                                    # Universal overview & quick-start guide
-├── LICENSE                                      # MIT License (Chandan Adhikary / RMS Officials)
+├── README.md                                         # Universal overview & quick-start guide
+├── LICENSE                                           # MIT License (Chandan Adhikary / RMS Officials)
+├── .gitignore                                        # Standard development ignores
 │
-├── VIBE-CODING TRACK (STANDALONE GUIDES):
-├── Vibe-Coding-Production-Guide-Universal.md        # Universal Vibe-Coding Production Guide for ANY Project (Markdown)
-├── Vibe-Coding-Production-Guide-SMS.md              # Reference Vibe-Coding SMS Production Guide (Markdown)
-├── Vibe-Coding-Custom-Slash-Command-Universal.md   # Universal Vibe Custom Slash Commands Guide for ANY Project (Markdown)
-├── Vibe-Coding-Custom-Slash-Command-SMS.md         # Reference Vibe Custom Slash Commands SMS Guide (Markdown)
+├── 🌟 VIBE-CODING TRACK (STANDALONE GUIDES):
+├── Vibe-Coding-Production-Guide-Universal.md         # Universal Vibe-Coding Production Guide for ANY Project
+├── Vibe-Coding-Production-Guide-SMS.md               # Reference Vibe-Coding Production Guide (SMS Demo)
+├── Vibe-Coding-Custom-Slash-Command-Universal.md     # Universal Vibe Slash Commands Guide (15 Commands Table)
+├── Vibe-Coding-Custom-Slash-Command-SMS.md           # Reference Vibe Slash Commands Guide (SMS Demo)
 │
-├── SDD + TDD TRACK (STANDALONE GUIDES):
-├── SDD-TDD-Production-Guide-Universal.md            # Universal SDD-TDD Production Guide for ANY Project (Markdown)
-├── SDD-TDD-Production-Guide-SMS.md                  # Reference SDD-TDD SMS Production Guide (Markdown)
-├── SDD-TDD-Custom-Slash-Command-Universal.md       # Universal SDD Custom Slash Commands Guide for ANY Project (Markdown)
-├── SDD-TDD-Custom-Slash-Command-SMS.md             # Reference SDD Custom Slash Commands SMS Guide (Markdown)
+├── 🛡️ SDD + TDD TRACK (STANDALONE GUIDES):
+├── SDD-TDD-Production-Guide-Universal.md             # Universal SDD-TDD Production Guide for ANY Project
+├── SDD-TDD-Production-Guide-SMS.md                   # Reference SDD-TDD Production Guide (SMS Demo)
+├── SDD-TDD-Custom-Slash-Command-Universal.md         # Universal SDD Slash Commands Guide (15 Commands Table)
+└── SDD-TDD-Custom-Slash-Command-SMS.md               # Reference SDD Slash Commands Guide (SMS Demo)
 │
-├── MASTER REFERENCES & UNIVERSAL FRAMEWORK:
-├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Unified 15 Slash Commands & SMS Demo Reference (Markdown)
-├── AI-Powered Project Development — Custom...   # Unified 15 Slash Commands & SMS Demo Reference (Word doc)
-├── GUIDE.md                                     # Master General Setup & Prompting Guide (Markdown)
-├── AI-Powered Project Development — Complete... # Master General Setup & Prompting Guide (Word doc)
-│
+├── 📦 CANONICAL STARTER TEMPLATES:
 ├── Vibe-Coding-Chandan-Adhikary/
-│   └── Vibe-Coding/                             # Framework Track 1: Vibe-Coding Baseline Template
-│       ├── AGENTS.md                            # Portable agent entry point
-│       ├── .agents/                             # Collision-free commands & skills
-│       │   ├── commands/ (*-ca-agent.md)        # Portable slash commands (/plan-ca-agent, etc.)
-│       │   ├── skills/                          # Skills (including andrej-karpathy-skill)
-│       │   ├── hooks/                           # Execution matrix (HOOK-MATRIX.md)
-│       │   └── templates/                       # Standardized reporting contracts
-│       ├── docs/                                # Guidelines, architecture & ide-compatibility.md
-│       ├── playbooks/                           # 11 operational workflow playbooks
-│       └── tests/                               # Test contracts
+│   └── Vibe-Coding/                                  # Track 1 Baseline Template (Extract & Rename)
+│       ├── AGENTS.md                                 # Portable agent entry point
+│       ├── .agents/                                  # 15 collision-free commands & skills
+│       ├── docs/                                     # Guidelines, architecture & ide-compatibility.md
+│       ├── playbooks/                                # 11 operational workflow playbooks
+│       └── tests/                                    # Test contracts
 │
 └── SDD-TDD-Chandan-Adhikary/
-    └── Spec-Driven-Development/                 # Framework Track 2: SDD + TDD Baseline Template
-        ├── AGENTS.md                            # Portable agent entry point
-        ├── specs/                               # Official specifications (Format 1 or 2)
-        ├── .agents/                             # Collision-free commands & skills
-        ├── docs/                                # Constitution, rules, ADRs, ide-compatibility.md
-        ├── playbooks/                           # 11 operational workflow playbooks
-        └── tests/                               # Test harness & test-first suites
+    └── Spec-Driven-Development/                      # Track 2 Baseline Template (Extract & Rename)
+        ├── AGENTS.md                                 # Portable agent entry point
+        ├── specs/                                    # Official specifications (Format 1 Flat or Format 2 Modular)
+        ├── .agents/                                  # 15 collision-free commands & skills
+        ├── docs/                                     # Constitution, rules, ADRs, ide-compatibility.md
+        ├── playbooks/                                # 11 operational workflow playbooks
+        └── tests/                                    # Test harness & test-first suites
 ```
 
 ---
 
-## ⚡ Quick-Start Guide
-
-## ⚡ Quick-Start Guide
-
-## ⚡ Quick-Start Guide (Step-by-Step for Laymen)
+## ⚡ Quick-Start Guide (Step-by-Step for Any Project)
 
 ### Step 1: Pick & Rename Your Framework
-1. Select either `Vibe-Coding/` or `Spec-Driven-Development/`.
-2. Rename the folder to your product name in lowercase kebab-case (e.g. `school-management-saas/`).
-3. Open the renamed folder in your AI coding IDE (Antigravity, Cursor, Windsurf, OpenCode, Claude Code, VS Code).
+1. Copy or extract either `Vibe-Coding-Chandan-Adhikary/Vibe-Coding/` or `SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/` to a clean working directory.
+2. Rename the folder to your product name in lowercase `kebab-case` (e.g. `[your-project-name]/`).
+3. Open the renamed folder in your AI coding IDE (Antigravity, Cursor, Windsurf, Claude Code, OpenCode, VS Code). Ensure the editor opens at the project root so it discovers `AGENTS.md` and `.agents/`.
 
 ### Step 2: Active IDE Detection & Cleanup (`docs/ide-compatibility.md`)
-- **Single-IDE Mode (Automated Pruning):** Irrelevant configuration folders belonging to other IDEs (`.cursor/`, `.windsurf/`, `.claude/`, etc.) are automatically pruned before or during Prompt 1 to prevent rule conflicts and token bloat.
-- **Multi-IDE Mode (Coexistence):** If using multiple IDEs simultaneously (e.g. Antigravity + Cursor), declare them in Prompt 1 (`ACTIVE_IDES=["antigravity", "cursor"]`). All declared adapters are harmonized to point to canonical `AGENTS.md` and `.agents/`, while only unselected IDEs are pruned.
+- **Single-IDE Mode (Automated Pruning):** Irrelevant configuration files belonging to other IDEs (`.cursorrules`, `.windsurfrules`, `CLAUDE.md`, etc.) can be automatically pruned during Prompt 1 to prevent rule conflicts and token bloat.
+- **Multi-IDE Mode (Coexistence):** If using multiple IDEs across a team, declare them in Prompt 1. All declared adapters will point to canonical `AGENTS.md` and `.agents/`.
 
-### Step 3: Run the Master Prompts via Slash Commands
-Follow the detailed prompt-by-prompt guide in [GUIDE.md](GUIDE.md) or the .docx file:
+### Step 3: Run the Master Prompts or Custom Slash Commands
 
-#### For Vibe-Coding (4 Fluid Slash Commands):
-1. **/plan-ca-agent (Prompt V1):** Vision, aesthetic theme, tech stack selection, IDE cleanup.
-2. **/implement-ca-agent + /run-ca-agent (Prompt V2):** Core layout, responsive navigation, and verify local dev server.
-3. **/task-ca-agent + /review-ca-agent (Prompt V3):** Fast Karpathy conversational loops, visual polish, interactive feature expansion.
-4. **/security-audit-ca-agent + /release-check-ca-agent (Prompt V4):** Input validation (Zod), security headers, error boundaries, production build verification.
+Choose your preferred execution method:
 
-#### For SDD + TDD (5 Formal Slash Commands):
-1. **/plan-ca-agent (Prompt S1):** Enterprise architecture, data models, ADRs, IDE cleanup.
-2. **/task-ca-agent (Prompt S2):** Full configuration of docs/, playbooks/, 	ests/, and activation of -ca-agent commands.
-3. **/spec-check-ca-agent + /testing-ca-agent (Prompt S3):** Authoring specs/ (Format 1: Flat files or Format 2: Modular folders) and scaffolding failing unit/integration tests.
-4. **/tdd-ca-agent + /review-ca-agent (Prompt S4):** Red-Green-Refactor cycle, minimal passing code, atomic commits.
-5. **/security-audit-ca-agent + /verify-ca-agent + /release-check-ca-agent (Prompt S5):** Full test suite, SAST security scan, and release authorization.
+#### Option A: Natural Language Master Prompts
+- For any new project via Vibe-Coding: Follow **[Vibe-Coding-Production-Guide-Universal.md](Vibe-Coding-Production-Guide-Universal.md)** (Prompts 1 through 4).
+- For any new project via SDD + TDD: Follow **[SDD-TDD-Production-Guide-Universal.md](SDD-TDD-Production-Guide-Universal.md)** (Prompts 1 through 5).
 
+#### Option B: Portable Custom Slash Commands (`-ca-agent`)
+Type custom slash commands directly into your AI chat prompt:
+
+**For Vibe-Coding (4 Fluid Steps):**
+1. `/plan-ca-agent`: Aesthetic vision, design tokens, component hierarchy, read-only plan mode.
+2. `/implement-ca-agent` followed by `/run-ca-agent`: Layout scaffolding, responsive navigation, and dev server verification.
+3. `/task-ca-agent` followed by `/review-ca-agent`: Fast Karpathy conversational loops, 1-click status pills, optimistic UI.
+4. `/security-audit-ca-agent` followed by `/release-check-ca-agent`: Zod validation, auth route middleware, `npm run build` verification.
+*(Full operational guide & 15-command table: **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)**)*
+
+**For SDD + TDD (5 Formal Quality Gates):**
+1. `/plan-ca-agent`: Enterprise architecture, data isolation, regulatory compliance, read-only plan mode.
+2. `/task-ca-agent`: Repository baseline configuration, `ADR-001`, and `tests/` test runner setup.
+3. `/spec-check-ca-agent` followed by `/testing-ca-agent`: Specification audit against Acceptance Criteria (`AC-*`) and failing test execution (RED state).
+4. `/tdd-ca-agent` followed by `/review-ca-agent`: Minimal code implementation (GREEN state), refactoring, atomic git commit.
+5. `/security-audit-ca-agent` followed by `/release-check-ca-agent`: Full test coverage (>90%), SAST security scan, and formal sign-off in `docs/approvals/`.
+*(Full operational guide & 15-command table: **[SDD-TDD-Custom-Slash-Command-Universal.md](SDD-TDD-Custom-Slash-Command-Universal.md)**)*
+
+---
 
 ## 🛡️ Built-in Capabilities & Collision Prevention
 
 ### Collision-Free Agent Commands (`.agents/commands/`)
-To eliminate collisions with host IDE reserved slash commands (like Cursor or Claude Code's native `/run`, `/plan`, or `/test`), all custom commands use the `-ca-agent` namespace:
-`/plan-ca-agent` · `/run-ca-agent` · `/tdd-ca-agent` · `/testing-ca-agent` · `/implement-ca-agent` · `/review-ca-agent` · `/verify-ca-agent` · `/spec-check-ca-agent` · `/task-ca-agent` · `/security-audit-ca-agent` · `/release-check-ca-agent` · `/change-request-ca-agent` · `/handoff-ca-agent` · `/errorlogs-ca-agent` · `/gitlogs-ca-agent`
+To eliminate collisions with host IDE reserved slash commands (like Cursor or Claude Code's native `/run`, `/plan`, or `/test`), all 15 custom commands use the explicit `-ca-agent` namespace:
+
+| Category | Slash Commands Available | Operational Scope |
+| :--- | :--- | :--- |
+| **Planning & Specs** | `/plan-ca-agent` · `/task-ca-agent` · `/spec-check-ca-agent` · `/change-request-ca-agent` | Discovery research, task harness initialization, spec validation, change impact assessment |
+| **Execution & TDD** | `/testing-ca-agent` · `/tdd-ca-agent` · `/implement-ca-agent` · `/run-ca-agent` | Failing test execution, Red-Green-Refactor, bounded implementation, dev server startup |
+| **Quality & Security** | `/review-ca-agent` · `/verify-ca-agent` · `/security-audit-ca-agent` · `/release-check-ca-agent` | Git diff review, criteria verification scorecard, SAST security scan, production release gate |
+| **Diagnostics & Handoff** | `/errorlogs-ca-agent` · `/gitlogs-ca-agent` · `/handoff-ca-agent` | Stack trace root-cause triage, git commit audit trails, engineering handoff dossiers |
 
 ### Andrej Karpathy Engineering Skill (`andrej-karpathy-skill`)
-Built-in to `.agents/skills/andrej-karpathy-skill/` for both tracks:
-- **Inspect the Raw Data First:** Never guess schemas or APIs; inspect raw payloads first.
-- **Single-Batch Overfit / Micro-Baseline:** Make a single vertical slice work completely before adding abstraction.
-- **Failure-Mode Test Harnesses:** Probe boundary conditions and edge cases early.
-- **Anti-Overengineering:** Keep code modular, inspectable, and flat.
+Built into `.agents/skills/andrej-karpathy-skill/` across both tracks:
+- **Inspect the Raw Data First:** Never guess schemas or APIs; inspect raw payloads and database seeds first.
+- **Single-Batch Overfit / Micro-Baseline:** Make a single vertical feature slice work end-to-end before adding abstraction layers.
+- **Immediate Feedback Loops:** Keep diffs small, verify each step live in the browser, and avoid blind multi-file refactoring.
+- **Anti-Overengineering:** Keep code modular, inspectable, flat, and maintainable.
 
 ---
 
-## 📖 Complete Documentation Suite
+## 📖 Complete Documentation Catalog
 
-This repository provides dedicated, production-grade documentation tailored to each development methodology and command structure:
+### 1. Universal Guides for ANY Project
+- **[Vibe-Coding-Production-Guide-Universal.md](Vibe-Coding-Production-Guide-Universal.md)**  
+  Universal 4-prompt Vibe-Coding production guide with parameterized placeholders and variable mapping for any SaaS, web app, or marketplace.
+- **[SDD-TDD-Production-Guide-Universal.md](SDD-TDD-Production-Guide-Universal.md)**  
+  Universal 5-prompt Spec-Driven Development & TDD production guide with parameterized placeholders for any enterprise or regulated system.
+- **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)**  
+  Universal Vibe-Coding custom slash commands operational reference with exhaustive tabular workings for all 15 commands.
+- **[SDD-TDD-Custom-Slash-Command-Universal.md](SDD-TDD-Custom-Slash-Command-Universal.md)**  
+  Universal SDD+TDD custom slash commands operational reference with exhaustive tabular workings for all 15 commands.
 
-### 1. Standalone Vibe-Coding Documentation Suite
-- **Production Guide:** **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)** & **AI-Powered Project Development — Vibe Coding SMS Guide.docx**  
-  Complete, end-to-end production guide for building the EduSphere School Management SaaS website using the **Vibe-Coding Framework** (15-section discovery, Karpathy visual loops, 30-sec attendance sheet, and progressive production hardening).
-- **Custom Slash Commands Guide:** **[Custom-Slash-Commands-Vibe-Coding.md](Custom-Slash-Commands-Vibe-Coding.md)** & **AI-Powered Project Development — Custom Slash Commands Vibe Guide.docx**  
-  Operational guide for driving Vibe-Coding exclusively via custom slash commands (`/plan-ca-agent`, `/implement-ca-agent`, `/run-ca-agent`, `/task-ca-agent`, `/review-ca-agent`, `/security-audit-ca-agent`, `/release-check-ca-agent`).
+### 2. Concrete Reference Implementations (School Management System Demo)
+- **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)**  
+  Step-by-step production guide for building the EduSphere School Management SaaS website (Indigo/Slate palette, 30-sec attendance, optimistic UI).
+- **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)**  
+  Step-by-step enterprise production guide for building the EduSphere Enterprise SMS platform (PostgreSQL RLS, FERPA compliance, TDD cycles).
+- **[Vibe-Coding-Custom-Slash-Command-SMS.md](Vibe-Coding-Custom-Slash-Command-SMS.md)**  
+  Dedicated Vibe-Coding custom slash commands guide driving the EduSphere SMS demo via conversational Karpathy loops.
+- **[SDD-TDD-Custom-Slash-Command-SMS.md](SDD-TDD-Custom-Slash-Command-SMS.md)**  
+  Dedicated SDD+TDD custom slash commands guide driving the EduSphere Enterprise SMS demo via formal compliance gates.
 
-### 2. Standalone Spec-Driven Development + TDD Documentation Suite
-- **Production Guide:** **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)** & **AI-Powered Project Development — SDD-TDD SMS Guide.docx**  
-  Complete, end-to-end enterprise production guide for building the EduSphere Enterprise SMS platform using **Spec-Driven Development & TDD** (multi-tenant PostgreSQL Row-Level Security, FERPA compliance, living `specs/`, and strict Red-Green-Refactor test cycles).
-- **Custom Slash Commands Guide:** **[Custom-Slash-Commands-SDD-TDD.md](Custom-Slash-Commands-SDD-TDD.md)** & **AI-Powered Project Development — Custom Slash Commands SDD Guide.docx**  
-  Operational guide for driving SDD+TDD enterprise workflows exclusively via formal gated slash commands (`/plan-ca-agent`, `/task-ca-agent`, `/spec-check-ca-agent`, `/testing-ca-agent`, `/tdd-ca-agent`, `/review-ca-agent`, `/security-audit-ca-agent`, `/release-check-ca-agent`).
-
-### 3. Unified Master References
-- **All 15 Slash Commands Reference:** **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** & **AI-Powered Project Development — Custom Slash Commands & SMS Demo.docx**  
-  Exhaustive catalog of all 15 portable agent commands (`.agents/commands/*-ca-agent.md`) and dual-track walkthrough.
-- **Master Setup & Prompting Framework:** **[GUIDE.md](GUIDE.md)** & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx**  
-  Universal 5-prompt engineering framework strictly following the project-starting lifecycle.
-
-### 4. Architecture & Specification References
+### 3. Architecture & Specification References
 - **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, pruning, and multi-IDE synchronization standard.
-- **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual user formats (Flat files vs Modular directories).
+- **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual formats (Flat files vs. Modular folders).
