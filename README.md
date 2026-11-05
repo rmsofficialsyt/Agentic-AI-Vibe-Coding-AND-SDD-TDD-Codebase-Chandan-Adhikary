@@ -104,9 +104,11 @@ flowchart TD
 
 ```text
 Guide-Github/
-├── README.md                                    # This universal overview & quick-start guide
-├── GUIDE.md                                     # Complete 2-in-1 Prompting Guide (Markdown)
-├── AI-Powered Project Development — ... .docx   # Complete 2-in-1 Prompting Guide (Word document)
+├── README.md                                    # Universal overview & quick-start guide
+├── GUIDE.md                                     # Master 5-Prompt Setup & Engineering Guide (Markdown)
+├── AI-Powered Project Development — ... .docx   # Master 5-Prompt Setup Guide (Word document)
+├── CUSTOM-SLASH-COMMANDS-GUIDE.md               # Dedicated Slash Commands & SMS Demo (Markdown)
+├── AI-Powered Project Development — Custom...   # Dedicated Slash Commands & SMS Demo (Word doc)
 │
 ├── Vibe-Coding-Chandan-Adhikary/
 │   └── Vibe-Coding/                             # Framework Track 1: Vibe-Coding Template
@@ -175,10 +177,18 @@ Built-in to `.agents/skills/andrej-karpathy-skill/` for both tracks:
 
 ---
 
-## 📖 Complete Documentation & Production Demo
+## 📖 Complete Documentation Suite
 
-For the complete prompt-by-prompt walkthrough and an end-to-end production **School Management SaaS (SMS)** demo, refer to:
-- **[GUIDE.md](GUIDE.md)** — Complete Setup & Prompting Guide (Markdown)
-- **`AI-Powered Project Development — Complete Setup & Prompting Guide.docx`** — Formatted Word Document
-- **[`docs/ide-compatibility.md`](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — IDE Detection & Pruning Standard
-- **[`specs/`](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Dual-format specification templates
+This repository provides two specialized, high-impact guides:
+
+### 1. Master Setup & Prompting Guide
+- **[GUIDE.md](GUIDE.md)** (Markdown) & **AI-Powered Project Development — Complete Setup & Prompting Guide.docx** (Word document)
+- Pure, clean master 5-prompt engineering framework strictly following the standard project-starting lifecycle (Prompt 1 Discovery -> Approval -> Prompt 2 Configuration -> Prompt 3 Spec Validation -> Prompt 4 Feature Implementation -> Prompt 5 Release Audit).
+
+### 2. Custom Slash Commands & SMS Project Demo Guide
+- **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** (Markdown) & **AI-Powered Project Development — Custom Slash Commands & SMS Demo.docx** (Word document)
+- Operational reference for .agents/commands/ and complete end-to-end School Management SaaS (EduSphere SMS) walk-through executed entirely via custom slash commands (/plan-ca-agent, /implement-ca-agent, /tdd-ca-agent, etc.).
+
+### 3. Architecture & Specification References
+- **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, pruning, and multi-IDE synchronization standard.
+- **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual user formats (Flat files vs Modular directories).

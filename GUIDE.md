@@ -1,700 +1,824 @@
 # AI-Powered Project Development — Complete Setup & Prompting Guide
-### 2-in-1 Master Architecture: Vibe-Coding Framework & Spec-Driven Development (SDD + TDD)
-**Author / Engineering Lead:** Chandan Adhikary & Antigravity Engineering  
-**Version:** 2.0.0 (Production-Grade Universal Release)  
-**Applies to:** Claude Code, Cursor, Windsurf, Antigravity, OpenCode, Codex, Trae, VS Code with AI Agents  
 
----
+Vibe Coding + Spec-Driven Development (SDD) + TDD · Production-Grade SaaS Applications
 
-## 1. Executive Overview & Foundational Principles
+This guide explains how to use your Vibe Coding or SDD + TDD ZIP templates to start a completely new software project using Claude Code, Cursor, Windsurf, Antigravity, Codex, OpenCode, Trae, or VS Code with AI agents.
 
-This guide provides a standardized, battle-tested methodology for building scalable, secure, maintainable, and **production-grade software applications** using autonomous AI coding agents and modern AI-assisted IDEs.
+The most important principle is: Do not ask the AI agent to start coding immediately. First, make it understand your project, research the requirements, configure the documentation, propose a realistic plan, and obtain your approval.
 
-### 1.1 The Golden Rule of AI Engineering
-> **DO NOT ask the AI agent to start coding immediately.**
-> First, make the agent research your requirements, inspect the repository governance, select the appropriate architecture, configure the codebase documentation, and present a verified implementation plan for human approval.
+I'll use a School Management SaaS Platform as the example, but the guide is reusable for ERP, CRM, e-commerce, hospital management, LMS, AI applications, dashboards, and other projects.
 
-### 1.2 Two Distinct Development Paradigms (2-in-1 Framework)
-To eliminate confusion, this repository provides two distinct, purpose-built development frameworks. Both frameworks are engineered to produce **strictly production-grade output**, but they follow different working processes:
+## Step 1 — Download and extract your framework
 
-```text
-=============================================================================================
-                        AI-POWERED DEVELOPMENT FRAMEWORKS
-=============================================================================================
-             TAB / WINDOW 1                                   TAB / WINDOW 2
-         VIBE-CODING FRAMEWORK                            SPEC-DRIVEN DEVELOPMENT (SDD + TDD)
----------------------------------------------   ---------------------------------------------
-* Philosophy: Intuitive, Visual, Fast Iteration  * Philosophy: Contract-First, Strict Verification
-* Workflow: 4 Fluid Prompts (Karpathy Loops)     * Workflow: 5 Formal Quality Gated Prompts
-* Specs: Lightweight / Working Memory          * Specs: Formal 'specs/' (Flat or Modular Folders)
-* Testing: Visual runtime & sanity harnesses    * Testing: Test-First (TDD Red-Green-Refactor)
-* Best For: Rapid SaaS MVPs, UI/UX-driven apps,  * Best For: High-stakes enterprise SaaS, fintech,
-  consumer dashboards, interactive tools          healthcare, compliance, multi-tenant core systems
-=============================================================================================
-```
+Choose one framework according to your development approach.
 
-### 1.3 Andrej Karpathy Engineering Heuristics (`andrej-karpathy-skill`)
-Both frameworks incorporate Andrej Karpathy's core Software 2.0/3.0 engineering heuristics as a built-in capability in `.agents/skills/andrej-karpathy-skill/`:
-1. **Inspect the Raw Data First:** Never author schemas or code on assumptions. Always inspect raw inputs, mock payloads, or database models first.
-2. **Single-Batch Overfit / Micro-Baseline:** Build a minimal, verifiable end-to-end slice before creating elaborate architectures or layers.
-3. **Failure-Mode Test Harnesses:** Verify boundary conditions, null inputs, and error states; never assume the model understands edge cases zero-shot.
-4. **Anti-Overengineering:** Keep code flat, readable, and modular. Avoid premature abstractions.
+### Option A — Vibe Coding
+ZIP: `Vibe-Coding-Chandan-Adhikary.zip`  
+Extracted folder: `Vibe-Coding/`  
+Best for rapid prototyping, UI/UX exploration, iterative development, and visual refinement before production hardening.
 
----
+### Option B — SDD + TDD
+ZIP: `SDD-TDD-Chandan-Adhikary.zip`  
+Extracted folder: `Spec-Driven-Development/`  
+Best for specification-first engineering, approved features, strict test-first implementation, traceability, and controlled production releases.
 
-## 2. Pre-Development Setup & Active IDE Governance
+Use one framework as the project's canonical baseline, rather than merging both ZIP structures.
 
-Before issuing your first prompt to the AI agent, execute this essential 2-minute setup.
+## Step 2 — Rename the project folder
 
-### Step 1: Choose Your Framework Folder
-Extract your preferred framework folder from the repository:
-- **Option A — Vibe Coding:** Use `Vibe-Coding-Chandan-Adhikary/Vibe-Coding/`
-- **Option B — SDD + TDD:** Use `SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/`
+Rename the extracted folder according to the software you want to build.
 
-### Step 2: Rename the Project Folder
-Rename the extracted folder to match your product name using lowercase `kebab-case`:
-```bash
-# Example:
-Vibe-Coding/              --> school-management-saas/
-# OR
-Spec-Driven-Development/  --> school-management-saas/
-```
+**Example:**
+- Before: `Vibe-Coding/` or `Spec-Driven-Development/`
+- After: `school-management-saas/`
 
-### Step 3: Open in Your AI Coding IDE
-Open the renamed folder as the **project root** in your IDE (Cursor, Windsurf, Antigravity, OpenCode, Claude Code, VS Code, etc.). Ensure the agent has full visibility of `AGENTS.md`, `docs/`, and `.agents/`.
+Use lowercase `kebab-case` names wherever practical. Avoid spaces and special characters in the repository name.
 
-### Step 4: Active IDE Detection & Cleanup Protocol (docs/ide-compatibility.md)
-To eliminate rule conflicts, command shadowing, and context bloat, the repository enforces an automatic cleanup policy:
+Open the renamed folder in your preferred AI coding IDE. Ensure the IDE opens the project root, so the agent can find `AGENTS.md`, any supported tool-specific instruction files, `docs/`, and `.agents/`.
 
-- **Mode A: Single-IDE Mode (Automated Pruning - Recommended):**
-  When you start in an IDE (e.g., Antigravity or OpenCode), all competing, irrelevant IDE configuration folders (`.cursor/`, `.cursorrules`, `.windsurf/`, `.windsurfrules`, `.claude/`, `CLAUDE.md`) are automatically pruned before or during Prompt 1.
-  
-- **Mode B: Multi-IDE / Multi-Agent Coexistence Mode:**
-  If you or your team use multiple IDEs simultaneously (e.g., Antigravity + Cursor, or Cursor + Claude Code), declare your active list in Prompt 1 (e.g. `ACTIVE_IDES=["antigravity", "cursor"]`). The system preserves adapters for all declared active IDEs, synchronizes them to the canonical `AGENTS.md` and `.agents/`, and prunes only unselected ones.
+## Step 3 — Prompt 1: Project discovery, R&D, and complete pre-development configuration
 
-### Step 5: Collision-Free Agent Commands (`.agents/commands/`)
-Host IDEs reserve generic tokens like `/run`, `/plan`, `/test`, or `/review`. To prevent system errors, all 15 custom commands use the explicit `-ca-agent` suffix:
-- `/plan-ca-agent` | `/run-ca-agent` | `/tdd-ca-agent` | `/testing-ca-agent` | `/implement-ca-agent`
-- `/review-ca-agent` | `/verify-ca-agent` | `/spec-check-ca-agent` | `/task-ca-agent` | `/security-audit-ca-agent`
-- `/release-check-ca-agent` | `/change-request-ca-agent` | `/handoff-ca-agent` | `/errorlogs-ca-agent` | `/gitlogs-ca-agent`
+**Mode:** Plan Mode / Ask Mode / Read-only Planning  
+**Goal:** Make the agent research and plan the entire project, inspect the existing guidelines, define features, select technologies, and propose configuration updates—without implementing application code.
 
-### 2.5 How Slash Commands Work in AI Coding IDEs & Agents
-
-A **Slash Command** in this architecture is not just a chat shortcut—it is an executable **behavioral contract**. When you type a slash command (e.g. `/plan-ca-agent` or `/tdd-ca-agent`), the AI agent binds its actions to the governance rules defined in `.agents/commands/<name>-ca-agent.md`.
-
-#### Why Use Slash Commands Over Free-Form Prompts?
-1. **Deterministic Guardrails:** Free-form prompts often cause agents to hallucinate dependencies or jump straight to coding. A slash command forces the agent to read repository policy first.
-2. **IDE Autocompletion:** In modern IDEs (Antigravity, Cursor, Windsurf, OpenCode, Claude Code), typing `/` in the prompt bar automatically triggers the command menu.
-3. **Execution Safety:** Commands like `/implement-ca-agent` enforce that code changes are strictly restricted to approved specifications.
-
-#### Syntax & Usage Anatomy:
-You can use slash commands in two complementary ways:
-
-**Method 1: Direct Command with Attached Prompt (Recommended)**
-Type the slash command followed immediately by your project details or task requirements in the same message:
-```text
-/plan-ca-agent Project Name: EduSphere SMS, Vision: Multi-tenant school portal...
-```
-
-**Method 2: Sequential Command Chaining**
-Run the slash command as an action trigger after completing a step:
-```text
-/run-ca-agent
-/testing-ca-agent tests/unit/student-enrollment.test.ts
-/review-ca-agent
-```
-
-
----
-
-## 3. TAB / WINDOW 1: The Vibe-Coding Framework
-### Fast, Visual, Intuitive & Iterative (4 Fluid Prompts)
-
-The Vibe-Coding track is designed for rapid iteration, instant visual feedback, and conversational steering while maintaining **production-grade engineering standards** under the hood.
-
-```mermaid
-flowchart TD
-    SetupV["Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> IDEDetectV{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectV -->|"Single-IDE"| PruneV["Auto-prune irrelevant IDE configs"]
-    IDEDetectV -->|"Multi-IDE"| SyncV["Harmonize active adapters to AGENTS.md"]
-    
-    PruneV --> PV1["Prompt V1: Discovery & Vibe Check<br/>(Plan Mode: Aesthetic, stack, personas)"]
-    SyncV --> PV1
-    
-    PV1 --> HumanV1{"Human Approval<br/>of V1 Plan?"}
-    HumanV1 -->|"Revisions needed"| PV1
-    HumanV1 -->|"Approved"| PV2["Prompt V2: Scaffold & Working Live UI<br/>(Layout, mock data, /run-ca-agent)"]
-    
-    PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection)"]
-    LiveCheck --> PV3["Prompt V3: Conversational Vibe-Tuning<br/>(Karpathy Loops: iterate UI, polish interactions)"]
-    
-    PV3 --> LoopV{"Vibe feels right?"}
-    LoopV -->|"No: adjust styling or features"| PV3
-    LoopV -->|"Yes: ready to harden"| PV4["Prompt V4: Production Hardening & Pre-Deploy<br/>(Zod validation, error boundaries, security)"]
-    
-    PV4 --> AuditsV["Run /security-audit-ca-agent & /review-ca-agent"]
-    AuditsV --> ShipV["Production-Ready Deployment"]
-```
-
-### Prompt V1 — Master Vision, Aesthetic & Tech Stack
-**Slash Command:** `/plan-ca-agent`  
-**Operating Mode:** Plan Mode / Read-Only Discovery  
-**Purpose:** Define user personas, design system, tech stack, and trigger IDE cleanup.
+This is your reusable master prompt. Replace the values in angle brackets with your actual project information.
 
 ```markdown
-PROMPT V1 — VIBE-CODING DISCOVERY, AESTHETICS & TECH STACK
+# PROMPT 1 — MASTER PROJECT DISCOVERY, R&D & PRE-DEVELOPMENT PLANNING
 
-Your Role:
-Act as a Principal Full-Stack Architect and World-Class Product Designer with 15+ years of experience in rapid SaaS prototyping and modern frontend design systems.
+## Your Role
+Act as a team of senior professionals with 15+ years of experience:
+- Senior Project Manager / Technical Program Manager
+- Senior Software Architect
+- Senior Full-Stack Engineer
+- Senior Frontend and UI/UX Engineer
+- Senior Backend and Database Engineer
+- Senior DevOps / Cloud Engineer
+- Senior Cybersecurity Engineer
+- Senior QA / Test Automation Engineer
+- Senior AI/ML Engineer (when applicable)
+- SaaS Product Manager and Business Analyst
 
-Your Objective:
-Research, establish the aesthetic vision, and define the complete production-grade tech stack for our application without writing application code yet.
+Your objective is to plan a scalable, secure, maintainable, production-grade SaaS product using AI-assisted development, Spec-Driven Development, and Test-Driven Development where required by the selected project framework.
 
-IMPORTANT: WORK IN PLAN MODE ONLY. DO NOT CREATE APPLICATION CODE FILES YET.
+Prioritize correctness, product quality, usability, accessibility, maintainability, and fidelity to approved requirements.
 
-1. Project Information
+IMPORTANT: WORK IN PLAN MODE ONLY. DO NOT IMPLEMENT APPLICATION CODE. DO NOT INSTALL PACKAGES, ALTER THE DATABASE, OR START DEPLOYMENT.
+
+---
+
+## 1. Project Information
 Project Name: <PROJECT_NAME>
-Product Type: <SaaS / Web App / Dashboard / Mobile App / AI Tool>
-Product Vision: <Describe what the product does, who it is for, and the core experience>
-Target Users: <Primary personas e.g. Admins, Students, Teachers>
-Aesthetic / Vibe: <e.g., Clean Modern SaaS, Dark Mode Minimalist, Warm Editorial, High-Density Dashboard>
-Active IDE: <Antigravity / Cursor / Windsurf / OpenCode / Claude Code / Multi-IDE: list them>
+Product Type: <SaaS / Web Application / Mobile App / Desktop Software / AI-ML Platform / Other>
+Project Description:
+<Describe the product, its main purpose, business model, and primary workflows.>
 
-2. Mandatory Repository & Environment Inspection
-- Inspect the project root: README.md, AGENTS.md, docs/INDEX.md, docs/ide-compatibility.md.
-- Execute IDE Detection & Pruning:
-  * If Single-IDE: Prune irrelevant IDE configuration files to prevent context bloat.
-  * If Multi-IDE: Retain adapters for declared active IDEs and synchronize them to AGENTS.md.
-- Review in-built skills in .agents/skills/, specifically andrej-karpathy-skill.
+Example:
+Develop a multi-tenant, subscription-based School Management SaaS platform for schools, administrators, teachers, students, and parents.
+The software should simplify academic management, admissions, fees, attendance, communication, examinations, reporting, and school operations.
 
-3. Deliverables for this Step:
-Provide a structured Plan Artifact containing:
-1. Architecture Overview: Frontend framework, backend runtime, database, styling engine (e.g. Next.js App Router, Tailwind CSS, shadcn/ui, Supabase/PostgreSQL, TypeScript).
-2. Design System Tokens: Primary color palette, typography, border radiuses, dark/light theme approach.
-3. Component Hierarchy: Layout wrappers, navigation, main dashboard views, and interactive modals.
-4. Immediate Execution Plan for Prompt V2 (Scaffolding).
+Target Audience:
+<Identify customers, end users, administrators, and any other stakeholders.>
+
+Target Market / Region:
+<Country, region, language, and applicable legal requirements.>
+
+Business Model:
+<Subscription / Freemium / Enterprise Licensing / One-time Purchase / Other>
+
+Development Framework:
+<Vibe Coding OR Spec-Driven Development + TDD>
+
+Expected Outcome:
+A polished, tested, scalable, and production-ready software product that satisfies the approved requirements and quality gates.
+
+---
+
+## 2. Mandatory Repository Inspection
+Before planning or configuring anything:
+1. Inspect the existing project root.
+2. Read README.md and AGENTS.md.
+3. Read the relevant IDE-specific instruction file if supported.
+4. Read docs/INDEX.md, docs/constitution.md, and docs/rules.md where present.
+5. Read docs/ide-compatibility.md. Execute active IDE detection: in Single-IDE mode, automatically prune irrelevant IDE configuration files; in Multi-IDE mode, synchronize declared active IDE adapters to canonical AGENTS.md.
+6. Identify existing specifications, architecture documents, agent instructions, and operational playbooks.
+7. Inspect existing skills, hooks, plugins, connectors, MCP definitions, and collision-free slash commands in .agents/.
+8. Determine the current guideline baseline and document statuses.
+9. Detect missing, duplicate, contradictory, or obsolete configurations.
+10. Respect the existing framework and folder structure.
 
 Rules:
-- MUST enforce TypeScript with strict mode.
-- MUST choose modern, battle-tested UI libraries (Tailwind CSS, Lucide icons, Framer Motion).
-- MUST NOT write application code in this step.
-```
+- MUST treat approved guidelines as the process authority.
+- MUST treat the latest approved feature specifications as the feature authority.
+- MUST NOT implement unapproved features.
+- MUST NOT delete or overwrite existing canonical files without authorization.
+- For SDD, MUST utilize the official specs/ directory supporting dual user-selected formats (Format 1: Flat files or Format 2: Modular folders) along with the docs/ structure.
+- MUST NOT invent capabilities, source files, or research findings.
+- MUST report any unresolved contradictions.
 
 ---
 
-### Prompt V2 — Rapid Codebase Scaffold & Live Working UI
-**Slash Command:** `/implement-ca-agent` (followed by `/run-ca-agent`)  
-**Operating Mode:** Implementation & Startup Mode  
-**Purpose:** Scaffold the application structure, initialize layout, create mock data models, and verify local startup.
+## 3. Research & Development
+Conduct evidence-based product and technical research.
+
+Research the following:
+
+### 3.1 Product and Market Research
+- Problem statement and market opportunity.
+- Target customer personas.
+- User pain points and workflows.
+- Existing competing products.
+- Industry standards and common functionality.
+- Market differentiation opportunities.
+- SaaS pricing and business-model options.
+- Product adoption and usability considerations.
+
+### 3.2 Technical Research
+- Suitable system architectures.
+- Frontend and backend frameworks.
+- Database technologies.
+- Authentication and authorization solutions.
+- Multi-tenant architecture options.
+- Hosting and cloud infrastructure.
+- Third-party integration options.
+- Performance and scalability considerations.
+- Security and privacy requirements.
+- Development and operational costs.
+
+### 3.3 UI/UX Research
+- Modern SaaS design patterns.
+- Relevant competitor interfaces.
+- Dashboard and navigation patterns.
+- Responsive design.
+- Accessibility requirements.
+- Design-system selection.
+- Performance-aware animation.
+- Loading, empty, error, and success states.
+
+Use current, reliable sources when browsing is available.
+Separate verified facts, recommendations, estimates, and assumptions. Provide references for material research findings.
+If browsing is unavailable, explicitly identify which conclusions require external verification.
+
+---
+
+## 4. Required Features
+Build the feature plan around the following initial requirements.
+
+### Core Features
+1. Landing Page
+   - Professional SaaS marketing website.
+   - Hero section, features, benefits, pricing, FAQ, testimonials where approved, and CTAs.
+   - Responsive layouts, accessible navigation, and appropriate SEO.
+2. Authentication
+   - Evaluate OAuth/OIDC login using Google and GitHub, if appropriate for the target users.
+   - Role-based access control (RBAC).
+   - Secure sessions.
+   - Account recovery and logout.
+   - Multi-factor authentication where required.
+   - Review whether additional identity providers are necessary.
+3. Responsive Application
+   - Desktop, laptop, tablet, and mobile support.
+   - Keyboard and touch interactions.
+   - Responsive navigation.
+   - Accessible components and forms.
+4. <FEATURE_4>
+5. <FEATURE_5>
+6. <FEATURE_6>
+   ...
+7. <FEATURE_50>
+
+### Additional Feature Recommendations
+Review the proposed features and suggest useful additions based on:
+- Business value.
+- User needs.
+- Technical dependencies.
+- Development cost.
+- Security and privacy risks.
+- Product differentiation.
+- MVP suitability.
+- Long-term scalability.
+
+Categorize proposed additions as:
+- MVP candidates.
+- Phase 2 candidates.
+- Future roadmap candidates.
+- Optional enhancements.
+
+DO NOT automatically add recommended features to the approved implementation scope.
+Every feature recommendation must include its purpose, expected benefit, priority, dependency, and estimated complexity.
+Avoid duplicate features.
+
+---
+
+## 5. Technology Stack Evaluation
+Evaluate my preferred technologies.
+
+### Preferred Frontend
+- React
+- Next.js
+- TypeScript
+- HTML5
+- Modern CSS
+- Tailwind CSS
+- shadcn/ui
+
+### Preferred Backend
+- Node.js
+- Python
+- FastAPI
+
+### Preferred Database
+- PostgreSQL
+- Supabase
+- MongoDB
+
+### Additional Infrastructure
+<Hosting provider, object storage, cache, queues, monitoring, analytics, payment provider, etc.>
+
+### Required Evaluation
+For each technology, explain:
+1. Purpose.
+2. Suitability.
+3. Benefits.
+4. Limitations.
+5. Compatibility.
+6. Security considerations.
+7. Operational complexity.
+8. Expected cost implications.
+9. Recommended version.
+10. Whether it is required, optional, or unnecessary.
+
+Do not use every listed technology automatically.
+Select a coherent architecture and justify the recommended combinations.
+For example, evaluate Next.js with TypeScript and PostgreSQL, then determine whether a separate FastAPI service is genuinely needed.
+Do not introduce redundant backend frameworks or databases without a justified requirement.
+Use stable, supported technology versions.
+Do not finalize architectural choices without my approval.
+
+---
+
+## 6. Database & Data Architecture
+Plan:
+- Database selection and rationale.
+- Relational or document data model.
+- Main entities and relationships.
+- ERD.
+- Table/collection definitions.
+- Primary and foreign keys.
+- Indexing and constraints.
+- Multi-tenancy and tenant isolation.
+- Migration strategy.
+- Backup and restoration.
+- Encryption and access control.
+- Data lifecycle, retention, and deletion.
+- Seed and test data.
+- Performance considerations.
+- Database security and recovery.
+
+For SaaS applications, explicitly evaluate shared-database versus isolated-database tenancy strategies.
+Do not create database tables or run migrations during planning.
+
+---
+
+## 7. UI/UX & Design Requirements
+
+### Color Palette
+Primary: <HEX_VALUE>  
+Secondary: <HEX_VALUE>  
+Accent: <HEX_VALUE>  
+Background: <HEX_VALUE>  
+Text: <HEX_VALUE>  
+
+If colors are unspecified, propose 2–3 coherent accessible palettes for approval.
+
+### Typography
+Primary Font: <FONT_NAME>  
+Secondary Font: <FONT_NAME>  
+
+Specify typography scales, font weights, line heights, and fallbacks.
+
+### Preferred UI Libraries and Design Patterns
+- shadcn/ui
+- Tailwind CSS
+- Bento Grid
+- Modern SaaS dashboards
+- Recharts
+- Motion and microinteractions
+- Appropriate contemporary interface references
+
+Treat Dribbble and similar design sources as inspiration rather than code or component libraries.
+
+### Design Requirements
+- Design tokens.
+- Component library.
+- Screen inventory.
+- User journeys.
+- Navigation architecture.
+- Responsive layouts.
+- Light/dark themes where approved.
+- Empty, loading, error, and success states.
+- Accessibility.
+- Motion and reduced-motion support.
+- Charts and data visualization.
+- Visual consistency.
+- Design acceptance criteria.
+
+Website References:  
+<INSERT_REFERENCE_URLS>
+
+Analyze the references when accessible.
+Identify which elements are suitable for adaptation without copying protected designs or assets.
+Propose a unified visual design direction before UI implementation.
+
+---
+
+## 8. Agent Skills, Plugins, MCP & Tools
+
+### Preferred Skills for Evaluation
+- Andrej Karpathy-inspired engineering guidance or skills (andrej-karpathy-skill).
+- UI/UX Pro Max.
+- Awesome Design.
+- Motion Design.
+- Motion.dev.
+- Anime.js-related skills or integrations.
+- Project-specific architecture and testing skills.
+- Security and accessibility review skills.
+
+### Preferred Plugins / Tools for Evaluation
+- Playwright.
+- Claude Code plugins where supported.
+- IDE-native development tools.
+- Documentation tools.
+- Database inspection tools.
+- Git and repository tools.
+- Relevant MCP servers.
+
+### Instructions
+1. Check availability and compatibility.
+2. Identify official, community, and project-specific tools.
+3. Evaluate source trust and maintenance.
+4. Identify supported IDE versions.
+5. Explain the purpose of each selected tool.
+6. Define permissions and security boundaries.
+7. Define when the tool should run.
+8. Identify overlapping capabilities.
+9. Recommend the minimum necessary toolset.
+10. Document installation and configuration plans.
+
+Do not install or activate anything without approval.
+Do not treat all listed names as verified installable skills or plugins.
+Playwright is primarily a testing/automation framework; select the suitable integration method for the chosen IDE.
+
+---
+
+## 9. System Architecture Planning
+Produce a proposal covering:
+- System context diagram.
+- High-level architecture (HLD).
+- Low-level architecture (LLD).
+- Frontend architecture.
+- Backend/service architecture.
+- Authentication architecture.
+- Multi-tenant architecture.
+- Database architecture.
+- API contracts.
+- State management.
+- Background jobs.
+- Caching strategy.
+- File/object storage.
+- Error handling.
+- External integrations.
+- Infrastructure and hosting.
+- Logging, monitoring, and alerting.
+- Scalability and reliability.
+- Backup and recovery.
+- AI/ML architecture if relevant.
+
+Document major decisions and alternatives.
+
+---
+
+## 10. Security, Privacy & Compliance
+Define:
+- Authentication and authorization.
+- Least-privilege access.
+- Tenant isolation.
+- Secrets management.
+- OWASP-aligned protections.
+- API security.
+- Encryption.
+- Data retention.
+- Audit logging.
+- Rate limiting and abuse protection.
+- Secure file uploads where applicable.
+- Dependency vulnerability management.
+- CI/CD security.
+- Privacy requirements based on target regions.
+- Applicable regulatory obligations.
+- Threat modeling.
+- Incident response.
+- Disaster recovery.
+
+Do not assume a regulation applies without checking its applicability.
+
+---
+
+## 11. Testing & Quality Assurance
+Define a production-oriented testing strategy.
+Include:
+- Test-Driven Development (TDD).
+- Unit testing.
+- Integration testing.
+- API contract testing.
+- End-to-end testing.
+- Regression testing.
+- Authentication testing.
+- Security testing.
+- Accessibility testing.
+- Responsive testing.
+- Cross-browser testing.
+- Load and performance testing.
+- Database migration testing.
+- Failure and recovery testing.
+- AI/ML evaluation if relevant.
+
+Recommend appropriate tools for the selected technology stack.
+Define measurable quality gates, target coverage, critical journey tests, and release-blocking conditions.
+For SDD, tests must be written before production implementation.
+
+---
+
+## 12. Documentation & Repository Configuration Plan
+Inspect and propose project-specific content updates for all applicable existing files.
+
+Cover at least:
+
+### Project Foundation
+- README.md
+- AGENTS.md
+- CLAUDE.md
+- docs/INDEX.md
+- docs/constitution.md
+- docs/rules.md
+- docs/ide-compatibility.md
+
+### Project Planning
+- docs/plan.md (Vibe Coding)
+- docs/prompts.md (Vibe Coding)
+- docs/prd.md
+- docs/spec.md (SDD)
+- specs/ (SDD - official feature specifications)
+- docs/features/
+- docs/task.md
+- docs/phases.md
+
+### Technical Documentation
+- docs/system-architecture.md
+- docs/tech-stacks.md
+- docs/database.md
+- docs/apis.md
+- docs/design.md
+- docs/security.md
+
+### Development & Quality
+- docs/code-testing.md
+- docs/code-review.md
+- docs/error-tracker.md
+- docs/requirements-traceability.md
+- docs/acceptance-criteria.md
+- docs/devops.md
+- docs/deployment.md
+- docs/observability.md
+
+### Agent Configuration
+- docs/agents.md
+- docs/skills.md
+- docs/hooks.md
+- docs/plugins.md
+- docs/connectors.md
+- docs/memory.md
+- Relevant IDE-specific adapters.
+- Portable agent commands and skills in .agents/.
+
+### Project Management
+- docs/risk-register.md
+- docs/decision-log.md
+- docs/release-checklist.md
+- docs/handoff.md
+- docs/CHANGELOG.md
+- docs/guideline-CHANGELOG.md
+
+Also inspect every other existing document and playbook.
+Do not create duplicate files or replace existing framework conventions unnecessarily.
+
+### Two-Layer Policy
+- **Guidelines:** Fixed, versioned engineering process baseline.
+- **Specifications:** Living, approved, versioned project and feature requirements.
+
+Changing project-specific values within an approved guideline's permitted configuration fields does not authorize changing its mandatory rules.
+Any actual guideline-rule change requires explicit revision, approval, version bump, and changelog entry.
+
+---
+
+## 13. Project Management & Milestones
+Create a practical development roadmap.
+
+Example:
+- Phase 0: Research, discovery, and planning.
+- Phase 1: Requirements, specifications, and approvals.
+- Phase 2: Architecture, design system, and environment setup.
+- Phase 3: Core application foundation.
+- Phase 4: Authentication and authorization.
+- Phase 5: Core business modules.
+- Phase 6: Advanced functionality and integrations.
+- Phase 7: Testing, security, and performance hardening.
+- Phase 8: Staging, acceptance, and production readiness.
+- Phase 9: Production deployment and monitoring.
+- Phase 10: Maintenance and continuous improvement.
+
+Adapt these phases to actual dependencies and priorities.
+For every milestone, define: scope, deliverables, dependencies, risks, estimated effort, acceptance criteria, quality gates, and required approvals.
+Identify the critical path and realistic MVP boundary.
+
+---
+
+## 14. Required Output
+Produce a structured planning report with:
+1. Executive project summary.
+2. Research findings and sources.
+3. Product requirements and user personas.
+4. Recommended feature inventory.
+5. MVP, Phase 2, and future roadmap separation.
+6. Technology-stack comparison and recommendation.
+7. Proposed architecture.
+8. Database and API approach.
+9. UI/UX design direction.
+10. Security and privacy assessment.
+11. Testing strategy.
+12. AI agent skill, plugin, hook, and MCP compatibility plan.
+13. Complete file-by-file repository configuration plan.
+14. Project phases, tasks, milestones, and dependencies.
+15. Risks and unresolved questions.
+16. Decisions requiring my approval.
+17. Exact next-step recommendation.
+
+For each planned file change, report:
+- File path.
+- Current purpose.
+- Proposed project-specific changes.
+- Guideline or specification classification.
+- Approval requirement.
+- Dependencies.
+- Verification criteria.
+
+---
+
+## 15. Mandatory Execution Restrictions
+DO NOT:
+- Write application source code.
+- Implement features.
+- Create database schemas in a running database.
+- Install dependencies or plugins.
+- Enable external integrations.
+- Deploy applications.
+- Delete project files.
+- Silently modify guideline rules.
+- Invent research results or unavailable tool capabilities.
+- Treat suggested features as approved.
+- Skip required approvals.
+
+DO:
+- Inspect the existing project.
+- Analyze and research.
+- Identify gaps.
+- Propose project-specific configurations.
+- Recommend architecture and technologies.
+- Create a comprehensive implementation plan.
+- Identify required approvals.
+- Present the final planning report.
+
+STOP AFTER THE PLANNING REPORT.
+Wait for explicit approval before applying documentation changes or starting development.
+```
+
+## Step 4 — Review and approve the development plan
+
+After Prompt 1, the AI agent should provide the project plan, recommended stack, architecture, proposed features and documentation-update matrix.
+
+Before proceeding, check whether the plan defines the actual MVP, identifies unnecessary technologies, covers security, and distinguishes required features from optional suggestions.
+
+Do not approve the plan simply because it is detailed. Check that the decisions make sense for your product and budget.
+
+## Step 5 — Prompt 2: Configure the complete project codebase
+
+Once the plan is approved, use this prompt.
 
 ```markdown
-PROMPT V2 — SCAFFOLDING & LIVE WORKING UI
+# PROMPT 2 — APPROVED PROJECT CONFIGURATION
 
-Your Role:
-Act as a Lead Frontend Engineer and Full-Stack Developer specializing in rapid execution.
+The project discovery, research, and development plan has been reviewed and approved.
 
-Your Objective:
-Generate the project structure, install verified dependencies, implement the main responsive navigation and dashboard layouts with high-fidelity mock data, and launch the dev server.
+Approved Plan: <PLAN_REFERENCE_OR_VERSION>
+Approved Technology Stack: <STACK>
+Project: <PROJECT_NAME>
 
-1. Instructions
-- Scaffold the application using the tech stack approved in Prompt V1.
-- Configure Tailwind CSS, design tokens, and base UI component library.
-- Implement responsive layout: Sidebar navigation, header with user avatar, and breadcrumbs.
-- Build the core landing dashboard screen populated with realistic, production-like mock data.
-- Ensure zero TypeScript compiler errors and zero console warnings.
-- Run the local startup command and report the active local URL.
+Now configure the existing project template according to the approved plan.
 
-2. Karpathy Heuristics Applied:
-- Inspect raw data structures: Build explicit TypeScript interfaces for mock entities before rendering components.
-- Single-batch overfit: Ensure the main dashboard renders perfectly from end to end before adding sub-routes.
+## Instructions
+1. Read the approved plan and existing project guidelines.
+2. Verify the approved guideline baseline.
+3. Inventory all files before modification.
+4. Update project-specific documentation according to the approved decisions.
+5. Create missing project-specific specification documents only when required.
+6. Maintain all existing guideline policies.
+7. Preserve existing IDE-specific configuration files (or execute approved pruning/coexistence per docs/ide-compatibility.md).
+8. Configure agent instructions for the intended coding platform.
+9. Prepare documented skills, hooks, commands, plugins, and MCP configuration proposals in .agents/.
+10. Configure safe environment variable examples without real credentials.
+11. Define project architecture, database contracts, APIs, design system, milestones, and tasks.
+12. Add requirements traceability and acceptance criteria.
+13. Prepare testing and CI/CD configuration plans.
+14. Configure the project's docs/ and specs/ structure (selecting Format 1: Flat files or Format 2: Modular folders in SDD).
 
-3. Completion Requirement:
-Provide the exact terminal command to run the application locally (or run /run-ca-agent) and verify that the UI renders without errors.
+## Strict Scope
+You are authorized to update project-specific documentation and compatible configuration files according to the approved plan.
+Do not implement application features, install dependencies, connect services, run migrations, or deploy.
+Do not modify fixed guideline rules without a separately approved guideline revision.
+For SDD, keep feature specifications in Draft or Review status until explicit approval is recorded.
+
+## Required Report
+After configuration, provide:
+- Files created.
+- Files modified.
+- Files intentionally unchanged.
+- Documentation completeness.
+- Guideline compliance.
+- Spec approval status.
+- Agent/IDE compatibility status.
+- Configuration checks actually performed.
+- Unresolved questions.
+- Readiness assessment.
+
+STOP when project configuration is complete. Do not start feature implementation without my next approval.
 ```
 
----
+## Step 6 — Prompt 3: Approve SDD specifications and prepare TDD
 
-### Prompt V3 — Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)
-**Slash Command:** `/task-ca-agent` (followed by `/review-ca-agent`)  
-**Operating Mode:** Implementation & Refinement Mode  
-**Purpose:** Iteratively adjust UI components, polish interactions, add business views, and tune the aesthetic feel.
+For the SDD framework, this is a mandatory checkpoint before implementation.
 
 ```markdown
-PROMPT V3 — CONVERSATIONAL VIBE-TUNING
+# PROMPT 3 — SPECIFICATION VALIDATION & TDD READINESS
 
-Your Role:
-Act as a Senior UI/UX Engineer paired with a Product Specialist.
+Review all project-specific specifications against the approved PRD, architecture, database contracts, API contracts, and UI/UX requirements.
 
-Your Objective:
-Refine the active screen, improve component feel, and add the next core feature based on interactive feedback.
+1. Detect ambiguous, contradictory, missing, or untestable requirements.
+2. Verify every feature in specs/ has a unique ID, version, scope, and acceptance criteria (confirming user format preference: Format 1 Flat files vs Format 2 Modular folders).
+3. Verify requirements-to-test traceability.
+4. Review security, accessibility, performance, and failure scenarios.
+5. Identify unresolved dependencies and implementation blockers.
+6. Propose corrections without silently changing approved specifications.
+7. Present the list of feature specifications ready for approval.
+8. Produce the TDD test plan for the first authorized feature.
+9. Define the expected red -> green -> refactor sequence.
+10. Define the merge and release quality gates.
 
-1. Target Feature / Adjustments:
-Feature to Add / Polish: <e.g., Student Attendance Tracker / Course Schedule Grid / Fee Invoice Drawer>
-Specific Visual Tweaks: <e.g., Make table rows denser, add badge status pills (Active/Overdue/Pending), add smooth hover transitions>
+Do not automatically approve specifications on my behalf.
+Do not implement application code.
+Only specifications explicitly approved by an authorized reviewer may become the implementation baseline.
 
-2. Execution Guidelines:
-- Keep the loop tight: Edit only the necessary components and sub-modules.
-- Use modular components: Extract reusable table, card, and modal elements.
-- Verify live state: Ensure all mock interactions (clicks, tab switches, filter searches) work smoothly.
-- Reference .agents/commands/review-ca-agent.md before completing the turn.
-
-3. Completion Report:
-List the exact components modified, describe visual/UX enhancements applied, and confirm local runtime stability.
+STOP and present the specification-readiness and approval report.
 ```
 
----
+For Vibe Coding, use this step when transitioning from prototype exploration to production-bound development.
 
-### Prompt V4 — Production Hardening, Polish & Pre-Deploy
-**Slash Command:** `/security-audit-ca-agent` (followed by `/release-check-ca-agent`)  
-**Operating Mode:** Quality Audit & Hardening Mode  
-**Purpose:** Transform the prototype into a secure, production-grade application ready for deployment.
+## Step 7 — Prompt 4: Develop one approved feature
+
+Once a feature is approved, avoid asking the agent to implement the entire application at once. Work feature by feature or in small independently verifiable work packages.
 
 ```markdown
-PROMPT V4 — PRODUCTION HARDENING & DEPLOYMENT PREPARATION
+# PROMPT 4 — FEATURE IMPLEMENTATION USING SDD + TDD
 
-Your Role:
-Act as a Senior DevOps and Cybersecurity Engineer.
+Implement the following approved feature:
 
-Your Objective:
-Harden the codebase for production deployment: enforce authentication guards, input validation schemas, environment variable sanitization, and production build checks.
+Project: <PROJECT_NAME>
+Feature ID: <FEATURE_ID>
+Feature Name: <FEATURE_NAME>
+Approved Specification Version: <SPEC_VERSION>
+Task ID: <TASK_ID>
 
-1. Hardening Checklist:
-- Input Validation: Implement Zod schemas for all forms and API endpoints.
-- Error Boundaries: Add React error boundaries and graceful empty-state fallbacks.
-- Security Headers: Configure CSP, CORS, X-Frame-Options, and secure cookie policies.
-- Environment Separation: Ensure zero hardcoded API keys or secrets; create .env.example with complete documentation.
-- Production Build Verification: Run full build and lint scripts; ensure zero build warnings or type errors.
-- Containerization: Provide a lightweight multi-stage Dockerfile or Vercel/Netlify deploy configuration.
+## Mandatory Workflow
+1. Read canonical guidelines and the latest approved feature specification in specs/.
+2. Inspect relevant existing code and contracts.
+3. Confirm the implementation scope and affected files.
+4. Check dependencies and identify blockers.
+5. Write tests based on the approved acceptance criteria.
+6. Execute the tests and verify the intended failure state (Red phase).
+7. Implement the minimum code needed to satisfy the tests (Green phase).
+8. Refactor without changing approved behavior.
+9. Run affected unit, integration, and contract tests.
+10. Execute relevant E2E, security, accessibility, and performance checks.
+11. Verify UI/UX against approved design specifications where applicable.
+12. Check for regressions and unauthorized scope changes.
+13. Update implementation documentation and test evidence.
+14. Record actual results and unresolved issues.
 
-2. Quality Gate:
-Execute /security-audit-ca-agent and /release-check-ca-agent to verify production readiness.
+## Rules
+- MUST NOT implement features outside the approved specification.
+- MUST NOT change the technology stack without approval.
+- MUST NOT bypass test-first requirements.
+- MUST NOT fabricate test or verification results.
+- MUST NOT silently disable failing checks.
+- MUST NOT commit, push, merge, or deploy unless those actions are explicitly authorized.
+- MUST report any guideline/specification conflict and stop the affected work.
+
+## Completion Report
+Provide:
+- Implemented requirement IDs.
+- Files created or modified.
+- Tests written before implementation.
+- Commands executed.
+- Actual test results.
+- UI/UX verification results.
+- Security and performance findings.
+- Remaining issues.
+- Acceptance criteria status.
+- Recommendation for the next task.
+
+STOP after this feature is completed and verified.
 ```
 
----
-
-## 4. TAB / WINDOW 2: Spec-Driven Development + TDD Framework
-### Formal, Contract-Bound, Test-First & Traceable (5 Formal Quality Gates)
-
-The SDD-TDD framework is engineered for high-assurance, enterprise systems where every feature must be preceded by an approved specification, failing test suite, and traceable acceptance criteria.
-
-```mermaid
-flowchart TD
-    SetupS["Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> IDEDetectS{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectS -->|"Single-IDE"| PruneS["Auto-prune irrelevant IDE configs"]
-    IDEDetectS -->|"Multi-IDE"| SyncS["Harmonize active adapters to AGENTS.md"]
-    
-    PruneS --> PS1["Prompt S1: Discovery & Architecture R&D<br/>(Plan Mode: Multi-tenant models, ADRs, compliance)"]
-    SyncS --> PS1
-    
-    PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
-    HumanS1 -->|"Revise plan"| PS1
-    HumanS1 -->|"Approved"| PS2["Prompt S2: Configure Complete Codebase<br/>(docs/, playbooks/, tests/, activate -ca-agent commands)"]
-    
-    PS2 --> PS3["Prompt S3: Spec Approval & Test Harness<br/>(Select specs/ Format 1 or 2, Acceptance Criteria)"]
-    PS3 --> RedPhase["Scaffold Failing Tests (Red Phase)<br/>(Run /testing-ca-agent -> Confirm failures)"]
-    
-    RedPhase --> PS4["Prompt S4: TDD Feature Implementation<br/>(Minimal code -> All tests PASS -> Refactor)"]
-    PS4 --> GateCheck{"All AC Tests Green<br/>and /review-ca-agent clean?"}
-    GateCheck -->|"Failing tests"| PS4
-    GateCheck -->|"Passed"| NextFeature{"More features<br/>in specs/?"}
-    NextFeature -->|"Yes"| PS3
-    NextFeature -->|"All complete"| PS5["Prompt S5: Production Readiness Audit<br/>(SAST scans, release checklist, signed approval)"]
-    
-    PS5 --> ReleaseS["Production Release Authorization<br/>(docs/approvals/RELEASE-AUTHORIZATION.md)"]
-```
-
-### Prompt S1 — Master Project Discovery, Architecture R&D & Pre-Development Planning
-**Slash Command:** `/plan-ca-agent`  
-**Operating Mode:** Plan Mode / Read-Only Planning  
-**Purpose:** Deep technical discovery, system architecture, database schema, risk analysis, and IDE detection/cleanup.
+## Step 8 — Prompt 5: Final review and production-readiness validation
 
 ```markdown
-PROMPT S1 — MASTER PROJECT DISCOVERY, R&D & ARCHITECTURE PLANNING
+# PROMPT 5 — PRODUCTION READINESS AUDIT
 
-Your Role:
-Act as a team of senior enterprise software professionals with 15+ years of experience:
-- Senior Enterprise Architect & Technical Program Manager
-- Senior Backend & Database Architect
-- Senior Cybersecurity & Compliance Engineer
-- Lead QA Automation & Test Architect
+Perform a comprehensive production-readiness review of the project.
 
-Your Objective:
-Conduct deep technical research and draft a comprehensive architectural plan for a scalable, secure, multi-tenant SaaS application adhering to Spec-Driven Development.
+Validate:
+1. Approved requirements and feature versions.
+2. Requirements traceability.
+3. Architecture compliance.
+4. Source-code quality.
+5. Security and privacy.
+6. Authentication and authorization.
+7. Database and API correctness.
+8. Automated test results.
+9. Critical user journeys.
+10. Accessibility and responsive behavior.
+11. UI/UX fidelity.
+12. Performance and scalability.
+13. Dependency vulnerabilities.
+14. Environment and secrets configuration.
+15. Monitoring, logging, and alerting.
+16. Backup and recovery.
+17. CI/CD and artifact integrity.
+18. Deployment and rollback plans.
+19. Documentation, runbooks, and handoff.
+20. Outstanding defects, risks, and release blockers.
 
-IMPORTANT: WORK IN PLAN MODE ONLY. DO NOT WRITE CODE. DO NOT CREATE DATABASE MIGRATIONS YET.
+Compare all verifiable implementation outcomes against the latest approved requirements.
+Report actual evidence rather than assuming checks passed.
 
-1. Project Information
-Project Name: <PROJECT_NAME>
-Product Type: <Multi-Tenant SaaS / Enterprise Platform / Financial System / Healthcare Application>
-Project Description: <Detailed description of business domain, operational workflows, and tenant requirements>
-Target Audience: <Roles e.g., SuperAdmin, TenantAdmin, Operator, EndUser>
-Compliance Requirements: <GDPR / FERPA / HIPAA / SOC2 / None>
-Selected Active IDE(s): <Antigravity / Cursor / Windsurf / OpenCode / Claude Code / Multi-IDE list>
+Classify findings as:
+- Blocker
+- Critical
+- High
+- Medium
+- Low
+- Informational
 
-2. Mandatory Repository & Environment Inspection
-- Inspect project root: README.md, AGENTS.md, docs/INDEX.md, docs/constitution.md, docs/rules.md.
-- Execute IDE Detection & Pruning per docs/ide-compatibility.md:
-  * Prune inactive IDE configs in Single-IDE mode or synchronize declared active adapters in Multi-IDE mode.
-- Inspect .agents/ structure: Verify that all commands use the collision-free -ca-agent.md naming.
-- Review .agents/skills/andrej-karpathy-skill/ for data-first and micro-baseline heuristics.
+Provide a release readiness report with Passed, Failed, Not Run, and Not Applicable status for each gate.
+Do not claim 100% compliance unless all required criteria have been verified.
+Do not deploy.
 
-3. Required Architectural Deliverables:
-Provide a comprehensive Implementation Plan Artifact covering:
-1. System Architecture: Service boundaries, API style (REST/GraphQL/gRPC), authentication model (JWT/OAuth2/RBAC).
-2. Database Schema Design: Entity-Relationship diagram, tenant isolation strategy (shared DB with tenant_id vs schema-per-tenant), indexing strategies.
-3. Security & Governance: Row-Level Security (RLS), input sanitization, rate limiting, and secret management.
-4. Specification Roadmap: Numbered breakdown of all core features to be specified in specs/.
-5. Risk Assessment & Mitigation Matrix.
-
-Rules:
-- MUST treat docs/rules.md and docs/constitution.md as the non-negotiable process authority.
-- MUST NOT generate application code or alter database state in this step.
-- MUST present the complete plan for human review and approval.
+STOP and request explicit release authorization.
 ```
 
----
+## Complete workflow overview
 
-### Prompt S2 — Configure the Complete Project Codebase
-**Slash Command:** `/task-ca-agent`  
-**Operating Mode:** Configuration & Project Scaffolding Mode  
-**Purpose:** Update all governance documentation in `docs/`, configure `playbooks/`, setup `tests/`, configure `.agents/` hooks/skills/templates, and activate `-ca-agent` commands for the project.
+1. **Extract and rename project** — Choose Vibe Coding or SDD, and open the project root in your IDE.
+2. **Prompt 1: Research and plan** — Produce requirements, recommendations, architecture and documentation changes. No coding.
+3. **Human approval** — Confirm product scope, technical approach, budget and design direction.
+4. **Prompt 2: Configure project** — Update approved project-specific documentation and safe configurations.
+5. **Prompt 3: Validate specs** — Check traceability, acceptance criteria and TDD readiness; approve feature specs.
+6. **Prompt 4: Implement feature** — Write tests first, implement one approved scope, verify and review.
+7. **Repeat feature cycle** — Continue by milestone, recording every approved requirement change.
+8. **Prompt 5: Release audit** — Run all quality gates and request production release authorization.
 
-```markdown
-PROMPT S2 — CONFIGURE COMPLETE PROJECT CODEBASE & AGENTS
+## Additional professional recommendations
 
-Your Role:
-Act as a Principal DevOps Architect and Engineering Operations Lead.
+I recommend three adjustments to your original example:
 
-Your Objective:
-Transform the generic SDD template into a fully customized, project-specific engineering harness based on the approved architecture plan from Prompt S1.
+First, write OAuth/OIDC rather than "0Auth." Google and GitHub authentication are potential providers, but their suitability depends on your actual users. For a school-focused product, you may also need Microsoft or institution-managed identity providers.
 
-1. Instructions & Target Areas:
-- Documentation Layer (docs/):
-  * Update docs/memory.md with the approved project scope, tech stack, and architectural decisions.
-  * Update docs/tech-stacks.md, docs/system-architecture.md, docs/database.md, and docs/security.md.
-  * Record initial Architectural Decision Records in docs/adrs/ (e.g., ADR-001: Tech Stack, ADR-002: Tenant Isolation).
-- Testing Layer (tests/):
-  * Initialize test runner configuration (e.g. Jest, Vitest, pytest, or Go test).
-  * Setup unit, integration, and end-to-end test directory scaffolds.
-- Agent Layer (.agents/):
-  * Configure .agents/hooks/HOOK-MATRIX.md with project-specific validation triggers.
-  * Activate custom slash commands: Ensure /plan-ca-agent, /tdd-ca-agent, /testing-ca-agent, /review-ca-agent are mapped.
-  * Verify that andrej-karpathy-skill and domain review skills are active.
+Second, use HTML5 and modern CSS rather than treating "CSS4" as one universal technology version. CSS features evolve across multiple specifications.
 
-2. Quality Gate:
-Verify that all updated documents reference valid paths and that no broken links exist in docs/INDEX.md.
-Do not write feature implementation code yet.
-```
+Third, classify your preferred tools correctly: shadcn/ui is a component system, Recharts is for charts, Motion and Anime.js support animation, and Dribbble is a design-inspiration platform. They should not all be treated as interchangeable UI frameworks.
 
----
+### Recommended starting point
 
-### Prompt S3 — Approve SDD Specifications & Scaffold Failing TDD Tests
-**Slash Command:** `/spec-check-ca-agent` (followed by `/testing-ca-agent`)  
-**Operating Mode:** Specification & Test Authoring Mode  
-**Purpose:** Formalize feature specifications in `specs/` (asking user to select Format 1 or Format 2), establish acceptance criteria, and scaffold failing unit/integration tests before writing any code.
+For a new SaaS product, use Prompt 1 first. Let the agent research and propose before you approve technology choices, features, or project-specific changes.
 
-```markdown
-PROMPT S3 — SPECIFICATION APPROVAL & TDD READINESS
+For your SDD framework, Prompt 3 is essential before Prompt 4. It establishes the approved specification and test-first contract that keeps implementation controlled and predictable.
 
-Your Role:
-Act as a Senior Product Requirements Specialist and Lead QA Automation Architect.
-
-Your Objective:
-Author the official feature specification in specs/, obtain format alignment, define strict Acceptance Criteria (AC), and scaffold the corresponding failing test suite.
-
-1. Target Feature:
-Feature Name: <e.g., 001.spec.tenant-authentication>
-Feature Scope: <Define exact business workflows, roles, inputs, and invariants>
-
-2. User Format Selection:
-Ask the user to confirm their preferred specification layout if not previously selected:
-- Format 1 (Flat file): specs/001.spec.<feature-name>.md
-- Format 2 (Modular folder): specs/001.spec.<feature-name>/ containing memory.md, rules.md, task.md
-
-3. Specification Authoring:
-Author the specification including:
-- Unique Spec ID and Version (e.g. SPEC-001, Version 1.0.0-APPROVED).
-- Domain Invariants and Security Constraints.
-- Exact API contracts (endpoints, request/response JSON schemas, error codes).
-- Traceable Acceptance Criteria with unique IDs (e.g. AC-AUTH-001, AC-AUTH-002).
-
-4. Test-First Scaffolding (TDD Red Phase):
-- Author unit and integration test files that directly test every Acceptance Criterion ID.
-- Run the test suite using /testing-ca-agent and verify that tests fail as expected (RED phase).
-- Ensure failure is due to missing implementation, not syntax or import errors.
-
-Rules:
-- MUST NOT write implementation code in this step.
-- MUST ensure every Acceptance Criterion has at least one corresponding failing test.
-```
-
----
-
-### Prompt S4 — Develop One Approved Feature (Strict TDD Cycle)
-**Slash Command:** `/tdd-ca-agent` (followed by `/review-ca-agent`)  
-**Operating Mode:** Implementation & TDD Mode  
-**Purpose:** Implement the minimum clean code required to pass the failing tests (Green phase), refactor for quality, and commit with atomic traceability.
-
-```markdown
-PROMPT S4 — TDD FEATURE IMPLEMENTATION (RED-GREEN-REFACTOR)
-
-Your Role:
-Act as a Senior Software Engineer specializing in Test-Driven Development and Clean Architecture.
-
-Your Objective:
-Implement the approved feature to turn all failing tests green, refactor for maintainability, and verify full compliance with the specification.
-
-1. Feature Scope:
-Target Spec: <e.g., specs/001.spec.tenant-authentication.md>
-Approved Acceptance Criteria: <e.g., AC-AUTH-001 through AC-AUTH-005>
-
-2. TDD Execution Sequence:
-1. Verify Red State: Run /testing-ca-agent to confirm initial failing tests.
-2. Green Phase (Minimal Code):
-   - Implement the domain logic, database queries, and route handlers.
-   - Write only the minimal code necessary to satisfy the failing tests.
-   - Re-run /testing-ca-agent until all tests PASS (100% green).
-3. Refactor Phase:
-   - Clean up code duplication, optimize queries, and enforce type safety.
-   - Re-run test suite to guarantee zero regression.
-4. Security & Quality Review:
-   - Run /review-ca-agent to inspect diff, ensure zero secrets or debug logs.
-
-Rules:
-- MUST NOT implement any behavior not defined in the approved specification.
-- MUST NOT modify test assertions to force a pass.
-- MUST produce an atomic commit message citing the Spec ID and AC IDs.
-```
-
----
-
-### Prompt S5 — Final Review & Production-Readiness Validation
-**Slash Command:** `/security-audit-ca-agent` + `/verify-ca-agent` + `/release-check-ca-agent`  
-**Operating Mode:** Release Engineering & Audit Mode  
-**Purpose:** Execute all quality gates, security scans, performance benchmarks, and authorize release.
-
-```markdown
-PROMPT S5 — PRODUCTION READINESS AUDIT & RELEASE GATE
-
-Your Role:
-Act as a Principal Release Engineer, Security Auditor, and Compliance Officer.
-
-Your Objective:
-Conduct a comprehensive production readiness audit across the entire codebase and generate the final Release Authorization Report.
-
-1. Audit Scope & Quality Gates:
-- Full Test Suite Execution: Unit, integration, and contract tests must pass with 100% success.
-- Security Audit (/security-audit-ca-agent):
-  * Static code analysis (SAST) for SQL injection, XSS, CSRF, and timing attacks.
-  * Dependency vulnerability scan (audit for CVEs).
-  * Verification that zero credentials, API tokens, or secrets exist in repository history.
-- Performance & Query Profiling:
-  * Database query analysis (no N+1 queries, verified indexes on foreign keys).
-  * API response latency evaluation under simulated load.
-- Traceability Audit (/spec-check-ca-agent):
-  * Verify that 100% of Acceptance Criteria across all specs/ have passing automated tests.
-- Release Checklist: Complete docs/release-checklist.md with verified evidence.
-
-2. Deliverable:
-Produce a formal Release Sign-Off Report in docs/approvals/ documenting audit findings, test summaries, and authorization decision.
-```
-
----
-
-## 5. End-to-End Production Demo Example: School Management SaaS (SMS)
-### Layman-Friendly Step-by-Step Walkthrough via Slash Commands (Purely Instructional — Zero Code in Framework Folders)
-
-To demonstrate how slash commands drive development in practice, this section walks through the complete prompt-by-prompt journey of building **EduSphere**, a multi-tenant School Management SaaS.
-
-> [!IMPORTANT]
-> **No Application Code in Framework Folders:**
-> This demonstration illustrates the exact slash commands you paste into your AI IDE chat. The framework folders (`Vibe-Coding` and `Spec-Driven-Development`) remain clean templates.
-
-#### The Demo Product: EduSphere SMS
-- **Core Modules:** Student Rosters, Daily Attendance Sheet, Course Scheduling, Tuition Billing, Guardian Alerts.
-- **User Roles:** SuperAdmin, SchoolAdmin (Principal), Teacher, Student, Parent.
-
----
-
-### Part A: The SMS Demo via Vibe-Coding (Driven by Slash Commands)
-
-#### Step V1: Discovery & Aesthetic Vibe Check
-**Command Typed into Chat:**
-```markdown
-/plan-ca-agent Project Name: EduSphere School Management SaaS
-Product Type: Multi-Tenant Web SaaS
-Product Vision: A modern, friendly, and ultra-fast portal for schools. Schools can manage student rosters, take daily classroom attendance in 30 seconds, generate tuition invoices, and give parents real-time visibility.
-Target Users: School Principals, Teachers (mobile-first), Parents, Students.
-Aesthetic / Vibe: Warm Modern SaaS (Indigo & Slate palette, clean typography, rounded cards, instant search filters, optimistic UI).
-Active IDE: Antigravity
-```
-*What the AI Agent Does:*
-- Invokes `/plan-ca-agent` contract in read-only mode.
-- Detects Antigravity, auto-prunes competing `.cursor/`, `.windsurf/`, `.claude/` files.
-- Generates an **Implementation Plan Artifact** specifying: Next.js App Router, Tailwind CSS, Lucide icons, Supabase/PostgreSQL schema, and component hierarchy.
-
----
-
-#### Step V2: Scaffold Layout & Launch Dev Server
-**Command Typed into Chat:**
-```markdown
-/implement-ca-agent Scaffold the EduSphere application based on the approved V1 plan.
-Create the responsive sidebar navigation (Students, Attendance, Courses, Billing, Settings).
-Populate the main dashboard with 4 summary stat cards (Total Students: 1,240, Today's Attendance: 96.4%, Pending Invoices: $14,200, Active Teachers: 68), and a Recent Activity feed.
-Follow with:
-/run-ca-agent Start the local development server and verify the active URL.
-```
-*What the AI Agent Does:*
-- Implements the layout, Tailwind tokens, and dashboard component with realistic mock data.
-- Runs `/run-ca-agent` which starts the dev server and reports `http://localhost:3000` is live.
-- The developer opens the browser and visually verifies the dashboard layout.
-
----
-
-#### Step V3: Conversational Vibe-Tuning (Karpathy Loops)
-**Command Typed into Chat:**
-```markdown
-/task-ca-agent Build the Classroom Attendance sheet for 'Grade 10 - Section B (Biology)'.
-Display 25 students with avatars, roll numbers, and quick toggle badges for [Present (Green), Absent (Red), Late (Yellow), Excused (Blue)].
-Add a 1-click 'Mark All Present' button at the top.
-Keep the interactions instant with smooth color transitions.
-Follow with:
-/review-ca-agent
-```
-*What the AI Agent Does:*
-- Creates `AttendanceSheet.tsx` with optimistic state toggling (instant badge clicks without page reload).
-- Runs `/review-ca-agent` to inspect the git diff, ensuring clean component structure and zero console warnings.
-
----
-
-#### Step V4: Production Hardening & Pre-Deploy Audit
-**Command Typed into Chat:**
-```markdown
-/security-audit-ca-agent
-Audit EduSphere for security: wrap state inputs in Zod schemas, add error boundaries, and configure authentication route guards.
-Follow with:
-/release-check-ca-agent
-Verify production build and generate deployment readiness checklist.
-```
-*What the AI Agent Does:*
-- Enforces Zod schemas on form inputs and adds React error boundaries.
-- Runs `/security-audit-ca-agent` (verifying zero secret leaks and clean security posture).
-- Runs `/release-check-ca-agent`, runs `npm run build`, and confirms 100% production readiness.
-
----
-
-### Part B: The SMS Demo via SDD + TDD (Driven by Slash Commands)
-
-#### Step S1: Enterprise Architecture Discovery & Compliance R&D
-**Command Typed into Chat:**
-```markdown
-/plan-ca-agent Project Name: EduSphere Enterprise School Management System
-Product Type: Multi-Tenant Enterprise SaaS
-Project Description: Enterprise education ERP requiring strict tenant data isolation, FERPA compliance, auditable grade changes, and automated tuition payment processing.
-Target Audience: District Admins, School Principals, Teachers, Accountants, Parents.
-Compliance: FERPA & GDPR compliant audit logging.
-Selected Active IDE: Antigravity
-```
-*What the AI Agent Does:*
-- Formulates architectural design in plan mode: PostgreSQL Row-Level Security (RLS) for tenant isolation, JWT authentication with rotating refresh tokens, and immutable audit logs.
-- Establishes specification roadmap: `001.spec.tenant-auth`, `002.spec.student-enrollment`, `003.spec.fee-billing`.
-
----
-
-#### Step S2: Configure Codebase & Test Harness
-**Command Typed into Chat:**
-```markdown
-/task-ca-agent Configure EduSphere codebase docs/, playbooks/, tests/ harness, and activate .agents/ custom commands.
-Record ADR-001 (Multi-Tenant RLS) and ADR-002 (FERPA Audit Logging) in docs/adrs/.
-Setup Vitest test runner configuration in tests/.
-```
-*What the AI Agent Does:*
-- Updates `docs/memory.md`, `docs/database.md`, and writes ADRs.
-- Initializes test harness in `tests/`.
-- Configures `.agents/hooks/HOOK-MATRIX.md` with pre-commit gates.
-
----
-
-#### Step S3: Author Specification & Scaffold Failing Tests (Red Phase)
-**Command Typed into Chat:**
-```markdown
-/spec-check-ca-agent Author specification for Feature 002: Student Enrollment in specs/002.spec.student-enrollment.md using Format 1.
-Define Acceptance Criteria:
-- AC-ENROLL-001: Generate immutable Student ID matching format 'SCH-{YEAR}-{SEQUENCE:05d}'.
-- AC-ENROLL-002: Reject enrollment if primary guardian email or phone is missing.
-- AC-ENROLL-003: Prevent duplicate enrollment for same student name + DOB in same academic year.
-Follow with:
-/testing-ca-agent tests/unit/student-enrollment.test.ts
-Scaffold failing tests covering all 3 ACs and confirm RED failure state.
-```
-*What the AI Agent Does:*
-- Authors `specs/002.spec.student-enrollment.md` with complete API contracts and schema constraints.
-- Scaffolds `tests/unit/student-enrollment.test.ts` testing each AC ID.
-- Executes `/testing-ca-agent` and verifies that all 3 tests fail (Red phase established).
-
----
-
-#### Step S4: TDD Feature Implementation (Green & Refactor Phase)
-**Command Typed into Chat:**
-```markdown
-/tdd-ca-agent specs/002.spec.student-enrollment.md
-Implement StudentEnrollmentService and API endpoint.
-Write the minimal clean code required to turn all 3 failing tests green.
-Follow with:
-/review-ca-agent
-```
-*What the AI Agent Does:*
-- Implements enrollment logic with database sequence generation and uniqueness constraints.
-- Runs tests: 3/3 tests PASS (Green phase).
-- Runs `/review-ca-agent` to verify clean diff, zero lint errors, and atomic commit message citing Spec ID and AC IDs.
-
----
-
-#### Step S5: Production Readiness Audit & Release Gate
-**Command Typed into Chat:**
-```markdown
-/security-audit-ca-agent
-Run SAST vulnerability scanning, dependency CVE audits, and FERPA log validation.
-Follow with:
-/verify-ca-agent specs/
-Verify 100% of Acceptance Criteria across all specs/ have passing tests.
-Follow with:
-/release-check-ca-agent
-Generate final signed Release Authorization in docs/approvals/RELEASE-1.0.0-AUTHORIZATION.md.
-```
-*What the AI Agent Does:*
-- Executes security scan and confirms zero vulnerabilities.
-- Executes `/verify-ca-agent` confirming complete AC test coverage.
-- Completes `docs/release-checklist.md` and generates formal release authorization report.
-
-## 6. Command & Architecture Quick Reference
-
-### 6.1 Collision-Free Custom Commands (`.agents/commands/`)
-| Slash Command | File Name | Primary Purpose |
-|---|---|---|
-| `/plan-ca-agent` | `plan-ca-agent.md` | Scoped pre-development discovery and architecture alignment |
-| `/run-ca-agent` | `run-ca-agent.md` | Documented local startup and runtime verification |
-| `/tdd-ca-agent` | `tdd-ca-agent.md` | Red-Green-Refactor test-driven implementation cycle |
-| `/testing-ca-agent` | `testing-ca-agent.md` | Targeted test suite execution and failure reporting |
-| `/implement-ca-agent` | `implement-ca-agent.md` | Scope-restricted feature implementation |
-| `/review-ca-agent` | `review-ca-agent.md` | Pre-commit diff, lint, and security review |
-| `/verify-ca-agent` | `verify-ca-agent.md` | Objective gate verification against specifications |
-| `/spec-check-ca-agent` | `spec-check-ca-agent.md` | Feature spec traceability and criteria check |
-| `/task-ca-agent` | `task-ca-agent.md` | Atomic task execution and contract enforcement |
-| `/security-audit-ca-agent` | `security-audit-ca-agent.md` | SAST, secret leak, and dependency audit |
-| `/release-check-ca-agent` | `release-check-ca-agent.md` | Final production gate and ship/no-ship decision |
-| `/change-request-ca-agent` | `change-request-ca-agent.md` | Formal change impact assessment and spec revision |
-| `/handoff-ca-agent` | `handoff-ca-agent.md` | Verifiable engineering handoff report generation |
-| `/errorlogs-ca-agent` | `errorlogs-ca-agent.md` | Diagnostic log analysis and error tracking |
-| `/gitlogs-ca-agent` | `gitlogs-ca-agent.md` | Commit history and git traceability validation |
-
-### 6.2 In-Built Skills Map (`.agents/skills/`)
-- `andrej-karpathy-skill` — Core AI engineering heuristics (data-first, micro-baseline, failure-mode testing, vibe loops).
-- `architecture-review` — System design and contract verification.
-- `tdd-enforcer` — Strict test-first cycle validator.
-- `security-auditor` — Security and credential vulnerability analysis.
-- `spec-validator` — Acceptance criteria and specification completeness checker.
-- `ui-fidelity-review` — Design token and responsive UI quality auditing.
-
----
-*End of Complete Setup & Prompting Guide — Build with Confidence.*
+These five prompts form a reusable project-starting workflow that you can apply across your future Vibe Coding and SDD projects.
