@@ -19,7 +19,7 @@ Tool adapters (`CLAUDE.md`, `.cursorrules`, `.windsurfrules`, or platform-specif
 - **MUST** read and follow `docs/ide-compatibility.md` before configuring, switching, or initializing an AI coding IDE or agent.
 - **MUST** preserve the canonical project guidelines, approved specifications, and existing IDE configuration files.
 - **MUST** identify the active IDE and verify which instruction files, skills, hooks, commands, and MCP servers it supports.
-- **MUST NOT** automatically delete, overwrite, or disable configuration files belonging to other IDEs.
+- **MUST** execute IDE detection and pruning per `docs/ide-compatibility.md`: In Single-IDE mode, automatically remove irrelevant IDE files before first execution to avoid conflict. In Multi-IDE mode, harmonize all active IDE adapters to canonical `AGENTS.md` and `.agents/`.
 - **MUST NOT** assume an instruction file is loaded merely because it exists.
 - **MUST** use `docs/ide-compatibility.md` as the authoritative policy for IDE compatibility and configuration management.
 - **MUST** request approval before modifying IDE configurations or enabling new external integrations.

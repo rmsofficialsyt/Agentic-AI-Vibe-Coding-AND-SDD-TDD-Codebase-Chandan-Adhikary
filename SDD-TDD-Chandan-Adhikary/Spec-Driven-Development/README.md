@@ -18,7 +18,7 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 - **Guidelines:** fixed baseline `1.0.0`; revisions require reason, date, approval, version and `docs/guideline-CHANGELOG.md` entry.
 - **Features:** living approved versioned requirements; changes follow formal intake and TDD before code.
 - **Authority:** never implement behavior missing from the latest approved feature spec.
-- **Spec location:** `docs/` only, including `docs/features/`. Do not create `specs/`.
+- **Spec location:** Official `specs/` directory, supporting two user-selectable formats (Format 1: Flat files e.g. `001.spec.<feature>.md` or Format 2: Modular folders e.g. `001.spec.<feature>/{memory.md, rules.md, task.md}`).
 
 ## Framework emphasis
 
@@ -26,7 +26,7 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 
 ## Repository map
 
-`docs/` — policy/specs and state; `playbooks/` — operation guides; `agent/` — portable skills/hooks/commands; `.github/` — examples for GitHub; `tests/` — test harness contract.
+`docs/` — policy/specs and state; `playbooks/` — operation guides; `specs/` — feature specifications; `.agents/` — portable skills (including `andrej-karpathy-skill`), hooks, collision-free `-ca-agent` commands; `.github/` — examples for GitHub; `tests/` — test harness contract.
 
 ## Licensing and contributing
 

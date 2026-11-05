@@ -57,7 +57,8 @@
 - `docs/changes/`, `docs/approvals/`: SDD change and approval records where applicable.
 - `docs/domains/`: optional controlled domain extensions.
 - `playbooks/`: 11 operational workflow instructions.
-- `agent/`: portable skills, commands, hook descriptions, templates; platform-specific adapters are not automatically enabled.
+- `.agents/`: portable skills (including `andrej-karpathy-skill`), collision-free `-ca-agent` commands, lifecycle hooks, and reporting templates.
+- `specs/`: (SDD) official feature specifications supporting dual user-selected formats (Flat files or Modular directories).
 
 ## Read matrix
 
@@ -76,7 +77,7 @@
 - **MUST** follow `ide-compatibility.md` when configuring or switching AI coding IDEs.
 - **MUST** preserve existing IDE-specific configuration files.
 - **MUST** verify compatibility before activating skills, hooks, plugins, MCP servers, or custom commands.
-- **MUST NOT** automatically delete configuration files belonging to inactive IDEs.
+- **MUST** detect the active IDE(s) per `docs/ide-compatibility.md`: automatically prune inactive IDE configuration files in Single-IDE mode, or synchronize active adapters in Multi-IDE mode.
 - **MUST** maintain consistency with the project's approved guidelines and specifications.
 
 **Document ID:** GL-IDE-001  

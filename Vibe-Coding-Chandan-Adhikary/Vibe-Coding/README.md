@@ -26,7 +26,7 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 
 ## Repository map
 
-`docs/` — policy/specs and state; `playbooks/` — operation guides; `agent/` — portable skills/hooks/commands; `.github/` — examples for GitHub; `tests/` — test harness contract.
+`docs/` — policy/specs and state; `playbooks/` — operation guides; `.agents/` — portable skills (including `andrej-karpathy-skill`), hooks, collision-free `-ca-agent` commands; `.github/` — examples for GitHub; `tests/` — test harness contract.
 
 ## Licensing and contributing
 

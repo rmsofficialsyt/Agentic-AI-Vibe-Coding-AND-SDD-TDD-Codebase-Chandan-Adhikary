@@ -20,7 +20,7 @@ This policy supports Claude Code, Cursor, Windsurf, VS Code/GitHub Copilot, Code
 
 - **MUST** preserve the canonical project guidelines and approved specifications.
 - **MUST** maintain compatibility with multiple coding agents where technically feasible.
-- **MUST NOT** automatically delete files belonging to another IDE.
+- **MUST** execute IDE detection and pruning: In Single-IDE mode, automatically prune irrelevant IDE configuration files before first execution to avoid conflicts; in Multi-IDE mode, synchronize and preserve all declared active IDE adapters.
 - **MUST NOT** overwrite existing agent configurations without explicit authorization.
 - **MUST** separate universal engineering instructions from tool-specific configuration.
 - **MUST** verify that the selected tool actually recognizes and loads the intended instructions.
@@ -107,7 +107,7 @@ Project-Codebase/
 │   ├── copilot-instructions.md
 │   └── instructions/
 │
-├── agent/
+├── .agents/
 │   ├── skills/
 │   ├── commands/
 │   ├── hooks/
@@ -122,34 +122,77 @@ Project-Codebase/
 
 **MUST NOT:** Introduce a `specs/` directory in the SDD framework.
 
-**SHOULD:** Keep portable agent definitions in `agent/` and maintain native adapters only where required.
+**SHOULD:** Keep portable agent definitions in `.agents/` and maintain native adapters only where required.
 
 **MAY:** Omit platform-specific folders when the corresponding tools are not configured.
 
-## 5. IDE detection
+## 5. IDE detection, Automated Pruning & Multi-IDE Coexistence
 
-### 5.1 Detection procedure
+### 5.1 Operating Modes: Single-IDE vs. Multi-IDE
 
+To prevent rule shadowing, context bloat, and conflicting instructions, this standard defines two operating modes:
+
+#### Mode A: Single-IDE Targeted Mode (Auto-Pruning Enabled — Default)
+When a single active IDE or coding agent is identified or chosen by the developer:
+1. **MUST** retain the active IDE's adapter file/directory and canonical `AGENTS.md`.
+2. **MUST** automatically remove irrelevant configuration directories and files belonging to other IDEs prior to or during Prompt 1 execution.
+3. **MUST NOT** leave stale or inactive IDE configuration files that pollute token context or confuse AI agents.
+
+**Single-IDE Pruning Matrix:**
+| Active IDE / Agent | Retained Configuration | Pruned Irrelevant Configurations |
+|---|---|---|
+| **Antigravity** | `AGENTS.md`, `.agents/` | `.cursor/`, `.cursorrules`, `.windsurf/`, `.windsurfrules`, `.claude/`, `CLAUDE.md` |
+| **OpenCode** | `AGENTS.md`, `.agents/` | `.cursor/`, `.cursorrules`, `.windsurf/`, `.windsurfrules`, `.claude/`, `CLAUDE.md` |
+| **Cursor** | `.cursor/`, `.cursorrules`, `AGENTS.md` | `.windsurf/`, `.windsurfrules`, `.claude/`, `CLAUDE.md` |
+| **Windsurf** | `.windsurf/`, `.windsurfrules`, `AGENTS.md` | `.cursor/`, `.cursorrules`, `.claude/`, `CLAUDE.md` |
+| **Claude Code** | `CLAUDE.md`, `.claude/`, `AGENTS.md` | `.cursor/`, `.cursorrules`, `.windsurf/`, `.windsurfrules` |
+| **Codex / Freebuff / Trae** | Platform adapter, `AGENTS.md` | Other inactive IDE directories |
+| **VS Code (Standard)** | `.github/copilot-instructions.md` | `.cursor/`, `.windsurf/`, `.claude/` proprietary agent folders |
+
+#### Mode B: Multi-IDE / Multi-Agent Coexistence Mode
+When a developer or team deliberately uses **more than one IDE simultaneously** (e.g., *Antigravity + Cursor*, *Cursor + Claude Code*, or *VS Code + Windsurf*):
+1. **User Declaration:** The user specifies multiple active IDEs during Step 2 / Prompt 1 (e.g. `ACTIVE_IDES=["antigravity", "cursor", "claude-code"]`).
+2. **Harmonized Coexistence:** The configuration files for ALL selected active IDEs are preserved.
+3. **Single Source of Truth:** Each active adapter MUST point directly to canonical `AGENTS.md`, `docs/`, and `.agents/`, guaranteeing zero policy drift across IDEs.
+4. **Selective Pruning:** Only configuration files for IDEs *outside* the declared active set are pruned.
+5. **Cross-IDE Session Discipline:** Agents must not clobber other IDEs' internal working directories.
+
+### 5.2 Automated IDE Pruning Script
+
+Developers can execute this cleanup script (or instruct the agent to run it during Step 2 / Prompt 1):
+
+```powershell
+# PowerShell: Prune Irrelevant IDE Configurations
+param(
+    [string[]]$ActiveIDEs = @("antigravity") # e.g. @("antigravity") or @("cursor", "claude")
+)
+
+$AllTargets = @{
+    "cursor"    = @(".cursor", ".cursorrules")
+    "windsurf"  = @(".windsurf", ".windsurfrules")
+    "claude"    = @(".claude", "CLAUDE.md")
+}
+
+foreach ($ide in $AllTargets.Keys) {
+    if ($ActiveIDEs -notcontains $ide) {
+        foreach ($path in $AllTargets[$ide]) {
+            if (Test-Path $path) {
+                Remove-Item -Path $path -Recurse -Force -ErrorAction SilentlyContinue
+                Write-Host "Pruned inactive IDE config: $path"
+            }
+        }
+    }
+}
+Write-Host "Active IDE configuration verified: $($ActiveIDEs -join ', ')"
+```
+
+### 5.3 Detection Procedure
 At session initialization or when changing the active coding tool:
-
-1. **MUST** identify the active agent runtime or IDE using reliable environment information.
-2. **MUST** determine whether the tool and version support project-level instructions.
-3. **MUST** inspect existing relevant configuration files.
-4. **MUST** identify the current guideline version.
-5. **MUST** identify the latest approved specification where applicable.
-6. **MUST** verify whether the intended instruction files are loaded.
-7. **SHOULD** report missing, obsolete, or conflicting configuration.
-8. **MUST** obtain approval before modifying existing configurations.
-
-### 5.2 Detection restrictions
-
-- **MUST NOT** infer the active IDE solely from the presence of `.cursor/`, `.claude/`, or another configuration folder.
-- **MUST NOT** infer that every installed tool is currently active.
-- **MUST NOT** claim successful instruction loading without verification.
-- **MUST** report the IDE as unknown if reliable identification is unavailable.
-- **MAY** request the user's selection when reliable detection is not possible.
-
-Detection is a defined workflow, not an automatic capability created by this Markdown document.
+1. **MUST** identify the active agent runtime or IDE using environment variables or prompt declaration.
+2. **MUST** verify whether single-IDE pruning or multi-IDE coexistence is selected.
+3. **MUST** prune inactive configuration files in Single-IDE mode or synchronize adapters in Multi-IDE mode.
+4. **MUST** verify that `.agents/` custom commands (`*-ca-agent.md`) and skills (including `andrej-karpathy-skill`) are active and accessible.
+5. **MUST** verify that `specs/` (in SDD) is recognized and user's format preference is recorded.
 
 ## 6. Configuration activation
 
@@ -325,7 +368,7 @@ Supported portable commands include:
 - `/release-check`
 - `/handoff`
 
-**MUST:** Maintain canonical command contracts in `agent/commands/`.
+**MUST:** Maintain canonical command contracts in `.agents/commands/`.
 
 **MUST:** Verify that a command is supported and registered in the active IDE before invoking it.
 
