@@ -108,13 +108,15 @@ Guide-Github/
 ├── LICENSE                                      # MIT License (Chandan Adhikary / RMS Officials)
 │
 ├── VIBE-CODING TRACK (STANDALONE GUIDES):
-├── Vibe-Coding-Production-Guide-SMS.md          # Complete Vibe-Coding SMS Production Guide (Markdown)
+├── Vibe-Coding-Production-Guide-Universal.md    # Universal Vibe-Coding Production Guide for ANY Project (Markdown)
+├── Vibe-Coding-Production-Guide-SMS.md          # Reference Vibe-Coding SMS Production Guide (Markdown)
 ├── AI-Powered Project Development — Vibe...docx # Complete Vibe-Coding SMS Production Guide (Word doc)
 ├── Custom-Slash-Commands-Vibe-Coding.md         # Dedicated Vibe Custom Slash Commands Guide (Markdown)
 ├── AI-Powered Project Development — Custom...   # Dedicated Vibe Custom Slash Commands Guide (Word doc)
 │
 ├── SDD + TDD TRACK (STANDALONE GUIDES):
-├── SDD-TDD-Production-Guide-SMS.md              # Complete SDD-TDD SMS Production Guide (Markdown)
+├── SDD-TDD-Production-Guide-Universal.md        # Universal SDD-TDD Production Guide for ANY Project (Markdown)
+├── SDD-TDD-Production-Guide-SMS.md              # Reference SDD-TDD SMS Production Guide (Markdown)
 ├── AI-Powered Project Development — SDD...docx  # Complete SDD-TDD SMS Production Guide (Word doc)
 ├── Custom-Slash-Commands-SDD-TDD.md             # Dedicated SDD Custom Slash Commands Guide (Markdown)
 ├── AI-Powered Project Development — Custom...   # Dedicated SDD Custom Slash Commands Guide (Word doc)

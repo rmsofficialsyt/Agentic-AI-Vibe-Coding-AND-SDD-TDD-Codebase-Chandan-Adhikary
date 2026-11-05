@@ -13,3 +13,9 @@ Desktop.ini
 *.swo
 *~
 
+# Documentation binary files
+*.docx
+
+# Consolidated / Superseded Guides (Track-specific and Universal guides used instead)
+CUSTOM-SLASH-COMMANDS-GUIDE.md
+GUIDE.md
