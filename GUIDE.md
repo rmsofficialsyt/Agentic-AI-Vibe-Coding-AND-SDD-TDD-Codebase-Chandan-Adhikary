@@ -78,6 +78,33 @@ Host IDEs reserve generic tokens like `/run`, `/plan`, `/test`, or `/review`. To
 - `/review-ca-agent` | `/verify-ca-agent` | `/spec-check-ca-agent` | `/task-ca-agent` | `/security-audit-ca-agent`
 - `/release-check-ca-agent` | `/change-request-ca-agent` | `/handoff-ca-agent` | `/errorlogs-ca-agent` | `/gitlogs-ca-agent`
 
+### 2.5 How Slash Commands Work in AI Coding IDEs & Agents
+
+A **Slash Command** in this architecture is not just a chat shortcut—it is an executable **behavioral contract**. When you type a slash command (e.g. `/plan-ca-agent` or `/tdd-ca-agent`), the AI agent binds its actions to the governance rules defined in `.agents/commands/<name>-ca-agent.md`.
+
+#### Why Use Slash Commands Over Free-Form Prompts?
+1. **Deterministic Guardrails:** Free-form prompts often cause agents to hallucinate dependencies or jump straight to coding. A slash command forces the agent to read repository policy first.
+2. **IDE Autocompletion:** In modern IDEs (Antigravity, Cursor, Windsurf, OpenCode, Claude Code), typing `/` in the prompt bar automatically triggers the command menu.
+3. **Execution Safety:** Commands like `/implement-ca-agent` enforce that code changes are strictly restricted to approved specifications.
+
+#### Syntax & Usage Anatomy:
+You can use slash commands in two complementary ways:
+
+**Method 1: Direct Command with Attached Prompt (Recommended)**
+Type the slash command followed immediately by your project details or task requirements in the same message:
+```text
+/plan-ca-agent Project Name: EduSphere SMS, Vision: Multi-tenant school portal...
+```
+
+**Method 2: Sequential Command Chaining**
+Run the slash command as an action trigger after completing a step:
+```text
+/run-ca-agent
+/testing-ca-agent tests/unit/student-enrollment.test.ts
+/review-ca-agent
+```
+
+
 ---
 
 ## 3. TAB / WINDOW 1: The Vibe-Coding Framework
@@ -110,6 +137,7 @@ flowchart TD
 ```
 
 ### Prompt V1 — Master Vision, Aesthetic & Tech Stack
+**Slash Command:** `/plan-ca-agent`  
 **Operating Mode:** Plan Mode / Read-Only Discovery  
 **Purpose:** Define user personas, design system, tech stack, and trigger IDE cleanup.
 
@@ -155,7 +183,8 @@ Rules:
 ---
 
 ### Prompt V2 — Rapid Codebase Scaffold & Live Working UI
-**Operating Mode:** Implementation Mode  
+**Slash Command:** `/implement-ca-agent` (followed by `/run-ca-agent`)  
+**Operating Mode:** Implementation & Startup Mode  
 **Purpose:** Scaffold the application structure, initialize layout, create mock data models, and verify local startup.
 
 ```markdown
@@ -186,6 +215,7 @@ Provide the exact terminal command to run the application locally (or run /run-c
 ---
 
 ### Prompt V3 — Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)
+**Slash Command:** `/task-ca-agent` (followed by `/review-ca-agent`)  
 **Operating Mode:** Implementation & Refinement Mode  
 **Purpose:** Iteratively adjust UI components, polish interactions, add business views, and tune the aesthetic feel.
 
@@ -215,6 +245,7 @@ List the exact components modified, describe visual/UX enhancements applied, and
 ---
 
 ### Prompt V4 — Production Hardening, Polish & Pre-Deploy
+**Slash Command:** `/security-audit-ca-agent` (followed by `/release-check-ca-agent`)  
 **Operating Mode:** Quality Audit & Hardening Mode  
 **Purpose:** Transform the prototype into a secure, production-grade application ready for deployment.
 
@@ -273,7 +304,8 @@ flowchart TD
 ```
 
 ### Prompt S1 — Master Project Discovery, Architecture R&D & Pre-Development Planning
-**Operating Mode:** Plan Mode / Ask Mode / Read-Only Planning  
+**Slash Command:** `/plan-ca-agent`  
+**Operating Mode:** Plan Mode / Read-Only Planning  
 **Purpose:** Deep technical discovery, system architecture, database schema, risk analysis, and IDE detection/cleanup.
 
 ```markdown
@@ -323,6 +355,7 @@ Rules:
 ---
 
 ### Prompt S2 — Configure the Complete Project Codebase
+**Slash Command:** `/task-ca-agent`  
 **Operating Mode:** Configuration & Project Scaffolding Mode  
 **Purpose:** Update all governance documentation in `docs/`, configure `playbooks/`, setup `tests/`, configure `.agents/` hooks/skills/templates, and activate `-ca-agent` commands for the project.
 
@@ -356,6 +389,7 @@ Do not write feature implementation code yet.
 ---
 
 ### Prompt S3 — Approve SDD Specifications & Scaffold Failing TDD Tests
+**Slash Command:** `/spec-check-ca-agent` (followed by `/testing-ca-agent`)  
 **Operating Mode:** Specification & Test Authoring Mode  
 **Purpose:** Formalize feature specifications in `specs/` (asking user to select Format 1 or Format 2), establish acceptance criteria, and scaffold failing unit/integration tests before writing any code.
 
@@ -397,7 +431,8 @@ Rules:
 ---
 
 ### Prompt S4 — Develop One Approved Feature (Strict TDD Cycle)
-**Operating Mode:** Implementation Mode  
+**Slash Command:** `/tdd-ca-agent` (followed by `/review-ca-agent`)  
+**Operating Mode:** Implementation & TDD Mode  
 **Purpose:** Implement the minimum clean code required to pass the failing tests (Green phase), refactor for quality, and commit with atomic traceability.
 
 ```markdown
@@ -434,6 +469,7 @@ Rules:
 ---
 
 ### Prompt S5 — Final Review & Production-Readiness Validation
+**Slash Command:** `/security-audit-ca-agent` + `/verify-ca-agent` + `/release-check-ca-agent`  
 **Operating Mode:** Release Engineering & Audit Mode  
 **Purpose:** Execute all quality gates, security scans, performance benchmarks, and authorize release.
 
@@ -466,152 +502,170 @@ Produce a formal Release Sign-Off Report in docs/approvals/ documenting audit fi
 ---
 
 ## 5. End-to-End Production Demo Example: School Management SaaS (SMS)
-### Layman-Friendly Step-by-Step Prompt Walkthrough (Purely Instructional — Zero Application Code in Framework Folders)
+### Layman-Friendly Step-by-Step Walkthrough via Slash Commands (Purely Instructional — Zero Code in Framework Folders)
 
-To demonstrate how both frameworks operate in the real world, this section walks through the complete prompt-by-prompt journey of a production-grade **School Management SaaS (SMS)** platform.
+To demonstrate how slash commands drive development in practice, this section walks through the complete prompt-by-prompt journey of building **EduSphere**, a multi-tenant School Management SaaS.
 
 > [!IMPORTANT]
 > **No Application Code in Framework Folders:**
-> This demonstration is strictly an educational, prompt-wise guide. The framework folders (`Vibe-Coding` and `Spec-Driven-Development`) remain clean templates.
+> This demonstration illustrates the exact slash commands you paste into your AI IDE chat. The framework folders (`Vibe-Coding` and `Spec-Driven-Development`) remain clean templates.
 
 #### The Demo Product: EduSphere SMS
-- **Core Modules:** Student Information, Attendance Tracking, Class Timetables, Fee Billing & Invoicing, Guardian Notifications.
-- **User Roles:** SuperAdmin (District/Platform), SchoolAdmin (Principal/Staff), Teacher, Student, Parent.
+- **Core Modules:** Student Rosters, Daily Attendance Sheet, Course Scheduling, Tuition Billing, Guardian Alerts.
+- **User Roles:** SuperAdmin, SchoolAdmin (Principal), Teacher, Student, Parent.
 
 ---
 
-### Part A: The SMS Demo via Vibe-Coding (Fast & Visual)
+### Part A: The SMS Demo via Vibe-Coding (Driven by Slash Commands)
 
-#### Prompt V1 (Discovery) Input for SMS:
+#### Step V1: Discovery & Aesthetic Vibe Check
+**Command Typed into Chat:**
 ```markdown
-[PASTE PROMPT V1 INTO AGENT]
-Project Name: EduSphere School Management SaaS
+/plan-ca-agent Project Name: EduSphere School Management SaaS
 Product Type: Multi-Tenant Web SaaS
 Product Vision: A modern, friendly, and ultra-fast portal for schools. Schools can manage student rosters, take daily classroom attendance in 30 seconds, generate tuition invoices, and give parents real-time visibility.
 Target Users: School Principals, Teachers (mobile-first), Parents, Students.
 Aesthetic / Vibe: Warm Modern SaaS (Indigo & Slate palette, clean typography, rounded cards, instant search filters, optimistic UI).
 Active IDE: Antigravity
 ```
-*Expected Agent Output:*
-- Agent detects Antigravity runtime, automatically cleans up competing `.cursor/`, `.windsurf/`, `.claude/` files.
-- Agent generates an Implementation Plan proposing: Next.js App Router, Tailwind CSS, Lucide-React, TypeScript, Supabase/PostgreSQL.
-- Presents design system tokens and mock data models (Student, Classroom, AttendanceRecord, Invoice).
-
-#### Prompt V2 (Scaffold) Execution for SMS:
-```markdown
-[PASTE PROMPT V2 INTO AGENT]
-Approved the V1 plan! Proceed with scaffolding EduSphere.
-Create the responsive sidebar navigation (Students, Attendance, Courses, Billing, Settings).
-Populate the main dashboard with realistic mock data: 4 summary stat cards (Total Students: 1,240, Today's Attendance: 96.4%, Pending Invoices: $14,200, Active Teachers: 68), and a Recent Activity feed.
-Start the local development server.
-```
-*Expected Agent Output:*
-- Agent scaffolds Next.js structure, installs dependencies, sets up Tailwind tokens.
-- Creates layout and dashboard components with beautiful mock data.
-- Executes local dev server and reports `http://localhost:3000` is live and visually inspectable.
-
-#### Prompt V3 (Vibe-Tuning Karpathy Loop) for SMS:
-```markdown
-[PASTE PROMPT V3 INTO AGENT]
-The dashboard looks great! Now let's tune the Attendance module:
-1. Build the Classroom Attendance sheet for 'Grade 10 - Section B (Biology)'.
-2. Display a list of 25 students with avatars, roll numbers, and quick toggle buttons for [Present (Green), Absent (Red), Late (Yellow), Excused (Blue)].
-3. Add a 1-click 'Mark All Present' button at the top.
-4. Keep the interactions instant with smooth color transitions.
-```
-*Expected Agent Output:*
-- Agent creates `AttendanceSheet` component with optimistic state toggling.
-- Clicking badges updates student status instantly without page reload.
-- Reports modified components and verifies zero UI console errors.
-
-#### Prompt V4 (Hardening) for SMS:
-```markdown
-[PASTE PROMPT V4 INTO AGENT]
-Attendance UI feels perfect. Now harden the application:
-1. Wrap all state inputs in Zod validation schemas.
-2. Add error boundaries and empty state components.
-3. Configure authentication route guards (redirect unauthenticated users to /login).
-4. Run production build check to ensure zero build errors.
-```
-*Expected Agent Output:*
-- Generates Zod schemas, error boundaries, and Next.js middleware route protection.
-- Runs `npm run build` and verifies clean production compile.
+*What the AI Agent Does:*
+- Invokes `/plan-ca-agent` contract in read-only mode.
+- Detects Antigravity, auto-prunes competing `.cursor/`, `.windsurf/`, `.claude/` files.
+- Generates an **Implementation Plan Artifact** specifying: Next.js App Router, Tailwind CSS, Lucide icons, Supabase/PostgreSQL schema, and component hierarchy.
 
 ---
 
-### Part B: The SMS Demo via SDD + TDD (Formal & Traceable)
-
-#### Prompt S1 (Architecture Discovery) Input for SMS:
+#### Step V2: Scaffold Layout & Launch Dev Server
+**Command Typed into Chat:**
 ```markdown
-[PASTE PROMPT S1 INTO AGENT]
-Project Name: EduSphere Enterprise School Management System
+/implement-ca-agent Scaffold the EduSphere application based on the approved V1 plan.
+Create the responsive sidebar navigation (Students, Attendance, Courses, Billing, Settings).
+Populate the main dashboard with 4 summary stat cards (Total Students: 1,240, Today's Attendance: 96.4%, Pending Invoices: $14,200, Active Teachers: 68), and a Recent Activity feed.
+Follow with:
+/run-ca-agent Start the local development server and verify the active URL.
+```
+*What the AI Agent Does:*
+- Implements the layout, Tailwind tokens, and dashboard component with realistic mock data.
+- Runs `/run-ca-agent` which starts the dev server and reports `http://localhost:3000` is live.
+- The developer opens the browser and visually verifies the dashboard layout.
+
+---
+
+#### Step V3: Conversational Vibe-Tuning (Karpathy Loops)
+**Command Typed into Chat:**
+```markdown
+/task-ca-agent Build the Classroom Attendance sheet for 'Grade 10 - Section B (Biology)'.
+Display 25 students with avatars, roll numbers, and quick toggle badges for [Present (Green), Absent (Red), Late (Yellow), Excused (Blue)].
+Add a 1-click 'Mark All Present' button at the top.
+Keep the interactions instant with smooth color transitions.
+Follow with:
+/review-ca-agent
+```
+*What the AI Agent Does:*
+- Creates `AttendanceSheet.tsx` with optimistic state toggling (instant badge clicks without page reload).
+- Runs `/review-ca-agent` to inspect the git diff, ensuring clean component structure and zero console warnings.
+
+---
+
+#### Step V4: Production Hardening & Pre-Deploy Audit
+**Command Typed into Chat:**
+```markdown
+/security-audit-ca-agent
+Audit EduSphere for security: wrap state inputs in Zod schemas, add error boundaries, and configure authentication route guards.
+Follow with:
+/release-check-ca-agent
+Verify production build and generate deployment readiness checklist.
+```
+*What the AI Agent Does:*
+- Enforces Zod schemas on form inputs and adds React error boundaries.
+- Runs `/security-audit-ca-agent` (verifying zero secret leaks and clean security posture).
+- Runs `/release-check-ca-agent`, runs `npm run build`, and confirms 100% production readiness.
+
+---
+
+### Part B: The SMS Demo via SDD + TDD (Driven by Slash Commands)
+
+#### Step S1: Enterprise Architecture Discovery & Compliance R&D
+**Command Typed into Chat:**
+```markdown
+/plan-ca-agent Project Name: EduSphere Enterprise School Management System
 Product Type: Multi-Tenant Enterprise SaaS
 Project Description: Enterprise education ERP requiring strict tenant data isolation, FERPA compliance, auditable grade changes, and automated tuition payment processing.
 Target Audience: District Admins, School Principals, Teachers, Accountants, Parents.
 Compliance: FERPA & GDPR compliant audit logging.
 Selected Active IDE: Antigravity
 ```
-*Expected Agent Output:*
-- Agent confirms Antigravity and executes single-IDE auto-pruning.
-- Drafts deep architectural design: PostgreSQL Row-Level Security (RLS) for tenant isolation, JWT authentication with rotating refresh tokens, immutable audit log table for all grade/fee changes.
-- Proposes specification roadmap: `001.spec.tenant-auth`, `002.spec.student-enrollment`, `003.spec.fee-billing`.
+*What the AI Agent Does:*
+- Formulates architectural design in plan mode: PostgreSQL Row-Level Security (RLS) for tenant isolation, JWT authentication with rotating refresh tokens, and immutable audit logs.
+- Establishes specification roadmap: `001.spec.tenant-auth`, `002.spec.student-enrollment`, `003.spec.fee-billing`.
 
-#### Prompt S2 (Codebase Configuration) for SMS:
+---
+
+#### Step S2: Configure Codebase & Test Harness
+**Command Typed into Chat:**
 ```markdown
-[PASTE PROMPT S2 INTO AGENT]
-Architecture approved! Configure the codebase docs/, playbooks/, tests/, and .agents/ for EduSphere.
-Activate custom slash commands: /plan-ca-agent, /tdd-ca-agent, /testing-ca-agent, /review-ca-agent.
-Setup Vitest test runner configuration.
+/task-ca-agent Configure EduSphere codebase docs/, playbooks/, tests/ harness, and activate .agents/ custom commands.
+Record ADR-001 (Multi-Tenant RLS) and ADR-002 (FERPA Audit Logging) in docs/adrs/.
+Setup Vitest test runner configuration in tests/.
 ```
-*Expected Agent Output:*
-- Updates `docs/memory.md`, `docs/database.md`, and creates `docs/adrs/ADR-001-tenant-isolation.md`.
-- Configures test harness in `tests/`.
-- Configures `.agents/hooks/HOOK-MATRIX.md` with pre-commit security and test checks.
+*What the AI Agent Does:*
+- Updates `docs/memory.md`, `docs/database.md`, and writes ADRs.
+- Initializes test harness in `tests/`.
+- Configures `.agents/hooks/HOOK-MATRIX.md` with pre-commit gates.
 
-#### Prompt S3 (Specification & Failing Tests) for SMS:
+---
+
+#### Step S3: Author Specification & Scaffold Failing Tests (Red Phase)
+**Command Typed into Chat:**
 ```markdown
-[PASTE PROMPT S3 INTO AGENT]
-Author specification for Feature 002: Student Enrollment.
-Use Format 1 (specs/002.spec.student-enrollment.md).
-Acceptance Criteria:
+/spec-check-ca-agent Author specification for Feature 002: Student Enrollment in specs/002.spec.student-enrollment.md using Format 1.
+Define Acceptance Criteria:
 - AC-ENROLL-001: Generate immutable Student ID matching format 'SCH-{YEAR}-{SEQUENCE:05d}'.
 - AC-ENROLL-002: Reject enrollment if primary guardian email or phone is missing.
 - AC-ENROLL-003: Prevent duplicate enrollment for same student name + DOB in same academic year.
-Scaffold failing unit and integration tests covering all 3 ACs.
+Follow with:
+/testing-ca-agent tests/unit/student-enrollment.test.ts
+Scaffold failing tests covering all 3 ACs and confirm RED failure state.
 ```
-*Expected Agent Output:*
-- Authors `specs/002.spec.student-enrollment.md` with complete API contract and schema invariants.
-- Creates `tests/unit/student-enrollment.test.ts` asserting all 3 ACs.
-- Runs `/testing-ca-agent` and confirms all 3 tests FAIL (Red phase established).
-
-#### Prompt S4 (TDD Feature Implementation) for SMS:
-```markdown
-[PASTE PROMPT S4 INTO AGENT]
-Proceed with TDD Green phase for specs/002.spec.student-enrollment.md.
-Implement StudentEnrollmentService and API endpoint.
-Turn all 3 failing tests green with minimal, clean code.
-Run /review-ca-agent upon completion.
-```
-*Expected Agent Output:*
-- Implements enrollment logic with database uniqueness constraint and sequence generator.
-- Runs `/testing-ca-agent`: 3/3 tests PASS (Green phase).
-- Runs `/review-ca-agent` confirming zero lint errors, full type safety, and clean git diff.
-
-#### Prompt S5 (Production Release Audit) for SMS:
-```markdown
-[PASTE PROMPT S5 INTO AGENT]
-Run the full production readiness audit for EduSphere:
-1. Run all unit and integration test suites.
-2. Run /security-audit-ca-agent for vulnerability and secret scans.
-3. Verify FERPA audit log compliance.
-4. Complete docs/release-checklist.md and provide sign-off report.
-```
-*Expected Agent Output:*
-- Executes test suite (100% passing).
-- Validates zero CVEs and zero secrets committed.
-- Produces formal signed release authorization in `docs/approvals/RELEASE-1.0.0-AUTHORIZATION.md`.
+*What the AI Agent Does:*
+- Authors `specs/002.spec.student-enrollment.md` with complete API contracts and schema constraints.
+- Scaffolds `tests/unit/student-enrollment.test.ts` testing each AC ID.
+- Executes `/testing-ca-agent` and verifies that all 3 tests fail (Red phase established).
 
 ---
+
+#### Step S4: TDD Feature Implementation (Green & Refactor Phase)
+**Command Typed into Chat:**
+```markdown
+/tdd-ca-agent specs/002.spec.student-enrollment.md
+Implement StudentEnrollmentService and API endpoint.
+Write the minimal clean code required to turn all 3 failing tests green.
+Follow with:
+/review-ca-agent
+```
+*What the AI Agent Does:*
+- Implements enrollment logic with database sequence generation and uniqueness constraints.
+- Runs tests: 3/3 tests PASS (Green phase).
+- Runs `/review-ca-agent` to verify clean diff, zero lint errors, and atomic commit message citing Spec ID and AC IDs.
+
+---
+
+#### Step S5: Production Readiness Audit & Release Gate
+**Command Typed into Chat:**
+```markdown
+/security-audit-ca-agent
+Run SAST vulnerability scanning, dependency CVE audits, and FERPA log validation.
+Follow with:
+/verify-ca-agent specs/
+Verify 100% of Acceptance Criteria across all specs/ have passing tests.
+Follow with:
+/release-check-ca-agent
+Generate final signed Release Authorization in docs/approvals/RELEASE-1.0.0-AUTHORIZATION.md.
+```
+*What the AI Agent Does:*
+- Executes security scan and confirms zero vulnerabilities.
+- Executes `/verify-ca-agent` confirming complete AC test coverage.
+- Completes `docs/release-checklist.md` and generates formal release authorization report.
 
 ## 6. Command & Architecture Quick Reference
 

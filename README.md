@@ -143,23 +143,22 @@ Guide-Github/
 - **Single-IDE Mode (Automated Pruning):** Irrelevant configuration folders belonging to other IDEs (`.cursor/`, `.windsurf/`, `.claude/`, etc.) are automatically pruned before or during Prompt 1 to prevent rule conflicts and token bloat.
 - **Multi-IDE Mode (Coexistence):** If using multiple IDEs simultaneously (e.g. Antigravity + Cursor), declare them in Prompt 1 (`ACTIVE_IDES=["antigravity", "cursor"]`). All declared adapters are harmonized to point to canonical `AGENTS.md` and `.agents/`, while only unselected IDEs are pruned.
 
-### Step 3: Run the Master Prompts
-Follow the detailed prompt-by-prompt guide in [`GUIDE.md`](GUIDE.md) or the `.docx` file:
+### Step 3: Run the Master Prompts via Slash Commands
+Follow the detailed prompt-by-prompt guide in [GUIDE.md](GUIDE.md) or the .docx file:
 
-#### For Vibe-Coding (4 Fluid Prompts):
-1. **Prompt V1 (Discovery):** Vision, aesthetic theme, tech stack selection, IDE cleanup.
-2. **Prompt V2 (Scaffold):** Core layout, responsive navigation, high-fidelity mock data, local dev server (`/run-ca-agent`).
-3. **Prompt V3 (Vibe-Tuning):** Fast Karpathy conversational loops, visual polish, interactive feature expansion.
-4. **Prompt V4 (Hardening):** Input validation (Zod), security headers, error boundaries, production build verification.
+#### For Vibe-Coding (4 Fluid Slash Commands):
+1. **/plan-ca-agent (Prompt V1):** Vision, aesthetic theme, tech stack selection, IDE cleanup.
+2. **/implement-ca-agent + /run-ca-agent (Prompt V2):** Core layout, responsive navigation, and verify local dev server.
+3. **/task-ca-agent + /review-ca-agent (Prompt V3):** Fast Karpathy conversational loops, visual polish, interactive feature expansion.
+4. **/security-audit-ca-agent + /release-check-ca-agent (Prompt V4):** Input validation (Zod), security headers, error boundaries, production build verification.
 
-#### For SDD + TDD (5 Formal Prompts):
-1. **Prompt S1 (Discovery & R&D):** Enterprise architecture, data models, ADRs, IDE cleanup.
-2. **Prompt S2 (Codebase Config):** Full configuration of `docs/`, `playbooks/`, `tests/`, `.agents/`, and activation of `-ca-agent` commands.
-3. **Prompt S3 (Spec Approval & Failing Tests):** Authoring `specs/` (Format 1: Flat files or Format 2: Modular folders) and scaffolding failing unit/integration tests.
-4. **Prompt S4 (TDD Feature Implementation):** Red-Green-Refactor cycle, minimal passing code, atomic commits.
-5. **Prompt S5 (Production Release Audit):** Full test suite, SAST security scan (`/security-audit-ca-agent`), and release authorization.
+#### For SDD + TDD (5 Formal Slash Commands):
+1. **/plan-ca-agent (Prompt S1):** Enterprise architecture, data models, ADRs, IDE cleanup.
+2. **/task-ca-agent (Prompt S2):** Full configuration of docs/, playbooks/, 	ests/, and activation of -ca-agent commands.
+3. **/spec-check-ca-agent + /testing-ca-agent (Prompt S3):** Authoring specs/ (Format 1: Flat files or Format 2: Modular folders) and scaffolding failing unit/integration tests.
+4. **/tdd-ca-agent + /review-ca-agent (Prompt S4):** Red-Green-Refactor cycle, minimal passing code, atomic commits.
+5. **/security-audit-ca-agent + /verify-ca-agent + /release-check-ca-agent (Prompt S5):** Full test suite, SAST security scan, and release authorization.
 
----
 
 ## 🛡️ Built-in Capabilities & Collision Prevention
 
