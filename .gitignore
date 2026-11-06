@@ -19,3 +19,13 @@ Desktop.ini
 # Consolidated / Superseded Guides (Track-specific and Universal guides used instead)
 CUSTOM-SLASH-COMMANDS-GUIDE.md
 GUIDE.md
+
+# ==============================================================================
+# LOCAL IN-BUILT PROJECT MANAGEMENT DASHBOARD (STRICTLY LOCAL MACHINE ONLY)
+# ==============================================================================
+Project-Manager-Dashboard/
+local-dashboard/
+.dashboard/
+**/.dashboard-state.json
+**/local-dashboard-logs/
+

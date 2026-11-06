@@ -13,3 +13,13 @@
 .DS_Store
 .idea/
 .vscode/
+
+# ==============================================================================
+# LOCAL IN-BUILT PROJECT MANAGEMENT DASHBOARD (STRICTLY LOCAL MACHINE ONLY)
+# ==============================================================================
+Project-Manager-Dashboard/
+local-dashboard/
+.dashboard/
+**/.dashboard-state.json
+**/local-dashboard-logs/
+
