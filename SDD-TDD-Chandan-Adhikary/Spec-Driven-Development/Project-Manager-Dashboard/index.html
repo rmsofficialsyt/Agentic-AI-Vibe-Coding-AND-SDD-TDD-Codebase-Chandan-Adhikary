@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Manager Dashboard — Bento Grid Mission Control</title>
+  <link rel="stylesheet" href="assets/dashboard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Topbar Header -->
+    <header class="top-header">
+      <div class="brand">
+        <div class="brand-icon">PM</div>
+        <div>
+          <span class="brand-title">Project Manager Dashboard</span>
+          <span class="badge-pill">SDD-TDD · In-IDE</span>
+          <span id="git-branch-badge" class="badge-pill" style="color:var(--text-faint);border-color:rgba(255,255,255,0.08)">git:main</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="agent-pulse">
+          <span class="pulse-dot"></span>
+          <span id="agent-status-text">Active · Telemetry Synced</span>
+        </div>
+        <button id="btn-context-pill" class="context-pill" title="Click to view full Agent Context Window & Token Telemetry">
+          <span id="hdr-ctx-dot" class="context-pill-dot optimal"></span>
+          <span class="context-pill-label">Context:</span>
+          <b id="hdr-ctx-pct">0%</b>
+          <span id="hdr-ctx-free" class="context-pill-sub">(200k free)</span>
+        </button>
+        <button id="theme-toggle" class="btn-icon theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Dark</span>
+        </button>
+        <button id="toggle-audio" class="btn-icon">🔕 Audio Muted</button>
+      </div>
+    </header>
+
+    <!-- Bento Grid Container -->
+    <div class="bento-container">
+      <div class="bento-grid">
+        <!-- BENTO CELL 1: Executive Scope & Velocity Hub (Span 2x1) -->
+        <div class="bento-card bento-hero">
+          <div class="card-header">
+            <span class="card-title">🎯 Scope & Executive Metrics</span>
+            <span id="kpi-milestones-badge" class="badge-pill" style="font-size:9px">Phase 2 · 5 Gates</span>
+          </div>
+          <div class="hero-content">
+            <div class="hero-stats">
+              <div class="stat-item">
+                <span class="stat-label">Scope Delivery</span>
+                <span id="kpi-scope-progress" class="stat-value cyan">0%</span>
+                <span id="kpi-scope-sub" class="stat-sub">1 of 5 Gates Done</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Completed Tasks</span>
+                <span id="kpi-completed-tasks" class="stat-value emerald">0 / 0</span>
+                <span class="stat-sub">Finished Steps</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Active In-Flight</span>
+                <span id="kpi-active-tasks" class="stat-value amber">0</span>
+                <span class="stat-sub">Executing Now</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Spec AC Pass</span>
+                <span id="kpi-ac-rate" class="stat-value emerald">100%</span>
+                <span class="stat-sub">Contract Verified</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">TDD Pulse</span>
+                <span id="kpi-tdd-ratio" class="stat-value emerald" style="font-size:16px">100% Green</span>
+                <span class="stat-sub">Zero Regression</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Active Phase</span>
+                <span id="kpi-active-phase" class="stat-value" style="font-size:16px;color:var(--sky-bright)">Phase 2</span>
+                <span class="stat-sub">Foundation & Scaffolding</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Blockers Radar</span>
+                <span id="kpi-blockers" class="stat-value red">0</span>
+                <span class="stat-sub">P0/P1 Zero Blockers</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">SAST & Security</span>
+                <span id="kpi-code-health" class="stat-value emerald" style="font-size:16px">A+ Clean</span>
+                <span class="stat-sub">0 Leaks Detected</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Test Assertions</span>
+                <span id="kpi-test-assertions" class="stat-value cyan">48</span>
+                <span class="stat-sub">Unit & Spec Contracts</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Sprint Cadence</span>
+                <span id="kpi-sprint-cadence" class="stat-value emerald">8.4 / d</span>
+                <span class="stat-sub">Velocity Cadence ▲</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Git Tree Churn</span>
+                <span id="kpi-git-churn" class="stat-value" style="font-size:15px;color:var(--text-main)">Clean Tree</span>
+                <span class="stat-sub">Working Tree Status</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Agent Autonomy</span>
+                <span id="kpi-agent-autonomy" class="stat-value violet">98.5%</span>
+                <span class="stat-sub">Level 4 Autonomous</span>
+              </div>
+            </div>
+
+            <div class="hero-donut-box">
+              <div class="donut-visual-col">
+                <svg id="chart-donut" style="width:70px;height:70px" viewBox="0 0 100 100"></svg>
+                <div class="donut-title">AC Contracts</div>
+              </div>
+              <div class="donut-breakdown-col">
+                <div class="donut-breakdown-row"><span class="breakdown-dot done"></span>Passing: <b id="hero-donut-passing">0</b></div>
+                <div class="donut-breakdown-row"><span class="breakdown-dot red"></span>Failing: <b id="hero-donut-failing">0</b></div>
+                <div class="donut-breakdown-row"><span class="breakdown-dot pending"></span>Pending: <b id="hero-donut-pending">0</b></div>
+                <div class="donut-breakdown-row rate">Rate: <b id="hero-donut-rate" class="emerald">100%</b></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase Milestone Runway Bar -->
+          <div class="hero-runway-container">
+            <div class="hero-runway-header">
+              <span class="runway-title">🏁 Phase Milestones Runway</span>
+              <span id="hero-runway-summary" class="runway-summary">Gate 1 Cleared · Gate 2 In-Progress</span>
+            </div>
+            <div id="hero-runway-track" class="hero-runway-track"></div>
+          </div>
+        </div>
+
+        <!-- BENTO CELL 2: Scope Velocity & Multi-Chart Analytics Hub (Span 2x1) -->
+        <div class="bento-card bento-chart">
+          <div class="chart-header">
+            <span class="card-title">📈 Scope Velocity & Analytics</span>
+            <div class="chart-tabs">
+              <button class="chart-tab-btn active" data-chart="burnup">Trajectory</button>
+              <button class="chart-tab-btn" data-chart="bars">7-Day Bars</button>
+              <button class="chart-tab-btn" data-chart="rings">Quality Rings</button>
+              <button class="chart-tab-btn" data-chart="tokens">🧠 Context Tokens</button>
+            </div>
+          </div>
+          <div class="chart-content-wrapper">
+            <!-- Chart Panel 1: Burnup Area Curve -->
+            <div id="panel-chart-burnup" class="chart-view-panel active">
+              <svg id="chart-burnup" class="svg-burnup-canvas" viewBox="0 0 270 95" preserveAspectRatio="none"></svg>
+            </div>
+
+            <!-- Chart Panel 2: 7-Day Velocity Bar Chart -->
+            <div id="panel-chart-bars" class="chart-view-panel">
+              <svg id="chart-bars" class="svg-bars-canvas" viewBox="0 0 270 95"></svg>
+            </div>
+
+            <!-- Chart Panel 3: Quality & Coverage Multi-Ring Radial Gauge -->
+            <div id="panel-chart-rings" class="chart-view-panel">
+              <svg id="chart-rings" class="svg-rings-canvas" viewBox="0 0 270 95"></svg>
+            </div>
+
+            <!-- Chart Panel 4: Agent Context Window & Token Telemetry (Claude MOD style) -->
+            <div id="panel-chart-tokens" class="chart-view-panel">
+              <div class="token-telemetry-panel">
+                <!-- Context Window Utilization Header -->
+                <div class="token-panel-top">
+                  <div class="token-capacity-info">
+                    <span class="token-panel-label">Active Context Window (200k ceiling)</span>
+                    <span id="token-status-badge" class="badge-pill optimal">🟢 Optimal (Headroom Safe)</span>
+                  </div>
+                  <div class="token-capacity-readout">
+                    <span id="token-ctx-used" class="token-readout-val">0k</span>
+                    <span class="token-readout-sub">/ 200,000 tokens (<b id="token-ctx-pct">0%</b>)</span>
+                  </div>
+                </div>
+
+                <!-- Multi-Segmented Capacity Progress Bar -->
+                <div class="token-capacity-track">
+                  <div id="token-capacity-fill" class="token-capacity-fill optimal" style="width: 0%"></div>
+                  <div class="token-threshold-marker" style="left: 60%" title="60% Advisory Threshold"></div>
+                  <div class="token-threshold-marker warn" style="left: 80%" title="80% Compaction Recommended"></div>
+                  <div class="token-threshold-marker crit" style="left: 95%" title="95% Critical Limit"></div>
+                </div>
+                <div class="token-threshold-labels">
+                  <span>0k</span>
+                  <span>60% (120k)</span>
+                  <span>80% (160k)</span>
+                  <span>200k Limit</span>
+                </div>
+
+                <!-- Claude MOD 4-Metric Breakdown Grid -->
+                <div class="token-stats-grid">
+                  <div class="token-stat-card">
+                    <span class="token-stat-title">📥 Fresh Input (Prompt)</span>
+                    <span id="token-val-input" class="token-stat-number cyan">0</span>
+                    <span class="token-stat-sub">Instructions & Tools</span>
+                  </div>
+                  <div class="token-stat-card">
+                    <span class="token-stat-title">⚡ Cached Read (Hit Rate)</span>
+                    <span id="token-val-cache" class="token-stat-number violet">0</span>
+                    <span id="token-val-cache-rate" class="token-stat-sub emerald">0% Hit Rate ▲</span>
+                  </div>
+                  <div class="token-stat-card">
+                    <span class="token-stat-title">📤 Output & Thinking</span>
+                    <span id="token-val-output" class="token-stat-number emerald">0</span>
+                    <span class="token-stat-sub">Agent Reasoning</span>
+                  </div>
+                  <div class="token-stat-card">
+                    <span class="token-stat-title">💰 Cost & Savings</span>
+                    <span id="token-val-cost" class="token-stat-number">$0.00</span>
+                    <span id="token-val-savings" class="token-stat-sub emerald">Saved $0.00</span>
+                  </div>
+                </div>
+
+                <!-- Token Footer / Inspector Action -->
+                <div class="token-panel-footer">
+                  <div class="token-footer-info">
+                    <span id="token-turn-count">0 Model Turns</span> ·
+                    <span id="token-avg-turn">0 avg/turn</span> ·
+                    <span id="token-headroom-text">200k tokens free</span>
+                  </div>
+                  <button id="btn-open-token-drawer" class="btn-token-inspect">🔍 Inspect Full Token Logs</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real-Time Metrics Strip -->
+            <div class="chart-metrics-row">
+              <div class="chart-metric-item">
+                <span class="chart-metric-lbl">Sprint Trend</span>
+                <span class="chart-metric-val emerald">On Schedule ▲</span>
+              </div>
+              <div class="chart-metric-item">
+                <span class="chart-metric-lbl">Velocity</span>
+                <span class="chart-metric-val cyan">8.4 Tasks / Day</span>
+              </div>
+              <div class="chart-metric-item">
+                <span class="chart-metric-lbl">Confidence</span>
+                <span class="chart-metric-val">96.8% High</span>
+              </div>
+            </div>
+
+            <!-- Task Status Distribution Spectrum Bar -->
+            <div class="task-dist-section">
+              <div class="dist-legend">
+                <span>Task Distribution Spectrum</span>
+                <span id="dist-total-tasks">0 Tasks</span>
+              </div>
+              <div class="dist-bar-track">
+                <div id="dist-done" class="dist-segment done" style="width:0%"></div>
+                <div id="dist-progress" class="dist-segment progress" style="width:0%"></div>
+                <div id="dist-backlog" class="dist-segment backlog" style="width:0%"></div>
+                <div id="dist-blocked" class="dist-segment blocked" style="width:0%"></div>
+              </div>
+              <div class="dist-legend">
+                <div class="dist-legend-item"><span class="legend-dot done"></span>Done: <b id="dist-count-done">0</b></div>
+                <div class="dist-legend-item"><span class="legend-dot progress"></span>Active: <b id="dist-count-progress">0</b></div>
+                <div class="dist-legend-item"><span class="legend-dot backlog"></span>Backlog: <b id="dist-count-backlog">0</b></div>
+                <div class="dist-legend-item"><span class="legend-dot blocked"></span>Blocked: <b id="dist-count-blocked">0</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO CELL 3: Granular Task Command Center & Kanban Board (Span 2x2) -->
+        <div class="bento-card bento-tasks">
+          <div class="card-header task-center-header">
+            <span class="card-title">📋 Task & Kanban Command Center</span>
+            <div class="task-controls-group">
+              <div class="view-tabs">
+                <button id="btn-view-kanban" class="view-tab-btn active" data-view="kanban">📊 Kanban</button>
+                <button id="btn-view-list" class="view-tab-btn" data-view="list">📋 List</button>
+              </div>
+              <div id="task-filter-tabs" class="filter-tabs" style="display:none">
+                <button class="filter-tab active" data-filter="ALL">All</button>
+                <button class="filter-tab" data-filter="IN_PROGRESS">In Progress</button>
+                <button class="filter-tab" data-filter="DONE">Done</button>
+                <button class="filter-tab" data-filter="BLOCKED">Blocked</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- View 1: Linear Task List View -->
+          <div id="task-list-container" class="task-items-container view-panel">
+            <!-- Dynamic Bento task items -->
+          </div>
+
+          <!-- View 2: Interactive Drag & Drop Kanban Board with Framer Motion -->
+          <div id="kanban-board-container" class="kanban-board-wrapper view-panel active">
+            <div class="kanban-column" id="col-backlog" data-status="BACKLOG">
+              <div class="kanban-col-header">
+                <span class="col-title"><span class="col-dot backlog"></span>📥 Backlog</span>
+                <span class="col-count" id="count-col-backlog">0</span>
+              </div>
+              <div class="kanban-col-dropzone" id="drop-backlog" data-col="BACKLOG"></div>
+            </div>
+
+            <div class="kanban-column" id="col-progress" data-status="IN_PROGRESS">
+              <div class="kanban-col-header">
+                <span class="col-title"><span class="col-dot progress"></span>⚡ In Progress</span>
+                <span id="wip-badge" class="wip-limit-pill">0/3 WIP</span>
+              </div>
+              <div class="kanban-col-dropzone" id="drop-progress" data-col="IN_PROGRESS"></div>
+            </div>
+
+            <div class="kanban-column" id="col-review" data-status="REVIEW_BLOCKED">
+              <div class="kanban-col-header">
+                <span class="col-title"><span class="col-dot review"></span>🔬 Review / Hold</span>
+                <span class="col-count" id="count-col-review">0</span>
+              </div>
+              <div class="kanban-col-dropzone" id="drop-review" data-col="REVIEW_BLOCKED"></div>
+            </div>
+
+            <div class="kanban-column" id="col-done" data-status="DONE">
+              <div class="kanban-col-header">
+                <span class="col-title"><span class="col-dot done"></span>✅ Done</span>
+                <span class="col-count" id="count-col-done">0</span>
+              </div>
+              <div class="kanban-col-dropzone" id="drop-done" data-col="DONE"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO CELL 4: Spec AC & TDD Heartbeat (Span 1x2) -->
+        <div class="bento-card bento-tdd">
+          <div class="card-header">
+            <span class="card-title">🔬 TDD Heartbeat & Specs</span>
+            <span class="badge-pill" style="font-size:9px">Quality Radar</span>
+          </div>
+
+          <!-- Oscilloscope Waveform -->
+          <div class="oscilloscope-box">
+            <svg class="oscilloscope-canvas" viewBox="0 0 200 48">
+              <path id="oscilloscope-wave" d="M 0,24 L 200,24" fill="none" stroke="#10b981" stroke-width="2.5" />
+            </svg>
+            <div id="tdd-pulse-state" class="heartbeat-status GREEN">
+              <span class="pulse-dot"></span>
+              <span>🟢 GREEN (Passing)</span>
+            </div>
+          </div>
+
+          <div class="tdd-sub-heading">Acceptance Criteria (AC-*)</div>
+          <div id="specs-container" class="spec-list-container">
+            <!-- Dynamic specs -->
+          </div>
+
+          <div class="tdd-sub-heading" style="margin-top:10px">Phase Milestone Exit Gates</div>
+          <div id="phases-container" class="phases-list-container">
+            <!-- Dynamic phase exit gates with live progress bars -->
+          </div>
+        </div>
+
+        <!-- BENTO CELL 5: Git Radar & Micro-Commits (Span 1x1) -->
+        <div class="bento-card bento-git">
+          <div class="card-header">
+            <span class="card-title">🌿 Git Telemetry Radar</span>
+            <span id="git-dirty-indicator" class="badge-pill" style="font-size:9px">Clean</span>
+          </div>
+          <div class="git-radar-content">
+            <div id="commit-feed-container" class="commit-feed">
+              <!-- Dynamic commit feed -->
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO CELL 6: Quick Actions Console (Span 1x1) -->
+        <div class="bento-card bento-actions">
+          <div class="card-header">
+            <span class="card-title">⚡ Action Console</span>
+          </div>
+          <div class="actions-bento-grid">
+            <button id="btn-run-tests" class="bento-action-btn">🧪 Run Test Suite</button>
+            <button id="btn-approve-milestone" class="bento-action-btn">✍️ Approve Milestone</button>
+            <button id="btn-copy-standup" class="bento-action-btn">📋 Copy Standup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide-Up Test Drawer -->
+    <div id="test-drawer" class="test-drawer">
+      <div class="drawer-header">
+        <span>🧪 Test Runner Console</span>
+        <button id="close-drawer" style="background:transparent;border:none;color:#94a3b8;cursor:pointer">✕ Close</button>
+      </div>
+      <pre id="drawer-output" style="white-space:pre-wrap;font-family:var(--font-mono);font-size:11px;color:#38bdf8"></pre>
+    </div>
+
+    <!-- Slide-Up Token Telemetry Drawer (Claude MOD Inspector) -->
+    <div id="token-drawer" class="test-drawer">
+      <div class="drawer-header">
+        <span>🧠 Agent Context Window & Token Inspector (Claude MOD)</span>
+        <button id="close-token-drawer" style="background:transparent;border:none;color:#94a3b8;cursor:pointer">✕ Close</button>
+      </div>
+      <div class="token-drawer-content">
+        <div class="token-drawer-summary-cards">
+          <div class="token-drawer-card">
+            <span class="token-drawer-lbl">Active Context Memory</span>
+            <span id="drawer-token-ctx" class="token-drawer-val cyan">0</span>
+            <span class="token-drawer-sub">Tokens in prompt window</span>
+          </div>
+          <div class="token-drawer-card">
+            <span class="token-drawer-lbl">Prompt Cache Efficiency</span>
+            <span id="drawer-token-cache-rate" class="token-drawer-val violet">0%</span>
+            <span id="drawer-token-cache-hit" class="token-drawer-sub">0 cache hits</span>
+          </div>
+          <div class="token-drawer-card">
+            <span class="token-drawer-lbl">Total Cumulative Spend</span>
+            <span id="drawer-token-cost" class="token-drawer-val emerald">$0.00</span>
+            <span id="drawer-token-savings" class="token-drawer-sub emerald">$0.00 saved via cache</span>
+          </div>
+          <div class="token-drawer-card">
+            <span class="token-drawer-lbl">Context Health Status</span>
+            <span id="drawer-token-health" class="token-drawer-val">Optimal</span>
+            <span id="drawer-token-advice" class="token-drawer-sub">No compaction needed</span>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px">
+          <span style="font-size:12px;font-weight:700;color:var(--text-main)">Recent Turns Breakdown (Last 20 Model Invocations)</span>
+          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">Live transcript telemetry</span>
+        </div>
+        <div class="token-history-table-wrapper">
+          <table class="token-history-table">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Time</th>
+                <th>Fresh Input</th>
+                <th>Cache Read</th>
+                <th>Output / Thinking</th>
+                <th>Total Turn Tokens</th>
+              </tr>
+            </thead>
+            <tbody id="token-history-tbody">
+              <!-- Dynamic rows populated from parser.js tokens.recentTurns -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Framer Motion & Anime.js Libraries & Client Engine -->
+  <script src="assets/motion.min.js"></script>
+  <script src="assets/anime.min.js"></script>
+  <script src="assets/dashboard.js"></script>
+</body>
+</html>

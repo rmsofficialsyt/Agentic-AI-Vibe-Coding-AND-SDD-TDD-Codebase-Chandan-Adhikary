@@ -118,6 +118,7 @@ pm run build exits with errors or critical type mismatches. |
 | /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Fast Browser Triage | Diagnostic Analysis | Browser console error, terminal trace, or React error boundary | Analyzes React runtime exceptions (hydration mismatch, undefined property, hook violation); correlates error to JSX line; recommends minimal fix. | Diagnostic RCA Report with single-line or single-component fix | **MUST** prioritize the smallest reproducible fix before attempting broad refactors. |
 | /gitlogs-ca-agent | .agents/commands/gitlogs-ca-agent.md | History & Diff Hygiene | Git History Analysis | Commit range (e.g. HEAD~5..HEAD), branch name | Checks commit cleanliness; verifies atomic commits corresponding to single visual iterations; ensures no generated assets or credentials were committed. | Git Cleanliness Report with squash/rebase recommendations | **MUST** flag messy multi-feature commits or accidental .env inclusions. |
 | /spec-check-ca-agent | .agents/commands/spec-check-ca-agent.md | Living Feature Spec Sync | Spec Audit | Target feature spec in docs/features/ | Verifies that living feature documentation in docs/features/ accurately reflects current UI implementation and form fields after vibe iterations. | Documentation Synchronization Report (UI vs. Docs alignment) | **MUST** report discrepancies between live UI behavior and written documentation. |
+| /dashboard-ca-agent | .agents/commands/dashboard-ca-agent.md | Visual Mission Control | Local Daemon & Simple Browser | None or optional port (default: 4201) | Starts zero-dependency local Node.js daemon; streams live SSE telemetry from docs/task.md, docs/prompts.md, and transcript.jsonl; renders 4-column drag-and-drop Kanban with 3-task WIP limit, Claude MOD token cockpit (200k ceiling, 95% cache hit rate), and sensory oscilloscope. | Interactive Bento Grid Mission Control running strictly in IDE Simple Browser (http://127.0.0.1:4201) | **MUST NOT** launch external browsers. Runs strictly on local machine. |
 
 ---
 
@@ -155,6 +156,7 @@ pm run build) | Verifies zero TypeScript errors and optimal bundle splits | 100%
 | /spec-check-ca-agent | Synchronize living documentation with final UI state | Compares live component props to docs/features/ | Synced documentation baseline |
 | /gitlogs-ca-agent | Clean up commit history before pushing to main | Inspects commit messages for clarity and diff cleanliness | Git History Quality Report |
 | /handoff-ca-agent | Transfer project state to teammate or next AI session | Captures active prompt history (docs/prompts.md) and routes | Engineering Vibe Handoff Dossier (docs/handoff.md) |
+| /dashboard-ca-agent | Launch real-time in-IDE Bento Grid, Kanban & Claude MOD token telemetry | Checks daemon health at http://127.0.0.1:4201/api/state | Interactive In-IDE Simple Browser Mission Control |
 
 ---
 

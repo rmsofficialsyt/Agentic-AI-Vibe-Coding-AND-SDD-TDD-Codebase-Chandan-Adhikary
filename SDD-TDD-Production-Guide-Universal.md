@@ -88,6 +88,15 @@ SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/
 - **Lowercase `kebab-case`**: Avoid spaces, uppercase characters, and special symbols in your directory paths.
 - **Open at the Project Root**: Always open your IDE (Claude Code, Cursor, Windsurf, Antigravity, VS Code) at the root of `[your-project-name]/` so that AI agents immediately discover `AGENTS.md`, `.agents/`, `specs/`, and `docs/`.
 
+### Step 1.1 — Visual Mission Control: In-IDE Project Manager Dashboard
+The framework includes a built-in, zero-dependency **Project-Manager-Dashboard** running strictly inside your IDE:
+- **Port:** `http://127.0.0.1:4200`
+- **Capabilities:** 4-Column Drag & Drop Kanban (with 3-task WIP limit), Claude MOD Context Window Token Cockpit (200k ceiling, 95%+ cache hit rate, cost savings), live TDD Heartbeat oscilloscope, and 12 executive scope indicators.
+- **Launch & Dock in IDE Simple Browser:**
+  1. Type `/dashboard-ca-agent` in your AI chat, or double-click `open-in-ide.bat` (Mac/Linux: `./open-in-ide.sh`).
+  2. In your IDE, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) -> `Simple Browser: Show` -> `http://127.0.0.1:4200`.
+  3. Dock the tab in a split editor pane alongside your code to visually monitor test passes, task states, and token consumption throughout all development prompts!
+
 ---
 
 ## Step 2 — Specifications Architecture: Flat vs. Modular Dual Formats

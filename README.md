@@ -193,6 +193,7 @@ To eliminate collisions with host IDE reserved slash commands (like Cursor or Cl
 | **Execution & TDD** | `/testing-ca-agent` · `/tdd-ca-agent` · `/implement-ca-agent` · `/run-ca-agent` | Failing test execution, Red-Green-Refactor, bounded implementation, dev server startup |
 | **Quality & Security** | `/review-ca-agent` · `/verify-ca-agent` · `/security-audit-ca-agent` · `/release-check-ca-agent` | Git diff review, criteria verification scorecard, SAST security scan, production release gate |
 | **Diagnostics & Handoff** | `/errorlogs-ca-agent` · `/gitlogs-ca-agent` · `/handoff-ca-agent` | Stack trace root-cause triage, git commit audit trails, engineering handoff dossiers |
+| **Visual Mission Control** | `/dashboard-ca-agent` | Real-time In-IDE Bento Grid, 4-column drag-and-drop Kanban, Claude MOD token telemetry, and TDD heartbeat |
 
 ### Andrej Karpathy Engineering Skill (`andrej-karpathy-skill`)
 Built into `.agents/skills/andrej-karpathy-skill/` across both tracks:
@@ -200,6 +201,48 @@ Built into `.agents/skills/andrej-karpathy-skill/` across both tracks:
 - **Single-Batch Overfit / Micro-Baseline:** Make a single vertical feature slice work end-to-end before adding abstraction layers.
 - **Immediate Feedback Loops:** Keep diffs small, verify each step live in the browser, and avoid blind multi-file refactoring.
 - **Anti-Overengineering:** Keep code modular, inspectable, flat, and maintainable.
+
+---
+
+## 🖥️ In-IDE Project Manager Dashboard & Mission Control
+
+Both frameworks include a lightweight, zero-dependency, Apple/Linear-inspired **Bento Grid Mission Control** designed specifically to run inside your coding IDE (Cursor, VS Code, Windsurf, Antigravity):
+
+```text
+=============================================================================================
+             TRACK 1: VIBE-CODING                            TRACK 2: SDD + TDD
+---------------------------------------------   ---------------------------------------------
+* Port: http://127.0.0.1:4201                   * Port: http://127.0.0.1:4200
+* Sensory: Karpathy loop speed & UI state       * Sensory: TDD Heartbeat & Red-Green Pulse
+* Focus: Rapid prototype & design tokens        * Focus: Formal Spec Contracts & ADR status
+=============================================================================================
+```
+
+### 🌟 6 Core Architectural Capabilities
+1. **📋 4-Column Drag & Drop Kanban**:
+   - `📥 Backlog`, `⚡ In Progress` (with 3-task WIP limit), `🔬 Review / Hold`, and `✅ Done`.
+   - Native HTML5 Drag and Drop with authentic Framer Motion spring settling physics (`stiffness: 350, damping: 26`).
+   - Bidirectional sync: dragging cards immediately mutates `docs/task.md` with zero data loss.
+2. **🧠 Claude MOD Agent Context Window & Token Telemetry**:
+   - Active context window capacity gauge (200,000 token ceiling) with health alerts (`Optimal <60%`, `Advisory 60-80%`, `Warning >80%` recommending `/compact`).
+   - **4-Metric Grid**: Fresh Input tokens, Cache Read tokens (95%+ hit rate), Output/Thinking tokens, and real-time Cost & Savings telemetry ($150+ saved via prompt caching).
+   - Slide-out deep-dive inspector drawer with turn-by-turn history table for the last 20 model invocations.
+3. **🎯 Executive Scope & Phase Milestones Runway**:
+   - 12 real-time indicators: Scope Delivery %, Completed Tasks, Active In-Flight, Spec AC Pass %, TDD Pulse, Active Phase, Blockers Radar, SAST Security Health, Test Assertions, Sprint Velocity, Git Churn, and Agent Autonomy.
+   - Dynamic 5-phase gate runway tracker (`P1 Discovery ✓` -> `P2 Foundation 65%` -> `P3 Core Domain` ...).
+4. **📈 Multi-Chart Scope Velocity & Analytics Hub**:
+   - Trajectory burnup area curve, 7-day velocity cadence bars, and 3-ring quality concentric radial gauge (Unit/TDD 96%, AC Specs 92%, Security Lint 100%).
+   - Task distribution spectrum bar reflecting instant status percentages.
+5. **🔬 Spec AC Matrix & TDD Heartbeat**:
+   - Live 60fps oscilloscope sine waveform pulsing Green or Red based on test assertions and Acceptance Criteria verification (`AC-*`).
+6. **☀️/🌙 Telegram-Style Theme Switcher & 60fps Micro-Interactions**:
+   - 360° spring toggle between Deep Obsidian Dark Mode and Clean Light Mode, audio chimes, and slide-up test runner drawer.
+
+### 🚀 How to Launch & Dock in Your IDE Simple Browser
+1. **Option A (Slash Command)**: Type `/dashboard-ca-agent` in your AI chat.
+2. **Option B (VS Code Task)**: Press `Ctrl+Shift+B` or open Command Palette (`Ctrl+Shift+P`) -> `Tasks: Run Task` -> `Start Project Manager Dashboard`.
+3. **Option C (One-Click Script)**: Double-click `open-in-ide.bat` (Windows) or execute `./open-in-ide.sh` (Mac/Linux).
+4. **Dock in IDE**: Press `Ctrl+Shift+P` -> `Simple Browser: Show` -> enter `http://127.0.0.1:4200` (SDD) or `http://127.0.0.1:4201` (Vibe). The dashboard docks into a split editor tab right alongside your code!
 
 ---
 

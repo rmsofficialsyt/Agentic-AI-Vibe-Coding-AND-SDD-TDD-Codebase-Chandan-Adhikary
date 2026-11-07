@@ -1,0 +1,1745 @@
+/* ==============================================================================
+   Project-Manager-Dashboard — Bento Grid Design System & Anime.js UI
+   Apple / Linear Dark Glassmorphism with Dynamic Cursor Spotlight
+   ============================================================================== */
+
+:root {
+  --bg-deep: #070a11;
+  --bg-topbar: rgba(11, 16, 27, 0.85);
+  --bg-card: rgba(15, 23, 42, 0.65);
+  --bg-card-hover: rgba(22, 33, 56, 0.75);
+  
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-glow: rgba(6, 182, 212, 0.4);
+  --border-card: 1px solid rgba(255, 255, 255, 0.08);
+  
+  --cyan-primary: #06b6d4;
+  --cyan-glow: rgba(6, 182, 212, 0.25);
+  --sky-bright: #38bdf8;
+  
+  --emerald-pass: #10b981;
+  --emerald-glow: rgba(16, 185, 129, 0.25);
+  --amber-warn: #f59e0b;
+  --amber-glow: rgba(245, 158, 11, 0.25);
+  --crimson-red: #ef4444;
+  --crimson-glow: rgba(239, 68, 68, 0.25);
+  --violet-vibe: #8b5cf6;
+  --violet-glow: rgba(139, 92, 246, 0.25);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --card-radius: 18px;
+}
+
+/* ==============================================================================
+   TELEGRAM-STYLE WHITE / LIGHT THEME PATTERN
+   ============================================================================== */
+[data-theme="light"] {
+  --bg-deep: #f3f5f9;
+  --bg-topbar: rgba(255, 255, 255, 0.9);
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(248, 250, 252, 0.98);
+  
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-glow: rgba(2, 132, 199, 0.5);
+  --border-card: 1px solid rgba(0, 0, 0, 0.08);
+  
+  --cyan-primary: #0284c7;
+  --cyan-glow: rgba(2, 132, 199, 0.15);
+  --sky-bright: #0369a1;
+  
+  --emerald-pass: #059669;
+  --emerald-glow: rgba(5, 150, 105, 0.15);
+  --amber-warn: #d97706;
+  --amber-glow: rgba(217, 119, 6, 0.15);
+  --crimson-red: #dc2626;
+  --crimson-glow: rgba(220, 38, 38, 0.15);
+  --violet-vibe: #7c3aed;
+  --violet-glow: rgba(124, 58, 237, 0.15);
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-faint: #94a3b8;
+}
+
+[data-theme="light"] body {
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.06) 0px, transparent 50%);
+}
+
+[data-theme="light"] .bento-card {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .stat-value {
+  color: #0f172a;
+}
+
+[data-theme="light"] .bento-task-card {
+  background: rgba(248, 250, 252, 0.9);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .hero-donut-box,
+[data-theme="light"] .oscilloscope-box {
+  background: rgba(241, 245, 249, 0.85);
+}
+
+[data-theme="light"] .filter-tabs {
+  background: rgba(226, 232, 240, 0.6);
+}
+
+[data-theme="light"] .filter-tab.active {
+  background: #ffffff;
+  color: var(--cyan-primary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .test-drawer {
+  background: #ffffff;
+  border-top-color: var(--cyan-primary);
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .test-drawer .drawer-header {
+  color: #0f172a;
+}
+[data-theme="light"] #drawer-output {
+  color: #0369a1;
+}
+
+[data-theme="light"] .agent-pulse {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .btn-icon,
+[data-theme="light"] .bento-action-btn {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text-main);
+}
+[data-theme="light"] .btn-icon:hover,
+[data-theme="light"] .bento-action-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Telegram Smooth Theme Switch Transitions */
+body, .top-header, .bento-card, .bento-task-card, .btn-icon, .filter-tab, .test-drawer {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+#theme-icon {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.07) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Topbar Header */
+.top-header {
+  background: var(--bg-topbar);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--cyan-primary), var(--violet-vibe));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  color: #fff;
+  box-shadow: 0 0 16px var(--cyan-glow);
+}
+
+.brand-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.badge-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--cyan-primary);
+  border: 1px solid var(--border-glow);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+.btn-icon.active {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: var(--cyan-primary);
+  color: var(--cyan-primary);
+}
+
+.agent-pulse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--emerald-pass);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--emerald-pass);
+}
+
+/* ==============================================================================
+   BENTO GRID ARCHITECTURE
+   ============================================================================== */
+
+.bento-container {
+  padding: 16px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Individual Bento Card */
+.bento-card {
+  background: var(--bg-card);
+  border-radius: var(--card-radius);
+  border: var(--border-card);
+  padding: 18px;
+  backdrop-filter: blur(24px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dynamic Cursor Spotlight Border Glow */
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    450px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+    rgba(6, 182, 212, 0.35),
+    transparent 45%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
+}
+
+.bento-card:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Precise Bento Grid Positioning (Zero Holes, Zero Gaps) */
+.bento-hero {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.bento-chart {
+  grid-column: 3 / span 2;
+  grid-row: 1;
+}
+
+.bento-tasks {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 2;
+}
+
+.bento-tdd {
+  grid-column: 3;
+  grid-row: 2 / span 2;
+}
+
+.bento-git {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+.bento-actions {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+/* Card Header Structure */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==============================================================================
+   BENTO CELL 1: HERO METRICS HUB
+   ============================================================================== */
+
+.bento-hero {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hero-content {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px 14px;
+  flex: 1;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  display: flex;
+  align-items: baseline;
+}
+.stat-value.cyan { color: var(--cyan-primary); }
+.stat-value.emerald { color: var(--emerald-pass); }
+.stat-value.amber { color: var(--amber-warn); }
+.stat-value.red { color: var(--crimson-red); }
+.stat-value.violet { color: var(--violet-vibe); }
+
+.stat-sub {
+  font-size: 9px;
+  color: var(--text-faint);
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+.hero-donut-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  min-width: 175px;
+}
+[data-theme="light"] .hero-donut-box {
+  background: rgba(241, 245, 249, 0.9);
+}
+
+.donut-visual-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.donut-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.donut-breakdown-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.donut-breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.donut-breakdown-row.rate {
+  margin-top: 2px;
+  padding-top: 3px;
+  border-top: 1px solid var(--border-subtle);
+  font-weight: 700;
+}
+.breakdown-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.breakdown-dot.done { background: var(--emerald-pass); }
+.breakdown-dot.red { background: var(--crimson-red); }
+.breakdown-dot.pending { background: var(--text-faint); }
+
+/* Milestone Phase Runway Bar */
+.hero-runway-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+}
+
+.hero-runway-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+.runway-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+}
+.runway-summary {
+  color: var(--cyan-primary);
+  font-weight: 600;
+}
+
+.hero-runway-track {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.runway-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  font-size: 10px;
+  flex: 1;
+  min-width: 0;
+  transition: all 0.2s ease;
+}
+[data-theme="light"] .runway-step {
+  background: rgba(248, 250, 252, 0.85);
+}
+
+.runway-step.done {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+  color: var(--emerald-pass);
+}
+.runway-step.active {
+  border-color: rgba(6, 182, 212, 0.5);
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--cyan-primary);
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.2);
+}
+
+.runway-step .step-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.runway-step.done .step-num {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--emerald-pass);
+}
+.runway-step.active .step-num {
+  background: rgba(6, 182, 212, 0.25);
+  color: var(--cyan-primary);
+}
+
+.runway-step .step-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.runway-step .step-state {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.runway-step.done .step-state {
+  color: var(--emerald-pass);
+  font-weight: 700;
+}
+.runway-step.active .step-state {
+  color: var(--cyan-primary);
+  font-weight: 700;
+}
+
+.runway-connector {
+  width: 8px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.runway-connector.done {
+  background: var(--emerald-pass);
+}
+[data-theme="light"] .runway-connector {
+  background: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .runway-connector.done {
+  background: var(--emerald-pass);
+}
+
+/* ==============================================================================
+   BENTO CELL 2: GRANULAR TASK COMMAND CENTER & KANBAN BOARD
+   ============================================================================== */
+
+.task-center-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .view-tabs {
+  background: rgba(226, 232, 240, 0.7);
+}
+
+.view-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.view-tab-btn.active {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--cyan-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+[data-theme="light"] .view-tab-btn.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.view-panel {
+  display: none;
+  width: 100%;
+}
+.view-panel.active {
+  display: flex;
+}
+
+.task-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.filter-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.filter-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.filter-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--cyan-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.task-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 480px;
+  padding-right: 4px;
+}
+
+/* ==============================================================================
+   KANBAN BOARD STYLING (HTML5 DRAG & DROP + FRAMER MOTION SPRINGS)
+   ============================================================================== */
+
+.kanban-board-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  min-height: 440px;
+  overflow-x: auto;
+}
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+  min-width: 135px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="light"] .kanban-column {
+  background: rgba(248, 250, 252, 0.85);
+}
+
+.kanban-column.drag-over {
+  border-color: var(--cyan-primary);
+  background: rgba(6, 182, 212, 0.08);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
+}
+
+.kanban-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.col-title {
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.col-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.col-dot.backlog { background: var(--text-faint); }
+.col-dot.progress { background: var(--amber-warn); }
+.col-dot.review { background: var(--crimson-red); }
+.col-dot.done { background: var(--emerald-pass); }
+
+.col-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+[data-theme="light"] .col-count {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.wip-limit-pill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--cyan-primary);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  transition: all 0.2s ease;
+}
+.wip-limit-pill.warning {
+  background: rgba(239, 68, 68, 0.25);
+  color: var(--crimson-red);
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+  animation: pulseWip 1.4s infinite alternate;
+}
+
+@keyframes pulseWip {
+  0% { transform: scale(1); opacity: 0.85; }
+  100% { transform: scale(1.08); opacity: 1; }
+}
+
+.kanban-col-dropzone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 140px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* Kanban Draggable Card */
+.kanban-task-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  padding: 9px 10px;
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+[data-theme="light"] .kanban-task-card {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.kanban-task-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.kanban-task-card:active {
+  cursor: grabbing;
+}
+
+.kanban-task-card.dragging {
+  opacity: 0.45;
+  transform: scale(0.98) rotate(2deg);
+  border: 1.5px dashed var(--cyan-primary);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.kanban-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kanban-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+.kanban-progress-mini {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+[data-theme="light"] .kanban-progress-mini {
+  background: rgba(0, 0, 0, 0.08);
+}
+.kanban-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--emerald-pass);
+}
+
+.bento-task-card {
+  background: rgba(11, 17, 30, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-task-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateX(2px);
+}
+
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.task-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-id-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan-primary);
+}
+
+.priority-pill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.priority-pill.P0 { background: var(--crimson-glow); color: var(--crimson-red); }
+.priority-pill.P1 { background: var(--amber-glow); color: var(--amber-warn); }
+.priority-pill.P2 { background: rgba(56, 189, 248, 0.15); color: var(--sky-bright); }
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-pill.DONE { background: var(--emerald-glow); color: var(--emerald-pass); }
+.status-pill.IN_PROGRESS { background: var(--amber-glow); color: var(--amber-warn); }
+.status-pill.BACKLOG { background: rgba(100, 116, 139, 0.2); color: var(--text-faint); }
+.status-pill.BLOCKED { background: var(--crimson-glow); color: var(--crimson-red); }
+
+.task-headline {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.subtasks-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+  padding-left: 6px;
+  border-left: 2px solid rgba(255, 255, 255, 0.07);
+}
+
+.subtask-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.subtask-row.done {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.subtask-checkbox {
+  cursor: pointer;
+  accent-color: var(--cyan-primary);
+  transform: scale(1.05);
+}
+
+.file-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+.file-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  color: var(--text-muted);
+}
+
+/* ==============================================================================
+   BENTO CELL 3: SPEC & TDD HEARTBEAT OSCILLOSCOPE
+   ============================================================================== */
+
+.bento-tdd {
+  grid-column: 3;
+  grid-row: 2 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.oscilloscope-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.oscilloscope-canvas {
+  width: 100%;
+  height: 42px;
+}
+
+.heartbeat-status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.heartbeat-status.GREEN { color: var(--emerald-pass); }
+.heartbeat-status.RED { color: var(--crimson-red); }
+
+.tdd-sub-heading {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.spec-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+  max-height: 180px;
+  padding-right: 2px;
+}
+
+.spec-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 11px;
+}
+
+.phases-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  flex: 1;
+  padding-top: 2px;
+}
+
+.phase-item-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .phase-item-box {
+  background: rgba(248, 250, 252, 0.9);
+}
+
+.phase-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.phase-progress-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+[data-theme="light"] .phase-progress-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.phase-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ==============================================================================
+   BENTO CELL 4: VELOCITY & BURNUP CHART
+   ============================================================================== */
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chart-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px;
+  border-radius: 7px;
+  border: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .chart-tabs {
+  background: rgba(226, 232, 240, 0.6);
+}
+
+.chart-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.chart-tab-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--cyan-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+[data-theme="light"] .chart-tab-btn.active {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.chart-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.chart-view-panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+.chart-view-panel.active {
+  display: flex;
+}
+
+.svg-burnup-canvas,
+.svg-bars-canvas,
+.svg-rings-canvas {
+  width: 100%;
+  height: 90px;
+  flex: 1;
+}
+
+/* Task Status Distribution Spectrum */
+.task-dist-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dist-bar-track {
+  height: 8px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  gap: 2px;
+}
+[data-theme="light"] .dist-bar-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.dist-segment {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+.dist-segment.done { background: var(--emerald-pass); }
+.dist-segment.progress { background: var(--amber-warn); }
+.dist-segment.backlog { background: var(--text-faint); }
+.dist-segment.blocked { background: var(--crimson-red); }
+
+.dist-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
+.dist-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.legend-dot.done { background: var(--emerald-pass); }
+.legend-dot.progress { background: var(--amber-warn); }
+.legend-dot.backlog { background: var(--text-faint); }
+.legend-dot.blocked { background: var(--crimson-red); }
+
+.chart-metrics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+[data-theme="light"] .chart-metrics-row {
+  background: rgba(241, 245, 249, 0.85);
+}
+
+.chart-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+.chart-metric-lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.chart-metric-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.chart-metric-val.emerald { color: var(--emerald-pass); }
+.chart-metric-val.cyan { color: var(--cyan-primary); }
+
+/* ==============================================================================
+   BENTO CELL 5: GIT TELEMETRY & MICRO-COMMITS
+   ============================================================================== */
+
+.git-radar-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.commit-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 220px;
+  padding-right: 4px;
+}
+
+.commit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 7px 9px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+[data-theme="light"] .commit-item {
+  background: rgba(248, 250, 252, 0.9);
+}
+.commit-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.commit-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commit-hash {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--cyan-primary);
+  background: rgba(6, 182, 212, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.commit-author {
+  font-size: 10px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
+
+.commit-msg {
+  color: var(--text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+/* ==============================================================================
+   BENTO CELL 6: QUICK ACTIONS CONSOLE
+   ============================================================================== */
+
+.actions-bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  flex: 1;
+}
+
+.bento-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 8px 12px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cyan-primary);
+  transform: translateY(-1px);
+}
+.bento-action-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==============================================================================
+   SLIDE-UP TEST DRAWER
+   ============================================================================== */
+
+.test-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #090e1a;
+  border-top: 1px solid var(--border-glow);
+  padding: 14px 20px;
+  max-height: 240px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--sky-bright);
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.7);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+}
+.test-drawer.open {
+  transform: translateY(0);
+}
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* ==============================================================================
+   RESPONSIVE LAYOUTS FOR IDE DOCKING
+   ============================================================================== */
+
+@media (max-width: 1100px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-hero { grid-column: span 2; grid-row: auto; }
+  .bento-chart { grid-column: span 2; grid-row: auto; }
+  .bento-tasks { grid-column: span 2; grid-row: auto; }
+  .bento-tdd { grid-column: span 1; grid-row: auto; }
+  .bento-actions { grid-column: span 1; grid-row: auto; }
+  .bento-git { grid-column: span 2; grid-row: auto; }
+}
+
+@media (max-width: 640px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-hero,
+  .bento-tasks,
+  .bento-tdd,
+  .bento-chart,
+  .bento-git,
+  .bento-actions {
+    grid-column: span 1;
+    grid-row: auto;
+  }
+  .hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==============================================================================
+   AGENT CONTEXT WINDOW & TOKEN TELEMETRY (CLAUDE MOD STYLE)
+   ============================================================================== */
+
+/* Topbar Context Pill */
+.context-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--text-main);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.context-pill:hover {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+}
+.context-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald-pass);
+  box-shadow: 0 0 8px var(--emerald-pass);
+}
+.context-pill-dot.advisory {
+  background: var(--cyan-primary);
+  box-shadow: 0 0 8px var(--cyan-primary);
+}
+.context-pill-dot.warning {
+  background: var(--amber-warn);
+  box-shadow: 0 0 8px var(--amber-warn);
+}
+.context-pill-dot.critical {
+  background: var(--red-fail);
+  box-shadow: 0 0 8px var(--red-fail);
+}
+.context-pill-label {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+.context-pill-sub {
+  color: var(--text-faint);
+  font-size: 10px;
+}
+
+[data-theme="light"] .context-pill {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Card 2 Context Token Cockpit */
+.token-telemetry-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 2px;
+  width: 100%;
+}
+
+.token-panel-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.token-capacity-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.token-panel-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.token-capacity-readout {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.token-readout-val {
+  font-weight: 700;
+  color: var(--cyan-primary);
+}
+.token-readout-sub {
+  font-size: 11px;
+}
+
+/* Multi-Segmented Capacity Track */
+.token-capacity-track {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  overflow: visible;
+  border: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .token-capacity-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+.token-capacity-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.token-capacity-fill.advisory {
+  background: linear-gradient(90deg, #06b6d4, #38bdf8);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+.token-capacity-fill.warning {
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+.token-capacity-fill.critical {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.7);
+}
+
+.token-threshold-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.token-threshold-marker.warn {
+  background: rgba(245, 158, 11, 0.6);
+}
+.token-threshold-marker.crit {
+  background: rgba(239, 68, 68, 0.8);
+}
+
+.token-threshold-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-faint);
+  margin-top: -4px;
+}
+
+/* Claude MOD 4-Metric Grid */
+.token-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.token-stat-card {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+[data-theme="light"] .token-stat-card {
+  background: rgba(0, 0, 0, 0.03);
+}
+.token-stat-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.token-stat-number {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+.token-stat-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+}
+
+.token-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+}
+.token-footer-info {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.btn-token-inspect {
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--cyan-primary);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-token-inspect:hover {
+  background: rgba(6, 182, 212, 0.25);
+}
+
+/* Token Deep-Dive Drawer */
+.token-drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.token-drawer-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.token-drawer-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.token-drawer-lbl {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+.token-drawer-val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+}
+.token-drawer-sub {
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.token-history-table-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+}
+.token-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: left;
+}
+.token-history-table th {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  padding: 6px 10px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.token-history-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+}
+.token-history-table tr:hover {
+  background: rgba(6, 182, 212, 0.06);
+}

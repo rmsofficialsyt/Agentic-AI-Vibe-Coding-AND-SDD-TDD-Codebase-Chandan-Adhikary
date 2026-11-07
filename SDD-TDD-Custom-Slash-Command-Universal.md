@@ -126,6 +126,7 @@ pm run build); checks docker container build; generates release sign-off. | Form
 | /handoff-ca-agent | .agents/commands/handoff-ca-agent.md | Documentation / Handoff | State Synchronization | Target milestone, outgoing agent / developer ID | Synthesizes current sprint state, completed AC-* items, pending blockers, active test status, and exact next commands for incoming developers or agents. | Engineering Handoff Dossier written to docs/handoff.md | **MUST** provide exact verifiable reproduction commands. Never generates vague handoff summaries. |
 | /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Diagnostics & Triage | Diagnostic Analysis | Log file path, error snippet, or stack trace | Parses error stack traces, correlates with source lines; inspects database connection states; identifies root cause (schema mismatch, null pointer, syntax). | Root cause diagnostic report with minimal-diff fix recommendation | **MUST** isolate root cause before proposing edits. Adheres to Karpathy's smallest-reproducible-fix heuristic. |
 | /gitlogs-ca-agent | .agents/commands/gitlogs-ca-agent.md | Audit & Traceability | Git History Analysis | Commit range (e.g. HEAD~5..HEAD), branch name | Audits git commit history; verifies that every commit message cites valid Spec IDs and AC-* tags; checks for unauthorized file changes or dirty branches. | Git Audit Traceability Report showing commit-to-spec correlation score | **MUST** report any orphan commits lacking Spec ID or Acceptance Criteria references. |
+| /dashboard-ca-agent | .agents/commands/dashboard-ca-agent.md | Visual Mission Control | Local Daemon & Simple Browser | None or optional port (default: 4200) | Starts zero-dependency local Node.js daemon; streams live SSE telemetry from docs/task.md, specs/, and transcript.jsonl; renders 4-column drag-and-drop Kanban with 3-task WIP limit, Claude MOD token cockpit (200k ceiling, 95% cache hit rate), and TDD heartbeat oscilloscope. | Interactive Bento Grid Mission Control running strictly in IDE Simple Browser (http://127.0.0.1:4200) | **MUST NOT** launch external browsers. Runs strictly on local machine. |
 
 ---
 
@@ -162,6 +163,7 @@ To provide actionable guidance during active pairing sessions, the 15 commands a
 |---|---|---|---|
 | /errorlogs-ca-agent | Debug runtime crashes or failed test assertions | Inspects stack traces, correlating error lines to raw source files | Diagnostic RCA Report & minimal reproducible fix |
 | /gitlogs-ca-agent | Verify commit compliance and audit trails | Inspects commit messages for valid Spec ID and AC-* citations | Git Traceability Audit Report |
+| /dashboard-ca-agent | Launch real-time in-IDE Bento Grid, Kanban & Claude MOD token telemetry | Checks daemon health at http://127.0.0.1:4200/api/state | Interactive In-IDE Simple Browser Mission Control |
 | /handoff-ca-agent | Hand off active codebase state to another developer | Captures active branch, passing/failing tests, and pending tasks | Complete Engineering Handoff Dossier (docs/handoff.md) |
 
 ---

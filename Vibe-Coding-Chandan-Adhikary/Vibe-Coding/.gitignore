@@ -12,14 +12,10 @@
 **/coverage/
 .DS_Store
 .idea/
-.vscode/
+.vscode/*
+!.vscode/tasks.json
 
-# ==============================================================================
-# LOCAL IN-BUILT PROJECT MANAGEMENT DASHBOARD (STRICTLY LOCAL MACHINE ONLY)
-# ==============================================================================
-Project-Manager-Dashboard/
-local-dashboard/
-.dashboard/
+# Temporary runtime logs
 **/.dashboard-state.json
 **/local-dashboard-logs/
 
