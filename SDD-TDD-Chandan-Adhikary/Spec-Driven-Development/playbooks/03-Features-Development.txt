@@ -1,24 +1,29 @@
 03-Features-Development
-=======================
+========================
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Author, review, approve, and evolve feature contracts in `docs/features/` under SDD change control.
+Read trigger: MUST read before creating a new feature spec or modifying an existing feature.
 Applicability: SDD
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/features/README.md`, `docs/requirements-traceability.md`, and `docs/change-control.md`.
+- Note: Repository-level `specs/` is prohibited; all features live in `docs/features/`.
+
+Commands & Skills:
+- Commands: `/change-request-ca-agent`, `/spec-check-ca-agent`, `/plan-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`
+- Skills: `requirements-analysis`, `spec-validator`, `architecture-review`, `documentation-sync`
 
 Procedure:
-1. Intake — MUST: Assign feature ID and acceptance criteria.
-2. Change review — MUST: Log CR and approve revised spec before updating SDD code.
-3. Test and build — MUST: Test first, implement scoped behavior and regression-test.
-4. Complete — MUST: Review, link evidence and log product change.
+1. Intake & Authoring:
+   - Choose Flat (`docs/features/NNN-kebab-name.md`) or Modular (`docs/features/NNN-kebab-name/{feature,acceptance,test-plan}.md`) from `docs/features/FEATURE-TEMPLATE.md`.
+   - Assign canonical IDs: `FEAT-###`, `FR-FEAT###-##`, `NFR-FEAT###-##`, `AC-FEAT###-##` (Given/When/Then), and `TEST-FEAT###-##`.
+2. Change Control (if modifying an existing `APPROVED` feature):
+   - Run `/change-request-ca-agent` using `docs/changes/CHANGE-REQUEST-TEMPLATE.md` to create `CR-###` before editing the spec.
+3. Validation & Approval:
+   - Run `python scripts/check_docs.py` and `/spec-check-ca-agent` (skill: `spec-validator`).
+   - Obtain human approval in `docs/approvals/APR-###.md` (`docs/approvals/APPROVAL-TEMPLATE.md`) and update `docs/spec.md`.
+4. Implement & Log:
+   - Follow `playbooks/02-Project-Implementation.txt`, then log the release in `docs/CHANGELOG.md`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Validated feature spec in `docs/features/`, updated `docs/spec.md`, approval record `APR-###`, and `check_docs.py` pass.

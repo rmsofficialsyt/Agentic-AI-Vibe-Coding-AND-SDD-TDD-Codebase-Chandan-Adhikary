@@ -1,24 +1,31 @@
 01-Setup-Project
 ================
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Bootstrap SDD in a new or existing project with working IDE commands, hooks, docs, and verification.
+Read trigger: MUST read immediately before setting up or copying this framework into a project.
 Applicability: SDD
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Copy framework files to the **workspace/git root** (IDEs discover `.agents/` at the repo root, not nested subfolders).
+- Read `AGENTS.md`, `docs/INDEX.md`, `docs/ide-compatibility.md`, and `LICENSE-DECISION.md`.
+
+Commands & Skills:
+- Commands: `/plan-ca-agent`, `/dashboard-ca-agent`, `/spec-check-ca-agent`
+- Skills: `andrej-karpathy-skill`, `requirements-analysis`, `prd-writer`
 
 Procedure:
-1. Discover — MUST: Confirm project objective, users, risks and boundaries.
-2. Initialize — MUST: Set up Git, root files, docs, agent instructions and owner-approved license decision.
-3. Configure — MUST: Pin tools and create secrets-safe environment examples.
-4. Validate — MUST: Verify formatter, test harness, initial CI and repeatable local setup.
+1. Initialize IDE adapters and project docs:
+   - Run: `python scripts/init_project.py --ides antigravity` (or `--ides all` / `--ides claude,cursor,windsurf,copilot`).
+   - Pass `--clean-samples` to remove `001-example-feature`, `002-student-enrollment.md`, and `APR-SAMPLE-001.md` for a fresh project.
+   - Pass `--install-git-hooks` after `git init` to enable local pre-commit checks.
+2. Define product & governance baseline:
+   - Populate `docs/product.md`, `docs/prd.md`, `docs/tech-stacks.md`, and `docs/environments.md`.
+   - Record license choice per `LICENSE-DECISION.md` and create `.env` from `.env.example` (never commit secrets).
+3. Verify setup:
+   - Run: `python scripts/check_docs.py`
+   - Run: `python scripts/manifest.py --check`
+   - Optional: launch In-IDE Mission Control with `/dashboard-ca-agent` (`Project-Manager-Dashboard/open-in-ide.bat` or `.sh`).
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Clean `check_docs.py` output (0 errors), active IDE slash commands in `/` dropdown, and initialized `docs/product.md` + `docs/prd.md`.
+- MUST stop at missing approval, unresolved policy conflict, or unsafe credentials.

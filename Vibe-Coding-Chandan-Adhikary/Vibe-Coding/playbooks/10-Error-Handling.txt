@@ -1,24 +1,24 @@
 10-Error-Handling
 =================
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Standardize structured error handling, safe client responses, logging, and incident recovery.
+Read trigger: MUST read when designing API error responses, retry logic, or incident runbooks.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/error-tracker.md`, `docs/apis.md`, `docs/observability.md`, and `docs/runbook.md`.
+
+Commands & Skills:
+- Commands: `/errorlogs-ca-agent`, `/tdd-ca-agent`, `/security-audit-ca-agent`
+- Skills: `debugging-analyst`, `api-contract-review`, `security-auditor`
 
 Procedure:
-1. Taxonomy — MUST: Classify domain, validation, infrastructure and user errors.
-2. Response — MUST: Design safe consistent errors and recovery guidance.
-3. Resilience — MUST: Specify retries, fallback and alert behavior.
-4. Prevention — MUST: Cover recurrent failures with regression tests and tracker entries.
+1. Contract-First Error Shapes:
+   - Return documented HTTP status codes (`400`, `401`, `403`, `404`, `422`, `429`, `5xx`) without leaking stack traces or secrets.
+2. Observability & Correlation:
+   - Log structured error codes, correlation/request IDs, and sanitized context at system boundaries.
+3. Negative Tests & Runbook:
+   - Add tests for malformed payloads, timeouts, and downstream failures; document recovery steps in `docs/runbook.md`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Verified error-path tests, sanitized error responses, and updated `docs/runbook.md` / `docs/error-tracker.md`.

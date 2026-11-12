@@ -1,24 +1,27 @@
 07-Testing-QA
 =============
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Execute the Vibe Coding test and QA checks and map every acceptance criterion to passing test evidence.
+Read trigger: MUST read before running QA suites or signing off on feature verification.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/code-testing.md`, `docs/acceptance-criteria.md`, and `docs/accessibility.md`.
+- Confirm every `AC-FEAT###-##` has a `TEST-FEAT###-##` mapping in `docs/features/`.
+
+Commands & Skills:
+- Commands: `/tdd-ca-agent`, `/testing-ca-agent`, `/verify-ca-agent`
+- Skills: `tdd-enforcer`, `accessibility-auditor`, `ui-fidelity-review`, `ml-evaluation`
 
 Procedure:
-1. Select scope — MUST: Use approved spec and release-critical journeys.
-2. Execute — MUST: Run unit, integration, E2E, API, security, performance and accessibility as applicable.
-3. Evidence — MUST: Record exact commands, results, failures and coverage.
-4. Disposition — MUST: Block or approve only according to gate thresholds.
+1. Run Targeted & Suite Tests:
+   - Run `/testing-ca-agent` for unit, integration, API contract, and E2E tests.
+   - Never relax assertions or skip failing tests to force green output.
+2. Specialized Quality Gates (when applicable):
+   - UI changes: run `accessibility-auditor` and `ui-fidelity-review`.
+   - ML/AI changes: run `ml-evaluation`.
+3. Traceability & Docs Verification:
+   - Run `python scripts/check_docs.py` and `/verify-ca-agent`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Exact commands executed, raw pass/fail counts, coverage/gate status, and updated `docs/task.md`.

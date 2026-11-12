@@ -1,24 +1,27 @@
 04-Authentication-Security
 ==========================
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Enforce authentication, authorization, secret hygiene, and security auditing across SDD changes.
+Read trigger: MUST read before implementing auth, RBAC, session/token handling, or handling secrets.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/security.md`, `docs/apis.md`, and the approved `FEAT-###` spec.
+- Ensure `.env` is gitignored and only `.env.example` contains placeholder keys.
+
+Commands & Skills:
+- Commands: `/security-audit-ca-agent`, `/spec-check-ca-agent`, `/tdd-ca-agent`, `/review-ca-agent`
+- Skills: `security-auditor`, `api-contract-review`, `code-reviewer`
 
 Procedure:
-1. Threat analysis — MUST: Classify data, assets, roles and abuse cases.
-2. Design — MUST: Approve auth/session, recovery, access policy and encryption.
-3. Test — MUST: Cover unauthorized access, input attacks, secrets and secure failure.
-4. Approval — MUST: Record security review and unresolved risks.
+1. Threat & Boundary Check:
+   - Verify authn/authz rules, tenant isolation, input validation, and rate limits in `docs/security.md` and the feature spec.
+2. Secret & Hook Hygiene:
+   - Confirm `.agents/hooks.json` (`pre_tool_guard.py`) is active and no credentials exist in code, logs, or `docs/`.
+3. Security TDD:
+   - Write failing negative tests (unauthenticated `401`, cross-tenant/unauthorized `403`/`404`, malformed tokens, injection payloads).
+4. Audit:
+   - Run `/security-audit-ca-agent` (skill: `security-auditor`) and fix all Critical/High findings before merge.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Passing security/negative tests, `/security-audit-ca-agent` report with zero unresolved Critical/High issues.

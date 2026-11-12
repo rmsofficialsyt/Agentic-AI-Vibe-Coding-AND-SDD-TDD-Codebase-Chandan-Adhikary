@@ -1,24 +1,26 @@
 08-Debugging
 ============
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Diagnose root causes using real logs and minimal reproduction tests while preserving Vibe Coding velocity and tests.
+Read trigger: MUST read when investigating bugs, test failures, or runtime regressions.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/error-tracker.md`, `docs/observability.md`, and `docs/runbook.md`.
+
+Commands & Skills:
+- Commands: `/errorlogs-ca-agent`, `/gitlogs-ca-agent`, `/tdd-ca-agent`, `/verify-ca-agent`
+- Skills: `debugging-analyst`, `andrej-karpathy-skill`
 
 Procedure:
-1. Reproduce — MUST: Collect safe symptoms, context and deterministic repro.
-2. Diagnose — MUST: Isolate root cause using observed evidence.
-3. Correct — MUST: Add regression test before production fix where feasible.
-4. Close — MUST: Run regression suite and update error tracker.
+1. Capture Evidence:
+   - Run `/errorlogs-ca-agent` and `/gitlogs-ca-agent` to inspect actual stack traces, inputs, and recent commits.
+2. Reproduce with a Failing Test:
+   - Write a minimal failing regression test (`TEST-FEAT###-##` or unit test) before touching production code.
+3. Fix & Verify:
+   - Apply the smallest fix within scope; run `/verify-ca-agent` and full regression suite.
+4. Prevent Recurrence:
+   - Log recurring or P0/P1 defects in `docs/error-tracker.md` (`ERR-###`) and context in `docs/memory.md`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Root cause summary, regression test evidence, and `docs/error-tracker.md` entry (if P0/P1 or recurring).

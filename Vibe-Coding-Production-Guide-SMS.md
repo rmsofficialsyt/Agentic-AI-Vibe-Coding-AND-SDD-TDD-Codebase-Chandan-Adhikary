@@ -24,13 +24,14 @@ This guide provides an end-to-end, production-ready blueprint for creating **Edu
 ## Table of Contents
 
 1. [Step 1 — Baseline Framework Setup & Project Renaming](#step-1--baseline-framework-setup--project-renaming)
-2. [Step 2 — IDE Detection & Auto-Pruning Policy](#step-2--ide-detection--auto-pruning-policy)
-3. [Step 3 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation](#step-3--prompt-1-vibe-project-discovery-uiux--tech-stack-evaluation)
-4. [Step 4 — Human Review & Aesthetic Sign-Off](#step-4--human-review--aesthetic-sign-off)
-5. [Step 5 — Prompt 2: Scaffolding & Live Interactive Shell with `/run-ca-agent`](#step-5--prompt-2-scaffolding--live-interactive-shell-with-run-ca-agent)
-6. [Step 6 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)](#step-6--prompt-3-conversational-vibe-tuning--feature-expansion-karpathy-loops)
-7. [Step 7 — Prompt 4: Production Hardening, Validation & Pre-Deployment Audit](#step-7--prompt-4-production-hardening-validation--pre-deployment-audit)
-8. [Complete Vibe-Coding Workflow Summary & Best Practices](#complete-vibe-coding-workflow-summary--best-practices)
+2. [Step 2 — Mandatory: Activate `.agents/` Commands, Skills & Hooks](#step-2--mandatory-activate-agents-commands-skills--hooks)
+3. [Step 3 — IDE Detection & Auto-Pruning Policy](#step-3--ide-detection--auto-pruning-policy)
+4. [Step 4 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation](#step-4--prompt-1-vibe-project-discovery-uiux--tech-stack-evaluation)
+5. [Step 5 — Human Review & Aesthetic Sign-Off](#step-5--human-review--aesthetic-sign-off)
+6. [Step 6 — Prompt 2: Scaffolding & Live Interactive Shell with `/run-ca-agent`](#step-6--prompt-2-scaffolding--live-interactive-shell-with-run-ca-agent)
+7. [Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)](#step-7--prompt-3-conversational-vibe-tuning--feature-expansion-karpathy-loops)
+8. [Step 8 — Prompt 4: Production Hardening, Validation & Pre-Deployment Audit](#step-8--prompt-4-production-hardening-validation--pre-deployment-audit)
+9. [Complete Vibe-Coding Workflow Summary & Best Practices](#complete-vibe-coding-workflow-summary--best-practices)
 
 ---
 
@@ -56,7 +57,25 @@ school-management-system/
 
 ---
 
-## Step 2 — IDE Detection & Auto-Pruning Policy
+## Step 2 — Mandatory: Activate `.agents/` Commands, Skills & Hooks
+
+> **MANDATORY GATE:** Do **not** proceed to Step 3 or Prompt 1 until `.agents/` commands, skills, and hooks are active and verified in your renamed project root.
+
+1. **Run the project initializer** from the root of your renamed project directory:
+   ```bash
+   python scripts/init_project.py --ides antigravity
+   # Or for multiple IDEs: --ides antigravity,claude,cursor,windsurf,copilot (or --ides all)
+   # Optional flags for fresh projects: --clean-samples --install-git-hooks
+   ```
+   This syncs `.agents/commands/*-ca-agent.md` to IDE-native slash-command folders (`.agents/workflows/` for Antigravity, `.claude/commands/` + `.claude/skills/` + `.claude/settings.json` for Claude Code, `.windsurf/workflows/` for Windsurf, `.cursor/commands/` for Cursor, `.github/prompts/` for Copilot) and activates `.agents/hooks.json`.
+2. **Verify activation:**
+   - Run `python scripts/check_docs.py` (must exit `0` with `0 error(s)`).
+   - Run `python scripts/hooks/session_start.py` (must report `"missing": []`).
+   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`andrej-karpathy-skill`, `spec-validator`, etc.) are discovered.
+
+---
+
+## Step 3 — IDE Detection & Auto-Pruning Policy
 
 The Vibe Coding framework includes native adapters for major AI coding environments. Before beginning work, inspect your active IDE environment according to `docs/ide-compatibility.md`:
 
@@ -65,7 +84,7 @@ The Vibe Coding framework includes native adapters for major AI coding environme
 - **Claude Code**: `CLAUDE.md`.
 - **Cursor**: `.cursorrules`.
 - **Windsurf**: `.windsurfrules`.
-- **Antigravity**: `antigravity.json` / workspace configuration.
+- **Antigravity**: `.agents/workflows/`, `.agents/skills/`, and `.agents/hooks.json`.
 - **GitHub Copilot**: `.github/copilot-instructions.md`.
 
 ### Single-IDE Auto-Pruning
@@ -76,7 +95,7 @@ If your development team uses multiple editors across team members, retain `AGEN
 
 ---
 
-## Step 3 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation
+## Step 4 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation
 
 > **Mode:** Plan Mode / Ask Mode / Read-Only Architecture  
 > **Goal:** Direct the AI agent to thoroughly research the School Management System domain, inspect the Vibe-Coding guidelines, evaluate modern UI/UX patterns, select the optimal tech stack, and present a complete 17-point planning report—**without implementing any application code yet**.
@@ -301,7 +320,7 @@ Produce a comprehensive 17-section planning report:
 
 ---
 
-## Step 4 — Human Review & Aesthetic Sign-Off
+## Step 5 — Human Review & Aesthetic Sign-Off
 
 When your AI assistant finishes generating the 17-section planning report, inspect its proposals before permitting any code execution.
 
@@ -315,7 +334,7 @@ When your AI assistant finishes generating the 17-section planning report, inspe
 
 ---
 
-## Step 5 — Prompt 2: Scaffolding & Live Interactive Shell with `/run-ca-agent`
+## Step 6 — Prompt 2: Scaffolding & Live Interactive Shell with `/run-ca-agent`
 
 > **Mode:** Coding / Build Mode  
 > **Goal:** Scaffold the complete application shell, establish design tokens, build the marketing landing page and authenticated dashboard layout with mock data, and launch the dev server for live visual review.
@@ -380,7 +399,7 @@ Present a summary of:
 
 ---
 
-## Step 6 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)
+## Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)
 
 > **Mode:** Iterative Feature Tuning  
 > **Philosophy:** This is the heart of Vibe Coding. You take the live working screen, observe how it feels in your browser, and converse with the agent using **Karpathy Heuristics** (small focused changes, immediate feedback, and intuitive ergonomics).
@@ -435,7 +454,7 @@ For each student in Grade 10-A:
 
 ---
 
-## Step 7 — Prompt 4: Production Hardening, Validation & Pre-Deployment Audit
+## Step 8 — Prompt 4: Production Hardening, Validation & Pre-Deployment Audit
 
 > **Mode:** Production Hardening & Pre-Deploy Gate  
 > **Goal:** Transition the refined prototype into enterprise-grade production software. Implement runtime validation schemas, secure route middleware, database connection pooling, and verify production builds.

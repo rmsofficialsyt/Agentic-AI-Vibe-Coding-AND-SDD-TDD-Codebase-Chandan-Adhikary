@@ -29,13 +29,21 @@ DEFAULTS = {
 
 
 def list_files() -> list[str]:
-    out = subprocess.run(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "."],
-        cwd=ROOT, capture_output=True, check=True,
-    ).stdout.decode("utf-8")
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "."],
+            cwd=ROOT, capture_output=True, check=True,
+        ).stdout.decode("utf-8")
+        candidates = [rel.replace("\\", "/") for rel in filter(None, out.split("\0"))]
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        skip = {".git", "__pycache__", "node_modules", ".venv", "dist", "build"}
+        candidates = [
+            p.relative_to(ROOT).as_posix()
+            for p in ROOT.rglob("*")
+            if p.is_file() and not any(part in skip for part in p.parts)
+        ]
     files = []
-    for rel in filter(None, out.split("\0")):
-        rel = rel.replace("\\", "/")
+    for rel in candidates:
         if rel == "MANIFEST.json" or not (ROOT / rel).is_file():
             continue  # skip the manifest itself and files deleted in the working tree
         files.append(rel)

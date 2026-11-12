@@ -1,32 +1,25 @@
 11-Checklist
 ============
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Final end-to-end release, handoff, and governance checklist before shipping or transferring work.
+Read trigger: MUST read before final release sign-off or engineering handoff.
 Applicability: SDD
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/release-checklist.md`, `docs/handoff.md`, `docs/deployment.md`, and `docs/CHANGELOG.md`.
 
-Procedure:
-1. Discovery — MUST: Problem, users, non-goals, owners confirmed.
-2. Specification — MUST: Approved version, criteria, traceability and architecture ready.
-3. Engineering — MUST: Security, test-first, build, review, config and CI evidence.
-4. Release — MUST: Monitoring, rollback, docs, changelog and approval recorded.
+Commands & Skills:
+- Commands: `/release-check-ca-agent`, `/security-audit-ca-agent`, `/handoff-ca-agent`, `/gitlogs-ca-agent`
+- Skills: `release-validator`, `documentation-sync`, `security-auditor`
+
+Checklist:
+1. [ ] `python scripts/check_docs.py` exits 0 (0 errors, 0 warnings).
+2. [ ] `python scripts/manifest.py --check` exits 0.
+3. [ ] All target IDE adapters synced (`python scripts/sync_ide_adapters.py --ides ...`) and `.agents/hooks.json` active.
+4. [ ] All implemented `FEAT-###` specs are `APPROVED` in `docs/spec.md` with `APR-###` in `docs/approvals/`.
+5. [ ] Full test suite and `/security-audit-ca-agent` pass with real recorded output.
+6. [ ] `docs/CHANGELOG.md` updated for product changes; `docs/memory.md` and `docs/handoff.md` synced via `/handoff-ca-agent`.
+7. [ ] Rollback plan verified in `docs/deployment.md` and `docs/runbook.md`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
-
-Checklist example (record evidence for each item):
-[ ] Pending — discovery owner approved
-[ ] Pending — latest spec version approved
-[ ] Pending — red/green test results attached
-[ ] Pending — CI/security/review evidence attached
-[ ] Pending — deployment and rollback signed off
-[!] Blocked — missing approval / failing critical gate
+- Completed `/release-check-ca-agent` + `/handoff-ca-agent` evidence and human ship approval.

@@ -25,8 +25,8 @@ SDD index of current approved feature contracts.
 
 | Feature | Title | Current version | Status | Approval | Effective date | Supersedes |
 |---|---|---|---|---|---|---|
-| FEAT-001 | User Authentication & RBAC (sample) | 1.0.0 | APPROVED (sample) | APR-SAMPLE-001 | [YYYY-MM-DD] | — |
-| FEAT-002 | Student Enrollment (sample) | 0.2.0 | IN REVIEW | Pending | — | — |
+| FEAT-001 | [User Authentication & RBAC (sample)](features/001-example-feature/feature.md) | 1.0.0 | APPROVED (sample) | [APR-SAMPLE-001](approvals/APR-SAMPLE-001.md) | 2026-11-04 | — |
+| FEAT-002 | [Student Enrollment (sample)](features/002-student-enrollment.md) | 0.2.0 | IN REVIEW | Pending | — | — |
 
 ### 3. No duplicate authority
 

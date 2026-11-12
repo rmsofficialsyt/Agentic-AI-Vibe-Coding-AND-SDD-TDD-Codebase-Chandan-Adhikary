@@ -1,24 +1,26 @@
 09-Validation
 =============
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Run objective pre-merge and pre-release validation gates across code, specs, docs, and manifest.
+Read trigger: MUST read before opening a PR, merging, or advancing a release phase.
 Applicability: SDD
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/code-review.md`, `docs/release-checklist.md`, `docs/phases.md`, and `docs/requirements-traceability.md`.
+
+Commands & Skills:
+- Commands: `/spec-check-ca-agent`, `/verify-ca-agent`, `/review-ca-agent`, `/release-check-ca-agent`
+- Skills: `spec-validator`, `release-validator`, `documentation-sync`, `code-reviewer`
 
 Procedure:
-1. Baseline — MUST: Load approved spec and acceptance IDs.
-2. Compare — MUST: Check UI, functionality, performance and contracts against source.
-3. Deviation — MUST: Document gaps and unauthorized changes.
-4. Sign off — MUST: Record actual evidence and authorized acceptance.
+1. Documentation & Manifest Gates:
+   - Run: `python scripts/check_docs.py`
+   - Run: `python scripts/manifest.py --check` (or `generate` if package files changed intentionally).
+2. Spec & Code Gates:
+   - Run `/spec-check-ca-agent`, `/verify-ca-agent`, and `/review-ca-agent`.
+3. Release Gate (before phase exit or deploy):
+   - Run `/release-check-ca-agent` (skill: `release-validator`) against `docs/release-checklist.md` and `docs/phases.md`.
+   - Record human phase exit approval (`APR-###`) in `docs/approvals/`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Zero errors from `check_docs.py` and `manifest.py --check`, passing CI/test evidence, and recorded approval.

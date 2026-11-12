@@ -4,11 +4,11 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 136,
+  "file_count_excluding_manifest": 158,
   "files": [
     {
       "path": ".agents/README.md",
-      "sha256": "2f48a7b60b84253cac4a478288e49531b98f54b51766ce472f1e18819c2bc629"
+      "sha256": "2aa8e97d08e43f3936cb1cd3ccaad0a5d470940f0c24e6d8dbfe03058fdd02d4"
     },
     {
       "path": ".agents/commands/README.md",
@@ -79,8 +79,12 @@
       "sha256": "d92433b9f45a0467b87640595a00c12a584b0b1101709f68414aee3ba3774e02"
     },
     {
+      "path": ".agents/hooks.json",
+      "sha256": "06d2c8511aa7b461dc0ff42f3ee93b567a1614c21c7b625043cf8469aa210fbf"
+    },
+    {
       "path": ".agents/hooks/HOOK-MATRIX.md",
-      "sha256": "bbfc3fb3fb19bc995becda5b14aad7628af8d52c49db1e5083a04f9106deb70f"
+      "sha256": "a374358d65deafcdbf97cccc6a44c395089ed582045854011eaeeca2cf180153"
     },
     {
       "path": ".agents/skills/accessibility-auditor/SKILL.md",
@@ -161,6 +165,70 @@
     {
       "path": ".agents/templates/AGENT-TASK-CONTRACT.md",
       "sha256": "ac96561358c5058dedc725235d69da433c560dcbee92fb2b1eb7525e8a59f484"
+    },
+    {
+      "path": ".agents/workflows/change-request-ca-agent.md",
+      "sha256": "ae9452e82c6b0246a706630a6a2009ded329a4cceba5021cecb2d30207778cf0"
+    },
+    {
+      "path": ".agents/workflows/dashboard-ca-agent.md",
+      "sha256": "2c9d7e171b0daaacd8fdddd0da9f46f77bbcb21970f21a662ec8d0f0b8c4e9db"
+    },
+    {
+      "path": ".agents/workflows/errorlogs-ca-agent.md",
+      "sha256": "9a97f8029139b1aa582097da41cd5aabd0996f52b87427c6b07c8ab8d409957c"
+    },
+    {
+      "path": ".agents/workflows/gitlogs-ca-agent.md",
+      "sha256": "97b1cf425f717a3220c0613c453f8e97a8ce83a1669387cdb2f2bcdae04da92f"
+    },
+    {
+      "path": ".agents/workflows/handoff-ca-agent.md",
+      "sha256": "e9176b1f3ed7b013c19a992de9d779bde2b59fd415ae6f7d7281d77ce6058120"
+    },
+    {
+      "path": ".agents/workflows/implement-ca-agent.md",
+      "sha256": "31e8d08f818443f574490f5d87c0c45cc9bca6341ca7d7572ae101f6c2cd5764"
+    },
+    {
+      "path": ".agents/workflows/plan-ca-agent.md",
+      "sha256": "eae09f77e83241e5c6879f5d1cf72b84053fd40138bd06f08d9bc914442bde8e"
+    },
+    {
+      "path": ".agents/workflows/release-check-ca-agent.md",
+      "sha256": "ce1a74cf2e28ed3c429ba447a4476f87429117b01c01ccd756276548ac9f5c50"
+    },
+    {
+      "path": ".agents/workflows/review-ca-agent.md",
+      "sha256": "e87b3b3b56727347aa2740bd7e823581b495f60fe8486063e14193f28d564461"
+    },
+    {
+      "path": ".agents/workflows/run-ca-agent.md",
+      "sha256": "8a85e077937b18c634aa34fa10b2a6c126aa6d9ecd21d24c9b56cf7c37a01dd0"
+    },
+    {
+      "path": ".agents/workflows/security-audit-ca-agent.md",
+      "sha256": "b8c3d18aca8429a02b48136b3e8f4d1d9b5f2b746429559ac7cac13b1ddf59f3"
+    },
+    {
+      "path": ".agents/workflows/spec-check-ca-agent.md",
+      "sha256": "6957f186c3140f54ae95802bc57985b8d305003e36dba74def59e68cd38d9f80"
+    },
+    {
+      "path": ".agents/workflows/task-ca-agent.md",
+      "sha256": "b2700bcf9e4b5c889530fca66b6bc47273fa42617aa205a7035020923146cdd7"
+    },
+    {
+      "path": ".agents/workflows/tdd-ca-agent.md",
+      "sha256": "3978afc3bc0dd4645866e5ba182d9ce24180e1d816f8a9a802aa623e27057b88"
+    },
+    {
+      "path": ".agents/workflows/testing-ca-agent.md",
+      "sha256": "6e59f0c0b93719ded3c3a05ba13c98944a8dbd87820e76c47b3e3de2c71c9936"
+    },
+    {
+      "path": ".agents/workflows/verify-ca-agent.md",
+      "sha256": "d92433b9f45a0467b87640595a00c12a584b0b1101709f68414aee3ba3774e02"
     },
     {
       "path": ".cursor/rules/project-policy.mdc",
@@ -496,55 +564,75 @@
     },
     {
       "path": "playbooks/01-Setup-Project.txt",
-      "sha256": "68dc401a68054c8b4958497e8491e7798ba772a5b4d1d77be9b2f1881c06e9c1"
+      "sha256": "6e075e7581b28022bc74460627ef28cd5d9dece4b3e81d17ab7097109c41f3a0"
     },
     {
       "path": "playbooks/02-Project-Implementation.txt",
-      "sha256": "4050bb57b155f7812c9b0db2e3abe8daca90ebd2cecd670fbc04a517f3d833a9"
+      "sha256": "60226de7962e00dc00e8bf44f4b1f1086a05840a0abaadbb081b86ce1326e2cb"
     },
     {
       "path": "playbooks/03-Features-Development.txt",
-      "sha256": "43ab4b92ce8843fd01891dd8e10ffe3415886522ea2c7f32c6de02b22eff284d"
+      "sha256": "5640825098cfa50cf02d37fbbc9bbb19305b577a5b60232c1b58a73aede922c8"
     },
     {
       "path": "playbooks/04-Authentication-Security.txt",
-      "sha256": "d90e68a6f10b14bc1e425b23c8f6479cf1eb9aabb01cde7d012e7713eec25676"
+      "sha256": "c53b1c25d978cedf8993f726d1bd4a16b29aaa6165c7419895c9d74e08aa4d74"
     },
     {
       "path": "playbooks/05-MCP-Connection.txt",
-      "sha256": "cf464e7c0dc6f0b5e08f7385a8701fb8a96222e7cb7d5e26cf265ab24c88d5d1"
+      "sha256": "e75c4dd2795ddd2cddfc56b5502f6ba51bf7e460da3544394f9f4b8bb637fcae"
     },
     {
       "path": "playbooks/06-Integrations.txt",
-      "sha256": "6f7de4e794d060ccc5798572eb05c5ed3cd3d732da06867f4c805dd9e5274cad"
+      "sha256": "322467c0be6ed634d2b5ad903a6c9777b5ae06caa187885c945e5b2683b40c4e"
     },
     {
       "path": "playbooks/07-Testing-QA.txt",
-      "sha256": "2317603b4c35f0f390d34d78890cb757dee3bc98460d076c42c296cd8246f4cd"
+      "sha256": "dc9233c1c0eeb209fd72c8dec9eb17ec897f8d942b324a2cbe1b02c3e759ef03"
     },
     {
       "path": "playbooks/08-Debugging.txt",
-      "sha256": "028dc7dabcb4f80d772902695ca0d4a2d6dd8a3a8022578b4af9782fa3467964"
+      "sha256": "5490fe42eb0cdd4c251bd47618ec6335523815311e35f6e42d0d587ac22e4a26"
     },
     {
       "path": "playbooks/09-Validation.txt",
-      "sha256": "61e4cd629d6633c64c208e6ee4a0f269a2610c00cfaddf935e30e4cb036a046f"
+      "sha256": "ad63a5e7e91d9216e39b9bcc2b26cd6ef3922ffd13851f418b7147a10a4de392"
     },
     {
       "path": "playbooks/10-Error-Handling.txt",
-      "sha256": "e202275e45c2f4aa7965ed65db59d1c79ec5634448da7e2a6dc6e1cadac19832"
+      "sha256": "9b7ee4e385cfe2386bac74e5d5fd663c1bd7f9f1ade49ddbb6129c5df668f37c"
     },
     {
       "path": "playbooks/11-Checklist.txt",
-      "sha256": "c9db15f410b256ae2c9d49e5cf11143e391979eb54421f3bb700082a22d01b26"
+      "sha256": "51a8715f7a359a4b2241a57db05a1696f6e66c4afa7000167706592188cc98a9"
     },
     {
       "path": "scripts/check_docs.py",
-      "sha256": "767957a6cdc2c304e19fd0ad9128961f2dcc6b5d40133738715b248b10ec1be6"
+      "sha256": "785cf6a45936601f4330fae25d1a8681bc18d00ef05075643e3180c603be58e5"
+    },
+    {
+      "path": "scripts/hooks/post_edit_check.py",
+      "sha256": "e2bc959d525ffee2089800f903bcd750ff2075d50b31b8e8c5337c1dd43ce853"
+    },
+    {
+      "path": "scripts/hooks/pre_tool_guard.py",
+      "sha256": "1f6c7acd87b437ad43311764e3d5204b92aed6a7ee13108ddebe7d02108c67e7"
+    },
+    {
+      "path": "scripts/hooks/session_start.py",
+      "sha256": "c1bc44b2ea572ac530a88f33fca72507989a96667cb1118d048fd6ea62538a93"
+    },
+    {
+      "path": "scripts/init_project.py",
+      "sha256": "5bd2c5a584602239e45c5671e642f541d3c04bcdaa0794c0a1143bfe5e274179"
     },
     {
       "path": "scripts/manifest.py",
-      "sha256": "6dd11a9a9fc3e93cf3ac57b7ca1fffcc1fad24e4eaf20fa3e800d4450626d5bd"
+      "sha256": "67dfd4cb871960398784a02021a514bb6659f9cd7a2b3983d9c1d54c5cbfe5c4"
+    },
+    {
+      "path": "scripts/sync_ide_adapters.py",
+      "sha256": "c3cb5047653272a8d5328d5b61d26dcea3140f94017259314048fda31de0698b"
     },
     {
       "path": "tests/README.md",

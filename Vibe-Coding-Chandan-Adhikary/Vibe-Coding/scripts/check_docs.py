@@ -17,6 +17,7 @@ Checks (standard library only):
 """
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
@@ -62,9 +63,15 @@ def strip_code(text: str) -> str:
 
 
 def package_files() -> list[Path]:
-    out = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "."],
-                         cwd=ROOT, capture_output=True, check=True).stdout.decode("utf-8")
-    return [ROOT / f for f in filter(None, out.split("\0")) if (ROOT / f).is_file()]
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "."],
+            cwd=ROOT, capture_output=True, check=True,
+        ).stdout.decode("utf-8")
+        return [ROOT / f for f in filter(None, out.split("\0")) if (ROOT / f).is_file()]
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        skip = {".git", "__pycache__", "node_modules", ".venv", "dist", "build"}
+        return sorted(p for p in ROOT.rglob("*") if p.is_file() and not any(part in skip for part in p.parts))
 
 
 # 1. Governed document pattern -------------------------------------------------------------
@@ -242,6 +249,7 @@ def frontmatter(text: str) -> dict[str, str] | None:
 
 def check_agents() -> None:
     cdir = ROOT / ".agents" / "commands"
+    wdir = ROOT / ".agents" / "workflows"
     for p in sorted(cdir.glob("*.md")):
         if p.name == "README.md":
             continue
@@ -250,6 +258,21 @@ def check_agents() -> None:
         fm = frontmatter(read(p))
         if not fm or not fm.get("description"):
             err(f"{rel(p)}: missing YAML frontmatter with 'description'")
+        wf = wdir / p.name
+        if not wf.exists():
+            err(f"{rel(wf)}: missing Antigravity workflow mirror (run: python scripts/sync_ide_adapters.py)")
+        else:
+            wfm = frontmatter(read(wf))
+            if not wfm or not wfm.get("description"):
+                err(f"{rel(wf)}: missing YAML frontmatter with 'description'")
+    hooks_json = ROOT / ".agents" / "hooks.json"
+    if not hooks_json.exists():
+        err(".agents/hooks.json: missing executable hook configuration")
+    else:
+        try:
+            json.loads(read(hooks_json))
+        except json.JSONDecodeError as exc:
+            err(f".agents/hooks.json: invalid JSON ({exc})")
     for d in sorted((ROOT / ".agents" / "skills").iterdir()):
         skill = d / "SKILL.md"
         if not skill.exists():

@@ -154,11 +154,16 @@ Guide-Github/
 2. Rename the folder to your product name in lowercase `kebab-case` (e.g. `[your-project-name]/`).
 3. Open the renamed folder in your AI coding IDE (Antigravity, Cursor, Windsurf, Claude Code, OpenCode, VS Code). Ensure the editor opens at the project root so it discovers `AGENTS.md` and `.agents/`.
 
-### Step 2: Active IDE Detection & Cleanup (`docs/ide-compatibility.md`)
+### Step 2: Mandatory — Activate `.agents/` Commands, Skills & Hooks
+Before running any prompts or IDE cleanup, activate `.agents/` in your renamed project root:
+1. Run `python scripts/init_project.py --ides antigravity` (or `--ides all` / `--ides claude,cursor,windsurf,copilot`; add `--clean-samples --install-git-hooks` for a fresh repo).
+2. Verify activation: run `python scripts/check_docs.py` and `python scripts/hooks/session_start.py`, then type `/` in your IDE chat to confirm all 16 `*-ca-agent` commands appear in the dropdown and `.agents/skills/` are discovered.
+
+### Step 3: Active IDE Detection & Cleanup (`docs/ide-compatibility.md`)
 - **Single-IDE Mode (Automated Pruning):** Irrelevant configuration files belonging to other IDEs (`.cursorrules`, `.windsurfrules`, `CLAUDE.md`, etc.) can be automatically pruned during Prompt 1 to prevent rule conflicts and token bloat.
 - **Multi-IDE Mode (Coexistence):** If using multiple IDEs across a team, declare them in Prompt 1. All declared adapters will point to canonical `AGENTS.md` and `.agents/`.
 
-### Step 3: Run the Master Prompts or Custom Slash Commands
+### Step 4: Run the Master Prompts or Custom Slash Commands
 
 Choose your preferred execution method:
 

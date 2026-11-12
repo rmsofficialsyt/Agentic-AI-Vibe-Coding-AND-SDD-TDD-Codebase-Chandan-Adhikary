@@ -1,24 +1,26 @@
 06-Integrations
 ===============
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Design, contract-test, and harden third-party APIs, webhooks, and database/service integrations.
+Read trigger: MUST read before adding or changing external API clients, webhooks, or schema migrations.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Read `docs/apis.md`, `docs/database.md`, `docs/dependencies.md`, and approved `FEAT-###`.
+
+Commands & Skills:
+- Commands: `/spec-check-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`, `/verify-ca-agent`
+- Skills: `api-contract-review`, `database-migration-review`, `performance-profiler`
 
 Procedure:
-1. Contract — MUST: Approve provider, schemas and auth.
-2. Reliability — MUST: Design timeout, retry, idempotency, circuit-breaking where applicable.
-3. Verify — MUST: Run contract and sandbox failure tests.
-4. Operations — MUST: Document quotas, alerting, rollback and ownership.
+1. Contract & Schema Alignment:
+   - Update `docs/apis.md` and `docs/database.md` (with rollback-safe migrations) per approved spec.
+2. Resilience Controls:
+   - Enforce explicit timeouts, bounded retries with backoff, idempotency keys, and signature verification on webhooks.
+3. Contract & Integration Tests:
+   - Run `/tdd-ca-agent` with mocked/sandboxed upstream responses, timeout simulations, and error mapping tests.
+4. Dependency & Docs Check:
+   - Verify package names/versions in `docs/dependencies.md` and run `python scripts/check_docs.py`.
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Passing contract/integration tests, updated `docs/apis.md` / `docs/database.md`, and `check_docs.py` pass.

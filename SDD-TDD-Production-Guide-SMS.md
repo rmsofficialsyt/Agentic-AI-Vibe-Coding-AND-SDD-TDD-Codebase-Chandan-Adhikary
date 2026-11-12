@@ -27,15 +27,16 @@ This guide provides an end-to-end, production-ready blueprint for building **Edu
 ## Table of Contents
 
 1. [Step 1 — Baseline Framework Setup & Project Renaming](#step-1--baseline-framework-setup--project-renaming)
-2. [Step 2 — Specifications Architecture: Flat vs. Modular Dual Formats](#step-2--specifications-architecture-flat-vs-modular-dual-formats)
-3. [Step 3 — IDE Detection & Auto-Pruning Policy](#step-3--ide-detection--auto-pruning-policy)
-4. [Step 4 — Prompt 1: Master Architecture, R&D & Pre-Development Planning](#step-4--prompt-1-master-architecture-rd--pre-development-planning)
-5. [Step 5 — Human Review & Architecture Sign-Off](#step-5--human-review--architecture-sign-off)
-6. [Step 6 — Prompt 2: Approved Project Configuration & Harness Setup](#step-6--prompt-2-approved-project-configuration--harness-setup)
-7. [Step 7 — Prompt 3: Specification Validation & TDD Readiness Checkpoint](#step-7--prompt-3-specification-validation--tdd-readiness-checkpoint)
-8. [Step 8 — Prompt 4: Feature Implementation via Strict TDD (Red-Green-Refactor)](#step-8--prompt-4-feature-implementation-via-strict-tdd-red-green-refactor)
-9. [Step 9 — Prompt 5: Production Readiness Audit & Formal Release Gate](#step-9--prompt-5-production-readiness-audit--formal-release-gate)
-10. [Complete SDD-TDD Workflow Summary & Governance Rules](#complete-sdd-tdd-workflow-summary--governance-rules)
+2. [Step 2 — Mandatory: Activate `.agents/` Commands, Skills & Hooks](#step-2--mandatory-activate-agents-commands-skills--hooks)
+3. [Step 3 — Specifications Architecture: Flat vs. Modular Dual Formats](#step-3--specifications-architecture-flat-vs-modular-dual-formats)
+4. [Step 4 — IDE Detection & Auto-Pruning Policy](#step-4--ide-detection--auto-pruning-policy)
+5. [Step 5 — Prompt 1: Master Architecture, R&D & Pre-Development Planning](#step-5--prompt-1-master-architecture-rd--pre-development-planning)
+6. [Step 6 — Human Review & Architecture Sign-Off](#step-6--human-review--architecture-sign-off)
+7. [Step 7 — Prompt 2: Approved Project Configuration & Harness Setup](#step-7--prompt-2-approved-project-configuration--harness-setup)
+8. [Step 8 — Prompt 3: Specification Validation & TDD Readiness Checkpoint](#step-8--prompt-3-specification-validation--tdd-readiness-checkpoint)
+9. [Step 9 — Prompt 4: Feature Implementation via Strict TDD (Red-Green-Refactor)](#step-9--prompt-4-feature-implementation-via-strict-tdd-red-green-refactor)
+10. [Step 10 — Prompt 5: Production Readiness Audit & Formal Release Gate](#step-10--prompt-5-production-readiness-audit--formal-release-gate)
+11. [Complete SDD-TDD Workflow Summary & Governance Rules](#complete-sdd-tdd-workflow-summary--governance-rules)
 
 ---
 
@@ -61,7 +62,25 @@ school-management-system/
 
 ---
 
-## Step 2 — Specifications Architecture: Flat vs. Modular Dual Formats
+## Step 2 — Mandatory: Activate `.agents/` Commands, Skills & Hooks
+
+> **MANDATORY GATE:** Do **not** proceed to Step 3 or Prompt 1 until `.agents/` commands, skills, and hooks are active and verified in your renamed project root.
+
+1. **Run the project initializer** from the root of your renamed project directory:
+   ```bash
+   python scripts/init_project.py --ides antigravity
+   # Or for multiple IDEs: --ides antigravity,claude,cursor,windsurf,copilot (or --ides all)
+   # Optional flags for fresh projects: --clean-samples --install-git-hooks
+   ```
+   This syncs `.agents/commands/*-ca-agent.md` to IDE-native slash-command folders (`.agents/workflows/` for Antigravity, `.claude/commands/` + `.claude/skills/` + `.claude/settings.json` for Claude Code, `.windsurf/workflows/` for Windsurf, `.cursor/commands/` for Cursor, `.github/prompts/` for Copilot) and activates `.agents/hooks.json`.
+2. **Verify activation:**
+   - Run `python scripts/check_docs.py` (must exit `0` with `0 error(s)`).
+   - Run `python scripts/hooks/session_start.py` (must report `"missing": []`).
+   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`andrej-karpathy-skill`, `spec-validator`, etc.) are discovered.
+
+---
+
+## Step 3 — Specifications Architecture: Flat vs. Modular Dual Formats
 
 The SDD framework stores every feature specification in `docs/features/` (a `docs/features/` directory is not permitted) and supports two formats per feature:
 
@@ -82,20 +101,20 @@ docs/features/                         # the only location for feature specs (no
 
 ---
 
-## Step 3 — IDE Detection & Auto-Pruning Policy
+## Step 4 — IDE Detection & Auto-Pruning Policy
 
 Before executing prompts, inspect the active IDE environment per `docs/ide-compatibility.md`:
 - **Universal / Agent Core**: `AGENTS.md` and `.agents/commands/*-ca-agent.md`.
 - **Claude Code**: `CLAUDE.md`.
 - **Cursor**: `.cursorrules`.
 - **Windsurf**: `.windsurfrules`.
-- **Antigravity**: `antigravity.json`.
+- **Antigravity**: `.agents/workflows/`, `.agents/skills/`, and `.agents/hooks.json`.
 
 If working exclusively within one IDE (e.g., Claude Code), prune unused root adapters during Prompt 1 to maximize the model's active context window. If collaborating across multiple IDEs, retain `AGENTS.md` as the canonical master reference.
 
 ---
 
-## Step 4 — Prompt 1: Master Architecture, R&D & Pre-Development Planning
+## Step 5 — Prompt 1: Master Architecture, R&D & Pre-Development Planning
 
 > **Mode:** Plan Mode / Ask Mode / Read-Only Planning  
 > **Goal:** Direct the AI agent to thoroughly research the School Management System domain, inspect the SDD guidelines, design multi-tenant database isolation, define FERPA/GDPR compliance controls, and present a complete 17-point planning report—**without implementing any application code yet**.
@@ -310,7 +329,7 @@ Produce an exhaustive 17-section planning report:
 
 ---
 
-## Step 5 — Human Review & Architecture Sign-Off
+## Step 6 — Human Review & Architecture Sign-Off
 
 When your AI assistant finishes generating the 17-section planning report, inspect its proposals before permitting any code execution.
 
@@ -324,7 +343,7 @@ When your AI assistant finishes generating the 17-section planning report, inspe
 
 ---
 
-## Step 6 — Prompt 2: Approved Project Configuration & Harness Setup
+## Step 7 — Prompt 2: Approved Project Configuration & Harness Setup
 
 > **Mode:** Configuration Mode  
 > **Goal:** Configure repository documentation, establish the PostgreSQL RLS baseline schema, configure the Vitest test harness in `tests/`, and verify active IDE adapters.
@@ -389,7 +408,7 @@ Present a summary of:
 
 ---
 
-## Step 7 — Prompt 3: Specification Validation & TDD Readiness Checkpoint
+## Step 8 — Prompt 3: Specification Validation & TDD Readiness Checkpoint
 
 > **Mode:** Specification Validation & Test Authoring (Red Phase)  
 > **Goal:** Validate `docs/features/002-student-enrollment.md`, formally approve its Acceptance Criteria, and author failing unit/integration tests before writing any production code.
@@ -443,7 +462,7 @@ Confirm that all tests FAIL with clear, expected failure messages (e.g., `Cannot
 
 ---
 
-## Step 8 — Prompt 4: Feature Implementation via Strict TDD (Red-Green-Refactor)
+## Step 9 — Prompt 4: Feature Implementation via Strict TDD (Red-Green-Refactor)
 
 > **Mode:** Implementation Mode (Green & Refactor Phases)  
 > **Goal:** Write the minimum production code necessary to pass all failing tests, refactor the implementation for architectural elegance, and execute an atomic commit citing the Spec ID and AC numbers.
@@ -497,7 +516,7 @@ Provide:
 
 ---
 
-## Step 9 — Prompt 5: Production Readiness Audit & Formal Release Gate
+## Step 10 — Prompt 5: Production Readiness Audit & Formal Release Gate
 
 > **Mode:** Audit & Release Gate  
 > **Goal:** Execute a full-spectrum production audit covering test coverage, SAST security scans, FERPA compliance verification, and formal sign-off in `docs/approvals/`.

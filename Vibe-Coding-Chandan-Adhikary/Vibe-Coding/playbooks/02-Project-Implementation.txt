@@ -1,24 +1,30 @@
 02-Project-Implementation
-=========================
+==========================
 
-Purpose: Repeatable, evidence-based execution playbook.
-Read trigger: MUST read immediately before performing this activity.
+Purpose: Iterate rapidly in Vibe Coding and harden prototypes into tested production features.
+Read trigger: MUST read before writing any production code in Vibe Coding.
 Applicability: Vibe Coding
 
 Prerequisites:
-- MUST identify project, current guideline baseline, task owner and authorized scope.
-- MUST verify latest approved specification when doing production work.
+- Feature spec in `docs/features/` MUST have `Status: APPROVED` and a valid `DEC-###` decision in `docs/decision-log.md` (or `PROTOTYPE` for time-boxed exploration).
+- Task MUST be `READY` in `docs/task.md` with allowed files and acceptance criteria (`AC-FEAT###-##`).
+
+Commands & Skills:
+- Commands: `/spec-check-ca-agent`, `/plan-ca-agent`, `/task-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`, `/verify-ca-agent`, `/review-ca-agent`
+- Skills: `spec-validator`, `task-planner`, `tdd-enforcer`, `andrej-karpathy-skill`, `code-reviewer`
 
 Procedure:
-1. Authority — MUST: Confirm plan, requirements/spec version and architecture.
-2. Decompose — MUST: Prepare scoped tasks and file ownership.
-3. Test first — MUST: For SDD write tests that fail for intended reasons before code.
-4. Build and report — MUST: Implement in increments; run gates and record evidence.
+1. Authority & Spec Check:
+   - Run `/spec-check-ca-agent` (skill: `spec-validator`) against the target `FEAT-###` in `docs/features/`.
+   - For production features, confirm `APPROVED` status; for time-boxed experiments, mark `PROTOTYPE` in `docs/features/`.
+2. Plan & Task Decomposition:
+   - Run `/plan-ca-agent` and `/task-ca-agent` (skill: `task-planner`) to confirm `TASK-###` scope and allowed files in `docs/task.md`.
+3. Red-Green-Refactor (TDD):
+   - Run `/tdd-ca-agent` (skill: `tdd-enforcer`): write failing tests (`TEST-FEAT###-##`) mapped to each `AC-FEAT###-##` and verify they fail for the right reason.
+   - Run `/implement-ca-agent`: write minimal production code within allowed files until tests pass.
+4. Verify & Review:
+   - Run `/verify-ca-agent`, `python scripts/check_docs.py`, and `/review-ca-agent` (skill: `code-reviewer`).
 
 Required output:
-- MUST record task/spec version, owner, inputs, evidence, open risks, approvals and next authorized action.
-- MUST stop at missing approval, unresolved policy conflict, unsafe credentials or failed release-blocking gates.
-- SHOULD link canonical docs rather than copying rule text.
-
-Change policy:
-- MUST revise this playbook only through guideline version, reason, date, approval and guideline changelog.
+- Passing test suite output, updated `docs/task.md`, and real command evidence.
+- MUST stop if tests are skipped, spec is unapproved, or scope drifts outside allowed files.
