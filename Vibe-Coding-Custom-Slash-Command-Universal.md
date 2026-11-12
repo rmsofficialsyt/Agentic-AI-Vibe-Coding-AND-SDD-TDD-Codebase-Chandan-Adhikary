@@ -91,16 +91,16 @@ Type the slash command as an isolated action instruction after completing a step
 
 ---
 
-## 4. The Complete 15 Vibe-Coding Slash Commands Operational Matrix
+## 4. The Complete 16 Vibe-Coding Slash Commands Operational Matrix
 
-The Vibe-Coding framework includes the full suite of **15 custom slash commands** (.agents/commands/*-ca-agent.md), optimized for rapid visual prototyping, real-time sensory feedback (Karpathy loops), and progressive production hardening.
+The Vibe-Coding framework includes the full suite of **16 custom slash commands** (.agents/commands/*-ca-agent.md), optimized for rapid visual prototyping, real-time sensory feedback (Karpathy loops), and progressive production hardening.
 
-### 4.1 Master Operational Matrix of All 15 Commands for Vibe-Coding
+### 4.1 Master Operational Matrix of All 16 Commands for Vibe-Coding
 
 | Slash Command | File Location | Vibe Lifecycle Phase | Execution Mode | Input Syntax / Parameters | Internal Agent Workings & Mechanism | Generated Output / UI State | Guardrails & Quality Rules |
 |---|---|---|---|---|---|---|---|
 | /plan-ca-agent | .agents/commands/plan-ca-agent.md | Phase 1: Discovery & Aesthetics | Read-Only (Plan Mode) | [PROJECT_NAME], [PRODUCT_TYPE], [PRODUCT_VISION], [TARGET_USERS], [AESTHETIC_VIBE] | Analyzes user personas; defines color tokens (Tailwind); selects modern UI kit (shadcn/ui); plans Bento Grid cards; produces 17-section report without writing code. | 17-Section Vibe Planning Report, component hierarchy, design token palette | **MUST NOT** generate code or alter files. Stops immediately for human aesthetic review. |
-| /implement-ca-agent | .agents/commands/implement-ca-agent.md | Phase 2: Rapid Scaffolding | Mutating (Build Mode) | Layout specs, approved design tokens, mock data needs | Scaffolds responsive layout (pp/page.tsx, pp/dashboard/layout.tsx); configures Tailwind tokens in globals.css; populates realistic mock data in lib/mock-data.ts. | Working visual application shell, interactive navigation sidebar, metric cards | **MUST** maintain clean component architecture. Avoids premature microservices. |
+| /implement-ca-agent | .agents/commands/implement-ca-agent.md | Phase 2: Rapid Scaffolding | Mutating (Build Mode) | Layout specs, approved design tokens, mock data needs | Scaffolds responsive layout (`app/page.tsx`, `app/dashboard/layout.tsx`); configures Tailwind tokens in globals.css; populates realistic mock data in lib/mock-data.ts. | Working visual application shell, interactive navigation sidebar, metric cards | **MUST** maintain clean component architecture. Avoids premature microservices. |
 | /run-ca-agent | .agents/commands/run-ca-agent.md | Live Runtime Verification | Execution / Dev Server | Shell command: 
 pm run dev, 
 pm run build | Starts local development server (Turbopack); monitors stdout/stderr for port binding; detects active URL (http://localhost:3000); reports live status. | Active localhost dev server URL, verified live browser route | **MUST** report true runtime state. Never invents successful build outputs or suppresses crashes. |

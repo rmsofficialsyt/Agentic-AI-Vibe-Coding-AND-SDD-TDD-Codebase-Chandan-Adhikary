@@ -11,7 +11,7 @@ The **Project-Manager-Dashboard** is an embedded telemetry mission control desig
 It tracks project progress in real-time by inspecting:
 - `docs/task.md` (Granular tasks, micro-subtasks, Karpathy prompt stages)
 - `docs/phases.md` (Karpathy loops V1-V4 progress)
-- Visual sensory checklists and UX criteria
+- `docs/features/**/*.md` (feature acceptance criteria: `AC-FEAT###-##`, incl. visual/UX criteria)
 - `docs/error-tracker.md` (Active UI defects & blockers)
 - Local Git telemetry (branch status, dirty files, micro-commits)
 
@@ -53,3 +53,10 @@ Project-Manager-Dashboard/
 ```
 No files inside this directory will ever be committed or pushed to GitHub.
 
+## Security model
+
+- Binds to `127.0.0.1` only and rejects requests whose `Host` header is not `127.0.0.1:<port>` or `localhost:<port>` (DNS-rebinding protection).
+- Sends no CORS headers; mutating `POST` endpoints require a same-origin `Origin`, `Content-Type: application/json` and a per-process `X-Dashboard-Token` that the server injects into `index.html`.
+- Static serving is confined to this folder; `server.js` and `parser.js` are never served.
+- **Approve milestone** writes a *draft* `docs/approvals/approval-phase-*.md` (gitignored). It is not an approval until a human completes it per `docs/approvals/APPROVAL-TEMPLATE.md` (SDD) or records the decision in `docs/decision-log.md` (Vibe).
+- Token telemetry reads the newest local transcript from `~/.claude/projects/` (Claude Code) or `~/.gemini/antigravity/brain/` (Antigravity); override with `DASHBOARD_TRANSCRIPT=/path/file.jsonl`. Nothing leaves the machine.

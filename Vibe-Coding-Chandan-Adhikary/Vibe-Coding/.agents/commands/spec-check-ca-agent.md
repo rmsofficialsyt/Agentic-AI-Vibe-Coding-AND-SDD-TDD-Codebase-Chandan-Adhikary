@@ -1,3 +1,8 @@
+---
+description: "Check latest approved version, internal consistency, explicit criteria and conflicts."
+argument-hint: "[FEAT-### or docs/features path]"
+---
+
 # /spec-check-ca-agent
 
 **Purpose:** Check latest approved version, internal consistency, explicit criteria and conflicts.
@@ -13,11 +18,13 @@
 
 ## Procedure
 
-1. **MUST** read `AGENTS.md` and the relevant `docs/` source of truth.
-2. **MUST** inspect existing artifacts and identify missing approvals or conflicts.
-3. **MUST** perform only the approved operation: Check latest approved version, internal consistency, explicit criteria and conflicts.
-4. **MUST** run applicable objective checks; never invent execution results.
-5. **MUST** report changed files, actual results, deviations and next authorized action.
+1. **MUST** read `AGENTS.md`, `docs/features/README.md`, `docs/requirements-traceability.md` and the target feature in `docs/features/` (plus `docs/spec.md` in SDD).
+2. **MUST** verify the header: `FEAT-###` ID, semantic version, a lifecycle status from `docs/features/README.md`, owner, approver/approval reference (required for `APPROVED`), `CAP-###` and `REQ-###` links.
+3. **MUST** verify IDs follow the canonical patterns (`FR-FEAT###-##`, `NFR-FEAT###-##`, `AC-FEAT###-##`, `TEST-FEAT###-##`) and are unique.
+4. **MUST** verify every AC has Given/When/Then, covers at least one FR/NFR, and maps to a TEST ID in the verification table.
+5. **MUST** flag conflicts with `docs/product.md` boundaries, other features, API/data contracts or ADRs.
+6. **MUST** run `python scripts/check_docs.py` and report its real output.
+7. **MUST** report a PASS/FAIL table per check, blocking issues and the next authorized action. Never modify the spec during the check.
 
 ## Stop conditions
 

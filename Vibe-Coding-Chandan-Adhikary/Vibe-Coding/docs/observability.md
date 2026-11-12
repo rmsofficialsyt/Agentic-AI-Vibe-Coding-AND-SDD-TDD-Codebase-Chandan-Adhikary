@@ -48,3 +48,4 @@ Production metrics, logs, tracing and alerting.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** skip production telemetry in prototypes; **MUST** instrument before production release.

@@ -59,6 +59,10 @@ Project test pyramid and TDD release gate.
 
 - **MUST** — Investigate and fix failed blocking tests; no fabricated success or blanket skip.
 
+### 12. Test integrity
+
+- **MUST** — Never weaken, delete, skip or rewrite assertions to make failing code pass; any change to existing tests in a PR requires explicit reviewer acknowledgement.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -68,3 +72,4 @@ Project test pyramid and TDD release gate.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** add tests for every approved AC when promoting prototype code; prototype-only code paths are deleted or tested, never shipped untested.

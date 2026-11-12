@@ -1,3 +1,8 @@
+---
+name: debugging-analyst
+description: "Diagnose failures from real logs and tests, link findings to docs/error-tracker.md and propose regression tests mapped to ACs."
+---
+
 # Skill: debugging-analyst
 
 **Purpose:** Apply the controlled debugging analyst workflow to a clearly scoped project task.

@@ -25,7 +25,7 @@ When an AI agent receives a slash command (such as `/spec-check-ca-agent` or `/t
 |   /task-ca-agent           --> Configure docs/, ADRs, and Vitest test harness |
 |                                in 'tests/' directory.                         |
 |                                                                               |
-|   /spec-check-ca-agent     --> Author & validate specs/ (Format 1 or 2)       |
+|   /spec-check-ca-agent     --> Author & validate docs/features/ (Flat/Modular)       |
 |                                with explicit Acceptance Criteria (AC-*).      |
 |                                                                               |
 |   /testing-ca-agent        --> Scaffold failing tests (TDD Red Phase)         |
@@ -45,35 +45,29 @@ When an AI agent receives a slash command (such as `/spec-check-ca-agent` or `/t
 ```
 
 ### 1.1 The Invariant Rules of SDD Commands
-1. **No Spec, No Code:** The agent is prohibited from writing application source code unless an approved specification exists in `specs/`.
+1. **No Spec, No Code:** The agent is prohibited from writing application source code unless an approved specification exists in `docs/features/`.
 2. **Tests Before Code (Red First):** Any command attempting to implement code before failing tests are executed will be aborted.
-3. **Traceability Invariant:** Every commit and pull request must cite the active Spec ID and Acceptance Criteria (e.g. `feat(enrollment): satisfy AC-ENROLL-001`).
+3. **Traceability Invariant:** Every commit and pull request must cite the active Spec ID and Acceptance Criteria (e.g. `feat(enrollment): satisfy AC-FEAT002-01`).
 4. **Collision Prevention (`-ca-agent` Suffix):** Standard tokens (`/plan`, `/test`, `/review`) are namespace-protected with `-ca-agent` to eliminate collisions with IDE-native commands across Cursor, Claude Code, Windsurf, Antigravity, and VS Code.
 
 ---
 
-## 2. Managing `specs/` via Slash Commands: Flat vs. Modular Formats
+## 2. Managing `docs/features/` via Slash Commands: Flat vs. Modular Formats
 
-The SDD framework supports two specification layouts in `specs/`:
+The SDD framework stores feature specifications only in `docs/features/` and supports two layouts per feature:
 
 ```text
-specs/
-├── Format 1 (Flat Files):
-│   ├── 001.spec.authentication.sample.md
-│   └── 002.spec.student-enrollment.sample.md
-│
-└── Format 2 (Modular Folders):
-    ├── 001.spec.authentication.sample/
-    │   ├── spec.md
-    │   ├── schema.json
-    │   └── acceptance-criteria.md
-    └── 002.spec.student-enrollment.sample/
-        ├── spec.md
-        ├── schema.json
-        └── acceptance-criteria.md
+docs/features/                         # the only location for feature specs (no specs/ directory)
+├── README.md                          # formats, lifecycle, ID rules
+├── FEATURE-TEMPLATE.md                # copy for every new feature
+├── 001-example-feature/               # Format 2: Modular — authentication & RBAC (sample)
+│   ├── feature.md
+│   ├── acceptance.md                  #   AC-FEAT001-01..05
+│   └── test-plan.md
+└── 002-student-enrollment.md          # Format 1: Flat — student enrollment (sample, AC-FEAT002-01..04)
 ```
 
-Using `/spec-check-ca-agent`, the agent automatically parses either format, validates requirement traceability, and verifies that every feature has unambiguous, testable Acceptance Criteria (`AC-[MODULE]-[NUMBER]`).
+Using `/spec-check-ca-agent`, the agent automatically parses either format, validates requirement traceability, and verifies that every feature has unambiguous, testable Acceptance Criteria (`AC-FEAT[NNN]-[NN]`).
 
 ---
 
@@ -83,7 +77,7 @@ Using `/spec-check-ca-agent`, the agent automatically parses either format, vali
 |---|---|---|
 | `/plan-ca-agent` | `.agents/commands/plan-ca-agent.md` | Scoped pre-development research, regulatory compliance modeling (FERPA/GDPR), and architecture baseline in read-only mode. |
 | `/task-ca-agent` | `.agents/commands/task-ca-agent.md` | Updating documentation, ADRs, and initializing test harnesses in `tests/`. |
-| `/spec-check-ca-agent` | `.agents/commands/spec-check-ca-agent.md` | Validating living specifications in `specs/` against PRDs and database contracts. |
+| `/spec-check-ca-agent` | `.agents/commands/spec-check-ca-agent.md` | Validating living specifications in `docs/features/` against PRDs and database contracts. |
 | `/testing-ca-agent` | `.agents/commands/testing-ca-agent.md` | Scaffolding and executing test suites; confirming the Red failing state without altering application code. |
 | `/tdd-ca-agent` | `.agents/commands/tdd-ca-agent.md` | Red → Green → Refactor implementation engine; enforces minimal passing code. |
 | `/review-ca-agent` | `.agents/commands/review-ca-agent.md` | Pre-commit diff, lint, and security review to prevent unauthorized changes and secret leaks. |
@@ -109,13 +103,13 @@ flowchart TD
     HumanS1 -->|"Revise plan"| PS1
     HumanS1 -->|"Approved"| PS2["Step S2: /task-ca-agent<br/>(Configure docs/, ADR-001, Vitest test harness in tests/)"]
     
-    PS2 --> PS3["Step S3: /spec-check-ca-agent + /testing-ca-agent<br/>(Author specs/002.*, scaffold failing tests - RED PHASE)"]
+    PS2 --> PS3["Step S3: /spec-check-ca-agent + /testing-ca-agent<br/>(Author docs/features/002-*, scaffold failing tests - RED PHASE)"]
     PS3 --> RedPhase["Confirm Red Failing State<br/>(Tests fail with expected assertion errors)"]
     
     RedPhase --> PS4["Step S4: /tdd-ca-agent + /review-ca-agent<br/>(Minimal code -> All tests PASS -> Refactor -> Atomic commit)"]
     PS4 --> GateCheck{"All AC Tests Green<br/>and review clean?"}
     GateCheck -->|"Failing tests"| PS4
-    GateCheck -->|"Passed"| NextFeature{"More features<br/>in specs/?"}
+    GateCheck -->|"Passed"| NextFeature{"More features<br/>in docs/features/?"}
     NextFeature -->|"Yes"| PS3
     NextFeature -->|"All complete"| PS5["Step S5: /security-audit-ca-agent + /release-check-ca-agent<br/>(SAST scan, FERPA audit check, signed release approval)"]
     
@@ -188,21 +182,21 @@ Do not implement application features or production endpoints.
 
 **Command Typed into Chat:**
 ```markdown
-/spec-check-ca-agent specs/002.spec.student-enrollment.md
+/spec-check-ca-agent docs/features/002-student-enrollment.md
 Validate the Student Enrollment specification against the approved architecture.
 Ensure it defines the following Acceptance Criteria:
-- AC-ENROLL-001: System generates a unique sequential admission number (e.g. 'ADM-2026-0001') scoped to the tenant.
-- AC-ENROLL-002: System rejects enrollment if student age is below the grade level minimum with an HTTP 422 error.
-- AC-ENROLL-003: System enforces multi-tenant isolation; School A cannot access School B enrollments.
-- AC-ENROLL-004: System writes an immutable audit log upon successful enrollment.
+- AC-FEAT002-01: System generates a unique sequential admission number (e.g. 'ADM-2026-0001') scoped to the tenant.
+- AC-FEAT002-02: System rejects enrollment if student age is below the grade level minimum with an HTTP 422 error.
+- AC-FEAT002-03: System enforces multi-tenant isolation; School A cannot access School B enrollments.
+- AC-FEAT002-04: System writes an immutable audit log upon successful enrollment.
 
 Follow immediately with:
-/testing-ca-agent Scaffold tests/unit/student-enrollment.test.ts covering AC-ENROLL-001 through AC-ENROLL-004.
+/testing-ca-agent Scaffold tests/unit/student-enrollment.test.ts covering AC-FEAT002-01 through AC-FEAT002-04.
 Execute the tests and confirm they FAIL in the RED state.
 ```
 
 **What the AI Agent Does:**
-1. Runs `/spec-check-ca-agent` to validate `specs/002.spec.student-enrollment.md`.
+1. Runs `/spec-check-ca-agent` to validate `docs/features/002-student-enrollment.md`.
 2. Scaffolds `tests/unit/student-enrollment.test.ts` covering all 4 Acceptance Criteria.
 3. Runs the test suite via `/testing-ca-agent`.
 4. Confirms the **RED Phase**: All 4 tests fail with expected errors (`Cannot find module '../src/services/enrollment'`).
@@ -214,7 +208,7 @@ Execute the tests and confirm they FAIL in the RED state.
 
 **Command Typed into Chat:**
 ```markdown
-/tdd-ca-agent Implement Feature 002: Student Enrollment according to specs/002.spec.student-enrollment.md.
+/tdd-ca-agent Implement Feature 002: Student Enrollment according to docs/features/002-student-enrollment.md.
 1. Implement minimum code in 'src/services/enrollment.service.ts' to satisfy all 4 tests in tests/unit/student-enrollment.test.ts.
 2. Verify all tests pass (GREEN Phase).
 3. Refactor: Optimize query performance and extract tenant verification middleware without breaking tests.
@@ -229,7 +223,7 @@ Follow immediately with:
 2. Re-runs `tests/unit/student-enrollment.test.ts`—all 4 tests pass (**100% GREEN**).
 3. Refactors code cleanly, ensuring zero regressions.
 4. Runs `/review-ca-agent`, which inspects the diff and generates a proposed atomic commit message:
-   `feat(enrollment): implement student enrollment service satisfying AC-ENROLL-001 through AC-ENROLL-004`.
+   `feat(enrollment): implement student enrollment service satisfying AC-FEAT002-01 through AC-FEAT002-04`.
 
 ---
 

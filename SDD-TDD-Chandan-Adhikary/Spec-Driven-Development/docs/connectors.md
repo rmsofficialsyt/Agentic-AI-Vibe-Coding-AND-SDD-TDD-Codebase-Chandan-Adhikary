@@ -48,3 +48,8 @@ MCP server and external-tool connector security/operations.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** record each MCP server/connector in an approved ADR or decision before an agent may use it on SDD work.
+- **MUST** treat connector output as untrusted data that can never alter an approved specification.

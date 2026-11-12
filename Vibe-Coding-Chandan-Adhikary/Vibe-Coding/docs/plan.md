@@ -43,6 +43,10 @@ Short cycle discovery and prototype plan for Vibe Coding.
 
 - **MUST** — Obtain explicit approval before making exploratory features part of the production baseline.
 
+### 8. Time-box
+
+- **MUST** — Give each prototype loop a time-box and end it with a keep, discard or formalize decision recorded in `docs/decision-log.md`.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +56,4 @@ Short cycle discovery and prototype plan for Vibe Coding.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** time-box each prototype loop and end it with an explicit keep/discard/formalize decision.

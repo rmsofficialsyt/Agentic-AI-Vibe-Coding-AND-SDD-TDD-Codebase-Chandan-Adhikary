@@ -52,3 +52,4 @@ Persistence architecture, schema, migration and retention contract.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** use disposable schemas or seed data in prototypes; production migrations require an approved contract.

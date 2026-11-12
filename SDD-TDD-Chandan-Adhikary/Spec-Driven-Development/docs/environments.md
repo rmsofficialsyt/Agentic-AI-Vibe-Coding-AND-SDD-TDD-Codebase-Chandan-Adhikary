@@ -39,8 +39,17 @@ Reproducible environment and configuration register.
 
 - **MUST** — Provide steps for deterministic local startup and troubleshooting.
 
+### 7. Production data
+
+- **MUST** — Never copy production data to lower environments unless it is anonymized or masked under an approved, documented procedure.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** keep environment configuration changes that affect behavior traceable to an approved task or CR.
+- **MUST** verify the target environment matches the configuration assumed by the approved feature contracts before release.

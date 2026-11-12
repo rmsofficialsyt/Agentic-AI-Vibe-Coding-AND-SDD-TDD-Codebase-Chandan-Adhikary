@@ -19,3 +19,6 @@
 **/.dashboard-state.json
 **/local-dashboard-logs/
 
+
+# Dashboard-generated draft approval records (local only until a human completes them)
+docs/approvals/approval-phase-*.md

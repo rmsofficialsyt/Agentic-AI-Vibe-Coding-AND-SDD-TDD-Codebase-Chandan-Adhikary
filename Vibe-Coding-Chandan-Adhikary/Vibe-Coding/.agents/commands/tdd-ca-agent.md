@@ -1,3 +1,8 @@
+---
+description: "Produce/execute tests derived from approved criteria before implementation; verify red then green."
+argument-hint: "[AC-FEAT###-## or FEAT-###]"
+---
+
 # /tdd-ca-agent
 
 **Purpose:** Produce/execute tests derived from approved criteria before implementation; verify red then green.

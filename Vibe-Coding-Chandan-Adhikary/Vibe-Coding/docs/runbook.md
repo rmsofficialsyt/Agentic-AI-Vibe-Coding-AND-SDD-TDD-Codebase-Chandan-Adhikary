@@ -39,6 +39,39 @@ Incident response and operating procedures.
 
 - **MUST** — Record postmortem actions and regression prevention.
 
+### 7. Severity and response
+
+- **MUST** — Define severity levels (SEV1–SEV3) with acknowledgement, update and resolution targets and the on-call rota that owns them.
+
+### 8. Communication
+
+- **MUST** — Prepare status-update templates, stakeholder channels and the person authorized to communicate externally.
+
+### 9. Drills
+
+- **SHOULD** — Exercise rollback, backup restoration and the most critical runbooks periodically and record results and gaps.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+### RB-###: [Symptom or alert name]
+
+| Field | Value |
+|---|---|
+| Severity | SEV1 / SEV2 / SEV3 |
+| Detection | [alert, metric, user report] |
+| Affected features | FEAT-### |
+| Owner / escalation | [on-call role] → [escalation contact] |
+
+1. Triage: [commands / dashboards to check]
+2. Mitigate: [safe, reversible steps]
+3. Verify recovery: [objective check]
+4. Rollback: [procedure] (see docs/deployment.md)
+5. Follow-up: log ERR-### in docs/error-tracker.md and schedule the post-incident review
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -48,3 +81,4 @@ Incident response and operating procedures.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** exclude prototypes from production on-call scope unless explicitly approved.

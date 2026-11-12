@@ -1,3 +1,8 @@
+---
+name: tdd-enforcer
+description: "Enforce red-green-refactor: failing tests mapped to AC-FEAT IDs before production code, with recorded evidence."
+---
+
 # Skill: tdd-enforcer
 
 **Purpose:** Apply the controlled tdd enforcer workflow to a clearly scoped project task.

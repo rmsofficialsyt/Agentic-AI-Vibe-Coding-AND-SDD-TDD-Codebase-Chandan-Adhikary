@@ -1,3 +1,8 @@
+---
+name: andrej-karpathy-skill
+description: "Apply Karpathy-style AI engineering heuristics (small iterative loops, inspect data, verify outputs) to prototyping and agent workflows in both frameworks."
+---
+
 # Skill: andrej-karpathy-skill
 
 **Skill ID:** SKILL-KARPATHY-001  

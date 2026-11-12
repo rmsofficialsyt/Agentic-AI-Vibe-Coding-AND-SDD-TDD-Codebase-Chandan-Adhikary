@@ -43,8 +43,17 @@ Third-party software and vendor governance.
 
 - **SHOULD** — Track external API quotas, renewal and exit constraints.
 
+### 8. Package verification
+
+- **MUST** — Before installing any AI-suggested package, verify that it exists in the official registry, comes from the intended publisher and is not a typosquatted or hallucinated name.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** add, upgrade or remove dependencies only within an approved task, recording licence and security review evidence.
+- **MUST** raise a CR when a dependency change alters approved behavior or an API/data contract.

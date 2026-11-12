@@ -44,3 +44,8 @@ Performance constraints and regression methods.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** express performance budgets as measurable `NFR-FEAT###-##` entries in the relevant approved feature.
+- **MUST** block release on an unapproved regression beyond an approved budget.

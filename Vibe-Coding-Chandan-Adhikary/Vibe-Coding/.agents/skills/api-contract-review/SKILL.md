@@ -1,3 +1,8 @@
+---
+name: api-contract-review
+description: "Review API changes against docs/apis.md and the contracts cited by feature specs; use before approving or merging interface changes."
+---
+
 # Skill: api-contract-review
 
 **Purpose:** Apply the controlled api contract review workflow to a clearly scoped project task.

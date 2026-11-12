@@ -48,3 +48,8 @@ Registry of portable reusable agent skills.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** register skills that read or validate specifications (e.g. `spec-validator`) and ensure they reference `docs/features/` and the canonical ID scheme.
+- **MUST NOT** use a skill to approve or modify an approved specification.

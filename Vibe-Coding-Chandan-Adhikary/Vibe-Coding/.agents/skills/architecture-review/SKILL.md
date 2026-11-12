@@ -1,3 +1,8 @@
+---
+name: architecture-review
+description: "Review designs against docs/system-architecture.md and accepted ADRs; use when a task changes boundaries, components or dependencies."
+---
+
 # Skill: architecture-review
 
 **Purpose:** Apply the controlled architecture review workflow to a clearly scoped project task.

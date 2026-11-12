@@ -51,6 +51,10 @@ PR and design review acceptance standard.
 
 - **MAY** — Use assistant review as a supplement, not as a substitute for required review.
 
+### 10. AI-generated code
+
+- **MUST** — Check AI-generated changes for hallucinated APIs or packages, unverifiable claims, over-broad edits and silently changed tests; the author discloses significant AI generation in the PR.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -60,3 +64,4 @@ PR and design review acceptance standard.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** lighten review for isolated prototype branches; production-bound PRs get the full review standard.

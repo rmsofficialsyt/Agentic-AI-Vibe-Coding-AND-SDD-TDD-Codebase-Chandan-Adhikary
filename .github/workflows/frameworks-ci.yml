@@ -1,0 +1,35 @@
+# Validates both framework packages in this guide repository.
+# Each package also ships its own .github/workflows/docs-ci.yml for projects instantiated from it.
+name: frameworks-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - SDD-TDD-Chandan-Adhikary/Spec-Driven-Development
+          - Vibe-Coding-Chandan-Adhikary/Vibe-Coding
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Docs, feature specs and agent assets
+        run: python "${{ matrix.package }}/scripts/check_docs.py"
+      - name: MANIFEST.json is current
+        run: python "${{ matrix.package }}/scripts/manifest.py" --check
+      - name: Dashboard syntax
+        run: |
+          node --check "${{ matrix.package }}/Project-Manager-Dashboard/server.js"
+          node --check "${{ matrix.package }}/Project-Manager-Dashboard/parser.js"
+          node --check "${{ matrix.package }}/Project-Manager-Dashboard/assets/dashboard.js"

@@ -5,11 +5,11 @@
 ## Authority
 
 1. `docs/constitution.md`, `docs/rules.md`: controlled process baseline.
-2. Approved feature specifications and `docs/prd.md`: behavior (for SDD see `docs/spec.md` and `docs/features/`).
+2. `docs/product.md`, approved feature contracts in `docs/features/` and `docs/prd.md`: behavior.
 3. Architecture/data/API contracts and accepted ADRs: implementation boundaries.
 4. `docs/task.md`: authorized work; `docs/memory.md`: context only.
 
-**MUST** use `docs/` for all specifications; no `specs/` directory is permitted.
+**MUST** keep all feature specifications in `docs/features/` (rules: [`features/README.md`](features/README.md)); a repository-level `specs/` directory is not permitted.
 
 ## File registry
 
@@ -17,6 +17,7 @@
 - [`rules.md`](rules.md) — Enforceable engineering and AI-agent process baseline.
 - [`plan.md`](plan.md) — Short cycle discovery and prototype plan for Vibe Coding.
 - [`prompts.md`](prompts.md) — Versioned AI master and task prompts for rapid iteration.
+- [`product.md`](product.md) — Product vision, users, value, capabilities and boundaries; parent of PRD and specs.
 - [`prd.md`](prd.md) — Product requirements and measurable user outcomes.
 - [`requirements-traceability.md`](requirements-traceability.md) — Requirement-to-task-to-test-to-evidence traceability.
 - [`acceptance-criteria.md`](acceptance-criteria.md) — Standards for objective verification.
@@ -49,16 +50,19 @@
 - [`release-checklist.md`](release-checklist.md) — Evidence-based final ship/no-ship approval.
 - [`runbook.md`](runbook.md) — Incident response and operating procedures.
 - [`handoff.md`](handoff.md) — Verifiable project transfer to another engineer or team.
+- [`ide-compatibility.md`](ide-compatibility.md) — Supported IDEs, adapters, skills/hooks/MCP activation and safe IDE switching.
+- [`CHANGELOG.md`](CHANGELOG.md) — Product/feature changelog (Keep a Changelog).
+- [`guideline-CHANGELOG.md`](guideline-CHANGELOG.md) — Process/guideline baseline revisions.
 
 ## Additional directories
 
-- `docs/features/`: versioned feature contracts and acceptance criteria.
-- `docs/adrs/`: architecture decisions.
-- `docs/changes/`, `docs/approvals/`: SDD change and approval records where applicable.
+- `docs/features/`: versioned feature contracts, `FEATURE-TEMPLATE.md`, lifecycle and ID rules (`features/README.md`).
+- `docs/adrs/`: architecture decisions (`ADR-TEMPLATE.md`, `ADR-####-title.md`).
 - `docs/domains/`: optional controlled domain extensions.
 - `playbooks/`: 11 operational workflow instructions.
-- `.agents/`: portable skills (including `andrej-karpathy-skill`), collision-free `-ca-agent` commands, lifecycle hooks, and reporting templates.
-- `specs/`: (SDD) official feature specifications supporting dual user-selected formats (Flat files or Modular directories).
+- `.agents/`: 18 portable skills (including `andrej-karpathy-skill`), 16 collision-free `-ca-agent` commands, lifecycle hooks and reporting templates.
+- `Project-Manager-Dashboard/`: local-only In-IDE dashboard reading `docs/task.md`, `docs/phases.md`, `docs/features/` and `docs/error-tracker.md` (launch with `/dashboard-ca-agent`).
+- `scripts/`: `check_docs.py` (documentation/spec conformance) and `manifest.py` (MANIFEST generation and verification), run in CI and pre-commit.
 
 ## Read matrix
 
@@ -77,9 +81,5 @@
 - **MUST** follow `ide-compatibility.md` when configuring or switching AI coding IDEs.
 - **MUST** preserve existing IDE-specific configuration files.
 - **MUST** verify compatibility before activating skills, hooks, plugins, MCP servers, or custom commands.
-- **MUST** detect the active IDE(s) per `docs/ide-compatibility.md`: automatically prune inactive IDE configuration files in Single-IDE mode, or synchronize active adapters in Multi-IDE mode.
+- **MUST** detect the active IDE(s) per `docs/ide-compatibility.md`: prune inactive IDE adapters only through the confirmed, reversible procedure in Single-IDE mode, or synchronize active adapters in Multi-IDE mode.
 - **MUST** maintain consistency with the project's approved guidelines and specifications.
-
-**Document ID:** GL-IDE-001  
-**Version:** 1.0.0  
-**Status:** Proposed Guideline Baseline — Requires Approval

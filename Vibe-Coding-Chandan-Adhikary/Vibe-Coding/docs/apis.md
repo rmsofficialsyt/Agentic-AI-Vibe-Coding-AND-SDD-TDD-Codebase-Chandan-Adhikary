@@ -1,4 +1,4 @@
-# Apis
+# APIs
 
 > **Document class:** Living feature/specification  
 > **Framework:** Vibe Coding  
@@ -56,3 +56,4 @@ Machine-checkable API and integration behavior contract.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** mock APIs freely in prototypes; **MUST** freeze the contract here before the consuming feature is `APPROVED`.

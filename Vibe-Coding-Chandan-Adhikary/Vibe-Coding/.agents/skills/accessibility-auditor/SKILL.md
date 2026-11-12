@@ -1,3 +1,8 @@
+---
+name: accessibility-auditor
+description: "Audit UI features against docs/accessibility.md targets and NFR-FEAT accessibility criteria; use when reviewing or verifying user-facing screens."
+---
+
 # Skill: accessibility-auditor
 
 **Purpose:** Apply the controlled accessibility auditor workflow to a clearly scoped project task.

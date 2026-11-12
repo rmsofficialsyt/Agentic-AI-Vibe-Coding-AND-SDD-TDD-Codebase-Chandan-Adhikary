@@ -1,6 +1,6 @@
 ---
-description: Project rules and spec-first engineering standards
+description: Vibe Coding project rules — prototype freely in isolation, formalize before production
 alwaysApply: true
 ---
 
-MUST follow `AGENTS.md`, `docs/rules.md`, approved feature specifications, test-first implementation and human approval boundaries. MUST not invent project requirements or test results.
+MUST follow `AGENTS.md`, `docs/rules.md` and feature contracts in `docs/features/`. Prototype (`PROTOTYPE`/`DRAFT`) work stays isolated and labelled; production-bound work requires an `APPROVED` feature, tests first and human approval boundaries. MUST not invent project requirements or test results.

@@ -1,4 +1,4 @@
-# Prd
+# PRD
 
 > **Document class:** Living feature/specification  
 > **Framework:** Vibe Coding  
@@ -68,3 +68,4 @@ Product requirements and measurable user outcomes.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** promote validated prototype learnings into `REQ-###` entries before the related feature is approved.

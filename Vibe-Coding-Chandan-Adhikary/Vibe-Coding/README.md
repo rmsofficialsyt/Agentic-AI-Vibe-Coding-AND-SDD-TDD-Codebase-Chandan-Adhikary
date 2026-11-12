@@ -7,9 +7,9 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 ## Start here
 
 1. Read [`docs/INDEX.md`](docs/INDEX.md), [`AGENTS.md`](AGENTS.md) and [`docs/rules.md`](docs/rules.md).
-2. Customize project identity, stakeholders, technology and approval authorities.
-3. Decide a project-specific license. **No LICENSE has been issued or assumed.** See `LICENSE-DECISION.md`.
-4. Complete requirements, architecture and acceptance criteria; approve the feature spec before production coding.
+2. Complete `docs/product.md` (a `DRAFT` with identity, one persona, value proposition and non-goals is enough to start prototyping), then customize stakeholders and technology.
+3. Decide the license for **your project**. This guideline package is MIT-licensed (repository root `LICENSE`); that grant does not choose a license for software you build with it. See `LICENSE-DECISION.md`.
+4. Prototype against `PROTOTYPE`/`DRAFT` feature contracts in `docs/features/`; formalize and approve each feature before production-bound coding.
 5. For each production change: CR → impact → approved spec version → failing tests → implementation → gates → CHANGELOG.
 6. Configure compatible tool adapters and CI for the actual platform; sample files are not live deployment settings.
 
@@ -18,7 +18,7 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 - **Guidelines:** fixed baseline `1.0.0`; revisions require reason, date, approval, version and `docs/guideline-CHANGELOG.md` entry.
 - **Features:** living approved versioned requirements; changes follow formal intake and TDD before code.
 - **Authority:** never implement behavior missing from the latest approved feature spec.
-- **Spec location:** `docs/` only, including `docs/features/`. Do not create `specs/`.
+- **Spec location:** `docs/features/` only. Do not create `specs/`. Format and lifecycle (`PROTOTYPE → DRAFT → IN REVIEW → APPROVED → SUPERSEDED | DEPRECATED`) are defined in `docs/features/README.md`; IDs in `docs/requirements-traceability.md`.
 
 ## Framework emphasis
 
@@ -26,8 +26,8 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 
 ## Repository map
 
-`docs/` — policy/specs and state; `playbooks/` — operation guides; `.agents/` — portable skills (including `andrej-karpathy-skill`), hooks, collision-free `-ca-agent` commands; `.github/` — examples for GitHub; `tests/` — test harness contract.
+`docs/` — policy, product definition and state; `docs/features/` — feature contracts; `playbooks/` — 11 operation guides; `.agents/` — 18 skills (including `andrej-karpathy-skill`), hooks, 16 collision-free `-ca-agent` commands; `.github/` — adapters, templates and the docs CI workflow; `Project-Manager-Dashboard/` — local In-IDE dashboard (`/dashboard-ca-agent`, port 4201); `scripts/` — `check_docs.py`, `manifest.py`; `tests/` — test harness contract.
 
 ## Licensing and contributing
 
-No license is granted through these templates. Select and approve a real project-specific license before redistribution. All modifications must follow `docs/rules.md` and `docs/code-review.md`.
+The guideline package is distributed under the MIT License in the repository root `LICENSE`. A project instantiated from these templates **MUST** select and approve its own license before redistribution (`LICENSE-DECISION.md`). All modifications must follow `docs/rules.md` and `docs/code-review.md`; run `python scripts/check_docs.py` and `python scripts/manifest.py --check` before opening a PR.

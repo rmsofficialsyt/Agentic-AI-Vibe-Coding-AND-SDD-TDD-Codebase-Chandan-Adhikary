@@ -39,6 +39,10 @@ Event-driven agent and Git automation controls.
 
 - **MUST** — Use server-side CI or review when agent platforms cannot enforce a required hook.
 
+### 7. Tamper resistance
+
+- **MUST** — Changes to hook configuration require review; agents MUST NOT disable, skip or bypass hooks.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -48,3 +52,4 @@ Event-driven agent and Git automation controls.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** relax non-safety hooks on prototype branches; secret-scanning hooks stay on everywhere.

@@ -39,6 +39,36 @@ Scoped, traceable units of work.
 
 - **SHOULD** — Use Backlog, Ready, In Progress, Blocked, Review and Done states.
 
+### 7. Size
+
+- **MUST** — Keep each task small enough for one reviewable pull request; split larger work into dependent tasks.
+
+### 8. Readiness
+
+- **MUST** — Agents start only `READY` tasks whose dependencies are `DONE` and whose acceptance criteria are linked.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+### TASK-###: [Short title] [BACKLOG] [P2]
+
+| Field | Value |
+|---|---|
+| Feature | FEAT-### (version x.y.z) |
+| Acceptance criteria | AC-FEAT###-##, AC-FEAT###-## |
+| Owner | [agent / person] |
+| Allowed files | [paths] |
+| Definition of Done | Tests TEST-FEAT###-## red → green; review approved; docs synced |
+
+- [ ] Write failing test TEST-FEAT###-## for AC-FEAT###-## in `tests/...`
+- [ ] Implement minimal change in `src/...`
+- [ ] Run suite and record evidence
+
+Status values: BACKLOG, READY, IN_PROGRESS, BLOCKED, REVIEW, DONE (separate from feature lifecycle).
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.

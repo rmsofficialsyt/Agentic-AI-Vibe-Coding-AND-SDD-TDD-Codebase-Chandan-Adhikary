@@ -35,8 +35,51 @@ Verifiable project transfer to another engineer or team.
 
 - **MUST** — Record receiving owner, date, open items and sign-off.
 
+### 6. Access transfer
+
+- **MUST** — Grant the receiving owner's access and revoke the departing party's accounts, tokens, CI secrets and MCP/connector credentials; record both actions.
+
+### 7. Reproducibility
+
+- **MUST** — The receiver runs the documented install, build and test commands on a clean environment and records the result before sign-off.
+
+### 8. Known debt
+
+- **MUST** — List technical debt, temporary workarounds, fragile areas and deferred decisions with links to their risks or tasks.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+| Field | Value |
+|---|---|
+| From → To | [Name/team] → [Name/team] |
+| Date | YYYY-MM-DD |
+| Repository state | Branch [name] @ [commit SHA]; CI run [link] |
+
+### Feature status
+| Feature | Version | Status | Open ACs / known gaps |
+|---|---|---|---|
+| FEAT-### | x.y.z | APPROVED / IN REVIEW / DRAFT | [AC-FEAT###-## pending] |
+
+### Open work
+| Item | Type (TASK / CR / RISK / ERR) | Owner | Next action |
+|---|---|---|---|
+
+### Operational knowledge
+- Run locally: [command]
+- Secrets location (never the values): [vault/path]
+- Runbook: docs/runbook.md · Dashboards: [links]
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** list every feature with its current status and version from `docs/spec.md`, plus open CRs and pending approvals.
+- **MUST** include real evidence (latest CI run, test results) rather than summaries.

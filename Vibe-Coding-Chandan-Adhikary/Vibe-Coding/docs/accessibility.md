@@ -39,6 +39,31 @@ Accessibility targets and validation.
 
 - **SHOULD** — Document accessible component examples and known constraints.
 
+### 7. Content
+
+- **MUST** — Provide text alternatives for meaningful images, captions or transcripts for media, a declared page language and plain-language error messages.
+
+### 8. Definition of Done
+
+- **MUST** — Include the feature's accessibility criteria in its Definition of Done and run automatable checks in CI.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+| Field | Value |
+|---|---|
+| Conformance target | WCAG 2.2 AA (or project-specific) |
+| Assistive tech matrix | [screen readers × browsers / platforms] |
+| Automated tooling | [tool + CI job] |
+| Manual review cadence | [per release / per feature] |
+
+| Feature | Criterion (NFR-FEAT###-##) | Method | Result | Evidence | Date |
+|---|---|---|---|---|---|
+| FEAT-### | [e.g. keyboard operable] | Automated / Manual | Pass / Fail | [link] | YYYY-MM-DD |
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -48,3 +73,4 @@ Accessibility targets and validation.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** run an accessibility pass on any prototype screen before it is promoted to production-bound work.

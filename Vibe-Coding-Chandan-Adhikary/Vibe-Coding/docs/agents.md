@@ -51,6 +51,14 @@ Multi-agent execution and delegation governance.
 
 - **SHOULD** — Establish token, time and external-service budgets.
 
+### 10. Provenance
+
+- **MUST** — Record the agent, model and version, and the command or prompt used, for every significant generated change (PR description or commit trailer).
+
+### 11. Parallel work
+
+- **MUST** — Merge outputs of parallel agents only after conflict review and a full test run on the combined result.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -60,3 +68,4 @@ Multi-agent execution and delegation governance.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** tell sub-agents whether they work on prototype or production-bound scope; prototype agents get no production credentials.

@@ -1,3 +1,8 @@
+---
+description: "Review for scope fidelity, architecture, tests, privacy, security, accessibility and maintainability."
+argument-hint: "[file(s) or git diff range]"
+---
+
 # /review-ca-agent
 
 **Purpose:** Review for scope fidelity, architecture, tests, privacy, security, accessibility and maintainability.

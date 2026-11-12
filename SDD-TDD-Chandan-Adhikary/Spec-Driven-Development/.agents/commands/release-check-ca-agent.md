@@ -1,3 +1,8 @@
+---
+description: "Verify artifact, test results, authorizations, rollback and observability before release."
+argument-hint: "[release version, e.g. v1.0.0]"
+---
+
 # /release-check-ca-agent
 
 **Purpose:** Verify artifact, test results, authorizations, rollback and observability before release.

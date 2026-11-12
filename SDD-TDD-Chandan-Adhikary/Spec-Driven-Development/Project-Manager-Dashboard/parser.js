@@ -5,16 +5,38 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
+
+// Files inside docs/features/ that are guidance, not feature contracts
+const NON_FEATURE_FILES = new Set(['README.md', 'FEATURE-TEMPLATE.md']);
 
 class DashboardParser {
   constructor(projectRoot) {
     this.projectRoot = projectRoot;
     this.docsDir = path.join(projectRoot, 'docs');
-    this.specsDir = path.join(projectRoot, 'specs');
+    // Canonical feature-spec location (flat NNN-name.md or modular NNN-name/ folders)
+    this.featuresDir = path.join(this.docsDir, 'features');
     this.testsDir = path.join(projectRoot, 'tests');
     this.statusOverrides = {};
+  }
+
+  /**
+   * Recursively list feature-spec markdown files under docs/features/
+   */
+  listFeatureFiles() {
+    const results = [];
+    const walk = (dir, depth) => {
+      if (depth > 3 || !fs.existsSync(dir)) return;
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full, depth + 1);
+        else if (entry.name.endsWith('.md') && !NON_FEATURE_FILES.has(entry.name)) results.push(full);
+      }
+    };
+    walk(this.featuresDir, 0);
+    return results;
   }
 
   /**
@@ -32,6 +54,29 @@ class DashboardParser {
   }
 
   /**
+   * Split markdown into lines, blanking fenced code blocks and HTML comments so that
+   * instantiation templates and examples inside docs are never parsed as live data.
+   */
+  contentLines(content) {
+    let inFence = false;
+    let inComment = false;
+    return content.split(/\r?\n/).map(line => {
+      const trimmed = line.trim();
+      if (/^(```|~~~)/.test(trimmed)) { inFence = !inFence; return ''; }
+      if (inFence) return '';
+      if (inComment) {
+        if (trimmed.includes('-->')) inComment = false;
+        return '';
+      }
+      if (trimmed.startsWith('<!--')) {
+        inComment = !trimmed.includes('-->');
+        return '';
+      }
+      return line;
+    });
+  }
+
+  /**
    * Parse tasks and granular subtasks from docs/task.md
    */
   parseTasks() {
@@ -39,7 +84,7 @@ class DashboardParser {
     const tasks = [];
     if (!content) return tasks;
 
-    const lines = content.split(/\r?\n/);
+    const lines = this.contentLines(content);
     let currentTask = null;
 
     for (let i = 0; i < lines.length; i++) {
@@ -57,7 +102,10 @@ class DashboardParser {
           lower.includes('execution') ||
           lower.includes('status') ||
           lower.includes('evidence and change') ||
-          lower.includes('sdd enforcement')) {
+          lower.includes('instantiation template') ||
+          lower.includes('vibe coding interpretation') ||
+          lower.includes('sdd enforcement') ||
+          /^#{2,4}\s+\d+\.\s/.test(line)) { // numbered guideline sections, not tasks
         continue;
       }
 
@@ -153,7 +201,7 @@ class DashboardParser {
             { id: 's4', title: 'Scaffold failing unit tests (TDD Red Phase)', completed: false },
             { id: 's5', title: 'Implement minimal passing business logic', completed: false }
           ],
-          impactedFiles: ['specs/01-core.md', 'tests/core.test.ts']
+          impactedFiles: ['docs/features/001-example-feature/feature.md', 'tests/core.test.ts']
         },
         {
           id: 'TASK-003',
@@ -189,13 +237,14 @@ class DashboardParser {
     if (!content) return true;
 
     const lines = content.split(/\r?\n/);
+    const live = this.contentLines(content); // '' for lines inside code fences / comments
     let updated = false;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      if (line.includes(taskId)) {
-        if (/\[(BACKLOG|IN_PROGRESS|DONE|REVIEW|BLOCKED|RED_TEST_FAIL|REVIEW_BLOCKED)\]/i.test(line)) {
-          lines[i] = line.replace(/\[(BACKLOG|IN_PROGRESS|DONE|REVIEW|BLOCKED|RED_TEST_FAIL|REVIEW_BLOCKED)\]/i, `[${newStatus}]`);
+      if (live[i] && line.includes(taskId)) {
+        if (/\[(BACKLOG|READY|IN_PROGRESS|DONE|REVIEW|BLOCKED|RED_TEST_FAIL|REVIEW_BLOCKED)\]/i.test(line)) {
+          lines[i] = line.replace(/\[(BACKLOG|READY|IN_PROGRESS|DONE|REVIEW|BLOCKED|RED_TEST_FAIL|REVIEW_BLOCKED)\]/i, `[${newStatus}]`);
           updated = true;
           break;
         } else {
@@ -232,7 +281,7 @@ class DashboardParser {
     if (!content) return phases;
 
     // Check if phases have specific markdown markers
-    const lines = content.split(/\r?\n/);
+    const lines = this.contentLines(content);
     lines.forEach(line => {
       const pMatch = line.match(/Phase\s+([1-5])[:\s-]+(.*?)(?:\[([A-Z_]+)\])?$/i);
       if (pMatch) {
@@ -251,22 +300,24 @@ class DashboardParser {
   }
 
   /**
-   * Parse Spec Acceptance Criteria (AC-*) from specs/ directory
+   * Parse feature Acceptance Criteria (AC-FEAT###-##) from docs/features/
    */
   parseSpecs() {
     const acList = [];
-    if (!fs.existsSync(this.specsDir)) return acList;
+    const seen = new Set();
 
     try {
-      const files = fs.readdirSync(this.specsDir).filter(f => f.endsWith('.md'));
-      files.forEach(file => {
-        const content = fs.readFileSync(path.join(this.specsDir, file), 'utf8');
-        const lines = content.split(/\r?\n/);
+      this.listFeatureFiles().forEach(fullPath => {
+        const file = path.relative(this.featuresDir, fullPath).split(path.sep).join('/');
+        const content = fs.readFileSync(fullPath, 'utf8');
+        const lines = this.contentLines(content);
 
         lines.forEach(line => {
-          // Look for AC-001 or AC-AUTH-01 patterns
-          const acMatch = line.match(/\b(AC-[A-Za-z0-9._-]+)\b[:\s-]*(.*?)(?:\[(PASS|FAIL|RED|GREEN|PENDING)\])?$/i);
-          if (acMatch) {
+          // AC definitions are headings or bullets that start with the AC ID, e.g.
+          // "### AC-FEAT001-01: Valid login [GREEN]" or "- AC-FEAT001-01 — ..."
+          const acMatch = line.match(/^\s*(?:#{2,6}\s+|[-*]\s+(?:\[[ xX]\]\s+)?|\|\s*)(AC-[A-Za-z0-9._-]+)\b[:\s|—-]*(.*?)(?:\[(PASS|FAIL|RED|GREEN|PENDING)\])?\s*\|?\s*$/i);
+          if (acMatch && !seen.has(acMatch[1])) {
+            seen.add(acMatch[1]);
             const rawStatus = (acMatch[3] || 'PENDING').toUpperCase();
             let status = 'PENDING';
             if (rawStatus === 'PASS' || rawStatus === 'GREEN') status = 'GREEN';
@@ -287,11 +338,10 @@ class DashboardParser {
 
     if (acList.length === 0) {
       acList.push(
-        { id: 'AC-001.1', title: 'Data model schema enforces non-null constraints', status: 'GREEN', specFile: '01-architecture.md' },
-        { id: 'AC-001.2', title: 'Authentication rejects expired JWT tokens', status: 'GREEN', specFile: '02-auth.md' },
-        { id: 'AC-002.1', title: 'Password hash rounds meet bcrypt cost 12', status: 'GREEN', specFile: '02-auth.md' },
-        { id: 'AC-002.2', title: 'User session invalidation terminates active refresh token', status: 'RED', specFile: '02-auth.md' },
-        { id: 'AC-003.1', title: 'Rate limiting throttles exceeding 100 req/min', status: 'PENDING', specFile: '03-api.md' }
+        { id: 'AC-FEAT001-01', title: 'DEMO: Valid credentials create a session', status: 'GREEN', specFile: 'demo' },
+        { id: 'AC-FEAT001-02', title: 'DEMO: Invalid credentials are rejected without leaking which field failed', status: 'GREEN', specFile: 'demo' },
+        { id: 'AC-FEAT001-03', title: 'DEMO: Repeated failures trigger lockout', status: 'RED', specFile: 'demo' },
+        { id: 'AC-FEAT002-01', title: 'DEMO: Enrollment assigns a unique admission number', status: 'PENDING', specFile: 'demo' }
       );
     }
 
@@ -306,7 +356,7 @@ class DashboardParser {
     const blockers = [];
     if (!content) return blockers;
 
-    const lines = content.split(/\r?\n/);
+    const lines = this.contentLines(content);
     lines.forEach(line => {
       if (line.includes('[P0]') || line.includes('[P1]') || line.toLowerCase().includes('blocker')) {
         const clean = line.replace(/^[#\s\-*]+/, '').trim();
@@ -364,31 +414,65 @@ class DashboardParser {
   }
 
   /**
-   * Find active conversation transcript file from the Antigravity/Agent environment
+   * Find the most recently updated agent transcript.
+   * Sources (newest file wins):
+   *   - Claude Code:  ~/.claude/projects/<project>/<session>.jsonl
+   *   - Antigravity:  ~/.gemini/antigravity/brain/<id>/.system_generated/logs/transcript.jsonl
+   * Override with DASHBOARD_TRANSCRIPT=/path/to/file.jsonl
    */
   findTranscriptPath() {
-    try {
-      const userProfile = process.env.USERPROFILE || process.env.HOME || 'C:/Users/User';
-      const brainDir = path.join(userProfile, '.gemini', 'antigravity', 'brain');
-      if (fs.existsSync(brainDir)) {
-        const dirs = fs.readdirSync(brainDir);
-        let latestFile = null;
-        let latestMtime = 0;
-
-        for (const dir of dirs) {
-          const transcriptPath = path.join(brainDir, dir, '.system_generated', 'logs', 'transcript.jsonl');
-          if (fs.existsSync(transcriptPath)) {
-            const stat = fs.statSync(transcriptPath);
-            if (stat.mtimeMs > latestMtime) {
-              latestMtime = stat.mtimeMs;
-              latestFile = transcriptPath;
-            }
-          }
+    if (process.env.DASHBOARD_TRANSCRIPT && fs.existsSync(process.env.DASHBOARD_TRANSCRIPT)) {
+      return process.env.DASHBOARD_TRANSCRIPT;
+    }
+    const home = os.homedir();
+    let latestFile = null;
+    let latestMtime = 0;
+    const consider = (filePath) => {
+      try {
+        const stat = fs.statSync(filePath);
+        if (stat.isFile() && stat.mtimeMs > latestMtime) {
+          latestMtime = stat.mtimeMs;
+          latestFile = filePath;
         }
-        if (latestFile) return latestFile;
+      } catch (e) {}
+    };
+
+    try {
+      const claudeProjects = path.join(home, '.claude', 'projects');
+      if (fs.existsSync(claudeProjects)) {
+        for (const dir of fs.readdirSync(claudeProjects)) {
+          const projectDir = path.join(claudeProjects, dir);
+          try {
+            for (const f of fs.readdirSync(projectDir)) {
+              if (f.endsWith('.jsonl')) consider(path.join(projectDir, f));
+            }
+          } catch (e) {}
+        }
       }
     } catch (e) {}
-    return null;
+
+    try {
+      const brainDir = path.join(home, '.gemini', 'antigravity', 'brain');
+      if (fs.existsSync(brainDir)) {
+        for (const dir of fs.readdirSync(brainDir)) {
+          consider(path.join(brainDir, dir, '.system_generated', 'logs', 'transcript.jsonl'));
+        }
+      }
+    } catch (e) {}
+
+    return latestFile;
+  }
+
+  /**
+   * Normalize token usage from one transcript line (Claude Code or Antigravity format).
+   */
+  extractUsage(d) {
+    const u = (d && d.message && d.message.usage) || (d && d.usage) || d || {};
+    const input = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0);
+    const output = u.output_tokens || 0;
+    const cacheRead = u.cache_read_input_tokens || u.cache_read_tokens || 0;
+    if (!input && !output && !cacheRead) return null;
+    return { input, output, cacheRead, step: d.step_index, time: d.timestamp || d.created_at };
   }
 
   /**
@@ -396,7 +480,9 @@ class DashboardParser {
    */
   parseTokenTelemetry() {
     const transcriptPath = this.findTranscriptPath();
-    const windowLimit = 200000; // Standard 200k Context Window
+    // Context window: DASHBOARD_CONTEXT_WINDOW overrides; otherwise 200k, auto-raised to 1M
+    // when the observed context already exceeds 200k (long-context sessions).
+    let windowLimit = Number(process.env.DASHBOARD_CONTEXT_WINDOW) || 200000;
     let totalInput = 0;
     let totalOutput = 0;
     let totalCacheRead = 0;
@@ -410,21 +496,21 @@ class DashboardParser {
 
         for (let i = 0; i < lines.length; i++) {
           try {
-            const d = JSON.parse(lines[i]);
-            if (d.input_tokens || d.output_tokens || d.cache_read_tokens) {
-              const inp = d.input_tokens || 0;
-              const out = d.output_tokens || 0;
-              const cache = d.cache_read_tokens || 0;
+            const usage = this.extractUsage(JSON.parse(lines[i]));
+            if (usage) {
+              const inp = usage.input;
+              const out = usage.output;
+              const cache = usage.cacheRead;
               totalInput += inp;
               totalOutput += out;
               totalCacheRead += cache;
               lastStep = {
-                step: d.step_index || (history.length + 1),
+                step: usage.step || (history.length + 1),
                 input: inp,
                 output: out,
                 cacheRead: cache,
                 total: inp + out + cache,
-                time: d.created_at || new Date().toISOString()
+                time: usage.time || new Date().toISOString()
               };
               history.push(lastStep);
             }
@@ -443,6 +529,7 @@ class DashboardParser {
     }
 
     const currentContext = lastStep.input + lastStep.cacheRead;
+    if (!process.env.DASHBOARD_CONTEXT_WINDOW && currentContext > windowLimit) windowLimit = 1000000;
     const utilPct = Math.min(100, Math.round((currentContext / windowLimit) * 1000) / 10);
     const freeTokens = Math.max(0, windowLimit - currentContext);
     const totalTokens = totalInput + totalOutput + totalCacheRead;

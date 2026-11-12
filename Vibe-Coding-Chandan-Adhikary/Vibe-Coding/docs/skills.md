@@ -52,3 +52,4 @@ Registry of portable reusable agent skills.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** use exploratory skills in prototypes; registered skills only for production-bound work.

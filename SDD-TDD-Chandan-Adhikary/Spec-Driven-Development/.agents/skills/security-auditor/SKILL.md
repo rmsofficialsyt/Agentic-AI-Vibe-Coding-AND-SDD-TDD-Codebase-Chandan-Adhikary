@@ -1,3 +1,8 @@
+---
+name: security-auditor
+description: "Audit code, configuration and dependencies against docs/security.md; record findings with severity and remediation."
+---
+
 # Skill: security-auditor
 
 **Purpose:** Apply the controlled security auditor workflow to a clearly scoped project task.

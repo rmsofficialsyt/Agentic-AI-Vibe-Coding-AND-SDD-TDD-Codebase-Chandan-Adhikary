@@ -39,6 +39,10 @@ Reproducible environment and configuration register.
 
 - **MUST** — Provide steps for deterministic local startup and troubleshooting.
 
+### 7. Production data
+
+- **MUST** — Never copy production data to lower environments unless it is anonymized or masked under an approved, documented procedure.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -48,3 +52,4 @@ Reproducible environment and configuration register.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** keep prototype environments isolated from production data and secrets.

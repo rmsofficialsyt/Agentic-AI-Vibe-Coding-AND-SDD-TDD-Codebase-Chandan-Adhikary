@@ -1,3 +1,8 @@
+---
+name: ui-fidelity-review
+description: "Compare implemented UI against docs/design.md and feature acceptance criteria; report deviations with evidence."
+---
+
 # Skill: ui-fidelity-review
 
 **Purpose:** Apply the controlled ui fidelity review workflow to a clearly scoped project task.

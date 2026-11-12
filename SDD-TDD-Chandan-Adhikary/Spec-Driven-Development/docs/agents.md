@@ -51,8 +51,21 @@ Multi-agent execution and delegation governance.
 
 - **SHOULD** — Establish token, time and external-service budgets.
 
+### 10. Provenance
+
+- **MUST** — Record the agent, model and version, and the command or prompt used, for every significant generated change (PR description or commit trailer).
+
+### 11. Parallel work
+
+- **MUST** — Merge outputs of parallel agents only after conflict review and a full test run on the combined result.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** pass the exact `FEAT-###` version, task ID and allowed files to every sub-agent; sub-agents **MUST NOT** act on `DRAFT` or `IN REVIEW` features.
+- **MUST** reject sub-agent output that claims success without the real command output defined in `.agents/templates/AGENT-COMPLETION-REPORT.md`.

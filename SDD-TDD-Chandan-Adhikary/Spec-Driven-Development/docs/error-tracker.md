@@ -43,8 +43,31 @@ Recurring defect prevention and failure history.
 
 - **SHOULD** — Group repeated failures and review recurrence periodically.
 
+### 8. Severity scale
+
+- **MUST** — Define P0–P3 with examples and response targets (e.g. P0: production down or data loss — immediate; P3: cosmetic — next planned release).
+
+### 9. Security defects
+
+- **MUST** — Route suspected vulnerabilities through `docs/security.md` private disclosure; never record exploit details in a public tracker.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+| ID | Date | Severity | Summary | Violated AC / spec gap | Root cause | Fix (commit / PR) | Regression test | Status |
+|---|---|---|---|---|---|---|---|---|
+| ERR-001 | YYYY-MM-DD | [P0] / [P1] / [P2] | [What failed] | AC-FEAT###-## or SPEC-GAP | [Cause] | [link] | TEST-FEAT###-## | ACTIVE / RESOLVED |
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** link each defect to the violated `AC-FEAT###-##` (or record that no AC covers it and raise a spec gap).
+- **MUST** add a regression test mapped to the AC before closing a defect.

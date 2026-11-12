@@ -60,3 +60,8 @@ No-exception governed change workflow for SDD.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** apply this workflow to every change of an `APPROVED` feature, interface or data contract; there is no informal path.
+- **MUST** keep CR (`docs/changes/CR-###`), approval (`docs/approvals/APR-###`), new feature version and `docs/spec.md` entry consistent before implementation starts.

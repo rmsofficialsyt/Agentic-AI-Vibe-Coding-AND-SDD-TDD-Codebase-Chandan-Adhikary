@@ -1,3 +1,8 @@
+---
+description: "Analyze scope, requirements, dependencies and risks; propose a bounded plan; obtain approval before production implementation."
+argument-hint: "[goal or TASK-###]"
+---
+
 # /plan-ca-agent
 
 **Purpose:** Analyze scope, requirements, dependencies and risks; propose a bounded plan; obtain approval before production implementation.

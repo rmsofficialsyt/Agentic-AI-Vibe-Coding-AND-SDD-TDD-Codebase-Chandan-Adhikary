@@ -15,7 +15,7 @@
 1. **The Specification is the Law**: No production code is ever written until an explicit, unambiguous specification is drafted, reviewed, verified against acceptance criteria, and formally approved by a human lead.
 2. **The Two-Layer Governance Policy**:
    - **Constitutional Guidelines (`docs/`)**: The immutable rules of architecture, security policies, coding standards, and process guidelines.
-   - **Executable Specifications (`specs/`)**: The living, version-controlled feature contracts defining data structures, state transitions, API endpoints, and verifiable Acceptance Criteria (`AC-*`).
+   - **Executable Specifications (`docs/features/`)**: The living, version-controlled feature contracts defining data structures, state transitions, API endpoints, and verifiable Acceptance Criteria (`AC-*`).
 3. **Strict Test-First Implementation (Red → Green → Refactor)**:
    - **Red**: Write executable unit, integration, and contract tests directly against the approved Acceptance Criteria. Verify that they fail with expected error messages.
    - **Green**: Write the absolute minimum production code required to satisfy the tests.
@@ -42,8 +42,8 @@ The table below demonstrates how to substitute these variables using the **Schoo
 | `[TARGET_AUDIENCE]` | Primary user roles & stakeholders | Admins, Principals, Teachers, Students, Parents | Risk Officers, Treasury Operators, Consumers |
 | `[REGULATORY_STANDARDS]` | Industry compliance rules & standards | FERPA, COPPA, GDPR, Student Data Privacy | PCI-DSS v4.0, SOC 2 Type II, ISO 27001, GLBA |
 | `[BUSINESS_MODEL]` | Commercialization & licensing | Multi-campus B2B annual subscription | Usage-based API volume + enterprise SLA tier |
-| `[PRIMARY_FEATURE_SPEC]` | Target feature for first TDD cycle | `specs/002.spec.student-enrollment.md` | `specs/002.spec.double-entry-transfer.md` |
-| `[SPEC_AC_PREFIX]` | Prefix for numbered Acceptance Criteria | `AC-ENROLL-*` | `AC-TXN-*` |
+| `[PRIMARY_FEATURE_SPEC]` | Target feature for first TDD cycle | `docs/features/002-student-enrollment.md` | `docs/features/002-double-entry-transfer.md` |
+| `[FEATURE_NUMBER]` | Feature number used in AC IDs `AC-FEAT[NNN]-NN` | `002` | `002` |
 | `[TECH_STACK_SUMMARY]` | Selected production technologies | Next.js 15, PostgreSQL (RLS), Prisma, Vitest | Go / Node.js, PostgreSQL (Timescale), Vitest |
 
 ---
@@ -86,7 +86,7 @@ SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/
 ### Critical Repository Boundary Rules
 - **Do NOT write application code inside the template directory (`SDD-TDD-Chandan-Adhikary/`)**: The template folder is an immutable distribution asset. Always copy or rename it to a clean working repository before starting development.
 - **Lowercase `kebab-case`**: Avoid spaces, uppercase characters, and special symbols in your directory paths.
-- **Open at the Project Root**: Always open your IDE (Claude Code, Cursor, Windsurf, Antigravity, VS Code) at the root of `[your-project-name]/` so that AI agents immediately discover `AGENTS.md`, `.agents/`, `specs/`, and `docs/`.
+- **Open at the Project Root**: Always open your IDE (Claude Code, Cursor, Windsurf, Antigravity, VS Code) at the root of `[your-project-name]/` so that AI agents immediately discover `AGENTS.md`, `.agents/`, `docs/features/`, and `docs/`.
 
 ### Step 1.1 — Visual Mission Control: In-IDE Project Manager Dashboard
 The framework includes a built-in, zero-dependency **Project-Manager-Dashboard** running strictly inside your IDE:
@@ -101,32 +101,26 @@ The framework includes a built-in, zero-dependency **Project-Manager-Dashboard**
 
 ## Step 2 — Specifications Architecture: Flat vs. Modular Dual Formats
 
-The SDD framework supports two standard specification formats in the `specs/` directory:
+The SDD framework stores every feature specification in `docs/features/` (a `docs/features/` directory is not permitted) and supports two formats per feature:
 
 ```text
-specs/
-├── Format 1 (Flat Spec Files - for discrete, cohesive features):
-│   ├── 001.spec.[feature-name].md
-│   └── 002.spec.[feature-name].md
-│
-└── Format 2 (Modular Spec Folders - for complex enterprise sub-systems):
-    ├── 001.spec.[module-name]/
-    │   ├── spec.md
-    │   ├── schema.json
-    │   └── acceptance-criteria.md
-    └── 002.spec.[module-name]/
-        ├── spec.md
-        ├── schema.json
-        └── acceptance-criteria.md
+docs/features/                         # the only location for feature specs (no specs/ directory)
+├── README.md                          # formats, lifecycle, ID rules
+├── FEATURE-TEMPLATE.md                # copy for every new feature
+├── 001-[feature-name].md              # Format 1: Flat — one file, all sections
+└── 002-[module-name]/                 # Format 2: Modular — complex features
+    ├── feature.md                     #   header, scope, FR/NFR, contracts, history
+    ├── acceptance.md                  #   AC-FEAT002-NN Given/When/Then
+    └── test-plan.md                   #   AC -> TEST-FEAT002-NN mapping and evidence
 ```
 
 ### Format Selection Rules
 - **Format 1 (Flat)**: Recommended for self-contained, linear features (e.g., User Authentication, Password Reset, Status Change) where requirements, schemas, and Acceptance Criteria fit cleanly into a single document.
-- **Format 2 (Modular Folders)**: Recommended for complex enterprise domains (e.g., Billing & Reconciliation Engines, Multi-Party Workflows, Patient Intake) requiring separated JSON Schemas, formal state machine diagrams, and multi-jurisdictional compliance matrices.
+- **Format 2 (Modular Folders)**: Recommended for complex enterprise domains (e.g., Billing & Reconciliation Engines, Multi-Party Workflows, Patient Intake) requiring separated acceptance and test-plan files; JSON Schemas and state machines are linked from `docs/apis.md` / `docs/database.md`.
 
 *Reference Example (SMS):*
-- Flat format: `specs/001.spec.authentication.md`, `specs/002.spec.student-enrollment.md`
-- Modular format: `specs/003.spec.gradebook/` (contains `spec.md`, `schema.json`, and `acceptance-criteria.md`)
+- Flat format: `docs/features/001-authentication.md`, `docs/features/002-student-enrollment.md`
+- Modular format: `docs/features/003-gradebook/` (contains `feature.md`, `acceptance.md` and `test-plan.md`; schemas live in `docs/database.md` / `docs/apis.md`)
 
 ---
 
@@ -191,15 +185,15 @@ Before planning or proposing any architectural choices:
 2. Read `README.md` and `AGENTS.md`.
 3. Check the active IDE environment and review `docs/ide-compatibility.md`.
 4. Read `docs/INDEX.md`, `docs/constitution.md`, and `docs/rules.md`.
-5. Read `docs/spec.md` and inspect the `specs/` directory (both Format 1 Flat and Format 2 Modular samples).
+5. Read `docs/spec.md` and inspect `docs/features/` (`README.md`, `FEATURE-TEMPLATE.md`, Flat and Modular samples).
 6. Inspect `.agents/commands/*-ca-agent.md` and `.agents/skills/andrej-karpathy-skill/SKILL.md`.
 7. Enforce the Two-Layer Policy:
    - Canonical Guidelines (`docs/`) = Immutable process baseline.
-   - Specifications (`specs/`) = Living, executable requirement contracts.
+   - Specifications (`docs/features/`) = Living, executable requirement contracts.
 
 Rules:
 - MUST treat approved guidelines as the process authority.
-- MUST treat approved feature specifications in `specs/` as the feature authority.
+- MUST treat approved feature specifications in `docs/features/` as the feature authority.
 - MUST NOT implement unapproved features.
 - MUST NOT delete or overwrite existing files without authorization.
 - MUST report any contradictory specifications or missing policies.
@@ -229,7 +223,7 @@ Conduct rigorous product, technical, and regulatory research:
 ### Core Enterprise Modules
 1. **Tenant Onboarding & Institutional Provisioning**:
    - Provisioning new organizations/tenants, configuration profiles, and department structures.
-2. **Primary Core Workflow (`specs/002.spec.[PRIMARY_FEATURE].md`)**:
+2. **Primary Core Workflow (`docs/features/002-[PRIMARY_FEATURE].md`)**:
    - [PRIMARY_FEATURE_DESCRIPTION: Detail the core entity lifecycle, verification rules, and automated ID generation].
 3. **Audit Logging & Historical State Tracking**:
    - Immutable audit logging: any retrospective change to records requires a recorded actor, timestamp, reason, and signature.
@@ -308,7 +302,7 @@ Inspect and configure agent capabilities from `.agents/`:
 Propose explicit updates for:
 - `docs/constitution.md` & `docs/rules.md`: Engineering invariants and testing policies.
 - `docs/system-architecture.md`, `docs/database.md`, `docs/apis.md`, `docs/security.md`.
-- `specs/`: Formulate specification files (`001.spec.authentication.md`, `002.spec.[PRIMARY_FEATURE].md`).
+- `docs/features/`: Formulate specification files (`001-authentication.md`, `002-[PRIMARY_FEATURE].md`).
 - `docs/release-checklist.md`: Production sign-off criteria.
 
 ---
@@ -316,7 +310,7 @@ Propose explicit updates for:
 ## 13. Project Milestones & Phases
 - **Phase 0:** Discovery, Regulatory Architecture & Stack Sign-Off (Current Step).
 - **Phase 1:** Core Repository Configuration, Test Harness Setup & Data Isolation Baseline.
-- **Phase 2:** Specification Validation & TDD Test Scaffolding for [PRIMARY_FEATURE] (`specs/002.*`).
+- **Phase 2:** Specification Validation & TDD Test Scaffolding for [PRIMARY_FEATURE] (`docs/features/002-*`).
 - **Phase 3:** Feature Implementation via TDD (Red-Green-Refactor).
 - **Phase 4:** Secondary Modules Implementation via TDD.
 - **Phase 5:** Production Readiness Audit, Security SAST Scan & Formal Release Gate.
@@ -398,11 +392,11 @@ Now configure the project repository documentation, test harness, and environmen
 - Configure `docs/security.md` with compliance procedures, encryption keys policy, and role-based access matrices.
 - Record the architectural baseline in `docs/decision-log.md` (`ADR-001: Architecture & Isolation Baseline`).
 
-### 2. Configure Specification Assets (`specs/`)
-- Establish `specs/001.spec.authentication.md` (Draft Status).
-- Establish `specs/002.spec.[PRIMARY_FEATURE].md` (Ready for Review).
-- Establish `specs/003.spec.[SECONDARY_FEATURE].md` (Draft Status).
-- Ensure every specification defines explicit, uniquely numbered Acceptance Criteria (`AC-[MODULE]-[NUMBER]`).
+### 2. Configure Specification Assets (`docs/features/`)
+- Establish `docs/features/001-authentication.md` (status `DRAFT`).
+- Establish `docs/features/002-[PRIMARY_FEATURE].md` (status `IN REVIEW`).
+- Establish `docs/features/003-[SECONDARY_FEATURE].md` (status `DRAFT`).
+- Ensure every specification defines explicit, uniquely numbered Acceptance Criteria (`AC-FEAT[NNN]-[NN]`).
 
 ### 3. Configure the Automated Test Harness (`tests/`)
 - Initialize test runner configuration (e.g., `vitest.config.ts`) supporting path aliases (`@/*`).
@@ -437,38 +431,38 @@ Present a summary of:
 ## Step 7 — Prompt 3: Specification Validation & TDD Readiness Checkpoint
 
 > **Mode:** Specification Validation & Test Authoring (Red Phase)  
-> **Goal:** Validate `specs/002.spec.[PRIMARY_FEATURE].md`, formally approve its Acceptance Criteria, and author failing unit/integration tests before writing any production code.
+> **Goal:** Validate `docs/features/002-[PRIMARY_FEATURE].md`, formally approve its Acceptance Criteria, and author failing unit/integration tests before writing any production code.
 
 Execute the following prompt:
 
 ```markdown
 # PROMPT 3 — SPECIFICATION VALIDATION & TDD READINESS: [PRIMARY_FEATURE_NAME]
 
-We are preparing to implement **Feature 002: [PRIMARY_FEATURE_NAME]** (`specs/002.spec.[PRIMARY_FEATURE].md`).
+We are preparing to implement **Feature 002: [PRIMARY_FEATURE_NAME]** (`docs/features/002-[PRIMARY_FEATURE].md`).
 
 Execute the mandatory SDD specification validation and scaffold the failing TDD test suite.
 
 ---
 
-## 1. Specification Audit (`specs/002.spec.[PRIMARY_FEATURE].md`)
+## 1. Specification Audit (`docs/features/002-[PRIMARY_FEATURE].md`)
 Verify that the specification satisfies all SDD quality rules:
 - Contains unambiguous business requirements.
 - Defines input JSON Schema with strict runtime validation types (e.g., Zod).
 - Specifies explicit database foreign key constraints and isolation barriers.
 - Defines verifiable Acceptance Criteria:
-  - `[SPEC_AC_PREFIX]-001`: System must validate input payloads and generate unique sequential identifiers.
-  - `[SPEC_AC_PREFIX]-002`: System must reject invalid business states with appropriate HTTP 422 errors.
-  - `[SPEC_AC_PREFIX]-003`: System must enforce strict data barrier isolation across tenants/organizations.
-  - `[SPEC_AC_PREFIX]-004`: An immutable audit log entry must be written upon successful completion.
+  - `AC-FEAT[NNN]-01`: System must validate input payloads and generate unique sequential identifiers.
+  - `AC-FEAT[NNN]-02`: System must reject invalid business states with appropriate HTTP 422 errors.
+  - `AC-FEAT[NNN]-03`: System must enforce strict data barrier isolation across tenants/organizations.
+  - `AC-FEAT[NNN]-04`: An immutable audit log entry must be written upon successful completion.
 
 ---
 
 ## 2. Author Failing Tests (TDD RED PHASE)
 Write the test suite in `tests/unit/[PRIMARY_FEATURE].test.ts` and `tests/integration/[PRIMARY_FEATURE]-isolation.test.ts`:
-- Test 1: Validate identifier generation & schema conformity (`[SPEC_AC_PREFIX]-001`).
-- Test 2: Validate business rule rejections (`[SPEC_AC_PREFIX]-002`).
-- Test 3: Validate database isolation barriers (`[SPEC_AC_PREFIX]-003`).
-- Test 4: Validate immutable audit log creation (`[SPEC_AC_PREFIX]-004`).
+- Test 1: Validate identifier generation & schema conformity (`AC-FEAT[NNN]-01`).
+- Test 2: Validate business rule rejections (`AC-FEAT[NNN]-02`).
+- Test 3: Validate database isolation barriers (`AC-FEAT[NNN]-03`).
+- Test 4: Validate immutable audit log creation (`AC-FEAT[NNN]-04`).
 
 ---
 
@@ -500,8 +494,8 @@ Execute the following prompt:
 
 The test suite for **Feature 002: [PRIMARY_FEATURE_NAME]** has been verified in the RED state.
 
-**Approved Spec:** `specs/002.spec.[PRIMARY_FEATURE].md`
-**Acceptance Criteria:** `[SPEC_AC_PREFIX]-001`, `[SPEC_AC_PREFIX]-002`, `[SPEC_AC_PREFIX]-003`, `[SPEC_AC_PREFIX]-004`
+**Approved Spec:** `docs/features/002-[PRIMARY_FEATURE].md`
+**Acceptance Criteria:** `AC-FEAT[NNN]-01`, `AC-FEAT[NNN]-02`, `AC-FEAT[NNN]-03`, `AC-FEAT[NNN]-04`
 **Target Tests:** `tests/unit/[PRIMARY_FEATURE].test.ts`
 
 Now implement the production code to satisfy the tests (GREEN phase) and perform clean architectural refactoring.
@@ -534,7 +528,7 @@ Now implement the production code to satisfy the tests (GREEN phase) and perform
 
 ## Completion Report
 Provide:
-1. Implemented Requirement IDs (`[SPEC_AC_PREFIX]-001..004`).
+1. Implemented Requirement IDs (`AC-FEAT[NNN]-01..004`).
 2. Files created and modified.
 3. Actual test execution output (100% Green).
 4. Proposed atomic git commit message citing Spec and AC IDs.
@@ -610,7 +604,7 @@ STOP and request final human authorization before deployment.
 |                                                                               |
 |  [Step 4] Prompt 2: Baseline  --> Configure docs/, ADR-001, test harness.     |
 |                                                                               |
-|  [Step 5] Prompt 3: Spec Val. --> Validate specs/002.* & AC-[MODULE]-001..004.|
+|  [Step 5] Prompt 3: Spec Val. --> Validate docs/features/002-* & AC-FEAT[NNN]-01..04.|
 |                                   Write FAILING tests (TDD Red Phase).        |
 |                                                                               |
 |  [Step 6] Prompt 4: TDD Green --> Write minimal production code to pass tests.|
@@ -623,7 +617,7 @@ STOP and request final human authorization before deployment.
 ```
 
 ### Immutable SDD Governance Rules
-1. **No Spec, No Code**: Writing implementation code without an approved specification in `specs/` is strictly prohibited.
+1. **No Spec, No Code**: Writing implementation code without an approved specification in `docs/features/` is strictly prohibited.
 2. **Tests Must Precede Code**: Any pull request or commit containing production code without accompanying or preceding tests will be rejected automatically.
-3. **Traceability Invariant**: Every commit message must cite the active Spec ID and Acceptance Criteria (e.g., `feat([module]): satisfy [SPEC_AC_PREFIX]-001 unique identifier generation`).
+3. **Traceability Invariant**: Every commit message must cite the active Spec ID and Acceptance Criteria (e.g., `feat([module]): satisfy AC-FEAT[NNN]-01 unique identifier generation`).
 

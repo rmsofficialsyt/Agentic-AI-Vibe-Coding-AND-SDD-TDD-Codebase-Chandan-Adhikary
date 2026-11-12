@@ -1,3 +1,8 @@
+---
+description: "Create CR, impact assessment and versioned approval path without coding."
+argument-hint: "[FEAT-### and proposed change summary]"
+---
+
 # /change-request-ca-agent
 
 **Purpose:** Create CR, impact assessment and versioned approval path without coding.

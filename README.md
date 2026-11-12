@@ -29,7 +29,7 @@ Choose the framework that matches your project requirements. Both tracks produce
             Vibe-Coding/                                    Spec-Driven-Development/
 * Workflow: 4 Fluid Prompts (Karpathy Loops)     * Workflow: 5 Formal Quality Gated Prompts
 * Philosophy: Intuitive, visual, rapid UI        * Philosophy: Contract-first, zero regression
-* Specs: Lightweight living feature docs        * Specs: Formal 'specs/' (Flat or Modular)
+* Specs: Living 'docs/features/' contracts    * Specs: Formal 'docs/features/' (Flat/Mod.)
 * Testing: Visual runtime & sanity harnesses    * Testing: Test-First (TDD Red-Green-Refactor)
 * Best For: Rapid SaaS MVPs, UI-heavy apps,     * Best For: Enterprise SaaS, multi-tenant core,
   consumer dashboards, interactive web tools      fintech, healthcare, mission-critical systems
@@ -85,13 +85,13 @@ flowchart TD
     HumanS1 -->|"Revise plan"| PS1
     HumanS1 -->|"Approved"| PS2["Prompt S2: Configure Complete Codebase<br/>(docs/, ADR-001, tests/, activate -ca-agent commands)"]
     
-    PS2 --> PS3["Prompt S3: Spec Validation & Test Scaffolding<br/>(Select specs/ Format 1 or 2, Acceptance Criteria AC-*)"]
+    PS2 --> PS3["Prompt S3: Spec Validation & Test Scaffolding<br/>(Select docs/features/ Flat or Modular format, Acceptance Criteria AC-*)"]
     PS3 --> RedPhase["Scaffold Failing Tests (Red Phase)<br/>(Run /testing-ca-agent -> Confirm failures)"]
     
     RedPhase --> PS4["Prompt S4: TDD Feature Implementation<br/>(Minimal code -> All tests PASS -> Refactor)"]
     PS4 --> GateCheck{"All AC Tests Green<br/>and /review-ca-agent clean?"}
     GateCheck -->|"Failing tests"| PS4
-    GateCheck -->|"Passed"| NextFeature{"More features<br/>in specs/?"}
+    GateCheck -->|"Passed"| NextFeature{"More features<br/>in docs/features/?"}
     NextFeature -->|"Yes"| PS3
     NextFeature -->|"All complete"| PS5["Prompt S5: Production Readiness Audit<br/>(SAST scans, release checklist, signed approval)"]
     
@@ -109,34 +109,38 @@ Guide-Github/
 ├── README.md                                         # Universal overview & quick-start guide
 ├── LICENSE                                           # MIT License (Chandan Adhikary / RMS Officials)
 ├── .gitignore                                        # Standard development ignores
+├── .github/workflows/frameworks-ci.yml               # Validates both framework packages
 │
 ├── 🌟 VIBE-CODING TRACK (STANDALONE GUIDES):
 ├── Vibe-Coding-Production-Guide-Universal.md         # Universal Vibe-Coding Production Guide for ANY Project
 ├── Vibe-Coding-Production-Guide-SMS.md               # Reference Vibe-Coding Production Guide (SMS Demo)
-├── Vibe-Coding-Custom-Slash-Command-Universal.md     # Universal Vibe Slash Commands Guide (15 Commands Table)
+├── Vibe-Coding-Custom-Slash-Command-Universal.md     # Universal Vibe Slash Commands Guide (16 Commands Table)
 ├── Vibe-Coding-Custom-Slash-Command-SMS.md           # Reference Vibe Slash Commands Guide (SMS Demo)
 │
 ├── 🛡️ SDD + TDD TRACK (STANDALONE GUIDES):
 ├── SDD-TDD-Production-Guide-Universal.md             # Universal SDD-TDD Production Guide for ANY Project
 ├── SDD-TDD-Production-Guide-SMS.md                   # Reference SDD-TDD Production Guide (SMS Demo)
-├── SDD-TDD-Custom-Slash-Command-Universal.md         # Universal SDD Slash Commands Guide (15 Commands Table)
+├── SDD-TDD-Custom-Slash-Command-Universal.md         # Universal SDD Slash Commands Guide (16 Commands Table)
 └── SDD-TDD-Custom-Slash-Command-SMS.md               # Reference SDD Slash Commands Guide (SMS Demo)
 │
 ├── 📦 CANONICAL STARTER TEMPLATES:
 ├── Vibe-Coding-Chandan-Adhikary/
 │   └── Vibe-Coding/                                  # Track 1 Baseline Template (Extract & Rename)
 │       ├── AGENTS.md                                 # Portable agent entry point
-│       ├── .agents/                                  # 15 collision-free commands & skills
-│       ├── docs/                                     # Guidelines, architecture & ide-compatibility.md
+│       ├── .agents/                                  # 16 commands & 18 skills          
+│       ├── docs/                                     # Guidelines, product.md, features/ & ide-compatibility.md
+│       ├── Project-Manager-Dashboard/                # Local In-IDE dashboard (port 4201)
+│       ├── scripts/                                  # check_docs.py & manifest.py (CI + pre-commit)
 │       ├── playbooks/                                # 11 operational workflow playbooks
 │       └── tests/                                    # Test contracts
 │
 └── SDD-TDD-Chandan-Adhikary/
     └── Spec-Driven-Development/                      # Track 2 Baseline Template (Extract & Rename)
         ├── AGENTS.md                                 # Portable agent entry point
-        ├── specs/                                    # Official specifications (Format 1 Flat or Format 2 Modular)
-        ├── .agents/                                  # 15 collision-free commands & skills
-        ├── docs/                                     # Constitution, rules, ADRs, ide-compatibility.md
+        ├── .agents/                                  # 16 commands & 18 skills          
+        ├── docs/                                     # Constitution, product.md, features/, spec.md, ADRs, CRs, approvals
+        ├── Project-Manager-Dashboard/                # Local In-IDE dashboard (port 4200)
+        ├── scripts/                                  # check_docs.py & manifest.py (CI + pre-commit)
         ├── playbooks/                                # 11 operational workflow playbooks
         └── tests/                                    # Test harness & test-first suites
 ```
@@ -170,7 +174,7 @@ Type custom slash commands directly into your AI chat prompt:
 2. `/implement-ca-agent` followed by `/run-ca-agent`: Layout scaffolding, responsive navigation, and dev server verification.
 3. `/task-ca-agent` followed by `/review-ca-agent`: Fast Karpathy conversational loops, 1-click status pills, optimistic UI.
 4. `/security-audit-ca-agent` followed by `/release-check-ca-agent`: Zod validation, auth route middleware, `npm run build` verification.
-*(Full operational guide & 15-command table: **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)**)*
+*(Full operational guide & 16-command table: **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)**)*
 
 **For SDD + TDD (5 Formal Quality Gates):**
 1. `/plan-ca-agent`: Enterprise architecture, data isolation, regulatory compliance, read-only plan mode.
@@ -178,14 +182,14 @@ Type custom slash commands directly into your AI chat prompt:
 3. `/spec-check-ca-agent` followed by `/testing-ca-agent`: Specification audit against Acceptance Criteria (`AC-*`) and failing test execution (RED state).
 4. `/tdd-ca-agent` followed by `/review-ca-agent`: Minimal code implementation (GREEN state), refactoring, atomic git commit.
 5. `/security-audit-ca-agent` followed by `/release-check-ca-agent`: Full test coverage (>90%), SAST security scan, and formal sign-off in `docs/approvals/`.
-*(Full operational guide & 15-command table: **[SDD-TDD-Custom-Slash-Command-Universal.md](SDD-TDD-Custom-Slash-Command-Universal.md)**)*
+*(Full operational guide & 16-command table: **[SDD-TDD-Custom-Slash-Command-Universal.md](SDD-TDD-Custom-Slash-Command-Universal.md)**)*
 
 ---
 
 ## 🛡️ Built-in Capabilities & Collision Prevention
 
 ### Collision-Free Agent Commands (`.agents/commands/`)
-To eliminate collisions with host IDE reserved slash commands (like Cursor or Claude Code's native `/run`, `/plan`, or `/test`), all 15 custom commands use the explicit `-ca-agent` namespace:
+To eliminate collisions with host IDE reserved slash commands (like Cursor or Claude Code's native `/run`, `/plan`, or `/test`), all 16 custom commands use the explicit `-ca-agent` namespace:
 
 | Category | Slash Commands Available | Operational Scope |
 | :--- | :--- | :--- |
@@ -254,9 +258,9 @@ Both frameworks include a lightweight, zero-dependency, Apple/Linear-inspired **
 - **[SDD-TDD-Production-Guide-Universal.md](SDD-TDD-Production-Guide-Universal.md)**  
   Universal 5-prompt Spec-Driven Development & TDD production guide with parameterized placeholders for any enterprise or regulated system.
 - **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)**  
-  Universal Vibe-Coding custom slash commands operational reference with exhaustive tabular workings for all 15 commands.
+  Universal Vibe-Coding custom slash commands operational reference with exhaustive tabular workings for all 16 commands.
 - **[SDD-TDD-Custom-Slash-Command-Universal.md](SDD-TDD-Custom-Slash-Command-Universal.md)**  
-  Universal SDD+TDD custom slash commands operational reference with exhaustive tabular workings for all 15 commands.
+  Universal SDD+TDD custom slash commands operational reference with exhaustive tabular workings for all 16 commands.
 
 ### 2. Concrete Reference Implementations (School Management System Demo)
 - **[Vibe-Coding-Production-Guide-SMS.md](Vibe-Coding-Production-Guide-SMS.md)**  
@@ -269,5 +273,8 @@ Both frameworks include a lightweight, zero-dependency, Apple/Linear-inspired **
   Dedicated SDD+TDD custom slash commands guide driving the EduSphere Enterprise SMS demo via formal compliance gates.
 
 ### 3. Architecture & Specification References
-- **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, pruning, and multi-IDE synchronization standard.
-- **[specs/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/specs/)** — Official SDD specifications supporting dual formats (Flat files vs. Modular folders).
+- **[docs/ide-compatibility.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/ide-compatibility.md)** — Active IDE detection, confirmed (reversible) pruning, and multi-IDE synchronization standard.
+- **[docs/features/](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/features/)** — The only location for feature specifications: Flat or Modular formats, lifecycle `DRAFT → IN REVIEW → APPROVED → SUPERSEDED | DEPRECATED`, IDs `AC-FEAT###-##`.
+- **[docs/product.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/product.md)** — Product vision, personas, capabilities and boundaries; parent of PRD and feature specs.
+- **[docs/requirements-traceability.md](SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/docs/requirements-traceability.md)** — Canonical ID scheme (`CAP → REQ → FEAT → AC → TEST`) and traceability matrix.
+- **Quality gates:** `python <package>/scripts/check_docs.py` and `python <package>/scripts/manifest.py --check` (run in CI by `.github/workflows/frameworks-ci.yml`).

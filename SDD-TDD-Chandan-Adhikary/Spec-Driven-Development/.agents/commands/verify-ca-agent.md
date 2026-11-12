@@ -1,3 +1,8 @@
+---
+description: "Compare actual results to approved acceptance criteria and record deviations without claiming guaranteed 100% fidelity."
+argument-hint: "[FEAT-### version or TASK-###]"
+---
+
 # /verify-ca-agent
 
 **Purpose:** Compare actual results to approved acceptance criteria and record deviations without claiming guaranteed 100% fidelity.

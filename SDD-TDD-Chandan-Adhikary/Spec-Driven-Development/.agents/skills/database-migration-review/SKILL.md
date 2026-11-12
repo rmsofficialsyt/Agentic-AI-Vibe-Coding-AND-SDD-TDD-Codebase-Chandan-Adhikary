@@ -1,3 +1,8 @@
+---
+name: database-migration-review
+description: "Review schema and migration changes against docs/database.md for safety, reversibility and data retention."
+---
+
 # Skill: database-migration-review
 
 **Purpose:** Apply the controlled database migration review workflow to a clearly scoped project task.

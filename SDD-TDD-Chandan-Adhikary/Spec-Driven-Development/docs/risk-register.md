@@ -35,8 +35,35 @@ Delivery and technical risk tracking.
 
 - **SHOULD** — Add early warning signals and trigger thresholds.
 
+### 6. Scoring
+
+- **MUST** — Define likelihood and impact scales (1–5) and an escalation threshold (e.g. score ≥ 15 is escalated to the sponsor within one working day).
+
+### 7. Acceptance
+
+- **MUST** — Residual risk may be accepted only by an authorized owner, with a recorded rationale and an expiry or review date.
+
+### 8. Closure
+
+- **MUST** — Close a risk only with evidence that the trigger can no longer occur or the mitigation is verified.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+| ID | Risk (cause → event → impact) | Likelihood (1-5) | Impact (1-5) | Score | Owner | Mitigation / TASK | Trigger to watch | Status | Review date |
+|---|---|---|---|---|---|---|---|---|---|
+| RISK-001 | [cause] → [event] → [impact on FEAT-### / NFR] | 3 | 4 | 12 | [Name] | [action, TASK-###] | [signal] | Open / Mitigated / Accepted / Closed | YYYY-MM-DD |
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** link risks that threaten approved behavior or NFRs to the affected `FEAT-###` and mitigating task.
+- **MUST** raise a CR when a risk mitigation changes approved behavior.

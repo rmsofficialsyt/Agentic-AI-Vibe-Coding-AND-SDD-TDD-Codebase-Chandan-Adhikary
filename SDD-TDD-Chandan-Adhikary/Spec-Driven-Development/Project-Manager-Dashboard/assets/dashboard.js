@@ -4,6 +4,12 @@
  */
 
 class BentoDashboardClient {
+  /** Headers for mutating API calls: JSON + per-process session token injected by server.js. */
+  static apiHeaders() {
+    const meta = document.querySelector('meta[name="dashboard-token"]');
+    return { 'Content-Type': 'application/json', 'X-Dashboard-Token': meta ? meta.content : '' };
+  }
+
   constructor() {
     this.state = null;
     this.filter = 'ALL';
@@ -823,7 +829,7 @@ class BentoDashboardClient {
     try {
       await fetch('/api/task-status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: BentoDashboardClient.apiHeaders(),
         body: JSON.stringify({ taskId, newStatus: targetStatus })
       });
     } catch (err) {
@@ -1384,7 +1390,7 @@ class BentoDashboardClient {
     try {
       const res = await fetch('/api/action', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: BentoDashboardClient.apiHeaders(),
         body: JSON.stringify({ action })
       });
       const data = await res.json();

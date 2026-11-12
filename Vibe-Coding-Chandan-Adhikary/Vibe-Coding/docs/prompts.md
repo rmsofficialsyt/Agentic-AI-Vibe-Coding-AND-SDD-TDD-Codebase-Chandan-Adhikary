@@ -43,6 +43,10 @@ Versioned AI master and task prompts for rapid iteration.
 
 - **MAY** — Maintain frontend, API, bugfix and model-evaluation prompt examples.
 
+### 8. Secrets
+
+- **MUST** — Prompts, prompt examples and pasted context never contain secrets, credentials or real personal data.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +56,4 @@ Versioned AI master and task prompts for rapid iteration.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** version prompts that produced adopted prototype code so the result is reproducible.

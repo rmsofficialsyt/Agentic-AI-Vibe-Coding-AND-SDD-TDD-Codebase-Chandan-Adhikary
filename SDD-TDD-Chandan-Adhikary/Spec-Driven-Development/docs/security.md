@@ -55,8 +55,17 @@ Security, privacy and legal applicability controls.
 
 - **SHOULD** — Schedule independent tests by product and threat risk.
 
+### 11. Agent context
+
+- **MUST** — Never place secrets or real personal data in prompts, agent memory, transcripts or logs; rotate any secret that was exposed to an agent or log.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** capture security requirements as `NFR-FEAT###-##` in each affected feature so they are approved and tested.
+- **MUST** block release on unresolved high/critical findings against an approved feature.

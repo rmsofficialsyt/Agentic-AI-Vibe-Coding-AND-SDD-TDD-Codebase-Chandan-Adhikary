@@ -59,6 +59,10 @@ Project test pyramid and TDD release gate.
 
 - **MUST** — Investigate and fix failed blocking tests; no fabricated success or blanket skip.
 
+### 12. Test integrity
+
+- **MUST** — Never weaken, delete, skip or rewrite assertions to make failing code pass; any change to existing tests in a PR requires explicit reviewer acknowledgement.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.

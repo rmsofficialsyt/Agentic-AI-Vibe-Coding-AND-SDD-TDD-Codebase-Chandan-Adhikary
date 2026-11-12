@@ -72,3 +72,4 @@ Enforceable engineering and AI-agent process baseline.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** apply all security and secret-handling rules in prototypes without exception.

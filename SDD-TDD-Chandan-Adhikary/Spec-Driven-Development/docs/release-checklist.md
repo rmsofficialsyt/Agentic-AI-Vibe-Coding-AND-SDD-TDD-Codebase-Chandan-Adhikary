@@ -43,8 +43,17 @@ Evidence-based final ship/no-ship approval.
 
 - **MUST** — Run post-release smoke checks and watch for regressions.
 
+### 8. Go/no-go criteria
+
+- **MUST** — Define go/no-go criteria before the release window; release notes list known issues and the state of feature flags.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** verify that every shipped feature is `APPROVED`, indexed in `docs/spec.md`, and has passing evidence for all ACs in the traceability matrix.
+- **MUST** block release on any open CR affecting a shipped feature.

@@ -43,6 +43,25 @@ Approved technology inventory and decision rationale.
 
 - **SHOULD** — Record rejected options and tradeoffs.
 
+### 8. Support policy
+
+- **MUST** — Do not run end-of-life runtimes or frameworks in production; record EOL dates and the upgrade plan for each component.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+| Layer | Technology | Version (pinned) | Purpose | Decision (ADR) | Licence | Support / EOL | Owner |
+|---|---|---|---|---|---|---|---|
+| Frontend | [e.g. framework] | [x.y.z] | [why] | ADR-#### | [licence] | [EOL date] | [Name] |
+| Backend | | | | | | | |
+| Data | | | | | | | |
+| Infrastructure | | | | | | | |
+| Testing | | | | | | | |
+| AI / agents | | | | | | | |
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +71,4 @@ Approved technology inventory and decision rationale.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** evaluate candidate stacks in prototypes; **MUST** record the choice as an ADR before adoption.

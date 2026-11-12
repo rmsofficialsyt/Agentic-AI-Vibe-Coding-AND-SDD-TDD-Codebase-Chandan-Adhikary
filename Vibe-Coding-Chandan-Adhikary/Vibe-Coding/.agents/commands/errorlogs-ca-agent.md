@@ -1,3 +1,8 @@
+---
+description: "Analyze recurring errors from safe logs and link regression preventative tests."
+argument-hint: "[log path or time window]"
+---
+
 # /errorlogs-ca-agent
 
 **Purpose:** Analyze recurring errors from safe logs and link regression preventative tests.

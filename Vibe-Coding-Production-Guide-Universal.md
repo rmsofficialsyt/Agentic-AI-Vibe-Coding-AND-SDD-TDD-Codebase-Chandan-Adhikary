@@ -161,7 +161,7 @@ Before planning or proposing any architectural choices:
 
 Rules:
 - MUST treat `AGENTS.md` and `docs/constitution.md` as the process authority.
-- MUST NOT create a separate `specs/` directory; keep all specifications and living plans inside `docs/`.
+- MUST NOT create a separate `docs/features/` directory; keep all specifications and living plans inside `docs/`.
 - MUST NOT write or generate application code in this step.
 - MUST report any file discrepancies or orphaned configurations.
 

@@ -52,3 +52,8 @@ Immutable engineering principles and authority hierarchy.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** treat the approved feature specification as the sole authority for behavior and these principles as the sole authority for process.
+- **MUST** amend this constitution only through a versioned entry in `docs/guideline-CHANGELOG.md` with human approval.

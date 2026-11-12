@@ -43,6 +43,10 @@ Release execution and recovery contract.
 
 - **MUST** — Record release ID, timestamp, deployer, results and incidents.
 
+### 8. Progressive delivery
+
+- **SHOULD** — Use feature flags, canary or staged rollout for risky changes and respect approved change-freeze windows.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +56,4 @@ Release execution and recovery contract.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST NOT** deploy prototype builds to production environments.

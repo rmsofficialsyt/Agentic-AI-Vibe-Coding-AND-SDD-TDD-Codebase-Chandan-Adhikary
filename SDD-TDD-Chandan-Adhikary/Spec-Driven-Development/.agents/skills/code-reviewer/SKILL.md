@@ -1,3 +1,8 @@
+---
+name: code-reviewer
+description: "Review diffs for scope fidelity to the approved feature version, tests, security and maintainability per docs/code-review.md."
+---
+
 # Skill: code-reviewer
 
 **Purpose:** Apply the controlled code reviewer workflow to a clearly scoped project task.

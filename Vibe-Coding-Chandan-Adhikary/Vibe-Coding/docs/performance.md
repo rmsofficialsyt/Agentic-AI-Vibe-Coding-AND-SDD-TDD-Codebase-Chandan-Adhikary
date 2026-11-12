@@ -48,3 +48,4 @@ Performance constraints and regression methods.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** defer performance tuning in prototypes; **MUST** meet approved budgets before release.

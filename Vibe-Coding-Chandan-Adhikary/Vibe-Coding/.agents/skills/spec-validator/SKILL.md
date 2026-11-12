@@ -1,3 +1,8 @@
+---
+name: spec-validator
+description: "Validate feature specifications in docs/features/ for lifecycle status, ID scheme, Given/When/Then ACs, AC-to-TEST mapping and traceability links."
+---
+
 # Skill: spec-validator
 
 **Purpose:** Apply the controlled spec validator workflow to a clearly scoped project task.
@@ -8,6 +13,8 @@
 ## Inputs
 
 - **MUST** read `AGENTS.md`, relevant `docs/` policy, current approved feature/spec and task.
+- **MUST** validate against `docs/features/README.md` (location, naming, format, lifecycle) and the ID scheme in `docs/requirements-traceability.md`.
+- **MUST** fail validation when an AC lacks Given/When/Then, FR/NFR coverage or a TEST mapping, or when an `APPROVED` feature lacks an approval reference.
 ## Workflow
 
 1. **MUST** state assumptions, required facts, authorization and intended output.

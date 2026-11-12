@@ -39,8 +39,17 @@ Event-driven agent and Git automation controls.
 
 - **MUST** — Use server-side CI or review when agent platforms cannot enforce a required hook.
 
+### 7. Tamper resistance
+
+- **MUST** — Changes to hook configuration require review; agents MUST NOT disable, skip or bypass hooks.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** enable hooks that block commits or pushes only after approval; hooks **MUST NOT** modify approved specifications.
+- **SHOULD** run `scripts/check_docs.py` as a pre-commit hook.

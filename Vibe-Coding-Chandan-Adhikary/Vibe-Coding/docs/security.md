@@ -55,6 +55,10 @@ Security, privacy and legal applicability controls.
 
 - **SHOULD** — Schedule independent tests by product and threat risk.
 
+### 11. Agent context
+
+- **MUST** — Never place secrets or real personal data in prompts, agent memory, transcripts or logs; rotate any secret that was exposed to an agent or log.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -64,3 +68,4 @@ Security, privacy and legal applicability controls.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST NOT** use real personal or production data in prototypes.

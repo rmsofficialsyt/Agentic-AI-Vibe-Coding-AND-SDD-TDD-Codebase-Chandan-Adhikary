@@ -25,4 +25,4 @@ Launch or verify the strictly in-IDE **Project-Manager-Dashboard** for real-time
    - **TDD Heartbeat Radar**: Live oscilloscope waveform, Green/Red pulse, and Acceptance Criteria contract verification (`AC-*`).
    - **Velocity Analytics Hub**: Trajectory burnup curve, 7-day velocity bars, and quality concentric rings.
    - **Telegram-Style Theme Switcher**: 360° spring toggle between Dark and Light mode with audio feedback.
-4. **Telemetry Synchronization**: Whenever you update `docs/task.md`, `specs/`, or git activity, the dashboard's live file watcher and SSE stream immediately broadcast updates to the user's IDE view.
+4. **Telemetry Synchronization**: Whenever you update `docs/task.md`, `docs/features/`, or git activity, the dashboard's live file watcher and SSE stream immediately broadcast updates to the user's IDE view.

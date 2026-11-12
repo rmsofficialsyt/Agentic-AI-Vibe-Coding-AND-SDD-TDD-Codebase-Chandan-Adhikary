@@ -1,3 +1,8 @@
+---
+name: requirements-analysis
+description: "Analyze requests against docs/product.md boundaries and docs/prd.md; identify gaps, conflicts and missing acceptance criteria."
+---
+
 # Skill: requirements-analysis
 
 **Purpose:** Apply the controlled requirements analysis workflow to a clearly scoped project task.

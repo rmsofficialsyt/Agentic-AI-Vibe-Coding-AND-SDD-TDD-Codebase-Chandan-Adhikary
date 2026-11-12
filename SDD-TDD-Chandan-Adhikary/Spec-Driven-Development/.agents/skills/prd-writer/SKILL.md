@@ -1,3 +1,8 @@
+---
+name: prd-writer
+description: "Draft or update docs/prd.md requirements (REQ-###/NFR-###) derived from docs/product.md capabilities and personas."
+---
+
 # Skill: prd-writer
 
 **Purpose:** Apply the controlled prd writer workflow to a clearly scoped project task.
@@ -8,6 +13,8 @@
 ## Inputs
 
 - **MUST** read `AGENTS.md`, relevant `docs/` policy, current approved feature/spec and task.
+- **MUST** read `docs/product.md` first; every `REQ-###` **MUST** trace to a `CAP-###` and persona (`PER-##`).
+- **MUST** respect `docs/product.md` non-goals; a requirement inside a non-goal is a scope change for `docs/decision-log.md`.
 ## Workflow
 
 1. **MUST** state assumptions, required facts, authorization and intended output.

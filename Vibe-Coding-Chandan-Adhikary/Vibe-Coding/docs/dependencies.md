@@ -43,6 +43,10 @@ Third-party software and vendor governance.
 
 - **SHOULD** — Track external API quotas, renewal and exit constraints.
 
+### 8. Package verification
+
+- **MUST** — Before installing any AI-suggested package, verify that it exists in the official registry, comes from the intended publisher and is not a typosquatted or hallucinated name.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +56,4 @@ Third-party software and vendor governance.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** review licence and security of any dependency introduced during prototyping before it reaches production-bound code.

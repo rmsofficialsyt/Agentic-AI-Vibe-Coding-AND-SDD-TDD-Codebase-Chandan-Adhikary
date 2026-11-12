@@ -1,4 +1,4 @@
-# Devops
+# DevOps
 
 > **Document class:** Controlled process guideline  
 > **Framework:** SDD  
@@ -47,8 +47,17 @@ Git/PR/CI/CD engineering controls.
 
 - **SHOULD** — Use platform-equivalent issue, codeowner, PR and CI configuration files.
 
+### 9. No bypass
+
+- **MUST** — Never use `--no-verify`, force-push to protected branches or disable required CI checks without a recorded approval.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** fail CI when `scripts/check_docs.py` or `scripts/manifest.py --check` fails, or when tests for cited ACs are missing.
+- **MUST** require PR templates to cite feature ID/version, task ID and CR (if any).

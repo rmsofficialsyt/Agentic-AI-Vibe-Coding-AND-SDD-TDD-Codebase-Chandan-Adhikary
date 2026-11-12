@@ -43,6 +43,10 @@ Evidence-based final ship/no-ship approval.
 
 - **MUST** — Run post-release smoke checks and watch for regressions.
 
+### 8. Go/no-go criteria
+
+- **MUST** — Define go/no-go criteria before the release window; release notes list known issues and the state of feature flags.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -52,3 +56,4 @@ Evidence-based final ship/no-ship approval.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** confirm no `PROTOTYPE`/`DRAFT` feature or prototype-only code path is included in the release.

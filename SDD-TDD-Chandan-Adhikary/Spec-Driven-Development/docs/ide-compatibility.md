@@ -1,15 +1,23 @@
 # IDE Compatibility & Agent Configuration Standard
 
-**Document ID:** GL-IDE-001  
-**Version:** 1.0.0  
-**Status:** Proposed Guideline Baseline  
-**Applies to:** Vibe Coding and Spec-Driven Development (SDD)  
-**Category:** Guidelines — Process Layer  
-**Owner:** Project Owner / Engineering Lead  
-**Last Updated:** 2026-11-04
+> **Document class:** Controlled process guideline  
+> **Framework:** SDD  
+> **Guideline baseline:** 1.0.0  
+> **Status:** Template; project-specific content requires review  
+
+| Field | Value |
+|---|---|
+| Document ID | GL-IDE-001 |
+| Applies to | Vibe Coding and Spec-Driven Development (SDD) |
+| Category | Guidelines — Process Layer |
+| Owner | Project Owner / Engineering Lead |
+| Last updated | 2026-11-12 |
+
+## Agent read trigger
+
+**MUST** read or consult this file: at agent initialization, when switching IDEs, when configuring agent tools, and before modifying IDE-specific configuration files.
 
 ---
-
 ## 1. Purpose
 
 Establish a standard procedure for configuring, switching, and operating AI-assisted development environments without damaging project structure, duplicating engineering policies, or causing inconsistent agent behavior.
@@ -20,7 +28,7 @@ This policy supports Claude Code, Cursor, Windsurf, VS Code/GitHub Copilot, Code
 
 - **MUST** preserve the canonical project guidelines and approved specifications.
 - **MUST** maintain compatibility with multiple coding agents where technically feasible.
-- **MUST** execute IDE detection and pruning: In Single-IDE mode, automatically prune irrelevant IDE configuration files before first execution to avoid conflicts; in Multi-IDE mode, synchronize and preserve all declared active IDE adapters.
+- **MUST** execute IDE detection. In Single-IDE mode, inactive IDE adapters **MAY** be pruned only through the confirmed, reversible procedure in §5; in Multi-IDE mode, synchronize and preserve all declared active IDE adapters.
 - **MUST NOT** overwrite existing agent configurations without explicit authorization.
 - **MUST** separate universal engineering instructions from tool-specific configuration.
 - **MUST** verify that the selected tool actually recognizes and loads the intended instructions.
@@ -34,7 +42,7 @@ The following documents govern agent behavior:
 1. `docs/constitution.md` — Engineering principles.
 2. `docs/rules.md` — Enforceable development baseline.
 3. `docs/ide-compatibility.md` — IDE configuration and compatibility rules.
-4. `docs/spec.md` (SDD) or the approved project requirements (Vibe Coding).
+4. `docs/product.md` and `docs/prd.md` (both frameworks), plus `docs/spec.md` (SDD feature index).
 5. Applicable feature specifications and approved technical contracts.
 6. `AGENTS.md` — Portable agent instruction entry point.
 7. Tool-specific instruction files — Platform adapters.
@@ -52,7 +60,7 @@ This precedence describes project governance. It does not override higher-priori
 
 | IDE / Agent | Primary configuration | Additional configuration |
 |---|---|---|
-| Claude Code | `CLAUDE.md` | `.claude/rules/`, `.claude/skills/`, settings and hooks |
+| Claude Code | `CLAUDE.md` | Optional `.claude/rules/`, `.claude/skills/`, settings and hooks — create only after verifying the installed CLI version supports them |
 | Cursor | `.cursor/rules/`, `AGENTS.md` | Legacy `.cursorrules`, compatible `CLAUDE.md` |
 | Windsurf | `.windsurf/rules/` | `AGENTS.md`, supported workflows, legacy `.windsurfrules` |
 | VS Code / GitHub Copilot | `.github/copilot-instructions.md`, `AGENTS.md` | `.github/instructions/` |
@@ -92,7 +100,7 @@ Project-Codebase/
 │   ├── memory.md
 │   └── ...
 │
-├── .claude/
+├── .claude/            # optional — created only after CLI version check
 │   ├── rules/
 │   ├── skills/
 │   └── ...
@@ -120,7 +128,9 @@ Project-Codebase/
 
 **MUST:** Use `docs/` for canonical project documentation in both frameworks.
 
-**MUST NOT:** Introduce a `specs/` directory in the SDD framework.
+**MUST:** Keep feature specifications only in `docs/features/` (rules in `docs/features/README.md`).
+
+**MUST NOT:** Introduce a repository-level `specs/` directory in either framework.
 
 **SHOULD:** Keep portable agent definitions in `.agents/` and maintain native adapters only where required.
 
@@ -132,11 +142,12 @@ Project-Codebase/
 
 To prevent rule shadowing, context bloat, and conflicting instructions, this standard defines two operating modes:
 
-#### Mode A: Single-IDE Targeted Mode (Auto-Pruning Enabled — Default)
+#### Mode A: Single-IDE Targeted Mode (Confirmed Pruning — Default)
 When a single active IDE or coding agent is identified or chosen by the developer:
 1. **MUST** retain the active IDE's adapter file/directory and canonical `AGENTS.md`.
-2. **MUST** automatically remove irrelevant configuration directories and files belonging to other IDEs prior to or during Prompt 1 execution.
-3. **MUST NOT** leave stale or inactive IDE configuration files that pollute token context or confuse AI agents.
+2. **MAY** remove configuration belonging to other IDEs during Prompt 1, but only after (a) listing the exact paths to the user, (b) receiving explicit confirmation, and (c) confirming the paths are committed to git so they remain recoverable (`git checkout <commit> -- <path>`).
+3. **MUST NOT** remove untracked or locally modified IDE configuration.
+4. **SHOULD NOT** leave stale or inactive IDE configuration that pollutes token context or confuses AI agents.
 
 **Single-IDE Pruning Matrix:**
 | Active IDE / Agent | Retained Configuration | Pruned Irrelevant Configurations |
@@ -154,17 +165,18 @@ When a developer or team deliberately uses **more than one IDE simultaneously** 
 1. **User Declaration:** The user specifies multiple active IDEs during Step 2 / Prompt 1 (e.g. `ACTIVE_IDES=["antigravity", "cursor", "claude-code"]`).
 2. **Harmonized Coexistence:** The configuration files for ALL selected active IDEs are preserved.
 3. **Single Source of Truth:** Each active adapter MUST point directly to canonical `AGENTS.md`, `docs/`, and `.agents/`, guaranteeing zero policy drift across IDEs.
-4. **Selective Pruning:** Only configuration files for IDEs *outside* the declared active set are pruned.
+4. **Selective Pruning:** Only configuration files for IDEs *outside* the declared active set may be pruned, using the confirmed procedure in Mode A.
 5. **Cross-IDE Session Discipline:** Agents must not clobber other IDEs' internal working directories.
 
 ### 5.2 Automated IDE Pruning Script
 
-Developers can execute this cleanup script (or instruct the agent to run it during Step 2 / Prompt 1):
+Developers can execute this cleanup script (or instruct the agent to run it during Step 2 / Prompt 1). It runs as a **dry run by default**; pass `-Apply` only after confirming the listed paths. It skips paths with uncommitted changes.
 
 ```powershell
 # PowerShell: Prune Irrelevant IDE Configurations
 param(
-    [string[]]$ActiveIDEs = @("antigravity") # e.g. @("antigravity") or @("cursor", "claude")
+    [string[]]$ActiveIDEs = @("antigravity"), # e.g. @("antigravity") or @("cursor", "claude")
+    [switch]$Apply                            # omit for a dry run
 )
 
 $AllTargets = @{
@@ -177,8 +189,14 @@ foreach ($ide in $AllTargets.Keys) {
     if ($ActiveIDEs -notcontains $ide) {
         foreach ($path in $AllTargets[$ide]) {
             if (Test-Path $path) {
-                Remove-Item -Path $path -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "Pruned inactive IDE config: $path"
+                $dirty = git status --porcelain -- $path
+                if ($dirty) { Write-Warning "Skipped (uncommitted changes): $path"; continue }
+                if ($Apply) {
+                    Remove-Item -Path $path -Recurse -Force
+                    Write-Host "Pruned inactive IDE config (recover with: git checkout HEAD -- $path)"
+                } else {
+                    Write-Host "[dry run] Would prune: $path"
+                }
             }
         }
     }
@@ -190,9 +208,9 @@ Write-Host "Active IDE configuration verified: $($ActiveIDEs -join ', ')"
 At session initialization or when changing the active coding tool:
 1. **MUST** identify the active agent runtime or IDE using environment variables or prompt declaration.
 2. **MUST** verify whether single-IDE pruning or multi-IDE coexistence is selected.
-3. **MUST** prune inactive configuration files in Single-IDE mode or synchronize adapters in Multi-IDE mode.
+3. **MUST** either run the confirmed pruning procedure (Single-IDE mode) or synchronize adapters (Multi-IDE mode); never delete without confirmation.
 4. **MUST** verify that `.agents/` custom commands (`*-ca-agent.md`) and skills (including `andrej-karpathy-skill`) are active and accessible.
-5. **MUST** verify that `specs/` (in SDD) is recognized and user's format preference is recorded.
+5. **MUST** verify that `docs/features/` exists and that each feature header records its format (Flat or Modular) per `docs/features/README.md`.
 
 ## 6. Configuration activation
 
@@ -248,8 +266,9 @@ When changing from IDE A to IDE B:
 
 Switching IDEs **MUST NOT** automatically:
 
-- Delete `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, or `.windsurfrules`.
-- Delete `.claude/`, `.cursor/`, `.windsurf/`, or other platform directories.
+- Delete `AGENTS.md` under any circumstances.
+- Delete `CLAUDE.md`, `.cursorrules` or `.windsurfrules`, except through the confirmed §5 pruning procedure.
+- Delete `.claude/`, `.cursor/`, `.windsurf/` or other platform directories, except through the confirmed §5 pruning procedure.
 - Modify the approved technology stack.
 - Rewrite specifications.
 - Change coding standards.
@@ -577,3 +596,8 @@ All agents must follow the same approved project intent regardless of the IDE us
 ---
 
 **End of Document — GL-IDE-001 v1.0.0**
+
+## SDD enforcement
+
+- **MUST** apply §12 (SDD-specific requirements) in addition to all universal sections.
+- **MUST** stop and record a conflict when any IDE adapter, skill or command contradicts an approved feature specification or this baseline.

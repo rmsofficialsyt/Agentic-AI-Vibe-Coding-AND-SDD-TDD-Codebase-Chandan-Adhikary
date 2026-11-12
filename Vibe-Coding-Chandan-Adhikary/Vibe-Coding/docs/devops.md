@@ -1,4 +1,4 @@
-# Devops
+# DevOps
 
 > **Document class:** Controlled process guideline  
 > **Framework:** Vibe Coding  
@@ -25,7 +25,7 @@ Git/PR/CI/CD engineering controls.
 
 ### 3. PR
 
-- **MUST** — Link task, spec, change request, tests, reviewers and compatibility impacts.
+- **MUST** — Link task, feature contract (and decision-log entry for changed behavior), tests, reviewers and compatibility impacts.
 
 ### 4. CI
 
@@ -47,6 +47,10 @@ Git/PR/CI/CD engineering controls.
 
 - **SHOULD** — Use platform-equivalent issue, codeowner, PR and CI configuration files.
 
+### 9. No bypass
+
+- **MUST** — Never use `--no-verify`, force-push to protected branches or disable required CI checks without a recorded approval.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -56,3 +60,4 @@ Git/PR/CI/CD engineering controls.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **SHOULD** keep prototype work on clearly named branches (e.g. `proto/...`) that CI does not deploy.

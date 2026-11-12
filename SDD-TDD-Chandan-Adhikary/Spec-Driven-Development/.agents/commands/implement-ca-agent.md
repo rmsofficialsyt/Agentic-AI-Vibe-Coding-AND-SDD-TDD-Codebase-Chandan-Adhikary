@@ -1,3 +1,8 @@
+---
+description: "Implement only explicitly approved task behavior; in SDD require test-first red-green-refactor evidence."
+argument-hint: "[TASK-### and FEAT-### version]"
+---
+
 # /implement-ca-agent
 
 **Purpose:** Implement only explicitly approved task behavior; in SDD require test-first red-green-refactor evidence.

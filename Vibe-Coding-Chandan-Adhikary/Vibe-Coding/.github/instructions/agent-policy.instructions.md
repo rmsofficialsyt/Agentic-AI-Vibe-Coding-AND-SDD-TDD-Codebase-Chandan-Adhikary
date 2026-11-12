@@ -2,4 +2,4 @@
 applyTo: "**"
 ---
 
-**MUST** follow `AGENTS.md` and latest approved specs; **MUST** honor test-first, security, code review and authorization requirements. Verify VS Code/Copilot instruction-file support in installed version.
+**MUST** follow `AGENTS.md` and feature contracts in `docs/features/`. Prototype work stays isolated and labelled `DRAFT`; production-bound work requires an `APPROVED` feature, tests first, security, code review and authorization. Verify VS Code/Copilot instruction-file support in the installed version.

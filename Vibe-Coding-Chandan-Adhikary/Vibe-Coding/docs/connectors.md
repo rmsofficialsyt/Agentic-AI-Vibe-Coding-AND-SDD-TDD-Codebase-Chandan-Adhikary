@@ -52,3 +52,4 @@ MCP server and external-tool connector security/operations.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** trial connectors in a sandbox; **MUST** approve and record them before production-bound use.

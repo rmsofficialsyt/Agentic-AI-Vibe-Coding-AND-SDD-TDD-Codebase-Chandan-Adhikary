@@ -64,3 +64,4 @@ High- and low-level designs, boundaries and decisions.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** spike alternative architectures; **MUST** record the chosen one as an ADR before production-bound work.

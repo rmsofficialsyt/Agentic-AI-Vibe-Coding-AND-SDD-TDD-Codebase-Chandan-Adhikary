@@ -1,3 +1,8 @@
+---
+name: documentation-sync
+description: "Keep docs consistent: product.md, prd.md, docs/features, spec.md index, traceability matrix, INDEX.md and CHANGELOGs after any change."
+---
+
 # Skill: documentation-sync
 
 **Purpose:** Apply the controlled documentation sync workflow to a clearly scoped project task.
@@ -8,6 +13,8 @@
 ## Inputs
 
 - **MUST** read `AGENTS.md`, relevant `docs/` policy, current approved feature/spec and task.
+- **MUST** check, after any change: `docs/product.md` capability map ⇄ `docs/prd.md` ⇄ `docs/features/` headers ⇄ `docs/spec.md` index (SDD) ⇄ `docs/requirements-traceability.md` matrix ⇄ `docs/INDEX.md` registry.
+- **MUST** run `python scripts/check_docs.py` and `python scripts/manifest.py --check` and report real output.
 ## Workflow
 
 1. **MUST** state assumptions, required facts, authorization and intended output.

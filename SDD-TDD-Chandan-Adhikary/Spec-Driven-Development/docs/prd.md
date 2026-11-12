@@ -1,4 +1,4 @@
-# Prd
+# PRD
 
 > **Document class:** Living feature/specification  
 > **Framework:** SDD  

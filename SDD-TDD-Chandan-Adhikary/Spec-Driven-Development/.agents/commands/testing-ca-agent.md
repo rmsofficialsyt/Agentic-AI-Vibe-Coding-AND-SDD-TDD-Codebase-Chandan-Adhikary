@@ -1,3 +1,8 @@
+---
+description: "Choose relevant test suite, seek approval for disruptive runs, execute and report real results."
+argument-hint: "[test path, suite or AC ID]"
+---
+
 # /testing-ca-agent
 
 **Purpose:** Choose relevant test suite, seek approval for disruptive runs, execute and report real results.

@@ -21,7 +21,12 @@ SDD index of current approved feature contracts.
 
 ### 2. Catalog
 
-- **MUST** — Link docs/features/* approved source files; label draft, proposed, approved and superseded separately.
+- **MUST** — Link `docs/features/*` source files and label each with exactly one lifecycle status: `DRAFT`, `IN REVIEW`, `APPROVED`, `SUPERSEDED` or `DEPRECATED` (defined in `docs/features/README.md`).
+
+| Feature | Title | Current version | Status | Approval | Effective date | Supersedes |
+|---|---|---|---|---|---|---|
+| FEAT-001 | User Authentication & RBAC (sample) | 1.0.0 | APPROVED (sample) | APR-SAMPLE-001 | [YYYY-MM-DD] | — |
+| FEAT-002 | Student Enrollment (sample) | 0.2.0 | IN REVIEW | Pending | — | — |
 
 ### 3. No duplicate authority
 
@@ -48,3 +53,9 @@ SDD index of current approved feature contracts.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** update this index in the same change that moves a feature to `APPROVED`, `SUPERSEDED` or `DEPRECATED`.
+- **MUST** treat a mismatch between this index and a feature header as a blocking defect; the feature file and its approval record win.
+- **MUST NOT** implement any feature that is absent from this index or not `APPROVED` here.

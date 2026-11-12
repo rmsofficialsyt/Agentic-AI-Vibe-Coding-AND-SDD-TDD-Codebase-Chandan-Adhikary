@@ -68,3 +68,8 @@ Enforceable engineering and AI-agent process baseline.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** stop implementation when no `APPROVED` feature version authorizes the requested behavior.
+- **MUST** write and run failing tests mapped to approved ACs before production code.

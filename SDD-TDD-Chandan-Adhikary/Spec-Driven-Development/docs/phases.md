@@ -35,8 +35,38 @@ Release milestones and phase-level acceptance.
 
 - **SHOULD** — Start with Discovery, Foundation, Authentication, Core Features, Integrations, Hardening, Release and Handoff where applicable.
 
+### 6. Scope change
+
+- **MUST** — Adding or removing features from a phase in progress requires a change request (SDD) or a decision-log entry (Vibe Coding) before work continues.
+
+### 7. Review
+
+- **MUST** — Hold a demo and retrospective at each exit gate; record lessons in `docs/memory.md` and recurring defects in `docs/error-tracker.md`.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+## Phase N: [Name] [BACKLOG | IN_PROGRESS | DONE]
+
+| Field | Value |
+|---|---|
+| Goal | [Outcome this phase delivers] |
+| Features in scope | FEAT-### (version), FEAT-### (version) |
+| Entry criteria | [e.g. features APPROVED, environments ready] |
+| Exit gate | [e.g. all ACs verified, release checklist passed] |
+| Exit approval | [APR-### / DEC-###] |
+| Target window | [YYYY-MM-DD → YYYY-MM-DD] (requires approval) |
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** list, for each phase, the exact `FEAT-###` versions that must be `APPROVED` before the phase starts and verified before it exits.
+- **MUST** record the phase exit approval (`APR-###`) before starting the next phase.

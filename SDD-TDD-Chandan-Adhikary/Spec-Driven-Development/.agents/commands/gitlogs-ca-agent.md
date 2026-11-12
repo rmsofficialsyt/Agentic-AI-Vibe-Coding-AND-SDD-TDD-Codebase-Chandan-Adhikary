@@ -1,3 +1,8 @@
+---
+description: "Inspect repository history and report actual commits and changes; do not rewrite history without approval."
+argument-hint: "[branch, range or path]"
+---
+
 # /gitlogs-ca-agent
 
 **Purpose:** Inspect repository history and report actual commits and changes; do not rewrite history without approval.

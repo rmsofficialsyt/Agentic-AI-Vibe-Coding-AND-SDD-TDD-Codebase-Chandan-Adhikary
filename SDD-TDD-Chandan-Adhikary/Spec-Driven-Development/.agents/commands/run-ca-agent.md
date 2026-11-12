@@ -1,3 +1,8 @@
+---
+description: "Execute documented local startup; report observed URL only if actually provided by runtime output."
+argument-hint: "[service or entry point]"
+---
+
 # /run-ca-agent
 
 **Purpose:** Execute documented local startup; report observed URL only if actually provided by runtime output.

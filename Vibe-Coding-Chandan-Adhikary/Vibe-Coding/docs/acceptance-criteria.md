@@ -39,6 +39,30 @@ Standards for objective verification.
 
 - **MUST** — Document rejected, unmet or not-applicable criteria and approval rationale.
 
+### 7. Non-deterministic outputs
+
+- **MUST** — For AI/ML or other non-deterministic behavior, define evaluation datasets and pass thresholds instead of exact-match assertions.
+
+### 8. Immutability
+
+- **MUST** — Change an approved acceptance criterion only through a new feature version; never edit it in place.
+
+## Instantiation template
+
+Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
+
+```markdown
+### AC-FEAT###-##: [Short title]
+
+- **Given** [precondition / state]
+- **When** [single action or event]
+- **Then** [observable, objectively checkable result]
+- **Covers:** FR-FEAT###-## / NFR-FEAT###-##
+- **Verified by:** TEST-FEAT###-## ([unit | integration | e2e | manual with evidence])
+
+Quality checklist: one behavior per AC · measurable result · includes negative/edge cases · no implementation details.
+```
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
@@ -48,3 +72,4 @@ Standards for objective verification.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** keep rough, untested criteria while a feature is `PROTOTYPE`; **MUST** convert them to Given/When/Then with TEST mapping before `APPROVED`.

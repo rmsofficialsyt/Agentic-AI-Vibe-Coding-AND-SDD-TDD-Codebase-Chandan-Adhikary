@@ -1,4 +1,4 @@
-# Apis
+# APIs
 
 > **Document class:** Living feature/specification  
 > **Framework:** SDD  

@@ -1,3 +1,8 @@
+---
+name: ml-evaluation
+description: "Evaluate ML/AI components against dataset lineage, evaluation thresholds and drift checks defined in docs/domains."
+---
+
 # Skill: ml-evaluation
 
 **Purpose:** Apply the controlled ml evaluation workflow to a clearly scoped project task.

@@ -60,3 +60,4 @@ UI, interaction and visual design contract.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MAY** explore visual variants freely; **MUST** lock tokens and states here before the feature is `APPROVED`.

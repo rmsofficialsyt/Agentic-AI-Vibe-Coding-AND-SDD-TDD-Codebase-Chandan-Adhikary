@@ -1,3 +1,8 @@
+---
+description: "Perform approved scans/review, record vulnerabilities, severity and remediation."
+argument-hint: "[scope: path, service or dependency set]"
+---
+
 # /security-audit-ca-agent
 
 **Purpose:** Perform approved scans/review, record vulnerabilities, severity and remediation.

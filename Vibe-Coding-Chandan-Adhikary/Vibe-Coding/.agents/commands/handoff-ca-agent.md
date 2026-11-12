@@ -1,3 +1,8 @@
+---
+description: "Summarize verified state, docs, test evidence, blockers and next authorized tasks."
+argument-hint: "[recipient and scope]"
+---
+
 # /handoff-ca-agent
 
 **Purpose:** Summarize verified state, docs, test evidence, blockers and next authorized tasks.

@@ -1,3 +1,8 @@
+---
+name: task-planner
+description: "Break an approved feature version into TASK-### entries in docs/task.md with file ownership, tests and Definition of Done."
+---
+
 # Skill: task-planner
 
 **Purpose:** Apply the controlled task planner workflow to a clearly scoped project task.

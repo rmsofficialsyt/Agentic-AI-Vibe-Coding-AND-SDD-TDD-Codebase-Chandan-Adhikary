@@ -44,3 +44,8 @@ Production metrics, logs, tracing and alerting.
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** instrument metrics and alerts required by approved `NFR-FEAT###-##` entries before release.
+- **MUST** link production alerts to the feature and AC they protect.

@@ -1,3 +1,8 @@
+---
+name: release-validator
+description: "Validate release readiness against docs/release-checklist.md, the traceability matrix and approved feature versions."
+---
+
 # Skill: release-validator
 
 **Purpose:** Apply the controlled release validator workflow to a clearly scoped project task.

@@ -1,3 +1,8 @@
+---
+name: performance-profiler
+description: "Measure and profile against approved NFR budgets in docs/performance.md; report real measurements only."
+---
+
 # Skill: performance-profiler
 
 **Purpose:** Apply the controlled performance profiler workflow to a clearly scoped project task.

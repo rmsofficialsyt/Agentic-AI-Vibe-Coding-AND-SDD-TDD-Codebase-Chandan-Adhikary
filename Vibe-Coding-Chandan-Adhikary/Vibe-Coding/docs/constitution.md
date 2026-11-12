@@ -56,3 +56,4 @@ Immutable engineering principles and authority hierarchy.
 ## Vibe Coding interpretation
 
 - **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
+- **MUST** keep these principles in force during prototyping; only the depth of formality changes, never safety or honesty of evidence.

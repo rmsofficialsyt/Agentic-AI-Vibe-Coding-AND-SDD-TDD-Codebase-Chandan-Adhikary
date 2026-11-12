@@ -43,8 +43,17 @@ Release execution and recovery contract.
 
 - **MUST** — Record release ID, timestamp, deployer, results and incidents.
 
+### 8. Progressive delivery
+
+- **SHOULD** — Use feature flags, canary or staged rollout for risky changes and respect approved change-freeze windows.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
 - **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
 - **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** deploy only builds whose features are all `APPROVED` at the versions listed in `docs/spec.md` and verified in `docs/release-checklist.md`.
+- **MUST** record the deployed commit, feature versions and approval references in the release record.

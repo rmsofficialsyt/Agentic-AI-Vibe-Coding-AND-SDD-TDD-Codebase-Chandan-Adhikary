@@ -1,3 +1,8 @@
+---
+description: "Create a task linked to an approved spec version with clear file ownership, tests and Definition of Done."
+argument-hint: "[FEAT-### version and task summary]"
+---
+
 # /task-ca-agent
 
 **Purpose:** Create a task linked to an approved spec version with clear file ownership, tests and Definition of Done.
