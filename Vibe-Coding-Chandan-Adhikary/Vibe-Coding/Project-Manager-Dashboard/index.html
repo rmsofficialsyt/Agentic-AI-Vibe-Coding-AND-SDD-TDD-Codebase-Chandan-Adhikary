@@ -1,503 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Manager Dashboard — Bento Grid Mission Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Project Manager Dashboard — Teamify Mission Control</title>
   <link rel="stylesheet" href="assets/dashboard.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
 </head>
-<body>
-  <div class="app-container">
-    <!-- Topbar Header -->
-    <header class="top-header">
-      <div class="brand">
-        <div class="brand-icon">PM</div>
-        <div>
-          <span class="brand-title">Project Manager Dashboard</span>
-          <span class="badge-pill">Vibe-Coding · In-IDE</span>
-          <span id="git-branch-badge" class="badge-pill" style="color:var(--text-faint);border-color:rgba(255,255,255,0.08)">git:main</span>
+
+<body class="theme-dark">
+  <div class="teamify-app-layout">
+    <!-- MOBILE TOPBAR TOGGLE (Visible only on <= 768px) -->
+    <div class="mobile-nav-toggle-bar">
+      <div class="mobile-brand">
+        <div class="brand-hexagon-logo">
+          <span class="hexagon-dot"></span>
         </div>
+        <span class="mobile-brand-title">PM Mission Control</span>
       </div>
-
-      <div class="header-actions">
-        <!-- Shadcn Live Real-Time Date & Clock (DD-MM-YYYY) -->
-        <div class="live-clock-badge" title="Live System Date & Time (DD-MM-YYYY)">
-          <span class="clock-icon">🕒</span>
-          <span id="live-date-str" class="live-date-val">14-11-2026</span>
-          <span class="clock-sep">·</span>
-          <span id="live-time-str" class="live-time-val">12:30:00</span>
-        </div>
-        <div class="agent-pulse">
-          <span class="pulse-dot"></span>
-          <span id="agent-status-text">Active · Telemetry Synced</span>
-        </div>
-        <button id="btn-context-pill" class="context-pill" title="Click to view full Agent Context Window & Token Telemetry">
-          <span id="hdr-ctx-dot" class="context-pill-dot optimal"></span>
-          <span class="context-pill-label">Context:</span>
-          <b id="hdr-ctx-pct">0%</b>
-          <span id="hdr-ctx-free" class="context-pill-sub">(200k free)</span>
-        </button>
-        <button id="theme-toggle" class="btn-icon theme-toggle-btn" title="Toggle Light/Dark Theme">
-          <span id="theme-icon">🌙</span>
-          <span id="theme-text">Dark</span>
-        </button>
-        <button id="toggle-audio" class="btn-icon">🔕 Audio Muted</button>
-      </div>
-    </header>
-
-    <!-- Bento Grid Container -->
-    <div class="bento-container">
-      <div class="bento-grid">
-        <!-- BENTO CELL 1: Executive Scope & Velocity Hub (Span 2x1) -->
-        <div class="bento-card bento-hero">
-          <div class="card-header">
-            <span class="card-title">🎯 Scope & Executive Metrics</span>
-            <span id="kpi-milestones-badge" class="badge-pill" style="font-size:9px">Phase 2 · 5 Gates</span>
-          </div>
-          <div class="hero-content">
-            <div class="hero-stats">
-              <div class="stat-item">
-                <span class="stat-label">Scope Delivery</span>
-                <span id="kpi-scope-progress" class="stat-value cyan">0%</span>
-                <span id="kpi-scope-sub" class="stat-sub">1 of 5 Gates Done</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Completed Tasks</span>
-                <span id="kpi-completed-tasks" class="stat-value emerald">0 / 0</span>
-                <span class="stat-sub">Finished Steps</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Active In-Flight</span>
-                <span id="kpi-active-tasks" class="stat-value amber">0</span>
-                <span class="stat-sub">Executing Now</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Spec AC Pass</span>
-                <span id="kpi-ac-rate" class="stat-value emerald">100%</span>
-                <span class="stat-sub">Contract Verified</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">TDD Pulse</span>
-                <span id="kpi-tdd-ratio" class="stat-value emerald" style="font-size:16px">100% Green</span>
-                <span class="stat-sub">Zero Regression</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Active Phase</span>
-                <span id="kpi-active-phase" class="stat-value" style="font-size:16px;color:var(--sky-bright)">Phase 2</span>
-                <span class="stat-sub">Foundation & Scaffolding</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Blockers Radar</span>
-                <span id="kpi-blockers" class="stat-value red">0</span>
-                <span class="stat-sub">P0/P1 Zero Blockers</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">SAST & Security</span>
-                <span id="kpi-code-health" class="stat-value emerald" style="font-size:16px">A+ Clean</span>
-                <span class="stat-sub">0 Leaks Detected</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Test Assertions</span>
-                <span id="kpi-test-assertions" class="stat-value cyan">48</span>
-                <span class="stat-sub">Unit & Spec Contracts</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Sprint Cadence</span>
-                <span id="kpi-sprint-cadence" class="stat-value emerald">8.4 / d</span>
-                <span class="stat-sub">Velocity Cadence ▲</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Git Tree Churn</span>
-                <span id="kpi-git-churn" class="stat-value" style="font-size:15px;color:var(--text-main)">Clean Tree</span>
-                <span class="stat-sub">Working Tree Status</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Agent Autonomy</span>
-                <span id="kpi-agent-autonomy" class="stat-value violet">98.5%</span>
-                <span class="stat-sub">Level 4 Autonomous</span>
-              </div>
-            </div>
-
-            <div class="hero-donut-box">
-              <div class="donut-visual-col">
-                <svg id="chart-donut" style="width:70px;height:70px" viewBox="0 0 100 100"></svg>
-                <div class="donut-title">AC Contracts</div>
-              </div>
-              <div class="donut-breakdown-col">
-                <div class="donut-breakdown-row"><span class="breakdown-dot done"></span>Passing: <b id="hero-donut-passing">0</b></div>
-                <div class="donut-breakdown-row"><span class="breakdown-dot red"></span>Failing: <b id="hero-donut-failing">0</b></div>
-                <div class="donut-breakdown-row"><span class="breakdown-dot pending"></span>Pending: <b id="hero-donut-pending">0</b></div>
-                <div class="donut-breakdown-row rate">Rate: <b id="hero-donut-rate" class="emerald">100%</b></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Phase Milestone Runway Bar -->
-          <div class="hero-runway-container">
-            <div class="hero-runway-header">
-              <span class="runway-title">🏁 Phase Milestones Runway</span>
-              <span id="hero-runway-summary" class="runway-summary">Gate 1 Cleared · Gate 2 In-Progress</span>
-            </div>
-            <div id="hero-runway-track" class="hero-runway-track"></div>
-          </div>
-        </div>
-
-        <!-- BENTO CELL 2: Scope Velocity & Multi-Chart Analytics Hub (Span 2x1) -->
-        <div class="bento-card bento-chart">
-          <div class="chart-header">
-            <span class="card-title">📈 Scope Velocity & Analytics</span>
-            <div class="chart-tabs">
-              <button class="chart-tab-btn active" data-chart="burnup">Trajectory</button>
-              <button class="chart-tab-btn" data-chart="bars">7-Day Bars</button>
-              <button class="chart-tab-btn" data-chart="rings">Quality Rings</button>
-              <button class="chart-tab-btn" data-chart="tokens">🧠 Context Tokens</button>
-            </div>
-          </div>
-          <div class="chart-content-wrapper">
-            <!-- Chart Panel 1: Burnup Area Curve -->
-            <div id="panel-chart-burnup" class="chart-view-panel active">
-              <svg id="chart-burnup" class="svg-burnup-canvas" viewBox="0 0 270 95" preserveAspectRatio="none"></svg>
-            </div>
-
-            <!-- Chart Panel 2: 7-Day Velocity Bar Chart -->
-            <div id="panel-chart-bars" class="chart-view-panel">
-              <svg id="chart-bars" class="svg-bars-canvas" viewBox="0 0 270 95"></svg>
-            </div>
-
-            <!-- Chart Panel 3: Quality & Coverage Multi-Ring Radial Gauge -->
-            <div id="panel-chart-rings" class="chart-view-panel">
-              <svg id="chart-rings" class="svg-rings-canvas" viewBox="0 0 270 95"></svg>
-            </div>
-
-            <!-- Chart Panel 4: Agent Context Window & Token Telemetry (Claude MOD style) -->
-            <div id="panel-chart-tokens" class="chart-view-panel">
-              <div class="token-telemetry-panel">
-                <!-- Context Window Utilization Header -->
-                <div class="token-panel-top">
-                  <div class="token-capacity-info">
-                    <span class="token-panel-label">Active Context Window (200k ceiling)</span>
-                    <span id="token-status-badge" class="badge-pill optimal">🟢 Optimal (Headroom Safe)</span>
-                  </div>
-                  <div class="token-capacity-readout">
-                    <span id="token-ctx-used" class="token-readout-val">0k</span>
-                    <span class="token-readout-sub">/ 200,000 tokens (<b id="token-ctx-pct">0%</b>)</span>
-                  </div>
-                </div>
-
-                <!-- Multi-Segmented Capacity Progress Bar -->
-                <div class="token-capacity-track">
-                  <div id="token-capacity-fill" class="token-capacity-fill optimal" style="width: 0%"></div>
-                  <div class="token-threshold-marker" style="left: 60%" title="60% Advisory Threshold"></div>
-                  <div class="token-threshold-marker warn" style="left: 80%" title="80% Compaction Recommended"></div>
-                  <div class="token-threshold-marker crit" style="left: 95%" title="95% Critical Limit"></div>
-                </div>
-                <div class="token-threshold-labels">
-                  <span>0k</span>
-                  <span>60% (120k)</span>
-                  <span>80% (160k)</span>
-                  <span>200k Limit</span>
-                </div>
-
-                <!-- Claude MOD 4-Metric Breakdown Grid -->
-                <div class="token-stats-grid">
-                  <div class="token-stat-card">
-                    <span class="token-stat-title">📥 Fresh Input (Prompt)</span>
-                    <span id="token-val-input" class="token-stat-number cyan">0</span>
-                    <span class="token-stat-sub">Instructions & Tools</span>
-                  </div>
-                  <div class="token-stat-card">
-                    <span class="token-stat-title">⚡ Cached Read (Hit Rate)</span>
-                    <span id="token-val-cache" class="token-stat-number violet">0</span>
-                    <span id="token-val-cache-rate" class="token-stat-sub emerald">0% Hit Rate ▲</span>
-                  </div>
-                  <div class="token-stat-card">
-                    <span class="token-stat-title">📤 Output & Thinking</span>
-                    <span id="token-val-output" class="token-stat-number emerald">0</span>
-                    <span class="token-stat-sub">Agent Reasoning</span>
-                  </div>
-                  <div class="token-stat-card">
-                    <span class="token-stat-title">💰 Cost & Savings</span>
-                    <span id="token-val-cost" class="token-stat-number">$0.00</span>
-                    <span id="token-val-savings" class="token-stat-sub emerald">Saved $0.00</span>
-                  </div>
-                </div>
-
-                <!-- Token Footer / Inspector Action -->
-                <div class="token-panel-footer">
-                  <div class="token-footer-info">
-                    <span id="token-turn-count">0 Model Turns</span> ·
-                    <span id="token-avg-turn">0 avg/turn</span> ·
-                    <span id="token-headroom-text">200k tokens free</span>
-                  </div>
-                  <button id="btn-open-token-drawer" class="btn-token-inspect">🔍 Inspect Full Token Logs</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Real-Time Metrics Strip -->
-            <div class="chart-metrics-row">
-              <div class="chart-metric-item">
-                <span class="chart-metric-lbl">Sprint Trend</span>
-                <span class="chart-metric-val emerald">On Schedule ▲</span>
-              </div>
-              <div class="chart-metric-item">
-                <span class="chart-metric-lbl">Velocity</span>
-                <span class="chart-metric-val cyan">8.4 Tasks / Day</span>
-              </div>
-              <div class="chart-metric-item">
-                <span class="chart-metric-lbl">Confidence</span>
-                <span class="chart-metric-val">96.8% High</span>
-              </div>
-            </div>
-
-            <!-- Task Status Distribution Spectrum Bar -->
-            <div class="task-dist-section">
-              <div class="dist-legend">
-                <span>Task Distribution Spectrum</span>
-                <span id="dist-total-tasks">0 Tasks</span>
-              </div>
-              <div class="dist-bar-track">
-                <div id="dist-done" class="dist-segment done" style="width:0%"></div>
-                <div id="dist-progress" class="dist-segment progress" style="width:0%"></div>
-                <div id="dist-backlog" class="dist-segment backlog" style="width:0%"></div>
-                <div id="dist-blocked" class="dist-segment blocked" style="width:0%"></div>
-              </div>
-              <div class="dist-legend">
-                <div class="dist-legend-item"><span class="legend-dot done"></span>Done: <b id="dist-count-done">0</b></div>
-                <div class="dist-legend-item"><span class="legend-dot progress"></span>Active: <b id="dist-count-progress">0</b></div>
-                <div class="dist-legend-item"><span class="legend-dot backlog"></span>Backlog: <b id="dist-count-backlog">0</b></div>
-                <div class="dist-legend-item"><span class="legend-dot blocked"></span>Blocked: <b id="dist-count-blocked">0</b></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BENTO CELL 3: Granular Task Command Center & Kanban Board (Span 2x2) -->
-        <div class="bento-card bento-tasks">
-          <div class="card-header task-center-header">
-            <span class="card-title">📋 Task & Kanban Command Center</span>
-            <div class="task-controls-group">
-              <div class="view-tabs">
-                <button id="btn-view-kanban" class="view-tab-btn active" data-view="kanban">📊 Kanban</button>
-                <button id="btn-view-list" class="view-tab-btn" data-view="list">📋 List</button>
-              </div>
-              <div id="task-filter-tabs" class="filter-tabs" style="display:none">
-                <button class="filter-tab active" data-filter="ALL">All</button>
-                <button class="filter-tab" data-filter="IN_PROGRESS">In Progress</button>
-                <button class="filter-tab" data-filter="DONE">Done</button>
-                <button class="filter-tab" data-filter="BLOCKED">Blocked</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- View 1: Linear Task List View -->
-          <div id="task-list-container" class="task-items-container view-panel">
-            <!-- Dynamic Bento task items -->
-          </div>
-
-          <!-- View 2: Interactive Drag & Drop Kanban Board with Framer Motion -->
-          <div id="kanban-board-container" class="kanban-board-wrapper view-panel active">
-            <div class="kanban-column" id="col-backlog" data-status="BACKLOG">
-              <div class="kanban-col-header">
-                <span class="col-title"><span class="col-dot backlog"></span>📥 Backlog</span>
-                <span class="col-count" id="count-col-backlog">0</span>
-              </div>
-              <div class="kanban-col-dropzone" id="drop-backlog" data-col="BACKLOG"></div>
-            </div>
-
-            <div class="kanban-column" id="col-progress" data-status="IN_PROGRESS">
-              <div class="kanban-col-header">
-                <span class="col-title"><span class="col-dot progress"></span>⚡ In Progress</span>
-                <span id="wip-badge" class="wip-limit-pill">0/3 WIP</span>
-              </div>
-              <div class="kanban-col-dropzone" id="drop-progress" data-col="IN_PROGRESS"></div>
-            </div>
-
-            <div class="kanban-column" id="col-review" data-status="REVIEW_BLOCKED">
-              <div class="kanban-col-header">
-                <span class="col-title"><span class="col-dot review"></span>🔬 Review / Hold</span>
-                <span class="col-count" id="count-col-review">0</span>
-              </div>
-              <div class="kanban-col-dropzone" id="drop-review" data-col="REVIEW_BLOCKED"></div>
-            </div>
-
-            <div class="kanban-column" id="col-done" data-status="DONE">
-              <div class="kanban-col-header">
-                <span class="col-title"><span class="col-dot done"></span>✅ Done</span>
-                <span class="col-count" id="count-col-done">0</span>
-              </div>
-              <div class="kanban-col-dropzone" id="drop-done" data-col="DONE"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BENTO CELL 4: Spec AC & TDD Heartbeat (Span 1x2) -->
-        <div class="bento-card bento-tdd">
-          <div class="card-header">
-            <span class="card-title">🔬 TDD Heartbeat & Specs</span>
-            <span class="badge-pill" style="font-size:9px">Quality Radar</span>
-          </div>
-
-          <!-- Oscilloscope Waveform -->
-          <div class="oscilloscope-box">
-            <svg class="oscilloscope-canvas" viewBox="0 0 200 48">
-              <path id="oscilloscope-wave" d="M 0,24 L 200,24" fill="none" stroke="#10b981" stroke-width="2.5" />
-            </svg>
-            <div id="tdd-pulse-state" class="heartbeat-status GREEN">
-              <span class="pulse-dot"></span>
-              <span>🟢 GREEN (Passing)</span>
-            </div>
-          </div>
-
-          <div class="tdd-sub-heading">Acceptance Criteria (AC-*)</div>
-          <div id="specs-container" class="spec-list-container">
-            <!-- Dynamic specs -->
-          </div>
-
-          <div class="tdd-sub-heading" style="margin-top:10px">Phase Milestone Exit Gates</div>
-          <div id="phases-container" class="phases-list-container">
-            <!-- Dynamic phase exit gates with live progress bars -->
-          </div>
-        </div>
-
-        <!-- BENTO CELL 5: Git Radar & Micro-Commits (Span 1x1) -->
-        <div class="bento-card bento-git">
-          <div class="card-header">
-            <span class="card-title">🌿 Git Telemetry Radar</span>
-            <span id="git-dirty-indicator" class="badge-pill" style="font-size:9px">Clean</span>
-          </div>
-          <div class="git-radar-content">
-            <div id="commit-feed-container" class="commit-feed">
-              <!-- Dynamic commit feed -->
-            </div>
-          </div>
-        </div>
-
-        <!-- BENTO CELL 6: Quick Actions Console (Span 1x1) -->
-        <div class="bento-card bento-actions">
-          <div class="card-header">
-            <span class="card-title">⚡ Action Console</span>
-          </div>
-          <div class="actions-bento-grid">
-            <button id="btn-run-tests" class="bento-action-btn">🧪 Run Test Suite</button>
-            <button id="btn-approve-milestone" class="bento-action-btn">✍️ Approve Milestone</button>
-            <button id="btn-copy-standup" class="bento-action-btn">📋 Copy Standup</button>
-          </div>
-        </div>
-      </div>
+      <button id="btn-toggle-sidebar" class="mobile-hamburger-btn" aria-label="Toggle Navigation Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <!-- Slide-Up Test Drawer -->
+    <!-- 1. LEFT NAVIGATION RAIL SIDEBAR -->
+    <aside id="app-sidebar" class="app-sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="brand-hexagon-logo">
+            <span class="hexagon-dot"></span>
+          </div>
+          <div class="brand-text-block">
+            <span class="brand-name">PM Mission Control</span>
+            <span class="brand-track-badge">Vibe-Coding · In-IDE</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#overview" class="nav-item active" data-view="overview" id="nav-overview">
+            <span class="nav-icon">⊞</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+          <a href="#tasks" class="nav-item" data-view="tasks" id="nav-tasks">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Tasks & Kanban</span>
+          </a>
+          <a href="#specs" class="nav-item" data-view="specs" id="nav-specs">
+            <span class="nav-icon">🔬</span>
+            <span class="nav-label">AC Contracts</span>
+          </a>
+          <a href="#tokens" class="nav-item" data-view="tokens" id="nav-tokens">
+            <span class="nav-icon">🧠</span>
+            <span class="nav-label">Token Telemetry</span>
+          </a>
+
+          <div class="nav-divider"></div>
+
+          <a href="#git" class="nav-item" data-view="git" id="nav-git">
+            <span class="nav-icon">🌿</span>
+            <span class="nav-label">Git Radar</span>
+          </a>
+          <a href="#actions" class="nav-item" data-view="actions" id="nav-actions">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Actions Console</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Bottom Feature / Action Card -->
+      <div class="sidebar-bottom-card">
+        <div class="lamp-illustration">
+          <div class="lamp-cord"></div>
+          <div class="lamp-shade"></div>
+          <div class="lamp-glow"></div>
+        </div>
+        <div class="sidebar-card-text">
+          <span class="sidebar-card-title">Continuous Verification</span>
+          <span class="sidebar-card-sub">Zero regression quality gate</span>
+        </div>
+        <button id="btn-sidebar-cta" class="sidebar-action-btn">⚡ Run Test Suite</button>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN APP CONTENT CONTAINER -->
+    <main class="main-content-layout">
+      <!-- TOP PERSONALIZED HEADER BAR -->
+      <header class="main-top-header">
+        <div class="header-greeting-col">
+          <h1 id="header-greeting" class="header-greeting-title">Good Afternoon Developer</h1>
+          <p id="header-subtitle" class="header-greeting-sub">Phase 2 · Foundation & Scaffolding · All Systems Nominal
+          </p>
+        </div>
+
+        <div class="header-actions-col">
+          <!-- Search Bar -->
+          <div class="header-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="header-search-input" placeholder="Search tasks, specs, commits..."
+              aria-label="Search" />
+          </div>
+
+          <!-- Ubiquitous Real-Time Date & Clock (Strict DD-MM-YYYY) -->
+          <div class="live-clock-badge" title="Live System Date & Time (DD-MM-YYYY)">
+            <span class="clock-icon">🕒</span>
+            <span id="live-date-str" class="live-date-val">14-11-2026</span>
+            <span class="clock-sep">·</span>
+            <span id="live-time-str" class="live-time-val">15:30:00</span>
+          </div>
+
+          <!-- Notification Bell -->
+          <button id="btn-notif-bell" class="btn-icon notif-bell-btn" title="View Real-Time Notifications">
+            <span class="bell-icon">🔔</span>
+            <span id="notif-unread-badge" class="notif-count-pill">5</span>
+          </button>
+
+          <!-- Agent Status Pulse & Model Profile Pill -->
+          <div class="agent-pulse-pill" title="Agent Telemetry Status">
+            <span class="pulse-dot"></span>
+            <span id="agent-status-text">Active · Synced</span>
+          </div>
+
+          <!-- Theme Switcher -->
+          <button id="theme-toggle" class="btn-icon theme-toggle-btn" title="Toggle Theme">
+            <span id="theme-icon">🌙</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW 1: MASTER OVERVIEW DASHBOARD (Exact 5-Card Teamify Design Pattern) -->
+      <section id="view-overview" class="dashboard-view-panel active">
+        <div class="teamify-grid-container">
+          <!-- TOP ROW: 3 Columns (Task Strength, Concentric Orbital Health, Stacked KPI Cards) -->
+          <div class="teamify-top-row">
+            <!-- CARD 1: Task Strength & Velocity (Vertical 4-Pillar Bar Chart) -->
+            <div class="teamify-card card-task-strength" id="card-task-strength">
+              <div class="card-header-clean">
+                <span class="card-title-bold">Task Strength & Velocity</span>
+                <span class="card-tag-sub" id="task-strength-total">3 Tasks Active</span>
+              </div>
+
+              <!-- 4 Vertical Pillar Bars SVG -->
+              <div class="pillar-chart-wrapper">
+                <svg id="svg-pillar-chart" class="svg-pillar-canvas" viewBox="0 0 280 150"
+                  preserveAspectRatio="xMidYMid meet"></svg>
+              </div>
+
+              <!-- Bottom 2x2 Letter Legend (a: Backlog, b: In Progress, c: Review, d: Done) -->
+              <div class="pillar-legend-grid">
+                <div class="legend-chip" data-status="BACKLOG">
+                  <span class="chip-letter gold">a</span>
+                  <span class="chip-label">Backlog</span>
+                </div>
+                <div class="legend-chip" data-status="IN_PROGRESS">
+                  <span class="chip-letter coral">b</span>
+                  <span class="chip-label">In Progress</span>
+                </div>
+                <div class="legend-chip" data-status="REVIEW">
+                  <span class="chip-letter cyan">c</span>
+                  <span class="chip-label">Review / Hold</span>
+                </div>
+                <div class="legend-chip" data-status="DONE">
+                  <span class="chip-letter purple">d</span>
+                  <span class="chip-label">Done / Pass</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: Concentric Multi-Orbital Planetary Rings (Quality Radar & Contract Health) -->
+            <div class="teamify-card card-system-health" id="card-system-health">
+              <div class="card-header-clean">
+                <span class="card-title-bold">System Health & Quality Radar</span>
+                <div class="header-dropdown-pill">
+                  <select id="health-scope-select" class="clean-select" aria-label="Scope Selector">
+                    <option value="sprint-current" selected>Sprint: 01-11-2026 to 14-11-2026 (Active)</option>
+                    <option value="phase2">Phase 2: Foundation & Scaffolding</option>
+                    <option value="sprint-prev">Sprint: 17-10-2026 to 31-10-2026</option>
+                    <option value="lifecycle">Full Project Lifecycle 2026</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="orbital-card-body">
+                <!-- Left Metrics Column -->
+                <div class="orbital-metrics-col">
+                  <div class="orbital-stat-item">
+                    <div class="stat-dot-label">
+                      <span class="status-dot coral"></span>
+                      <span class="stat-name">Active Blockers & Faults</span>
+                    </div>
+                    <span id="metric-blocked-count" class="stat-big-num">0</span>
+                  </div>
+
+                  <div class="orbital-stat-item">
+                    <div class="stat-dot-label">
+                      <span class="status-dot peach"></span>
+                      <span class="stat-name">Verified AC Contracts</span>
+                    </div>
+                    <span id="metric-passing-count" class="stat-big-num">2 / 2</span>
+                  </div>
+
+                  <div class="orbital-stat-item">
+                    <div class="stat-dot-label">
+                      <span class="status-dot gold"></span>
+                      <span class="stat-name">Total Contract Health</span>
+                    </div>
+                    <span id="metric-total-rate" class="stat-big-num">100%</span>
+                  </div>
+                </div>
+
+                <!-- Right Concentric Orbital Planetary Rings Visualizer -->
+                <div class="orbital-visual-col">
+                  <div class="orbital-rings-stage">
+                    <svg id="svg-concentric-orbits" class="svg-orbits-canvas" viewBox="0 0 180 180"></svg>
+                    <div class="orbital-center-avatar">
+                      <span class="avatar-center-icon">🧠</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: Stacked KPI Metric Cards (AC Pass, Completed Tasks, Token Headroom) -->
+            <div class="teamify-kpi-stack">
+              <!-- KPI 1: Scope Delivery & AC Pass -->
+              <div class="kpi-metric-pill-card gold-tint">
+                <div class="kpi-num gold" id="kpi-val-top">100%</div>
+                <div class="kpi-label">Acceptance Criteria Verified</div>
+                <div class="kpi-sub-trend">
+                  <span class="trend-indicator up">▲ Zero Regressions</span>
+                  <span class="trend-text">contracts in-tact</span>
+                </div>
+              </div>
+
+              <!-- KPI 2: Completed Micro-Tasks -->
+              <div class="kpi-metric-pill-card coral-tint">
+                <div class="kpi-num coral" id="kpi-val-tasks">22</div>
+                <div class="kpi-label">Micro-Tasks Completed</div>
+                <div class="kpi-sub-trend">
+                  <span class="trend-indicator up">▲ Active Cadence</span>
+                  <span class="trend-text">on milestone schedule</span>
+                </div>
+              </div>
+
+              <!-- KPI 3: Token Headroom & Safety -->
+              <div class="kpi-metric-pill-card cyan-tint">
+                <div class="kpi-num cyan" id="kpi-val-headroom">500k</div>
+                <div class="kpi-label">Context Headroom Available</div>
+                <div class="kpi-sub-trend">
+                  <span class="trend-indicator optimal">● Optimal Buffer</span>
+                  <span class="trend-text">safe 2026 quota headroom</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM ROW: 2 Columns (Scope Velocity Trajectory Graph & Notifications Activity Feed) -->
+          <div class="teamify-bottom-row">
+            <!-- CARD 4: Scope Velocity & Delivery Trajectory Graph -->
+            <div class="teamify-card card-project-deliveries" id="card-project-deliveries">
+              <div class="card-header-clean">
+                <span class="card-title-bold">Scope Velocity & Delivery Trajectory</span>
+
+                <div class="delivery-chart-legend">
+                  <div class="legend-item"><span class="legend-dot coral"></span>Achieved Velocity</div>
+                  <div class="legend-item"><span class="legend-dot cyan"></span>Target Scope</div>
+                </div>
+              </div>
+
+              <!-- Dual-Spline Curve SVG Canvas -->
+              <div class="spline-chart-wrapper">
+                <svg id="svg-deliveries-chart" class="svg-deliveries-canvas" viewBox="0 0 540 220"
+                  preserveAspectRatio="none"></svg>
+
+                <!-- Floating Milestone Tooltip Pill Card (pinned at 14-11-2026) -->
+                <div id="floating-delivery-tooltip" class="floating-delivery-card" style="left: 90%; top: 32%;">
+                  <div class="tooltip-row coral-dot"><span class="tooltip-dot coral"></span><span
+                      id="tooltip-achieved-txt">22 Tasks Done</span></div>
+                  <div class="tooltip-row orange-dot"><span class="tooltip-dot orange"></span><span
+                      id="tooltip-target-txt">24 Total Scope</span></div>
+                </div>
+              </div>
+
+              <!-- Dynamic Timeline stops along bottom strictly in DD-MM-YYYY -->
+              <div id="deliveries-timeline-axis" class="deliveries-timeline-axis">
+                <span>10-10-2026</span>
+                <span>17-10-2026</span>
+                <span>24-10-2026</span>
+                <span>31-10-2026</span>
+                <span>07-11-2026</span>
+                <span class="active-timeline-stop">14-11-2026</span>
+              </div>
+            </div>
+
+            <!-- CARD 5: Notifications & Live Activity Feed -->
+            <div class="teamify-card card-notifications-feed" id="card-notifications">
+              <div class="card-header-clean">
+                <span class="card-title-bold">Live Activity & Audit Feed</span>
+                <button id="btn-view-all-notifs" class="clean-link-btn">View All</button>
+              </div>
+
+              <!-- Stacked Notification Activity Rows -->
+              <div id="notifications-list" class="notifications-list-container">
+                <!-- Dynamically populated from parser.js state -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: GRANULAR TASK & KANBAN COMMAND CENTER -->
+      <section id="view-tasks" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Granular Task & Kanban Command Center</h2>
+            <p class="view-section-sub">Current Running Task floats strictly to index 0 · All dates strictly formatted
+              in DD-MM-YYYY</p>
+          </div>
+          <div class="task-controls-group">
+            <div class="view-tabs">
+              <button id="btn-view-kanban" class="view-tab-btn active" data-view="kanban">📊 Kanban</button>
+              <button id="btn-view-list" class="view-tab-btn" data-view="list">📋 List</button>
+            </div>
+            <div id="task-filter-tabs" class="filter-tabs">
+              <button class="filter-tab active" data-filter="ALL">All</button>
+              <button class="filter-tab" data-filter="IN_PROGRESS">In Progress</button>
+              <button class="filter-tab" data-filter="DONE">Done</button>
+              <button class="filter-tab" data-filter="REVIEW_BLOCKED">Review / Hold</button>
+              <button class="filter-tab" data-filter="BACKLOG">Backlog</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 1: Interactive Drag & Drop Kanban Board -->
+        <div id="kanban-board-container" class="kanban-board-wrapper active">
+          <div class="kanban-column" id="col-backlog" data-status="BACKLOG">
+            <div class="kanban-col-header">
+              <span class="col-title"><span class="col-dot backlog"></span>📥 Backlog</span>
+              <span class="col-count" id="count-col-backlog">0</span>
+            </div>
+            <div class="kanban-col-dropzone" id="drop-backlog" data-col="BACKLOG"></div>
+          </div>
+
+          <div class="kanban-column" id="col-progress" data-status="IN_PROGRESS">
+            <div class="kanban-col-header">
+              <span class="col-title"><span class="col-dot progress"></span>⚡ In Progress</span>
+              <span id="wip-badge" class="wip-limit-pill">0/3 WIP</span>
+            </div>
+            <div class="kanban-col-dropzone" id="drop-progress" data-col="IN_PROGRESS"></div>
+          </div>
+
+          <div class="kanban-column" id="col-review" data-status="REVIEW_BLOCKED">
+            <div class="kanban-col-header">
+              <span class="col-title"><span class="col-dot review"></span>🔬 Review / Hold</span>
+              <span class="col-count" id="count-col-review">0</span>
+            </div>
+            <div class="kanban-col-dropzone" id="drop-review" data-col="REVIEW_BLOCKED"></div>
+          </div>
+
+          <div class="kanban-column" id="col-done" data-status="DONE">
+            <div class="kanban-col-header">
+              <span class="col-title"><span class="col-dot done"></span>✅ Done</span>
+              <span class="col-count" id="count-col-done">0</span>
+            </div>
+            <div class="kanban-col-dropzone" id="drop-done" data-col="DONE"></div>
+          </div>
+        </div>
+
+        <!-- View 2: Linear Task List View -->
+        <div id="task-list-container" class="task-items-container" style="display:none"></div>
+      </section>
+
+      <!-- VIEW 3: ACCEPTANCE CRITERIA CONTRACTS & TDD HEARTBEAT -->
+      <section id="view-specs" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Acceptance Criteria (AC-*) & TDD Quality Radar</h2>
+            <p class="view-section-sub">Formal Given/When/Then contracts verified against test suite assertions</p>
+          </div>
+          <div class="actions-group">
+            <button id="btn-run-tests-specs" class="primary-btn">🧪 Run Test Suite</button>
+          </div>
+        </div>
+
+        <div class="specs-grid-layout">
+          <!-- Oscilloscope & Live TDD Waveform -->
+          <div class="teamify-card oscilloscope-card">
+            <div class="card-header-clean">
+              <span class="card-title-bold">Oscilloscope TDD Waveform</span>
+              <div id="tdd-pulse-state" class="heartbeat-status GREEN">
+                <span class="pulse-dot"></span>
+                <span>🟢 GREEN (Zero Regression)</span>
+              </div>
+            </div>
+            <div class="oscilloscope-canvas-box">
+              <svg class="oscilloscope-canvas" viewBox="0 0 400 60">
+                <path id="oscilloscope-wave" d="M 0,30 L 400,30" fill="none" stroke="#10b981" stroke-width="2.5" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- AC Contracts List -->
+          <div class="teamify-card ac-contracts-card">
+            <div class="card-header-clean">
+              <span class="card-title-bold">Acceptance Criteria Contracts</span>
+              <span class="badge-pill optimal" id="spec-pass-badge">100% Passing</span>
+            </div>
+            <div id="specs-container" class="spec-list-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Phase Exit Gates -->
+          <div class="teamify-card phase-gates-card">
+            <div class="card-header-clean">
+              <span class="card-title-bold">Phase Milestone Exit Gates</span>
+              <span class="card-tag-sub">5 Gated Milestones</span>
+            </div>
+            <div id="phases-container" class="phases-list-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: TOKEN TELEMETRY & MULTI-WINDOW QUOTAS -->
+      <section id="view-tokens" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Agent Context Window & Multi-Window Quota Telemetry</h2>
+            <p class="view-section-sub">5-Hour rolling quota, daily midnight reset, and model token economics</p>
+          </div>
+          <div class="model-select-wrapper">
+            <select id="model-profile-select" class="clean-select" title="Active Model & Quota Profile">
+              <option value="auto">🤖 Auto-Detect (Active)</option>
+              <option value="gemini">Google Gemini (1M Ceiling · Daily Primary)</option>
+              <option value="claude">Anthropic Claude (200k Ceiling · 5h Primary)</option>
+              <option value="openai">OpenAI GPT (128k Ceiling · Daily Primary)</option>
+              <option value="deepseek">DeepSeek (64k Ceiling · Daily Primary)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="token-view-layout">
+          <!-- Active Context Capacity Meter -->
+          <div class="teamify-card">
+            <div class="card-header-clean">
+              <span class="card-title-bold">Active Context Capacity</span>
+              <span id="token-status-badge" class="badge-pill optimal">🟢 Optimal (Headroom Safe)</span>
+            </div>
+            <div class="token-capacity-readout-row">
+              <span id="token-ctx-used" class="stat-big-num cyan">0k</span>
+              <span class="stat-readout-sub">/ <span id="token-ctx-limit-str">1,000,000</span> tokens (<b
+                  id="token-ctx-pct">0%</b>)</span>
+            </div>
+            <div class="token-capacity-track">
+              <div id="token-capacity-fill" class="token-capacity-fill optimal" style="width: 0%"></div>
+            </div>
+            <div class="token-threshold-labels">
+              <span>0k</span>
+              <span>60% Advisory</span>
+              <span>80% Compaction Recommended</span>
+              <span id="lbl-thresh-limit">1.0M Limit</span>
+            </div>
+          </div>
+
+          <!-- 3 Quota Cards Row -->
+          <div class="token-quotas-row">
+            <div class="teamify-card quota-card gold-tint">
+              <div class="quota-card-top">
+                <span class="quota-tag gold">⏳ 5-Hour Session</span>
+                <span id="card-5h-status" class="quota-pill gold">Safe</span>
+              </div>
+              <div class="quota-metric">
+                <span id="card-5h-val" class="quota-val gold">0k</span>
+                <span class="quota-sub">/ <span id="card-5h-limit">1.5M</span> (<b id="card-5h-pct">0%</b>)</span>
+              </div>
+              <div class="quota-reset-countdown">
+                <span>Resets in:</span>
+                <b id="timer-5h-countdown" class="countdown-val gold">00:00:00</b>
+              </div>
+            </div>
+
+            <div class="teamify-card quota-card coral-tint">
+              <div class="quota-card-top">
+                <span class="quota-tag coral">📅 Daily Allowance</span>
+                <span id="card-daily-status" class="quota-pill coral">Safe</span>
+              </div>
+              <div class="quota-metric">
+                <span id="card-daily-val" class="quota-val coral">0k</span>
+                <span class="quota-sub">/ <span id="card-daily-limit">10.0M</span> (<b
+                    id="card-daily-pct">0%</b>)</span>
+              </div>
+              <div class="quota-reset-countdown">
+                <span>Resets at midnight:</span>
+                <b id="timer-daily-countdown" class="countdown-val coral">00:00:00</b>
+              </div>
+            </div>
+
+            <div class="teamify-card quota-card cyan-tint">
+              <div class="quota-card-top">
+                <span class="quota-tag cyan">🗓️ Weekly Allocation</span>
+                <span id="card-weekly-status" class="quota-pill cyan">Safe</span>
+              </div>
+              <div class="quota-metric">
+                <span id="card-weekly-val" class="quota-val cyan">0k</span>
+                <span class="quota-sub">/ <span id="card-weekly-limit">50.0M</span> (<b
+                    id="card-weekly-pct">0%</b>)</span>
+              </div>
+              <div class="quota-reset-countdown">
+                <span>Resets Monday:</span>
+                <b id="timer-weekly-countdown" class="countdown-val cyan">0d 00h</b>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Window Comparison Matrix Table -->
+          <div class="teamify-card">
+            <div class="card-header-clean">
+              <span class="card-title-bold">Multi-Window Quota & Reset Matrix</span>
+              <span id="drawer-pricing-rates" class="rates-label">Rates: $0.10 input · $0.025 cache · $0.40 output /
+                1M</span>
+            </div>
+            <div class="table-responsive-wrapper">
+              <table class="teamify-table">
+                <thead>
+                  <tr>
+                    <th>Quota Window</th>
+                    <th>Tokens Used</th>
+                    <th>Ceiling Limit</th>
+                    <th>Utilization %</th>
+                    <th>Input</th>
+                    <th>Cache Read</th>
+                    <th>Output</th>
+                    <th>Turns</th>
+                    <th>Cost</th>
+                    <th>Reset Schedule</th>
+                  </tr>
+                </thead>
+                <tbody id="token-matrix-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: GIT TELEMETRY RADAR -->
+      <section id="view-git" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Git Telemetry Radar</h2>
+            <p class="view-section-sub">HEAD commit pinned strictly at index 0 with verified task traceability</p>
+          </div>
+          <div class="git-status-badge-box">
+            <span id="git-dirty-indicator" class="badge-pill optimal">Clean Tree</span>
+          </div>
+        </div>
+        <div class="teamify-card">
+          <div id="commit-feed-container" class="commit-feed-list"></div>
+        </div>
+      </section>
+
+      <!-- VIEW 6: ACTION CONSOLE & EXECUTIVE COMMAND CENTER -->
+      <section id="view-actions" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Action Console & Command Control</h2>
+            <p class="view-section-sub">Instant pipeline triggers, automated testing, quality audits, and approvals</p>
+          </div>
+        </div>
+
+        <!-- Styled 6-Action Command Grid -->
+        <div class="actions-bento-grid">
+          <button id="btn-run-tests" class="action-card-btn" data-action="run-tests">
+            <span class="action-card-icon">🧪</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Run Test Suite</span>
+              <span class="action-card-sub">Execute automated unit & spec assertions</span>
+            </div>
+            <span class="action-card-badge">Instant</span>
+          </button>
+
+          <button id="btn-spec-check" class="action-card-btn" data-action="spec-check">
+            <span class="action-card-icon">📐</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Spec & AC Check</span>
+              <span class="action-card-sub">Audit acceptance criteria contracts</span>
+            </div>
+            <span class="action-card-badge">Audit</span>
+          </button>
+
+          <button id="btn-security-audit" class="action-card-btn" data-action="security-audit">
+            <span class="action-card-icon">🛡️</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Security & SAST Audit</span>
+              <span class="action-card-sub">Scan for secret leaks & dependency CVEs</span>
+            </div>
+            <span class="action-card-badge">Security</span>
+          </button>
+
+          <button id="btn-sync-telemetry" class="action-card-btn" data-action="sync-telemetry">
+            <span class="action-card-icon">🔄</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Sync Telemetry</span>
+              <span class="action-card-sub">Force re-read from disk & broadcast SSE</span>
+            </div>
+            <span class="action-card-badge">Sync</span>
+          </button>
+
+          <button id="btn-copy-standup" class="action-card-btn" data-action="copy-standup">
+            <span class="action-card-icon">📋</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Copy Standup Summary</span>
+              <span class="action-card-sub">Export markdown summary to clipboard</span>
+            </div>
+            <span class="action-card-badge">Clipboard</span>
+          </button>
+
+          <button id="btn-approve-milestone" class="action-card-btn" data-action="approve-milestone">
+            <span class="action-card-icon">✍️</span>
+            <div class="action-card-info">
+              <span class="action-card-title">Draft Milestone Approval</span>
+              <span class="action-card-sub">Create approval record in docs/approvals/</span>
+            </div>
+            <span class="action-card-badge">Governance</span>
+          </button>
+        </div>
+
+        <!-- Integrated Live Command Execution Terminal -->
+        <div class="teamify-card action-terminal-card" style="margin-top:20px">
+          <div class="card-header-clean">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="card-title-bold">⚡ Action Execution Terminal</span>
+              <span id="terminal-status-pill" class="badge-pill optimal">Ready</span>
+            </div>
+            <span id="terminal-last-run" class="card-tag-sub">Idle · Awaiting Command</span>
+          </div>
+          <pre id="action-terminal-body"
+            class="action-terminal-body">Select any command above to trigger pipeline actions in real-time.</pre>
+        </div>
+      </section>
+    </main>
+
+    <!-- SLIDE-UP TEST RUNNER CONSOLE DRAWER -->
     <div id="test-drawer" class="test-drawer">
       <div class="drawer-header">
         <span>🧪 Test Runner Console</span>
-        <button id="close-drawer" style="background:transparent;border:none;color:#94a3b8;cursor:pointer">✕ Close</button>
+        <button id="close-drawer" class="clean-close-btn">✕ Close</button>
       </div>
-      <pre id="drawer-output" style="white-space:pre-wrap;font-family:var(--font-mono);font-size:11px;color:#38bdf8"></pre>
+      <pre id="drawer-output" class="drawer-console-output"></pre>
     </div>
 
-    <!-- Slide-Up Token Telemetry Drawer (Claude MOD Inspector) -->
-    <div id="token-drawer" class="test-drawer">
-      <div class="drawer-header">
-        <span>🧠 Agent Context Window & Token Inspector (Claude MOD)</span>
-        <button id="close-token-drawer" style="background:transparent;border:none;color:#94a3b8;cursor:pointer">✕ Close</button>
-      </div>
-      <div class="token-drawer-content">
-        <div class="token-drawer-summary-cards">
-          <div class="token-drawer-card">
-            <span class="token-drawer-lbl">Active Context Memory</span>
-            <span id="drawer-token-ctx" class="token-drawer-val cyan">0</span>
-            <span class="token-drawer-sub">Tokens in prompt window</span>
-          </div>
-          <div class="token-drawer-card">
-            <span class="token-drawer-lbl">Prompt Cache Efficiency</span>
-            <span id="drawer-token-cache-rate" class="token-drawer-val violet">0%</span>
-            <span id="drawer-token-cache-hit" class="token-drawer-sub">0 cache hits</span>
-          </div>
-          <div class="token-drawer-card">
-            <span class="token-drawer-lbl">Total Cumulative Spend</span>
-            <span id="drawer-token-cost" class="token-drawer-val emerald">$0.00</span>
-            <span id="drawer-token-savings" class="token-drawer-sub emerald">$0.00 saved via cache</span>
-          </div>
-          <div class="token-drawer-card">
-            <span class="token-drawer-lbl">Context Health Status</span>
-            <span id="drawer-token-health" class="token-drawer-val">Optimal</span>
-            <span id="drawer-token-advice" class="token-drawer-sub">No compaction needed</span>
-          </div>
-        </div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px">
-          <span style="font-size:12px;font-weight:700;color:var(--text-main)">Recent Turns Breakdown (Last 20 Model Invocations)</span>
-          <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-faint)">Live transcript telemetry</span>
-        </div>
-        <div class="token-history-table-wrapper">
-          <table class="token-history-table">
-            <thead>
-              <tr>
-                <th>Step</th>
-                <th>Time</th>
-                <th>Fresh Input</th>
-                <th>Cache Read</th>
-                <th>Output / Thinking</th>
-                <th>Total Turn Tokens</th>
-              </tr>
-            </thead>
-            <tbody id="token-history-tbody">
-              <!-- Dynamic rows populated from parser.js tokens.recentTurns -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- Shadcn UI Radix-Style Sheet Dialog for AC Contract Inspection & Verification -->
+    <!-- RADIX-STYLE SHEET DIALOG FOR AC CONTRACT INSPECTION -->
     <div id="ac-modal" class="shadcn-sheet-backdrop">
       <div class="shadcn-modal-dialog">
         <div class="shadcn-modal-header">
           <div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span id="modal-ac-id" style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--sky-bright)">AC-FEAT001-01</span>
+              <span id="modal-ac-id" class="modal-ac-code">AC-FEAT001-01</span>
               <span id="modal-ac-status" class="status-pill GREEN">GREEN</span>
             </div>
-            <div id="modal-ac-title" class="shadcn-modal-title" style="margin-top:6px">Valid credentials create a session</div>
+            <div id="modal-ac-title" class="shadcn-modal-title">Valid credentials create a session</div>
             <div id="modal-ac-file" class="shadcn-modal-desc">docs/features/001-example-feature/acceptance.md</div>
           </div>
           <button id="modal-ac-close" class="shadcn-close-btn">✕ Esc</button>
         </div>
 
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-top:4px">
-          Acceptance Scenario Contract
-        </div>
+        <div class="modal-section-label">Acceptance Scenario Contract</div>
         <div class="shadcn-scenario-box">
           <div class="shadcn-scenario-row">
             <b>GIVEN</b>
-            <span id="modal-ac-given" style="color:var(--text-main)">Active user of an active tenant</span>
+            <span id="modal-ac-given">Active user of an active tenant</span>
           </div>
           <div class="shadcn-scenario-row">
             <b>WHEN</b>
-            <span id="modal-ac-when" style="color:var(--text-main)">Submits valid email, password and tenant_id</span>
+            <span id="modal-ac-when">Submits valid email, password and tenant_id</span>
           </div>
           <div class="shadcn-scenario-row">
             <b>THEN</b>
-            <span id="modal-ac-then" style="color:var(--text-main)">Response 200, httpOnly session cookies set and profile returned</span>
+            <span id="modal-ac-then">Response 200, httpOnly session cookies set and profile returned</span>
           </div>
         </div>
 
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-top:4px">
-          Verification & Test Traceability
-        </div>
-        <div style="display:flex;gap:8px;font-family:var(--font-mono);font-size:11px;background:rgba(24,24,27,0.7);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.08)">
+        <div class="modal-section-label">Verification & Test Traceability</div>
+        <div class="test-traceability-row">
           <div>🧪 <b id="modal-ac-testid">TEST-FEAT001-01</b></div>
-          <div style="color:var(--text-faint)">·</div>
-          <div id="modal-ac-testlevel" style="color:var(--sky-bright)">Integration</div>
-          <div style="color:var(--text-faint)">·</div>
-          <div id="modal-ac-testloc" style="color:var(--text-muted)">tests/integration/auth/login.test.ts</div>
+          <div class="sep">·</div>
+          <div id="modal-ac-testlevel" class="sky">Integration</div>
+          <div class="sep">·</div>
+          <div id="modal-ac-testloc" class="loc">tests/integration/auth/login.test.ts</div>
         </div>
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
-          <span style="font-size:11px;color:var(--text-muted)">Change Contract Status:</span>
+        <div class="modal-footer-actions">
+          <span class="footer-lbl">Change Contract Status:</span>
           <div class="shadcn-btn-group">
             <button id="modal-btn-green" class="shadcn-btn shadcn-btn-green">🟢 Set PASS (Green)</button>
             <button id="modal-btn-red" class="shadcn-btn shadcn-btn-red">🔴 Set FAIL (Red)</button>
@@ -506,11 +705,15 @@
         </div>
       </div>
     </div>
+
+    <!-- NOTIFICATION TOAST CONTAINER -->
+    <div id="toast-container" class="shadcn-toast-container"></div>
   </div>
 
-  <!-- Local Framer Motion & Anime.js Libraries & Client Engine -->
+  <!-- Local Script Dependencies & Frontend Engine -->
   <script src="assets/motion.min.js"></script>
   <script src="assets/anime.min.js"></script>
   <script src="assets/dashboard.js"></script>
 </body>
+
 </html>

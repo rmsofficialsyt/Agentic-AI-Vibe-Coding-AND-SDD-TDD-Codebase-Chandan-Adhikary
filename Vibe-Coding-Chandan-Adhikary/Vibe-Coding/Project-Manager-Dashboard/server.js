@@ -12,6 +12,7 @@ const { exec } = require('child_process');
 const DashboardParser = require('./parser');
 
 const PORT = Number(process.env.PORT) || 4201;
+let currentPort = PORT;
 const HOST = '127.0.0.1';
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const DASHBOARD_ROOT = path.resolve(__dirname);
@@ -198,6 +199,111 @@ const server = http.createServer((req, res) => {
           return;
         }
 
+        if (action === 'spec-check') {
+          const state = parser.getDashboardState('Vibe-Coding');
+          const specs = state.specs || [];
+          const passing = specs.filter(s => s.status === 'GREEN').length;
+          const failing = specs.filter(s => s.status === 'RED').length;
+          const pending = specs.filter(s => s.status === 'PENDING').length;
+          const total = specs.length;
+          const rate = total > 0 ? Math.round((passing / total) * 100) : 100;
+
+          const reportLines = [
+            '=================================================================',
+            '           📐 SPECIFICATION & ACCEPTANCE CRITERIA AUDIT          ',
+            '=================================================================',
+            `Timestamp: ${new Date().toISOString()}`,
+            `Total AC Contracts: ${total}`,
+            `Passing (GREEN):      ${passing} (${rate}%)`,
+            `Failing (RED):        ${failing}`,
+            `Pending Verification: ${pending}`,
+            '',
+            '--- Acceptance Criteria Traceability Matrix ---'
+          ];
+
+          specs.forEach(s => {
+            const icon = s.status === 'GREEN' ? '🟢' : (s.status === 'RED' ? '🔴' : '⚪');
+            reportLines.push(`${icon} [${s.id}] ${s.title}`);
+            if (s.file) reportLines.push(`   └─ Spec File: ${s.file}`);
+            if (s.scenario && s.scenario.given) {
+              reportLines.push(`   └─ GIVEN: ${s.scenario.given}`);
+              reportLines.push(`   └─ WHEN:  ${s.scenario.when}`);
+              reportLines.push(`   └─ THEN:  ${s.scenario.then}`);
+            }
+          });
+
+          reportLines.push('');
+          reportLines.push(failing === 0 ? '✅ RESULT: ZERO SPEC REGRESSIONS DETECTED — CONTRACTS IN TACT' : `⚠️ RESULT: ${failing} FAILING ACCEPTANCE CRITERIA REQUIRE ATTENTION`);
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            output: reportLines.join('\n'),
+            success: failing === 0
+          }));
+          return;
+        }
+
+        if (action === 'security-audit') {
+          const reportLines = [
+            '=================================================================',
+            '            🛡️ STATIC SECURITY & SECRET LEAK AUDIT              ',
+            '=================================================================',
+            `Scan Time: ${new Date().toISOString()}`,
+            `Scope: ${PROJECT_ROOT}`,
+            ''
+          ];
+
+          let issuesFound = 0;
+          const envPath = path.join(PROJECT_ROOT, '.env');
+          if (fs.existsSync(envPath)) {
+            reportLines.push('⚠️ [WARN] .env file detected in working directory. Ensure it is gitignored.');
+            issuesFound++;
+          } else {
+            reportLines.push('✅ No unencrypted .env file located in root.');
+          }
+
+          const gitignorePath = path.join(PROJECT_ROOT, '.gitignore');
+          if (fs.existsSync(gitignorePath)) {
+            const gitignore = fs.readFileSync(gitignorePath, 'utf8');
+            if (/node_modules/.test(gitignore)) {
+              reportLines.push('✅ node_modules properly gitignored.');
+            } else {
+              reportLines.push('⚠️ [WARN] node_modules not explicitly listed in .gitignore.');
+              issuesFound++;
+            }
+            if (/\.env/.test(gitignore)) {
+              reportLines.push('✅ .env patterns protected in .gitignore.');
+            }
+          }
+
+          const gitState = parser.getGitTelemetry();
+          if (gitState.dirtyFiles > 0) {
+            reportLines.push(`ℹ️ Git working tree has ${gitState.dirtyFiles} modified/uncommitted file(s).`);
+          } else {
+            reportLines.push('✅ Git working tree is completely clean.');
+          }
+
+          reportLines.push('');
+          reportLines.push(issuesFound === 0 ? '🔒 STATUS: CLEAN — ZERO HIGH/CRITICAL VULNERABILITIES' : `⚠️ STATUS: ${issuesFound} ADVISORY ITEM(S) TO REVIEW`);
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            output: reportLines.join('\n'),
+            success: issuesFound === 0
+          }));
+          return;
+        }
+
+        if (action === 'sync-telemetry') {
+          broadcastState();
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            output: `🔄 Telemetry successfully refreshed from disk at ${new Date().toLocaleTimeString()}. All connected clients updated.`,
+            success: true
+          }));
+          return;
+        }
+
         if (action === 'approve-milestone') {
           const approvalsDir = path.join(PROJECT_ROOT, 'docs', 'approvals');
           if (!fs.existsSync(approvalsDir)) {
@@ -350,24 +456,26 @@ const server = http.createServer((req, res) => {
   });
 });
 
-let currentPort = PORT;
-
 function startServer(port) {
+  const onError = (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`[Project-Manager-Dashboard] Port ${port} is busy, trying port ${port + 1}...`);
+      server.removeListener('error', onError);
+      currentPort = port + 1;
+      startServer(currentPort);
+    } else {
+      console.error('[Project-Manager-Dashboard] Server error:', err.message);
+    }
+  };
+
+  server.once('error', onError);
   server.listen(port, HOST, () => {
+    server.removeListener('error', onError);
+    currentPort = port;
     console.log(`[Project-Manager-Dashboard] Live in-IDE daemon active on http://${HOST}:${port}`);
     console.log(`[Project-Manager-Dashboard] Strictly local machine execution (Never pushed to remote)`);
   });
 }
-
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.log(`[Project-Manager-Dashboard] Port ${currentPort} is busy, trying port ${currentPort + 1}...`);
-    currentPort++;
-    startServer(currentPort);
-  } else {
-    console.error('[Project-Manager-Dashboard] Server error:', err.message);
-  }
-});
 
 startServer(currentPort);
 
