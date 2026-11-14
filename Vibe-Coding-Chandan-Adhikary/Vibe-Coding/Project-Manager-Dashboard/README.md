@@ -1,4 +1,4 @@
-# Project-Manager-Dashboard (Vibe-Coding In-IDE Subproject)
+﻿# Project-Manager-Dashboard (Vibe-Coding In-IDE Subproject)
 
 > **Local Machine Only** | **Never Pushed to Remote Repositories** | **Strictly In-IDE Interface**
 
@@ -9,8 +9,8 @@
 The **Project-Manager-Dashboard** is an embedded telemetry mission control designed exclusively for local IDE development within the **Vibe-Coding** framework.
 
 It tracks project progress in real-time by inspecting:
-- `docs/task.md` (Granular tasks, micro-subtasks, Karpathy prompt stages)
-- `docs/phases.md` (Karpathy loops V1-V4 progress)
+- `docs/task.md` (Granular tasks, micro-subtasks, Interactive prompt stages)
+- `docs/phases.md` (fluid interactive loops V1-V4 progress)
 - `docs/features/**/*.md` (feature acceptance criteria: `AC-FEAT###-##`, incl. visual/UX criteria)
 - `docs/error-tracker.md` (Active UI defects & blockers)
 - Local Git telemetry (branch status, dirty files, micro-commits)
@@ -60,3 +60,5 @@ No files inside this directory will ever be committed or pushed to GitHub.
 - Static serving is confined to this folder; `server.js` and `parser.js` are never served.
 - **Approve milestone** writes a *draft* `docs/approvals/approval-phase-*.md` (gitignored). It is not an approval until a human completes it per `docs/approvals/APPROVAL-TEMPLATE.md` (SDD) or records the decision in `docs/decision-log.md` (Vibe).
 - Token telemetry reads the newest local transcript from `~/.claude/projects/` (Claude Code) or `~/.gemini/antigravity/brain/` (Antigravity); override with `DASHBOARD_TRANSCRIPT=/path/file.jsonl`. Nothing leaves the machine.
+
+

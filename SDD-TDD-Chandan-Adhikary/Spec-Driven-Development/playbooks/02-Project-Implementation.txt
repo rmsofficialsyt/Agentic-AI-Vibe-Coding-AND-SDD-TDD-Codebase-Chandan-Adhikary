@@ -1,30 +1,37 @@
 02-Project-Implementation
 ==========================
 
-Purpose: Execute SDD implementation strictly from an APPROVED feature specification using TDD.
+Purpose: Execute SDD implementation strictly from an APPROVED feature specification using TDD and step-by-step spec pacing.
 Read trigger: MUST read before writing any production code in SDD.
 Applicability: SDD
 
 Prerequisites:
 - Feature spec in `docs/features/` MUST have `Status: APPROVED` and a valid `APR-###` record in `docs/approvals/`, and MUST be indexed in `docs/spec.md`.
 - Task MUST be `READY` in `docs/task.md` with allowed files and acceptance criteria (`AC-FEAT###-##`).
+- **RULE OF SPEC PACING:** Never attempt to implement all core features at once. Implement strictly one spec at a time (Red → Green → Refactor → Verify → Update Docs) before starting the next.
 
 Commands & Skills:
 - Commands: `/spec-check-ca-agent`, `/plan-ca-agent`, `/task-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`, `/verify-ca-agent`, `/review-ca-agent`
-- Skills: `spec-validator`, `task-planner`, `tdd-enforcer`, `andrej-karpathy-skill`, `code-reviewer`
+- Skills: Core repo skills (`spec-validator`, `task-planner`, `tdd-enforcer`, `code-reviewer`).
 
 Procedure:
-1. Authority & Spec Check:
-   - Run `/spec-check-ca-agent` (skill: `spec-validator`) against the target `FEAT-###` in `docs/features/` and `docs/spec.md`.
-   - Stop immediately if the feature is `DRAFT` or `IN REVIEW` without `APR-###`.
-2. Plan & Task Decomposition:
-   - Run `/plan-ca-agent` and `/task-ca-agent` (skill: `task-planner`) to confirm `TASK-###` scope and allowed files in `docs/task.md`.
-3. Red-Green-Refactor (TDD):
-   - Run `/tdd-ca-agent` (skill: `tdd-enforcer`): write failing tests (`TEST-FEAT###-##`) mapped to each `AC-FEAT###-##` and verify they fail for the right reason.
+1. The 5-Step Cyclic Prompt Loop:
+   - Step 1 (Read Prompt): Ingest specific task requirements.
+   - Step 2 (Analyze & Plan): Run `/plan-ca-agent` to evaluate architectural impact and test strategy.
+   - Step 3 (Check Docs/Playbooks): Verify `docs/system-architecture.md` (System Design), `docs/design.md`, and relevant playbooks.
+   - Step 4 (Review Guidelines): Check which `*.md` files need updates for this task.
+   - Step 5 (Overwrite Guidelines): Overwrite/update living docs (`docs/task.md`, `docs/error-tracker.md`) before writing implementation code.
+2. Authority & Spec Check:
+   - Run `/spec-check-ca-agent` against the target `FEAT-###`. Confirm complexity tier (Easy, Intermediate, or Hard/Complex).
+3. Red-Green-Refactor (TDD Cycle):
+   - Run `/tdd-ca-agent`: write failing tests (`TEST-FEAT###-##`) verifying each `AC-FEAT###-##`. Verify they fail with expected errors.
    - Run `/implement-ca-agent`: write minimal production code within allowed files until tests pass.
-4. Verify & Review:
-   - Run `/verify-ca-agent`, `python scripts/check_docs.py`, and `/review-ca-agent` (skill: `code-reviewer`).
+   - Refactor: Clean architecture, remove duplication, verify tests remain 100% green.
+4. Verify, Review & Document:
+   - Run `/verify-ca-agent` and `/review-ca-agent`.
+   - Update `docs/task.md` (mark current task DONE, float next running task to top in dashboard).
+   - Update `docs/error-tracker.md` (tabular format) if any regressions occurred.
 
 Required output:
-- Passing test suite output, updated `docs/task.md`, and real command evidence.
+- Passing test suite output, updated `docs/task.md`, clean git commit with HEAD commit on top in dashboard.
 - MUST stop if tests are skipped, spec is unapproved, or scope drifts outside allowed files.

@@ -28,7 +28,7 @@ When you type a slash command (such as `/plan-ca-agent` or `/implement-ca-agent`
 |                                                                               |
 |   /run-ca-agent            --> Start local dev server & verify live URL.      |
 |                                                                               |
-|   /task-ca-agent           --> Rapid Karpathy conversational loops;           |
+|   /task-ca-agent           --> Rapid fluid interactive loops;           |
 |                                1-click status pills, optimistic UI.           |
 |                                                                               |
 |   /review-ca-agent         --> Inspect git diff, verify clean component state.|
@@ -93,7 +93,7 @@ Type the slash command as an isolated action instruction after completing a step
 
 ## 4. The Complete 16 Vibe-Coding Slash Commands Operational Matrix
 
-The Vibe-Coding framework includes the full suite of **16 custom slash commands** (.agents/commands/*-ca-agent.md), optimized for rapid visual prototyping, real-time sensory feedback (Karpathy loops), and progressive production hardening.
+The Vibe-Coding framework includes the full suite of **16 custom slash commands** (.agents/commands/*-ca-agent.md), optimized for rapid visual prototyping, real-time sensory feedback (fluid interactive loops), and progressive production hardening.
 
 ### 4.1 Master Operational Matrix of All 16 Commands for Vibe-Coding
 
@@ -104,8 +104,8 @@ The Vibe-Coding framework includes the full suite of **16 custom slash commands*
 | /run-ca-agent | .agents/commands/run-ca-agent.md | Live Runtime Verification | Execution / Dev Server | Shell command: 
 pm run dev, 
 pm run build | Starts local development server (Turbopack); monitors stdout/stderr for port binding; detects active URL (http://localhost:3000); reports live status. | Active localhost dev server URL, verified live browser route | **MUST** report true runtime state. Never invents successful build outputs or suppresses crashes. |
-| /task-ca-agent | .agents/commands/task-ca-agent.md | Phase 3: Karpathy Loops | Iterative Feature Tuning | Feature requirement, tactile interaction specs, status pills | Builds interactive UI workflows (e.g. 30-sec attendance or item drawer); implements 1-click tactile status toggle pills; adds optimistic UI updates (useOptimistic). | Interactive feature component, zero-latency status toggles, toast notifications | **MUST** keep diffs small. Verifies visual feedback immediately in the browser. |
-| /review-ca-agent | .agents/commands/review-ca-agent.md | Continuous Code Hygiene | Static Analysis & Diff | Staged files or component path | Inspects component code quality; checks client vs. server component boundaries ('use client'); scans for key warnings, inline style anti-patterns, and secret leaks. | Code Review Card (Clean / Warnings / Critical) with concise diff feedback | **MUST** prevent unneeded abstraction layers. Enforces Karpathy's anti-overengineering heuristic. |
+| /task-ca-agent | .agents/commands/task-ca-agent.md | Phase 3: fluid interactive loops | Iterative Feature Tuning | Feature requirement, tactile interaction specs, status pills | Builds interactive UI workflows (e.g. 30-sec attendance or item drawer); implements 1-click tactile status toggle pills; adds optimistic UI updates (useOptimistic). | Interactive feature component, zero-latency status toggles, toast notifications | **MUST** keep diffs small. Verifies visual feedback immediately in the browser. |
+| /review-ca-agent | .agents/commands/review-ca-agent.md | Continuous Code Hygiene | Static Analysis & Diff | Staged files or component path | Inspects component code quality; checks client vs. server component boundaries ('use client'); scans for key warnings, inline style anti-patterns, and secret leaks. | Code Review Card (Clean / Warnings / Critical) with concise diff feedback | **MUST** prevent unneeded abstraction layers. Enforces first-principles anti-overengineering heuristic. |
 | /testing-ca-agent | .agents/commands/testing-ca-agent.md | Smoke & Component QA | Test Runner | Target component or smoke test path | Runs targeted Vitest or React Testing Library smoke tests; verifies component rendering, button click events, and optimistic state updates without regressions. | Terminal test runner summary verifying component interaction health | **MUST** capture actual assertion failures without modifying UI code. |
 | /tdd-ca-agent | .agents/commands/tdd-ca-agent.md | Critical Business Logic | Red-Green-Refactor | Calculation function, billing formula, or state reducer | Enforces test-first discipline on complex non-UI logic (pricing calculators, fee calculations, auth tokens); turns failing test green with minimal code. | Isolated business logic service, 100% green test assertions | **MUST** verify failing test before implementing logic. |
 | /security-audit-ca-agent | .agents/commands/security-audit-ca-agent.md | Phase 4: Production Hardening | Security Scanner | Target routes, validations, or repository root | Generates strict runtime validation schemas with Zod (lib/validations/); configures route protection middleware (middleware.ts); scans for secret leaks and CVEs. | Zod schema files, authenticated route guards, security audit summary | **MUST** block deployment if sensitive routes lack authentication or input validation. |
@@ -132,7 +132,7 @@ pm run build exits with errors or critical type mismatches. |
 | /run-ca-agent | Start dev server and visually inspect live interface | Verifies script availability; tests port binding (:3000) | Live local server URL (http://localhost:3000) |
 | /task-ca-agent | Add initial navigation drawer and executive KPI cards | Confirms dashboard shell exists before adding deeper features | Responsive metric cards and sidebar links |
 
-#### Phase 2: Conversational Karpathy Loops & Tactile UI Refinement
+#### Phase 2: Conversational fluid interactive loops & Tactile UI Refinement
 | Command | Primary Developer Intent | What Agent Verifies First | Primary UI / Artifact Output |
 |---|---|---|---|
 | /task-ca-agent | Build flagship interactive feature with tactile status pills | Inspects mock data structure directly before authoring JSX | Zero-latency toggle pills and optimistic UI |
@@ -160,9 +160,9 @@ pm run build) | Verifies zero TypeScript errors and optimal bundle splits | 100%
 
 ---
 
-## 5. Andrej Karpathy Engineering Skill (`andrej-karpathy-skill`)
+## 5. Developer Choice Engineering Skills (`core-engineering-skills`)
 
-Embedded within `.agents/skills/andrej-karpathy-skill/SKILL.md`, this skill equips the AI agent with core heuristics for high-velocity Vibe Coding:
+Embedded within `core repository skills in .agents/skills/`, this skill equips the AI agent with core heuristics for high-velocity Vibe Coding:
 - **Inspect the Raw Data First:** Never guess API shapes or schema fields. Inspect mock data or database payloads directly.
 - **Single-Batch Overfit / Micro-Baseline:** Make a single vertical feature slice work completely before abstracting into multi-tenant hierarchies.
 - **Immediate Feedback Loops:** Keep diffs small, verify each change live in the browser, and avoid blind multi-file refactoring.
@@ -174,12 +174,8 @@ Embedded within `.agents/skills/andrej-karpathy-skill/SKILL.md`, this skill equi
 
 ```mermaid
 flowchart TD
-    SetupV["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> IDEDetectV{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectV -->|"Single-IDE"| PruneV["Auto-prune unused IDE adapters"]
-    IDEDetectV -->|"Multi-IDE"| SyncV["Harmonize active adapters to AGENTS.md"]
-    
-    PruneV --> PV1["Step V1: /plan-ca-agent<br/>(Plan Mode: Aesthetic palette, stack, Bento grid)"]
-    SyncV --> PV1
+    SetupV["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> CmdCheckV{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheckV --> PV1["Step V1: /plan-ca-agent<br/>(Plan Mode: Aesthetic palette, stack, Bento grid)"]
     
     PV1 --> HumanV1{"Human Approval<br/>of Plan & Vibe?"}
     HumanV1 -->|"Revisions needed"| PV1
@@ -187,7 +183,7 @@ flowchart TD
     
     PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
     
-    LiveCheck --> PV3["Step V3: /task-ca-agent + /review-ca-agent<br/>(Karpathy Loops: Flagship interactive UI, 1-click pills)"]
+    LiveCheck --> PV3["Step V3: /task-ca-agent + /review-ca-agent<br/>(Fluid Feedback Loops: Flagship interactive UI, 1-click pills)"]
     
     PV3 --> LoopV{"Vibe & speed feel right?"}
     LoopV -->|"No: adjust styling or micro-animations"| PV3
@@ -234,7 +230,7 @@ Active IDE: Antigravity (or Cursor)
 
 **What the AI Agent Does:**
 1. Invokes the `.agents/commands/plan-ca-agent.md` contract in **Plan Mode (Read-Only)**.
-2. Detects the active IDE and prunes irrelevant competitor config files per `docs/ide-compatibility.md`.
+2. Verifies custom slash commands and repository governance in `.agents/`.
 3. Inspects `AGENTS.md` and repository guidelines.
 4. Generates a comprehensive **17-section planning report** covering:
    - Bento Grid layout specifications and responsive navigation drawer.
@@ -268,7 +264,7 @@ Follow immediately with:
 
 ---
 
-### Step V3: Conversational Vibe-Tuning (Karpathy Loops) (`/task-ca-agent` + `/review-ca-agent`)
+### Step V3: Conversational Vibe-Tuning (fluid interactive loops) (`/task-ca-agent` + `/review-ca-agent`)
 
 **Command Typed into Chat:**
 ```markdown
@@ -338,4 +334,6 @@ Report bundle sizes and generate the deployment readiness checklist.
 1. **Keep Prompts Actionable:** Combine the slash command with clear visual and functional intent (e.g. `/task-ca-agent Add a search filter for item names with a 200ms debounce`).
 2. **Review Diffs Regularly:** Run `/review-ca-agent` after each major UI iteration to keep the codebase clean and maintainable.
 3. **Never Skip the Build Gate:** Always run `/release-check-ca-agent` before pushing to production or staging to guarantee that `npm run build` succeeds without errors.
+
+
 

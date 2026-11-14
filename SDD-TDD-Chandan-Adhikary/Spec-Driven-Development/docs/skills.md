@@ -1,55 +1,42 @@
-# Skills
+# Skills Registry & Developer Choice Policy
 
 > **Document class:** Controlled process guideline  
 > **Framework:** SDD  
-> **Guideline baseline:** 1.0.0  
-> **Status:** Template; project-specific content requires review  
+> **Guideline baseline:** 2.0.0  
+> **Status:** Active Standard  
 
 ## Purpose
 
-Registry of portable reusable agent skills.
+Registry of portable agent skills and third-party skills installation policy.
 
 ## Agent read trigger
 
-**MUST** read or consult this file: Before skill creation, modification or invocation.
+**MUST** read or consult this file: Before skill creation, invocation, or importing external capabilities.
 
-## Normative sections and rules
+---
 
-### 1. Catalog
+## 1. Developer Choice Policy for External Skills
 
-- **MUST** — Maintain name, role, owner, version, goal, trigger and applicability.
+- **External Skills are Developer Choice:** Pre-bundling arbitrary third-party guidelines (e.g., `andrej-karpathy-skill` or unverified GitHub skills) is strictly avoided. The repository template contains only core deterministic engineering skills.
+- **GitHub Installation on Demand:** Developers may freely install external skills directly from GitHub repositories or their personal IDE plugin manager if desired.
+- **No Direct Hardcoded Dependencies:** Agents must never require or mandate third-party external skills unless explicitly configured and installed by the project developer.
 
-### 2. Contract
+---
 
-- **MUST** — Specify mandatory context, inputs, outputs and allowed tools.
+## 2. Core Repository Skills Matrix
 
-### 3. Execution
+| Skill Name | Location | Primary Operational Scope |
+|---|---|---|
+| `spec-validator` | `.agents/skills/spec-validator/` | Validates `docs/features/` against canonical AC IDs and Given/When/Then contracts. |
+| `task-planner` | `.agents/skills/task-planner/` | Generates granular, atomic tasks mapped to approved specifications. |
+| `tdd-enforcer` | `.agents/skills/tdd-enforcer/` | Enforces the Red-Green-Refactor cycle and verifies failing tests before implementation. |
+| `code-reviewer` | `.agents/skills/code-reviewer/` | Reviews code changes for security, architectural integrity, and style conformance. |
+| `security-auditor`| `.agents/skills/security-auditor/`| Audits code for hardcoded secrets, injection vectors, and dependency CVEs. |
+| `release-validator`| `.agents/skills/release-validator/`| Verifies all quality gates before production deployments. |
 
-- **MUST** — Specify steps, quality checks, stop conditions and escalation.
+---
 
-### 4. Security
+## 3. Normative Rules
 
-- **MUST** — Evaluate privileges and trust boundary for installed or imported skills.
-
-### 5. Tests
-
-- **SHOULD** — Evaluate skill output with example cases and regressions.
-
-### 6. Lifecycle
-
-- **MUST** — Record approval, deprecation and retirement.
-
-### 7. Suggested skills
-
-- **SHOULD** — Cover requirements, spec validation, architecture, planning, TDD, UI review, API/data checks, security, accessibility, debugging, release and ML evaluation.
-
-## Evidence and change control
-
-- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
-- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
-- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
-
-## SDD enforcement
-
-- **MUST** register skills that read or validate specifications (e.g. `spec-validator`) and ensure they reference `docs/features/` and the canonical ID scheme.
-- **MUST NOT** use a skill to approve or modify an approved specification.
+- **MUST** evaluate security and privileges before running any third-party skill installed from GitHub.
+- **MUST NOT** allow a skill to alter an `APPROVED` specification without formal human review.

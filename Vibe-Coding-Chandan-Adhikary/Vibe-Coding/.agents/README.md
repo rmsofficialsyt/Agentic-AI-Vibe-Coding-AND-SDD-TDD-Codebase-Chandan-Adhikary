@@ -8,7 +8,7 @@ The `.agents/` directory houses portable capabilities, skills, commands, executi
 
 - `commands/` — 16 canonical, collision-free agent commands named `<name>-ca-agent.md` (see `commands/README.md`).
 - `workflows/` — Antigravity-native slash-command mirrors (`<name>-ca-agent.md`) synced from `commands/` so `/<name>-ca-agent` appears in the `/` dropdown.
-- `skills/` — 18 domain-specific capability playbooks, each `skills/<name>/SKILL.md` with `name`/`description` frontmatter (including `andrej-karpathy-skill/`).
+- `skills/` — 18 domain-specific capability playbooks, each `skills/<name>/SKILL.md` with `name`/`description` frontmatter (including `core-engineering-skills/`).
 - `hooks.json` — Executable Antigravity lifecycle hooks (`SessionStart`, `PreToolUse`, `PostToolUse`) backed by `scripts/hooks/*.py`.
 - `hooks/` — Lifecycle hook execution contracts (`HOOK-MATRIX.md`).
 - `templates/` — Standardized reporting artifacts (`AGENT-TASK-CONTRACT.md`, `AGENT-COMPLETION-REPORT.md`).
@@ -26,4 +26,5 @@ The `.agents/` directory houses portable capabilities, skills, commands, executi
 When copying this framework into another project:
 1. Place `.agents/` (and `AGENTS.md`, `docs/`, `scripts/`) at the **workspace/git root** — IDEs walk up to the repo root to discover `.agents/workflows/`, `.agents/skills/`, and `.agents/hooks.json`.
 2. Run `python scripts/init_project.py --ides antigravity` (or `--ides all` / `--ides claude,cursor,windsurf,copilot`) to sync native adapters for your active IDE(s).
-3. See `docs/ide-compatibility.md` for IDE-specific paths and Single-IDE vs. Multi-IDE coexistence rules.
+3. All major AI coding IDEs automatically recognize `.agents/` as the canonical source of truth for custom slash commands and skills.
+

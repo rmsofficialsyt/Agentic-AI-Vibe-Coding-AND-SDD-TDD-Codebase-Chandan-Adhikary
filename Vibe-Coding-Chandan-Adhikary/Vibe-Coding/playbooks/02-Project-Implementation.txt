@@ -1,30 +1,35 @@
 02-Project-Implementation
 ==========================
 
-Purpose: Iterate rapidly in Vibe Coding and harden prototypes into tested production features.
-Read trigger: MUST read before writing any production code in Vibe Coding.
-Applicability: Vibe Coding
+Purpose: Execute Vibe-Coding feature implementation step-by-step with rapid sensory feedback loops.
+Read trigger: MUST read before writing UI or application code in Vibe-Coding.
+Applicability: Vibe-Coding
 
 Prerequisites:
-- Feature spec in `docs/features/` MUST have `Status: APPROVED` and a valid `DEC-###` decision in `docs/decision-log.md` (or `PROTOTYPE` for time-boxed exploration).
-- Task MUST be `READY` in `docs/task.md` with allowed files and acceptance criteria (`AC-FEAT###-##`).
+- Feature spec drafted in `docs/features/`.
+- Task identified in `docs/task.md`.
+- **SPEC PACING RULE:** Step-by-step spec development. Build, test, sensory check, and update docs for one feature before moving to the next.
 
 Commands & Skills:
-- Commands: `/spec-check-ca-agent`, `/plan-ca-agent`, `/task-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`, `/verify-ca-agent`, `/review-ca-agent`
-- Skills: `spec-validator`, `task-planner`, `tdd-enforcer`, `andrej-karpathy-skill`, `code-reviewer`
+- Commands: `/plan-ca-agent`, `/implement-ca-agent`, `/run-ca-agent`, `/task-ca-agent`, `/review-ca-agent`, `/verify-ca-agent`
+- Skills: Core repo skills (`task-planner`, `code-reviewer`).
 
 Procedure:
-1. Authority & Spec Check:
-   - Run `/spec-check-ca-agent` (skill: `spec-validator`) against the target `FEAT-###` in `docs/features/`.
-   - For production features, confirm `APPROVED` status; for time-boxed experiments, mark `PROTOTYPE` in `docs/features/`.
-2. Plan & Task Decomposition:
-   - Run `/plan-ca-agent` and `/task-ca-agent` (skill: `task-planner`) to confirm `TASK-###` scope and allowed files in `docs/task.md`.
-3. Red-Green-Refactor (TDD):
-   - Run `/tdd-ca-agent` (skill: `tdd-enforcer`): write failing tests (`TEST-FEAT###-##`) mapped to each `AC-FEAT###-##` and verify they fail for the right reason.
-   - Run `/implement-ca-agent`: write minimal production code within allowed files until tests pass.
-4. Verify & Review:
-   - Run `/verify-ca-agent`, `python scripts/check_docs.py`, and `/review-ca-agent` (skill: `code-reviewer`).
+1. The 5-Step Cyclic Prompt Loop:
+   - Step 1 (Read Prompt): Ingest UI/feature request.
+   - Step 2 (Analyze & Plan): Run `/plan-ca-agent` for layout and stack deconstruction.
+   - Step 3 (Check Docs/Playbooks): Check `docs/design.md` and `docs/system-architecture.md`.
+   - Step 4 (Review Guidelines): Determine guideline updates.
+   - Step 5 (Overwrite Guidelines): Overwrite living guidelines with real project parameters before implementation.
+2. Implement & Run:
+   - Run `/implement-ca-agent` to scaffold layout and components within allowed files.
+   - Run `/run-ca-agent` to launch local dev server and verify in browser.
+3. Fluid Feedback Loops:
+   - Use `/task-ca-agent` and `/review-ca-agent` for rapid iterative polish.
+   - Verify mobile/tablet/desktop responsive layouts across viewports.
+4. Verify & Log:
+   - Update `docs/task.md` (mark current task DONE, float next running task to top in dashboard).
+   - Log any UI glitches in `docs/error-tracker.md`.
 
 Required output:
-- Passing test suite output, updated `docs/task.md`, and real command evidence.
-- MUST stop if tests are skipped, spec is unapproved, or scope drifts outside allowed files.
+- Working live application, passing tests, clean commit with HEAD commit on top in dashboard.

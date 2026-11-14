@@ -1,73 +1,53 @@
-# Error Tracker
+# Defect & Error Tracker
 
 > **Document class:** Living feature/specification  
 > **Framework:** SDD  
-> **Guideline baseline:** 1.0.0  
-> **Status:** Template; project-specific content requires review  
+> **Guideline baseline:** 2.0.0  
+> **Status:** Active Standard  
 
 ## Purpose
 
-Recurring defect prevention and failure history.
+Systematic tracking, root cause analysis, regression prevention, and defect history.
 
 ## Agent read trigger
 
-**MUST** read or consult this file: At errors, regressions and incident reviews.
+**MUST** read or consult this file: Whenever encountering unexpected test failures, runtime errors, regression reports, or during `/errorlogs-ca-agent`.
 
-## Normative sections and rules
+---
 
-### 1. Record
+## 1. Defect Resolution Lifecycle
 
-- **MUST** — Use stable bug ID, date, affected version, severity, owner and status.
-
-### 2. Reproduce
-
-- **MUST** — Document steps, expected/actual behavior and safe logs/trace references.
-
-### 3. Analysis
-
-- **MUST** — Identify root cause and affected boundaries for significant defects.
-
-### 4. Fix
-
-- **MUST** — Link approved change, code references, regression test and CI evidence.
-
-### 5. Prevention
-
-- **MUST** — Document missing validation/monitoring and add preventative checks.
-
-### 6. Closure
-
-- **MUST** — Verify fix in representative environment and record reviewer/date.
-
-### 7. Patterns
-
-- **SHOULD** — Group repeated failures and review recurrence periodically.
-
-### 8. Severity scale
-
-- **MUST** — Define P0–P3 with examples and response targets (e.g. P0: production down or data loss — immediate; P3: cosmetic — next planned release).
-
-### 9. Security defects
-
-- **MUST** — Route suspected vulnerabilities through `docs/security.md` private disclosure; never record exploit details in a public tracker.
-
-## Instantiation template
-
-Copy into the project instantiation (below this section or into a dedicated file) and replace every placeholder. Keep IDs from `docs/requirements-traceability.md`.
-
-```markdown
-| ID | Date | Severity | Summary | Violated AC / spec gap | Root cause | Fix (commit / PR) | Regression test | Status |
-|---|---|---|---|---|---|---|---|---|
-| ERR-001 | YYYY-MM-DD | [P0] / [P1] / [P2] | [What failed] | AC-FEAT###-## or SPEC-GAP | [Cause] | [link] | TEST-FEAT###-## | ACTIVE / RESOLVED |
+```mermaid
+flowchart LR
+    Detect["1. Defect Reported / Logged<br/>(ERR-###)"] --> Isolate["2. Reproduce & Isolate<br/>(Identify Root Cause)"]
+    Isolate --> RegressionTest["3. Write Failing Test<br/>(TEST-FEAT###-##)"]
+    RegressionTest --> Patch["4. Apply Minimal Fix<br/>(Code & Spec alignment)"]
+    Patch --> Verify["5. Verify Green & Close<br/>(Status: RESOLVED)"]
 ```
 
-## Evidence and change control
+---
 
-- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
-- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
-- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+## 2. Severity Classification Matrix
 
-## SDD enforcement
+| Severity | Definition & Impact | Response SLA | Target Gate |
+|---|---|---|---|
+| **P0 (Critical)** | System outage, data loss, security vulnerability, blocked deployment pipeline. | Immediate (< 2h) | Release Blocker |
+| **P1 (High)** | Core feature broken, acceptance criterion violated, no workaround available. | Same day (< 8h) | Sprint Blocker |
+| **P2 (Medium)** | Secondary feature broken, workaround available, minor API contract flaw. | Within 3 days | Planned Patch |
+| **P3 (Low)** | Cosmetic flaw, UI misalignment, minor logging noise. | Next release cycle| Non-blocking |
 
-- **MUST** link each defect to the violated `AC-FEAT###-##` (or record that no AC covers it and raise a spec gap).
-- **MUST** add a regression test mapped to the AC before closing a defect.
+---
+
+## 3. Active & Resolved Defect Log
+
+| Defect ID | Date | Sev | Summary | Violated AC / Spec Gap | Root Cause | Fix (Commit / PR) | Regression Test | Status |
+|---|---|---|---|---|---|---|---|---|
+| `ERR-001` | 2026-11-13 | `P1` | Sample: Null pointer on student enrollment submission | `AC-FEAT002-01` | Missing schema validation on optional guardian phone | commit `a1b2c3d` | `TEST-FEAT002-01` | `RESOLVED` |
+
+---
+
+## 4. Enforcement Rules
+
+- **MUST** link every bug to an explicit `AC-FEAT###-##` or declare a formal `SPEC-GAP`.
+- **MUST** implement a failing regression test before writing fix code.
+- **MUST** never close an error without automated test verification.

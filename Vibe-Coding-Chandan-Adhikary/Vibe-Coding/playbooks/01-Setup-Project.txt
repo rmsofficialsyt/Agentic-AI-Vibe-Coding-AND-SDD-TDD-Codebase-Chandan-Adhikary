@@ -1,31 +1,35 @@
 01-Setup-Project
 ================
 
-Purpose: Bootstrap Vibe Coding in a new or existing project with working IDE commands, hooks, docs, and verification.
+Purpose: Bootstrap Vibe-Coding in a new or existing project with verified slash commands, terminal activation, docs, and living vibe baseline.
 Read trigger: MUST read immediately before setting up or copying this framework into a project.
-Applicability: Vibe Coding
+Applicability: Vibe-Coding
 
 Prerequisites:
 - Copy framework files to the **workspace/git root** (IDEs discover `.agents/` at the repo root, not nested subfolders).
-- Read `AGENTS.md`, `docs/INDEX.md`, `docs/ide-compatibility.md`, and `LICENSE-DECISION.md`.
+- Read `AGENTS.md`, `docs/INDEX.md`, and `LICENSE.md`.
+- **MANDATORY PRE-CODEBASE GATE:** Verify and activate custom slash commands in both the AI Chat dropdown (type `/` to see all 16 `*-ca-agent` commands) and Terminal CLI (`ls .agents/commands/*-ca-agent.md`) BEFORE creating any application directories.
 
 Commands & Skills:
-- Commands: `/plan-ca-agent`, `/dashboard-ca-agent`, `/spec-check-ca-agent`
-- Skills: `andrej-karpathy-skill`, `requirements-analysis`, `prd-writer`
+- Commands: `/plan-ca-agent`, `/dashboard-ca-agent`, `/task-ca-agent`
+- Skills: Core repo skills (`task-planner`, `code-reviewer`). Third-party skills are developer choice installed on-demand from GitHub.
 
 Procedure:
-1. Initialize IDE adapters and project docs:
-   - Run: `python scripts/init_project.py --ides antigravity` (or `--ides all` / `--ides claude,cursor,windsurf,copilot`).
-   - Pass `--clean-samples` to remove `001-example-feature.md` for a fresh project.
-   - Pass `--install-git-hooks` after `git init` to enable local pre-commit checks.
-2. Define product & governance baseline:
-   - Populate `docs/product.md`, `docs/prd.md`, `docs/tech-stacks.md`, and `docs/environments.md`.
-   - Record license choice per `LICENSE-DECISION.md` and create `.env` from `.env.example` (never commit secrets).
-3. Verify setup:
-   - Run: `python scripts/check_docs.py`
-   - Run: `python scripts/manifest.py --check`
-   - Optional: launch In-IDE Mission Control with `/dashboard-ca-agent` (`Project-Manager-Dashboard/open-in-ide.bat` or `.sh`).
+1. Custom Slash Commands & Terminal Activation (Step 0):
+   - Open project root in IDE.
+   - Type `/` in chat: confirm all 16 `*-ca-agent` commands appear with descriptions.
+   - Run terminal check: confirm `.agents/commands/` files exist and are readable.
+2. Define Product & Living Baseline:
+   - Populate `docs/product.md`, `docs/prd.md` (including Section 5 Technical Requirements), `docs/system-architecture.md`, and `docs/design.md`.
+   - Maintain `LICENSE.md` and `.github/SECURITY.md`.
+3. 5-Step Cyclic Prompt Loop:
+   - Step 1: Reading Prompt (Ingest vibe, user persona, styling intent).
+   - Step 2: Analysis Prompt & Plan (Deconstruct UI flows and dependencies).
+   - Step 3: Check/Recheck `docs/` and `playbooks/`.
+   - Step 4: Review `*.md` Guidelines.
+   - Step 5: Overwrite Full Guidelines before writing implementation code.
+4. Verify Setup:
+   - Launch In-IDE Dashboard: `/dashboard-ca-agent` (portable across all resolutions with current running task and HEAD commit pinned on top).
 
 Required output:
-- Clean `check_docs.py` output (0 errors), active IDE slash commands in `/` dropdown, and initialized `docs/product.md` + `docs/prd.md`.
-- MUST stop at missing approval, unresolved policy conflict, or unsafe credentials.
+- Active IDE slash commands in `/` dropdown, clean docs, and initialized `docs/product.md` + `docs/prd.md`.

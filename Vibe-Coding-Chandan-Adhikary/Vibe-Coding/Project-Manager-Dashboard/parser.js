@@ -384,9 +384,9 @@ class DashboardParser {
         timeout: 3000
       });
 
-      const commits = logOutput.trim().split(/\r?\n/).map(line => {
+      const commits = logOutput.trim().split(/\r?\n/).map((line, idx) => {
         const [hash, author, relativeTime, subject] = line.split('|');
-        return { hash, author, relativeTime, subject };
+        return { hash, author, relativeTime, subject, isHead: idx === 0 };
       });
 
       const statusOutput = execSync('git status --porcelain', {

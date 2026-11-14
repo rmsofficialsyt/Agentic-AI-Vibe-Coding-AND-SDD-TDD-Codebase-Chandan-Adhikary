@@ -1,55 +1,33 @@
-# Skills
+# Skills Registry & Developer Choice Policy
 
 > **Document class:** Controlled process guideline  
-> **Framework:** Vibe Coding  
-> **Guideline baseline:** 1.0.0  
-> **Status:** Template; project-specific content requires review  
+> **Framework:** Vibe-Coding  
+> **Guideline baseline:** 2.0.0  
+> **Status:** Active Standard  
 
 ## Purpose
 
-Registry of portable reusable agent skills.
+Registry of portable agent skills and developer choice installation policy.
 
 ## Agent read trigger
 
-**MUST** read or consult this file: Before skill creation, modification or invocation.
+**MUST** read or consult this file: Before skill creation, invocation, or importing external capabilities.
 
-## Normative sections and rules
+---
 
-### 1. Catalog
+## 1. Developer Choice Policy for External Skills
 
-- **MUST** — Maintain name, role, owner, version, goal, trigger and applicability.
+- **Developer Sovereignty:** Pre-bundling third-party skills (e.g., `andrej-karpathy-skill` or external GitHub repositories) is strictly avoided by default.
+- **On-Demand GitHub Installation:** Developers have full autonomy to install or link skills from GitHub repositories or IDE plugins according to their specific project requirements.
+- **Fluid & Decoupled Execution:** Agents operate using core workspace capabilities and only use external skills if explicitly installed by the developer.
 
-### 2. Contract
+---
 
-- **MUST** — Specify mandatory context, inputs, outputs and allowed tools.
+## 2. Core Repository Skills Matrix
 
-### 3. Execution
-
-- **MUST** — Specify steps, quality checks, stop conditions and escalation.
-
-### 4. Security
-
-- **MUST** — Evaluate privileges and trust boundary for installed or imported skills.
-
-### 5. Tests
-
-- **SHOULD** — Evaluate skill output with example cases and regressions.
-
-### 6. Lifecycle
-
-- **MUST** — Record approval, deprecation and retirement.
-
-### 7. Suggested skills
-
-- **SHOULD** — Cover requirements, spec validation, architecture, planning, TDD, UI review, API/data checks, security, accessibility, debugging, release and ML evaluation.
-
-## Evidence and change control
-
-- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
-- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
-- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
-
-## Vibe Coding interpretation
-
-- **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
-- **MAY** use exploratory skills in prototypes; registered skills only for production-bound work.
+| Skill Name | Location | Primary Operational Scope |
+|---|---|---|
+| `task-planner` | `.agents/skills/task-planner/` | Generates granular, atomic tasks mapped to feature specifications. |
+| `code-reviewer` | `.agents/skills/code-reviewer/` | Reviews code changes for quality, sensory feedback, and simplicity. |
+| `security-auditor`| `.agents/skills/security-auditor/`| Scans code for secrets, CVEs, and input sanitization flaws. |
+| `release-validator`| `.agents/skills/release-validator/`| Verifies builds, tests, and readiness before shipping. |

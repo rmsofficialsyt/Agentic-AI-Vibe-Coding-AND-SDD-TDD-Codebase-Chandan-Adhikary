@@ -50,7 +50,6 @@
 - [`release-checklist.md`](release-checklist.md) — Evidence-based final ship/no-ship approval.
 - [`runbook.md`](runbook.md) — Incident response and operating procedures.
 - [`handoff.md`](handoff.md) — Verifiable project transfer to another engineer or team.
-- [`ide-compatibility.md`](ide-compatibility.md) — Supported IDEs, adapters, skills/hooks/MCP activation and safe IDE switching.
 - [`CHANGELOG.md`](CHANGELOG.md) — Product/feature changelog (Keep a Changelog).
 - [`guideline-CHANGELOG.md`](guideline-CHANGELOG.md) — Process/guideline baseline revisions.
 
@@ -60,7 +59,7 @@
 - `docs/adrs/`: architecture decisions (`ADR-TEMPLATE.md`, `ADR-####-title.md`).
 - `docs/domains/`: optional controlled domain extensions.
 - `playbooks/`: 11 operational workflow instructions.
-- `.agents/`: 18 portable skills (including `andrej-karpathy-skill`), 16 collision-free `-ca-agent` commands, lifecycle hooks and reporting templates.
+- `.agents/`: portable skills, 16 collision-free `-ca-agent` commands, lifecycle hooks and reporting templates.
 - `Project-Manager-Dashboard/`: local-only In-IDE dashboard reading `docs/task.md`, `docs/phases.md`, `docs/features/` and `docs/error-tracker.md` (launch with `/dashboard-ca-agent`).
 - `scripts/`: `check_docs.py` (documentation/spec conformance) and `manifest.py` (MANIFEST generation and verification), run in CI and pre-commit.
 
@@ -70,16 +69,10 @@
 - **MUST** read release-checklist and devops/deployment docs before release.
 - **MUST** reconcile `docs/memory.md` against source documents.
 
-## IDE Compatibility & Agent Configuration
-
-| Document | Category | Purpose | When to Read |
-|---|---|---|---|
-| [ide-compatibility.md](ide-compatibility.md) | Guidelines — Process Layer | Defines supported IDEs, agent instruction compatibility, IDE detection, skills, hooks, MCP connections, safe switching, configuration validation, and conflict resolution. | At agent initialization, when switching IDEs, when configuring agent tools, and before modifying IDE-specific configuration files. |
+## Agent Configuration & Sovereign Tooling
 
 ### Mandatory Rules
 
-- **MUST** follow `ide-compatibility.md` when configuring or switching AI coding IDEs.
-- **MUST** preserve existing IDE-specific configuration files.
+- **MUST** rely on canonical `.agents/` contracts (`.agents/commands/`, `.agents/skills/`) as the cross-IDE source of truth.
 - **MUST** verify compatibility before activating skills, hooks, plugins, MCP servers, or custom commands.
-- **MUST** detect the active IDE(s) per `docs/ide-compatibility.md`: prune inactive IDE adapters only through the confirmed, reversible procedure in Single-IDE mode, or synchronize active adapters in Multi-IDE mode.
 - **MUST** maintain consistency with the project's approved guidelines and specifications.

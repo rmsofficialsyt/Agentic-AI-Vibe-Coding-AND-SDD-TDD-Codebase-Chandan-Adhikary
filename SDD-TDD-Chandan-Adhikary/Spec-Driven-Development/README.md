@@ -1,4 +1,4 @@
-# SDD — Production-Grade AI Development Guide
+﻿# SDD — Production-Grade AI Development Guide
 
 **Status:** reusable, implementation-ready guideline templates; not an application codebase.
 
@@ -27,8 +27,9 @@ This package defines project discovery, engineering rules, AI-agent governance, 
 
 ## Repository map
 
-`docs/` — policy, product definition and state; `docs/features/` — feature specifications; `docs/changes/`, `docs/approvals/` — CRs and approvals; `playbooks/` — 11 operation guides; `.agents/` — 18 skills (including `andrej-karpathy-skill`), hooks, 16 collision-free `-ca-agent` commands; `.github/` — adapters, templates and the docs CI workflow; `Project-Manager-Dashboard/` — local In-IDE dashboard (`/dashboard-ca-agent`, port 4200); `scripts/` — `check_docs.py`, `manifest.py`; `tests/` — test harness contract.
+`docs/` — policy, product definition and state; `docs/features/` — feature specifications; `docs/changes/`, `docs/approvals/` — CRs and approvals; `playbooks/` — 11 operation guides; `.agents/` — 18 skills (including `core-engineering-skills`), hooks, 16 collision-free `-ca-agent` commands; `.github/` — adapters, templates and the docs CI workflow; `Project-Manager-Dashboard/` — local In-IDE dashboard (`/dashboard-ca-agent`, port 4200); `scripts/` — `check_docs.py`, `manifest.py`; `tests/` — test harness contract.
 
 ## Licensing and contributing
 
 The guideline package is distributed under the MIT License in the repository root `LICENSE`. A project instantiated from these templates **MUST** select and approve its own license before redistribution (`LICENSE-DECISION.md`). All modifications must follow `docs/rules.md` and `docs/code-review.md`; run `python scripts/check_docs.py` and `python scripts/manifest.py --check` before opening a PR.
+

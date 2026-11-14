@@ -1,29 +1,28 @@
 03-Features-Development
 ========================
 
-Purpose: Author, review, approve, and evolve feature contracts in `docs/features/` for Vibe Coding (PROTOTYPE -> APPROVED).
-Read trigger: MUST read before creating a new feature spec or modifying an existing feature.
-Applicability: Vibe Coding
+Purpose: Author, refine, and evolve feature specifications in `docs/features/` with Flat vs Modular inquiry and complexity tiers.
+Read trigger: MUST read before authoring new features or updating existing features in Vibe-Coding.
+Applicability: Vibe-Coding
 
 Prerequisites:
-- Read `docs/features/README.md`, `docs/requirements-traceability.md`, and `docs/change-control.md`.
-- Note: Repository-level `specs/` is prohibited; all features live in `docs/features/`.
+- Read `docs/features/README.md` and `docs/product.md`.
 
 Commands & Skills:
-- Commands: `/change-request-ca-agent`, `/spec-check-ca-agent`, `/plan-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`
-- Skills: `requirements-analysis`, `spec-validator`, `architecture-review`, `documentation-sync`
+- Commands: `/plan-ca-agent`, `/task-ca-agent`, `/implement-ca-agent`, `/review-ca-agent`
+- Skills: Core repo skills (`task-planner`, `code-reviewer`).
 
 Procedure:
-1. Intake & Authoring:
-   - Choose Flat (`docs/features/NNN-kebab-name.md`) or Modular (`docs/features/NNN-kebab-name/{feature,acceptance,test-plan}.md`) from `docs/features/FEATURE-TEMPLATE.md`.
-   - Assign canonical IDs: `FEAT-###`, `FR-FEAT###-##`, `NFR-FEAT###-##`, `AC-FEAT###-##` (Given/When/Then), and `TEST-FEAT###-##`.
-2. Change Control (if modifying an existing `APPROVED` feature):
-   - Run `/change-request-ca-agent` using `docs/changes/CHANGE-REQUEST-TEMPLATE.md` to create `CR-###` before editing the spec.
-3. Validation & Approval:
-   - Run `python scripts/check_docs.py` and `/spec-check-ca-agent` (skill: `spec-validator`).
-   - Record approval decision (`DEC-###`) in `docs/decision-log.md`.
-4. Implement & Log:
-   - Follow `playbooks/02-Project-Implementation.txt`, then log the release in `docs/CHANGELOG.md`.
-
-Required output:
-- Validated feature spec in `docs/features/`, recorded `DEC-###` in `docs/decision-log.md`, and `check_docs.py` pass.
+1. Format Inquiry & Complexity Categorization:
+   - **MANDATORY DEVELOPER PROMPT:** Always ask the developer:
+     "Would you prefer this specification in Flat format (docs/features/NNN-name.md) or Modular format (docs/features/NNN-name/{feature,acceptance,test-plan}.md)?"
+   - If developer defers, decide by complexity tier:
+     - Tier 1 (Easy, 1-2 files): Flat format.
+     - Tier 2 (Intermediate, 3-6 files): Flat format.
+     - Tier 3 (Hard/Complex, 7+ files): Modular format.
+2. Intake & Feature Spec Authoring:
+   - Copy from `docs/features/FEATURE-TEMPLATE.md`.
+   - Assign feature ID and sensory acceptance criteria.
+3. Step-by-Step Implementation:
+   - Implement one feature at a time.
+   - Run `/implement-ca-agent`, verify live in browser, review diffs, update docs upon completion.

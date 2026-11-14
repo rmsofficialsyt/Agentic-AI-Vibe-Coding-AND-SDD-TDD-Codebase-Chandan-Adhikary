@@ -118,7 +118,7 @@ pm audit); verifies audit logging triggers. | SAST audit report, dependency vuln
 pm run build); checks docker container build; generates release sign-off. | Formal release sign-off dossier written to docs/approvals/release-vX.Y.Z.md | **MUST NOT** authorize release if any test fails, coverage is below threshold, or security scan fails. |
 | /change-request-ca-agent | .agents/commands/change-request-ca-agent.md | Spec Modification | Impact Assessment | Proposed change description, affected spec path | Analyzes impact of requested change on approved specs, data models, and existing tests; calculates regression risk; proposes spec delta and migration path. | Formal Change Impact Assessment report, proposed spec version bump (SemVer) | **MUST** require explicit human approval before modifying any approved specification or schema. |
 | /handoff-ca-agent | .agents/commands/handoff-ca-agent.md | Documentation / Handoff | State Synchronization | Target milestone, outgoing agent / developer ID | Synthesizes current sprint state, completed AC-* items, pending blockers, active test status, and exact next commands for incoming developers or agents. | Engineering Handoff Dossier written to docs/handoff.md | **MUST** provide exact verifiable reproduction commands. Never generates vague handoff summaries. |
-| /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Diagnostics & Triage | Diagnostic Analysis | Log file path, error snippet, or stack trace | Parses error stack traces, correlates with source lines; inspects database connection states; identifies root cause (schema mismatch, null pointer, syntax). | Root cause diagnostic report with minimal-diff fix recommendation | **MUST** isolate root cause before proposing edits. Adheres to Karpathy's smallest-reproducible-fix heuristic. |
+| /errorlogs-ca-agent | .agents/commands/errorlogs-ca-agent.md | Diagnostics & Triage | Diagnostic Analysis | Log file path, error snippet, or stack trace | Parses error stack traces, correlates with source lines; inspects database connection states; identifies root cause (schema mismatch, null pointer, syntax). | Root cause diagnostic report with minimal-diff fix recommendation | **MUST** isolate root cause before proposing edits. Adheres to first-principles smallest-reproducible-fix heuristic. |
 | /gitlogs-ca-agent | .agents/commands/gitlogs-ca-agent.md | Audit & Traceability | Git History Analysis | Commit range (e.g. HEAD~5..HEAD), branch name | Audits git commit history; verifies that every commit message cites valid Spec IDs and AC-* tags; checks for unauthorized file changes or dirty branches. | Git Audit Traceability Report showing commit-to-spec correlation score | **MUST** report any orphan commits lacking Spec ID or Acceptance Criteria references. |
 | /dashboard-ca-agent | .agents/commands/dashboard-ca-agent.md | Visual Mission Control | Local Daemon & Simple Browser | None or optional port (default: 4200) | Starts zero-dependency local Node.js daemon; streams live SSE telemetry from docs/task.md, specs/, and transcript.jsonl; renders 4-column drag-and-drop Kanban with 3-task WIP limit, Claude MOD token cockpit (200k ceiling, 95% cache hit rate), and TDD heartbeat oscilloscope. | Interactive Bento Grid Mission Control running strictly in IDE Simple Browser (http://127.0.0.1:4200) | **MUST NOT** launch external browsers. Runs strictly on local machine. |
 
@@ -166,12 +166,8 @@ To provide actionable guidance during active pairing sessions, the 16 commands a
 
 ```mermaid
 flowchart TD
-    SetupS["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> IDEDetectS{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectS -->|"Single-IDE"| PruneS["Auto-prune unused IDE adapters"]
-    IDEDetectS -->|"Multi-IDE"| SyncS["Harmonize active adapters to AGENTS.md"]
-    
-    PruneS --> PS1["Step S1: /plan-ca-agent<br/>(Plan Mode: Isolation models, compliance, HLD)"]
-    SyncS --> PS1
+    SetupS["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> CmdCheckS{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheckS --> PS1["Step S1: /plan-ca-agent<br/>(Plan Mode: Isolation models, compliance, System Design HLD/LLD)"]
     
     PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
     HumanS1 -->|"Revise plan"| PS1
@@ -230,7 +226,7 @@ Active IDE: Claude Code (or Cursor)
 
 **What the AI Agent Does:**
 1. Invokes the `.agents/commands/plan-ca-agent.md` contract in **Plan Mode (Read-Only)**.
-2. Detects the active IDE and prunes irrelevant competitor config files per `docs/ide-compatibility.md`.
+2. Verifies custom slash commands and repository governance in `.agents/`.
 3. Inspects `AGENTS.md` and repository guidelines.
 4. Generates a comprehensive **17-section planning report** covering:
    - High-Level Architecture (HLD) & Low-Level Architecture (LLD).
@@ -358,4 +354,5 @@ Execute full test suite with coverage, verify production build, and generate the
 1. **Never Skip `/spec-check-ca-agent`:** Always ensure the specification has explicit Acceptance Criteria (`AC-*`) before authoring tests.
 2. **Honor the RED State:** Always run `/testing-ca-agent` before implementing production code to verify that the tests genuinely catch missing functionality.
 3. **Commit Atomically with Traceability:** Always cite the Spec ID and AC numbers in git commits to maintain an unbroken audit trail for compliance officers and enterprise clients.
+
 

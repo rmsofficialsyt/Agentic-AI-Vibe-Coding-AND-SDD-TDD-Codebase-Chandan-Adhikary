@@ -76,7 +76,7 @@ school-management-system/
 2. **Verify activation:**
    - Run `python scripts/check_docs.py` (must exit `0` with `0 error(s)`).
    - Run `python scripts/hooks/session_start.py` (must report `"missing": []`).
-   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`andrej-karpathy-skill`, `spec-validator`, etc.) are discovered.
+   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`core-engineering-skills`, `spec-validator`, etc.) are discovered.
 
 ---
 
@@ -101,16 +101,12 @@ docs/features/                         # the only location for feature specs (no
 
 ---
 
-## Step 4 — IDE Detection & Auto-Pruning Policy
+## Step 4 — Verify Custom Slash Commands (Chat Dropdown & Terminal)
 
-Before executing prompts, inspect the active IDE environment per `docs/ide-compatibility.md`:
-- **Universal / Agent Core**: `AGENTS.md` and `.agents/commands/*-ca-agent.md`.
-- **Claude Code**: `CLAUDE.md`.
-- **Cursor**: `.cursorrules`.
-- **Windsurf**: `.windsurfrules`.
-- **Antigravity**: `.agents/workflows/`, `.agents/skills/`, and `.agents/hooks.json`.
-
-If working exclusively within one IDE (e.g., Claude Code), prune unused root adapters during Prompt 1 to maximize the model's active context window. If collaborating across multiple IDEs, retain `AGENTS.md` as the canonical master reference.
+Before executing prompts, verify and activate `.agents/commands/*-ca-agent.md`:
+- **Chat Dropdown:** Type `/` into the AI chat to confirm all 16 commands populate in the dropdown.
+- **Terminal CLI:** Run terminal check: `ls .agents/commands/*-ca-agent.md` to ensure command contracts exist.
+*(Do not begin codebase scaffolding until both checks pass!)*
 
 ---
 
@@ -155,10 +151,10 @@ IMPORTANT: WORK IN PLAN MODE ONLY. DO NOT IMPLEMENT APPLICATION CODE. DO NOT INS
 Before planning or proposing any architectural choices:
 1. Inspect the existing project root directory.
 2. Read `README.md` and `AGENTS.md`.
-3. Check the active IDE environment and review `docs/ide-compatibility.md`.
+3. Check custom slash commands and verify `.agents/` configuration.
 4. Read `docs/INDEX.md`, `docs/constitution.md`, and `docs/rules.md`.
 5. Read `docs/spec.md` and inspect `docs/features/` (`README.md`, `FEATURE-TEMPLATE.md`, Flat and Modular samples).
-6. Inspect `.agents/commands/*-ca-agent.md` and `.agents/skills/andrej-karpathy-skill/SKILL.md`.
+6. Inspect `.agents/commands/*-ca-agent.md` and core repository skills in `.agents/skills/`.
 7. Enforce the Two-Layer Policy:
    - Canonical Guidelines (`docs/`) = Immutable process baseline.
    - Specifications (`docs/features/`) = Living, executable requirement contracts.
@@ -247,7 +243,7 @@ Design an enterprise-grade relational schema with mandatory tenant isolation:
 
 ## 8. Agent Skills, Tools & Custom Slash Commands
 Inspect and configure agent capabilities from `.agents/`:
-- `.agents/skills/andrej-karpathy-skill/SKILL.md`: Heuristics for data-first unit testing and minimal verifiable changes.
+- Core Skills: `.agents/skills/` (tdd-enforcer, spec-validator, task-planner). External skills are developer choice installed on demand from GitHub.
 - Slash commands:
   - `/tdd-ca-agent`: Enforce strict Red → Green → Refactor test cycles.
   - `/plan-ca-agent`: Architecture validation and spec alignment.
@@ -600,4 +596,5 @@ STOP and request final human authorization before deployment.
 1. **No Spec, No Code**: Writing implementation code without an approved specification in `docs/features/` is strictly prohibited.
 2. **Tests Must Precede Code**: Any pull request containing production code without accompanying or preceding tests will be rejected automatically.
 3. **Traceability Invariant**: Every commit message must cite the active Spec ID and Acceptance Criteria (e.g., `feat(enrollment): satisfy AC-FEAT002-01 unique admission number`).
+
 

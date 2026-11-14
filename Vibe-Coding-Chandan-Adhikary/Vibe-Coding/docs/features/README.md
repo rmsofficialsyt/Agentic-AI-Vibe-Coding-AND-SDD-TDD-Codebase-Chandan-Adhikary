@@ -1,92 +1,61 @@
 # Feature Specifications (`docs/features/`)
 
 > **Document class:** Controlled process guideline  
-> **Framework:** Vibe Coding  
-> **Guideline baseline:** 1.0.0  
-> **Status:** Template; project-specific content requires review  
+> **Framework:** Vibe-Coding  
+> **Guideline baseline:** 2.0.0  
+> **Status:** Active Standard  
 
 ## Purpose
 
-`docs/features/` is the **only** location for feature contracts in Vibe Coding. A repository-level `specs/` directory is not permitted. Features may start as fast-moving `PROTOTYPE` contracts and **MUST** be formalized to `APPROVED` before production-bound work ships.
+`docs/features/` is the canonical location for versioned feature specifications and UI/sensory contracts.
 
-Hierarchy: `docs/product.md` (capabilities `CAP-###`) → `docs/prd.md` (requirements `REQ-###`) → `docs/features/` (contracts `FEAT-###`) → tests → code.
+## Agent Read & Execution Triggers
 
-## Agent read trigger
+- **MUST** read this file before creating, modifying, or implementing any feature specification.
+- **MUST** develop features **step-by-step, spec-by-spec**: never attempt to implement all features simultaneously. Build, test, verify user sensory feedback, and update documentation before moving to the next feature.
 
-**MUST** read this file before creating, renaming, versioning or validating any feature specification.
+---
 
-## Normative sections and rules
+## Normative Sections and Rules
 
-### 1. Location and naming
+### 1. Mandatory Format Inquiry: Flat vs. Modular
 
-- **MUST** store every feature contract under `docs/features/`, numbered sequentially with three digits: `001`, `002`, …
-- **MUST** use lowercase kebab-case names: `NNN-short-name`.
-- **MUST NOT** reuse or renumber a feature number, even after deprecation.
+When initiating a new feature specification during `/plan-ca-agent` or vibe planning, the agent **MUST ALWAYS ask the developer first**:
 
-### 2. Formats
+> *"Would you prefer this specification to be created in **Flat format** (`docs/features/NNN-name.md`) or **Modular format** (`docs/features/NNN-name/{feature,acceptance,test-plan}.md`)?"*
 
-| Format | Layout | Use when |
+- If the developer specifies a preference, the agent strictly follows it.
+- If the developer defers or leaves it open, the agent decides based on the complexity tier:
+  - **Easy / Intermediate Features** → **Flat Format**.
+  - **Hard / Complex Features** → **Modular Format**.
+
+| Format | Directory Layout | Criteria & Use Case |
 |---|---|---|
-| **Flat** | `docs/features/NNN-name.md` — one file containing all template sections | Small/medium features |
-| **Modular** | `docs/features/NNN-name/feature.md` (sections 1–6, 9), `acceptance.md` (section 7), `test-plan.md` (section 8) | Complex features needing isolated context |
+| **Flat** | `docs/features/NNN-name.md`<br/>(Single file containing all sections) | Easy to Medium features (Tier 1 & Tier 2); focused scope, 1–6 files impacted. |
+| **Modular** | `docs/features/NNN-name/`<br/>├── `feature.md`<br/>├── `acceptance.md`<br/>└── `test-plan.md` | Complex features (Tier 3); multi-model relationships, payment integrations, real-time websockets. |
 
-- **MUST** start from `FEATURE-TEMPLATE.md`; a modular feature splits the same sections across its three files.
-- **MUST** keep the metadata header (ID, version, status, owner, approver, approval reference, links) in the flat file or in `feature.md`.
+---
 
-### 3. Status lifecycle
+### 2. Feature Complexity Breakdown Tiers
 
-```text
-PROTOTYPE ──► DRAFT ──► IN REVIEW ──► APPROVED ──► SUPERSEDED (by a newer approved version)
-                ▲            │            └──────► DEPRECATED (capability retired)
-                └── changes ─┘
+| Tier | Complexity Category | Scope & Criteria | Testing & Sensory Gate |
+|---|---|---|---|
+| **Tier 1** | **Easy (Low Complexity)** | Self-contained, static UI, simple CRUD, single table, read-only views (1–2 files). | Rapid sensory test & unit check. |
+| **Tier 2** | **Intermediate (Medium Complexity)** | Form validation, interactive UI state transitions, auth guards, API endpoints (3–6 files). | Unit + component integration tests; visual state checks. |
+| **Tier 3** | **Hard / Complex (High Complexity)** | Multi-tenant RLS, distributed state, WebSocket live streams, external payment webhooks, background pipelines (7+ files). | Automated integration tests + live end-to-end verification. |
+
+---
+
+### 3. Step-by-Step Spec Development Protocol
+
+```mermaid
+flowchart TD
+    SelectSpec["1. Select Single Spec<br/>(e.g., FEAT-001)"] --> ScaffoldCode["2. Implement Layout & Logic<br/>(Satisfy requirements)"]
+    ScaffoldCode --> LiveVerify["3. Test & Sensory Check<br/>(Check UX, speed, edge cases)"]
+    LiveVerify --> UpdateDocs["4. Update Docs & Trackers<br/>(docs/task.md, error-tracker.md)"]
+    UpdateDocs --> NextSpec{"More features to build?"}
+    NextSpec -->|"Yes: Next spec"| SelectSpec
+    NextSpec -->|"No: Complete"| FinalAudit["5. Run /release-check-ca-agent"]
 ```
 
-| Status | Meaning | Implementation allowed? |
-|---|---|---|
-| `PROTOTYPE` | Exploratory; behavior may change every iteration | Isolated prototype branch/sandbox only — never production |
-| `DRAFT` | Being formalized from a prototype | Prototype only |
-| `IN REVIEW` | Submitted for approval | No (tests may be drafted) |
-| `APPROVED` | Signed off by the product owner (reference recorded in the header) | Yes — production-bound work |
-| `SUPERSEDED` | Replaced by a newer approved version | No new work |
-| `DEPRECATED` | Capability retired | Removal work only |
-
-- **MUST** use exactly these status values in feature headers and in `docs/spec.md`.
-- **MUST** change an `APPROVED` feature by incrementing its version, updating the change history and recording the decision in `docs/decision-log.md`.
-
-### 4. Identifier scheme
-
-Defined canonically in `docs/requirements-traceability.md`. Feature-scoped IDs embed the feature number:
-
-| Artifact | Pattern | Example |
-|---|---|---|
-| Feature | `FEAT-###` | `FEAT-002` |
-| Functional requirement | `FR-FEAT###-##` | `FR-FEAT002-01` |
-| Non-functional requirement | `NFR-FEAT###-##` | `NFR-FEAT002-01` |
-| Acceptance criterion | `AC-FEAT###-##` | `AC-FEAT002-03` |
-| Test case | `TEST-FEAT###-##` | `TEST-FEAT002-03` |
-
-- **MUST** reference the AC ID in the name or description of every test that verifies it.
-- **MUST** trace each feature to at least one `CAP-###` in `docs/product.md` and one `REQ-###` in `docs/prd.md`.
-
-### 5. Versioning
-
-- **MUST** use semantic versions: MAJOR for behavior-breaking changes, MINOR for additive behavior, PATCH for clarifications without behavior change.
-- **MUST** record every version in the feature's change history.
-
-## Files in this directory
-
-- `FEATURE-TEMPLATE.md` — canonical template (copy, never edit in place for a feature).
-- `001-example-feature.md` — **sample** of the flat format moving from `PROTOTYPE` to `APPROVED`.
-
-Samples are illustrative only. **MUST NOT** implement a sample unless the project owner adopts it through a project-specific approval record.
-
-## Evidence and change control
-
-- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
-- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
-- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
-
-## Vibe Coding interpretation
-
-- **MAY** iterate on a `PROTOTYPE` feature without AC→TEST mapping, provided the work stays in an isolated prototype and is labelled `DRAFT`/`PROTOTYPE` in commits and PRs.
-- **MUST** complete Given/When/Then criteria, AC→TEST mapping and owner approval before merging production-bound code; `/spec-check-ca-agent` enforces this at that point.
+- **MUST NOT** begin work on a subsequent feature until the current feature's acceptance criteria and sensory checkpoints are fully met, verified, and documented.

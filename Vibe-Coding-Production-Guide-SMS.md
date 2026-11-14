@@ -14,7 +14,7 @@
 However, **professional Vibe Coding is not reckless hacking**. True production-grade Vibe Coding follows strict engineering discipline:
 1. **Never code without orientation**: Always make the AI agent inspect the repository, detect its IDE environment, and internalize the project architecture before generating code.
 2. **Visual feedback over theoretical debate**: Build live interactive screens early so you can test real UX flows rather than imagining them.
-3. **Karpathy Heuristics**: Adhere to small, verifiable diffs, avoid over-engineering, maintain clean data pipelines, and verify every step interactively.
+3. **First-Principles Heuristics**: Adhere to small, verifiable diffs, avoid over-engineering, maintain clean data pipelines, and verify every step interactively.
 4. **Progressive Hardening**: Once the visual flow and feature ergonomics feel right, lock down types, add validation schemas (Zod), implement authentication guards, and verify production builds.
 
 This guide provides an end-to-end, production-ready blueprint for creating **EduSphere**—a multi-tenant, cloud-based School Management SaaS Website serving Administrators, Principals, Teachers, Students, and Parents.
@@ -29,7 +29,7 @@ This guide provides an end-to-end, production-ready blueprint for creating **Edu
 4. [Step 4 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation](#step-4--prompt-1-vibe-project-discovery-uiux--tech-stack-evaluation)
 5. [Step 5 — Human Review & Aesthetic Sign-Off](#step-5--human-review--aesthetic-sign-off)
 6. [Step 6 — Prompt 2: Scaffolding & Live Interactive Shell with `/run-ca-agent`](#step-6--prompt-2-scaffolding--live-interactive-shell-with-run-ca-agent)
-7. [Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)](#step-7--prompt-3-conversational-vibe-tuning--feature-expansion-karpathy-loops)
+7. [Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (fluid interactive loops)](#step-7--prompt-3-conversational-vibe-tuning--feature-expansion-Interactive-loops)
 8. [Step 8 — Prompt 4: Production Hardening, Validation & Pre-Deployment Audit](#step-8--prompt-4-production-hardening-validation--pre-deployment-audit)
 9. [Complete Vibe-Coding Workflow Summary & Best Practices](#complete-vibe-coding-workflow-summary--best-practices)
 
@@ -71,27 +71,16 @@ school-management-system/
 2. **Verify activation:**
    - Run `python scripts/check_docs.py` (must exit `0` with `0 error(s)`).
    - Run `python scripts/hooks/session_start.py` (must report `"missing": []`).
-   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`andrej-karpathy-skill`, `spec-validator`, etc.) are discovered.
+   - Open your IDE at the renamed project root and type `/` in AI chat to confirm all 16 `*-ca-agent` slash commands appear in the dropdown, and verify `.agents/skills/` (`core-engineering-skills`, `spec-validator`, etc.) are discovered.
 
 ---
 
-## Step 3 — IDE Detection & Auto-Pruning Policy
+## Step 3 — Verify Custom Slash Commands (Chat Dropdown & Terminal)
 
-The Vibe Coding framework includes native adapters for major AI coding environments. Before beginning work, inspect your active IDE environment according to `docs/ide-compatibility.md`:
-
-### Supported IDE Adapters
-- **Universal / Agent Core**: `AGENTS.md` and `.agents/` (canonical commands and skills).
-- **Claude Code**: `CLAUDE.md`.
-- **Cursor**: `.cursorrules`.
-- **Windsurf**: `.windsurfrules`.
-- **Antigravity**: `.agents/workflows/`, `.agents/skills/`, and `.agents/hooks.json`.
-- **GitHub Copilot**: `.github/copilot-instructions.md`.
-
-### Single-IDE Auto-Pruning
-If you are developing exclusively within one IDE (for example, Cursor), you may instruct the agent during Prompt 1 to safely delete unused root adapter files (e.g., removing `.windsurfrules` and `CLAUDE.md`) to prevent context window clutter.
-
-### Multi-IDE Coexistence
-If your development team uses multiple editors across team members, retain `AGENTS.md` as the single source of truth, and configure the IDE-specific adapter files as thin pointers referencing `AGENTS.md`.
+Before executing prompts, verify and activate `.agents/commands/*-ca-agent.md`:
+- **Chat Dropdown:** Type `/` into the AI chat to confirm all 16 commands populate in the dropdown.
+- **Terminal CLI:** Run terminal check: `ls .agents/commands/*-ca-agent.md` to ensure command contracts exist.
+*(Do not begin codebase scaffolding until both checks pass!)*
 
 ---
 
@@ -135,10 +124,10 @@ IMPORTANT: WORK IN PLAN MODE ONLY. DO NOT IMPLEMENT APPLICATION CODE. DO NOT INS
 Before planning or proposing any architectural choices:
 1. Inspect the existing project root directory.
 2. Read `README.md` and `AGENTS.md`.
-3. Check the active IDE environment and review `docs/ide-compatibility.md`.
+3. Check custom slash commands and verify `.agents/` configuration.
 4. Read `docs/INDEX.md`, `docs/constitution.md`, and `docs/rules.md`.
 5. Read `docs/plan.md` and `docs/prompts.md`.
-6. Inspect the `.agents/` directory, including portable commands (`.agents/commands/*-ca-agent.md`) and skills (`.agents/skills/andrej-karpathy-skill/SKILL.md`).
+6. Inspect the `.agents/` directory, including portable commands (`.agents/commands/*-ca-agent.md`) and core repository skills in `.agents/skills/`.
 7. Identify missing or obsolete files and formulate a clean project documentation baseline.
 
 Rules:
@@ -242,7 +231,7 @@ Detail the tenant isolation strategy (shared database with mandatory `school_id`
 
 ## 8. Agent Skills, Tools & Slash Commands
 Evaluate the agent skills and tools available in `.agents/`:
-- `.agents/skills/andrej-karpathy-skill/SKILL.md`: Heuristics for small atomic diffs, data-first debugging, and live visual verification.
+- `core repository skills in .agents/skills/`: Heuristics for small atomic diffs, data-first debugging, and live visual verification.
 - Portable agent commands: `/run-ca-agent` (execute and verify), `/review-ca-agent` (code quality review), `/plan-ca-agent` (architecture planning).
 - Playwright for automated browser screenshots and visual verification.
 
@@ -399,10 +388,10 @@ Present a summary of:
 
 ---
 
-## Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (Karpathy Loops)
+## Step 7 — Prompt 3: Conversational Vibe-Tuning & Feature Expansion (fluid interactive loops)
 
 > **Mode:** Iterative Feature Tuning  
-> **Philosophy:** This is the heart of Vibe Coding. You take the live working screen, observe how it feels in your browser, and converse with the agent using **Karpathy Heuristics** (small focused changes, immediate feedback, and intuitive ergonomics).
+> **Philosophy:** This is the heart of Vibe Coding. You take the live working screen, observe how it feels in your browser, and converse with the agent using **First-Principles Heuristics** (small focused changes, immediate feedback, and intuitive ergonomics).
 
 Execute this prompt to build out the core **Classroom Attendance Sheet**:
 
@@ -411,7 +400,7 @@ Execute this prompt to build out the core **Classroom Attendance Sheet**:
 
 We have the dashboard running. Now let's implement the flagship feature of EduSphere: the **30-Second Classroom Attendance Sheet** at `/dashboard/attendance`.
 
-Follow Andrej Karpathy's heuristics: build the data layer first, make the interaction frictionless, give immediate visual feedback, and keep the diff small and clean.
+Follow Andrej first-principles heuristics: build the data layer first, make the interaction frictionless, give immediate visual feedback, and keep the diff small and clean.
 
 ---
 
@@ -532,7 +521,7 @@ Produce a comprehensive hardening summary:
 |  [Step 4] Prompt 2: Scaffold   --> Next.js 15 + Tailwind + Mock Shell.        |
 |                                    Run dev server & test interactive routes.  |
 |                                                                               |
-|  [Step 5] Prompt 3: Vibe-Tune  --> Karpathy loops: 30-sec Attendance Sheet,   |
+|  [Step 5] Prompt 3: Vibe-Tune  --> fluid interactive loops: 30-sec Attendance Sheet,   |
 |                                    1-click toggle pills, optimistic UI.       |
 |                                                                               |
 |  [Step 6] Prompt 4: Hardening  --> Zod schemas, auth middleware, RLS,         |
@@ -543,6 +532,8 @@ Produce a comprehensive hardening summary:
 
 ### Key Vibe-Coding Best Practices
 1. **Taste is your superpower**: The AI can write syntax, but you decide whether the interface feels delightful, fast, and effortless. Keep tweaking until it feels right.
-2. **Never swallow errors**: If a button feels unresponsive or a layout shifts awkwardly, stop and inspect it immediately using Karpathy's smallest-reproducible-diff rule.
+2. **Never swallow errors**: If a button feels unresponsive or a layout shifts awkwardly, stop and inspect it immediately using first-principles smallest-reproducible-diff rule.
 3. **Keep the prompt history clean**: Record successful prompt sequences in `docs/prompts.md` so that future teammates or AI sessions can reproduce your development journey with 100% fidelity.
+
+
 

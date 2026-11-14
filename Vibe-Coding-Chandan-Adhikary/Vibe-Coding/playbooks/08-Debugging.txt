@@ -1,4 +1,4 @@
-08-Debugging
+﻿08-Debugging
 ============
 
 Purpose: Diagnose root causes using real logs and minimal reproduction tests while preserving Vibe Coding velocity and tests.
@@ -10,7 +10,7 @@ Prerequisites:
 
 Commands & Skills:
 - Commands: `/errorlogs-ca-agent`, `/gitlogs-ca-agent`, `/tdd-ca-agent`, `/verify-ca-agent`
-- Skills: `debugging-analyst`, `andrej-karpathy-skill`
+- Skills: `debugging-analyst`, `core-engineering-skills`
 
 Procedure:
 1. Capture Evidence:
@@ -24,3 +24,4 @@ Procedure:
 
 Required output:
 - Root cause summary, regression test evidence, and `docs/error-tracker.md` entry (if P0/P1 or recurring).
+

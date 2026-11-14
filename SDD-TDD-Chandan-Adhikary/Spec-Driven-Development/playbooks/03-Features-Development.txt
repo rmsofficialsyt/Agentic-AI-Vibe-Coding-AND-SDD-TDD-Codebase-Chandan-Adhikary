@@ -1,29 +1,36 @@
 03-Features-Development
 ========================
 
-Purpose: Author, review, approve, and evolve feature contracts in `docs/features/` under SDD change control.
+Purpose: Author, review, approve, and evolve feature contracts in `docs/features/` with mandatory Flat vs Modular developer inquiry and complexity tiers.
 Read trigger: MUST read before creating a new feature spec or modifying an existing feature.
 Applicability: SDD
 
 Prerequisites:
 - Read `docs/features/README.md`, `docs/requirements-traceability.md`, and `docs/change-control.md`.
-- Note: Repository-level `specs/` is prohibited; all features live in `docs/features/`.
+- All features live in `docs/features/`; repository-level `specs/` is prohibited.
 
 Commands & Skills:
 - Commands: `/change-request-ca-agent`, `/spec-check-ca-agent`, `/plan-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`
-- Skills: `requirements-analysis`, `spec-validator`, `architecture-review`, `documentation-sync`
+- Skills: Core repo skills (`requirements-analysis`, `spec-validator`, `architecture-review`).
 
 Procedure:
-1. Intake & Authoring:
-   - Choose Flat (`docs/features/NNN-kebab-name.md`) or Modular (`docs/features/NNN-kebab-name/{feature,acceptance,test-plan}.md`) from `docs/features/FEATURE-TEMPLATE.md`.
+1. Format Inquiry & Complexity Categorization:
+   - **MANDATORY DEVELOPER PROMPT:** Always ask the developer:
+     "Would you prefer this specification in Flat format (docs/features/NNN-name.md) or Modular format (docs/features/NNN-name/{feature,acceptance,test-plan}.md)?"
+   - If developer does not specify, classify by complexity tier:
+     - Tier 1 (Easy, 1-2 files): Flat format.
+     - Tier 2 (Intermediate, 3-6 files): Flat format.
+     - Tier 3 (Hard/Complex, 7+ files): Modular format.
+2. Intake & Authoring:
+   - Copy from `docs/features/FEATURE-TEMPLATE.md`.
    - Assign canonical IDs: `FEAT-###`, `FR-FEAT###-##`, `NFR-FEAT###-##`, `AC-FEAT###-##` (Given/When/Then), and `TEST-FEAT###-##`.
-2. Change Control (if modifying an existing `APPROVED` feature):
+3. Change Control (if modifying an existing `APPROVED` feature):
    - Run `/change-request-ca-agent` using `docs/changes/CHANGE-REQUEST-TEMPLATE.md` to create `CR-###` before editing the spec.
-3. Validation & Approval:
-   - Run `python scripts/check_docs.py` and `/spec-check-ca-agent` (skill: `spec-validator`).
-   - Obtain human approval in `docs/approvals/APR-###.md` (`docs/approvals/APPROVAL-TEMPLATE.md`) and update `docs/spec.md`.
-4. Implement & Log:
-   - Follow `playbooks/02-Project-Implementation.txt`, then log the release in `docs/CHANGELOG.md`.
+4. Validation & Approval:
+   - Run `/spec-check-ca-agent` (skill: `spec-validator`).
+   - Obtain human approval in `docs/approvals/APR-###.md` and update `docs/spec.md`.
+5. Step-by-Step Pacing:
+   - Develop one spec at a time following `playbooks/02-Project-Implementation.txt`. Update docs and error tracker upon completion.
 
 Required output:
-- Validated feature spec in `docs/features/`, updated `docs/spec.md`, approval record `APR-###`, and `check_docs.py` pass.
+- Validated feature spec in `docs/features/`, updated `docs/spec.md`, approval record `APR-###`.

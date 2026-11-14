@@ -92,12 +92,8 @@ Using `/spec-check-ca-agent`, the agent automatically parses either format, vali
 
 ```mermaid
 flowchart TD
-    SetupS["Setup & Project Renaming<br/>(Extract to 'school-management-system')"] --> IDEDetectS{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectS -->|"Single-IDE"| PruneS["Auto-prune unused IDE adapters"]
-    IDEDetectS -->|"Multi-IDE"| SyncS["Harmonize active adapters to AGENTS.md"]
-    
-    PruneS --> PS1["Step S1: /plan-ca-agent<br/>(Plan Mode: Multi-tenant RLS, FERPA compliance, HLD)"]
-    SyncS --> PS1
+    SetupS["Setup & Project Renaming<br/>(Extract to 'school-management-system')"] --> CmdCheckS{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheckS --> PS1["Step S1: /plan-ca-agent<br/>(Plan Mode: Multi-tenant RLS, FERPA compliance, System Design HLD/LLD)"]
     
     PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
     HumanS1 -->|"Revise plan"| PS1
@@ -144,7 +140,7 @@ Active IDE: Claude Code (or Cursor)
 
 **What the AI Agent Does:**
 1. Invokes the `.agents/commands/plan-ca-agent.md` contract in **Plan Mode (Read-Only)**.
-2. Detects the active IDE and prunes irrelevant competitor config files per `docs/ide-compatibility.md`.
+2. Verifies custom slash commands and repository governance in `.agents/`.
 3. Inspects `AGENTS.md` and repository guidelines.
 4. Generates a comprehensive **17-section planning report** covering:
    - High-Level Architecture (HLD) & Low-Level Architecture (LLD).

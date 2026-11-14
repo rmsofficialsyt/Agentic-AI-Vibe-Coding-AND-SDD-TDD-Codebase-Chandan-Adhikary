@@ -1,67 +1,120 @@
-# System Architecture
+# System Architecture & System Design Specification
 
 > **Document class:** Living feature/specification  
-> **Framework:** Vibe Coding  
-> **Guideline baseline:** 1.0.0  
-> **Status:** Template; project-specific content requires review  
+> **Framework:** Vibe-Coding  
+> **Guideline baseline:** 2.0.0  
+> **Status:** Template; project-specific instantiation requires review  
 
 ## Purpose
 
-High- and low-level designs, boundaries and decisions.
+High-level and low-level system designs, aesthetic/interactive boundaries, data consistency, scalability, caching, and fluid architecture evolution.
 
 ## Agent read trigger
 
-**MUST** read or consult this file: Before module creation, infrastructure or cross-cutting changes.
+**MUST** read or consult this file: Prior to module creation, architectural modifications, database modeling, API contract updates, or real-time feature integrations.
 
-## Normative sections and rules
+---
 
-### 1. Context
+## 1. System Design Architecture (HLD & LLD)
 
-- **MUST** — Define users, external systems, trust boundaries and deployment context.
+### 1.1 High-Level Design (HLD)
+The High-Level Design provides the end-to-end topology balancing fluid user experiences, instant UI feedback, and backend scalability.
 
-### 2. HLD
+```mermaid
+flowchart TD
+    subgraph Clients ["Client Experience Tier"]
+        Browser["Modern Web Application<br/>(React / Next.js / Vue / Svelte)"]
+        MobileClient["Mobile & Responsive Devices<br/>(Dynamic Breakpoints)"]
+    end
 
-- **MUST** — Describe major components, responsibilities, data flows and integration boundaries.
+    subgraph EdgeTier ["Edge & CDN Ingress"]
+        EdgeDNS["Anycast DNS & CDN<br/>(Edge Caching, Asset Delivery)"]
+        APIGateway["API Gateway & Reverse Proxy<br/>(Reverse Proxy, Rate Limiter)"]
+    end
 
-### 3. LLD
+    subgraph AppTier ["Application & Real-Time Tier"]
+        WebServer["Application Core Server<br/>(REST / GraphQL / tRPC APIs)"]
+        SocketServer["Real-Time Engine<br/>(WebSockets / Server-Sent Events)"]
+        AsyncWorker["Background Worker Service<br/>(Queues & Scheduled Jobs)"]
+    end
 
-- **MUST** — Define module contracts, interfaces, state transitions, error paths and dependency directions.
+    subgraph DataTier ["Persistence & Fast-Access Tier"]
+        PrimaryDB[("Primary Database<br/>PostgreSQL / MySQL / SQLite")]
+        RedisStore[("In-Memory Store<br/>Redis (PubSub, Caching, Sessions)")]
+        BlobStorage[("Media & Asset Storage<br/>S3 / R2 / Cloud Storage")]
+    end
 
-### 4. Structure
+    Clients --> EdgeDNS
+    EdgeDNS --> APIGateway
+    APIGateway --> WebServer
+    APIGateway --> SocketServer
 
-- **MUST** — Document repository folders, package boundaries and rationale.
+    WebServer --> PrimaryDB
+    WebServer --> RedisStore
+    SocketServer --> RedisStore
 
-### 5. Reliability
+    RedisStore --> AsyncWorker
+    AsyncWorker --> PrimaryDB
+    AsyncWorker --> BlobStorage
+    WebServer --> BlobStorage
+```
 
-- **MUST** — Define critical timeouts, retries, concurrency, idempotency and failure recovery.
+### 1.2 Low-Level Design (LLD) & Component Modularization
+- **Component Design Patterns:**
+  - **Component Composition:** Atomic UI hierarchy (Atoms -> Molecules -> Organisms -> Pages).
+  - **Optimistic UI & State Machines:** Instant client-side state mutation before server confirmation with automatic rollback on error.
+  - **Service & Repository Layer:** Decouple data retrieval and mutations from UI rendering and routing.
 
-### 6. Security
+---
 
-- **MUST** — Map identity, authorization, secrets and sensitive data flows.
+## 2. Scalability, Caching & Performance Optimization
 
-### 7. Deployment
+| Domain | Standard & Strategy |
+|---|---|
+| **Edge & Asset Delivery** | Immutable asset hashing, WebP/AVIF image formats, dynamic CDN distribution. |
+| **In-Memory Caching (Redis)** | Cache-aside pattern for expensive aggregates, session tracking, and real-time Pub/Sub channel management. |
+| **Database Optimization** | Indexed foreign keys, connection pooling, prepared statements, and query execution plan analysis. |
+| **State Hydration** | Selective SSR streaming and client hydration to achieve sub-second Time-to-Interactive (TTI). |
 
-- **MUST** — Describe runtime, environments, storage and infrastructure assumptions.
+---
 
-### 8. Tradeoffs
+## 3. Data Consistency, Transactions & Real-Time State
 
-- **MUST** — Link relevant ADRs and alternatives considered.
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant UI as Client UI
+    participant Server as Application Server
+    participant Cache as Redis (Pub/Sub)
+    participant DB as Primary DB
 
-### 9. AI and ML
+    User->>UI: Action (e.g., Update status / Post message)
+    UI->>UI: Optimistic UI update (Instant feedback)
+    UI->>Server: HTTP POST / WebSocket event
+    Server->>DB: Persist state with ACID transaction
+    DB-->>Server: Transaction committed
+    Server->>Cache: Publish real-time event to channel
+    Cache-->>Server: Broadcast to connected clients
+    Server-->>UI: 200 OK (Sync confirmed)
+```
 
-- **MUST** — When applicable detail datasets, pipelines, prompt/model versions, evaluations, inference, rollback and monitoring.
+- **ACID Core:** Relational integrity for user data, access tokens, and transactional state.
+- **Eventual Consistency:** Activity feeds, notifications, analytics dashboards.
+- **Real-Time Sync:** WebSockets or SSE for collaborative live state updates.
 
-### 10. Diagrams
+---
 
-- **SHOULD** — Maintain system-context, sequence and deployment diagrams with versioned source.
+## 4. Resilience, Fault Tolerance & Error Handling
 
-## Evidence and change control
+- **Error Boundaries:** Isolate component errors on the frontend without crashing the whole application.
+- **Retry with Jitter:** Exponential backoff with random jitter for transient network or external API errors.
+- **Graceful Fallbacks:** Empty states, fallback banners, and offline cached views.
 
-- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
-- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
-- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+---
 
-## Vibe Coding interpretation
+## 5. Normative Enforcement Rules
 
-- **MAY** use provisional decisions in an isolated prototype, clearly marked `DRAFT`; **MUST** formalize and approve production-bound behavior before shipping.
-- **MAY** spike alternative architectures; **MUST** record the chosen one as an ADR before production-bound work.
+- **MUST** keep system architecture synchronized with actual codebase implementations.
+- **MUST** document major architectural shifts in `docs/adrs/`.
+- **MUST** maintain clean separation between domain logic and presentation layers.

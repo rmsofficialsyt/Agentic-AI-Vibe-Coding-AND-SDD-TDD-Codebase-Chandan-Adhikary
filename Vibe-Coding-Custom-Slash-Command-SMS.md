@@ -26,7 +26,7 @@ When you type a slash command (such as `/plan-ca-agent` or `/implement-ca-agent`
 |                                                                               |
 |   /run-ca-agent            --> Start local dev server & verify live URL.      |
 |                                                                               |
-|   /task-ca-agent           --> Rapid Karpathy conversational loops;           |
+|   /task-ca-agent           --> Rapid fluid interactive loops;           |
 |                                1-click status pills, optimistic UI.           |
 |                                                                               |
 |   /review-ca-agent         --> Inspect git diff, verify clean component state.|
@@ -77,16 +77,16 @@ Type the slash command as an isolated action instruction after completing a step
 | `/plan-ca-agent` | `.agents/commands/plan-ca-agent.md` | Pre-development discovery, color palette selection, component hierarchy, and read-only plan artifact. |
 | `/implement-ca-agent` | `.agents/commands/implement-ca-agent.md` | Scaffolding application shell, responsive navigation, and interactive mock screens. |
 | `/run-ca-agent` | `.agents/commands/run-ca-agent.md` | Starting the local development server and reporting the active URL without inventing output. |
-| `/task-ca-agent` | `.agents/commands/task-ca-agent.md` | Fast Karpathy iterative feature execution (e.g., building attendance sheet or student modal). |
+| `/task-ca-agent` | `.agents/commands/task-ca-agent.md` | Fast Interactive iterative feature execution (e.g., building attendance sheet or student modal). |
 | `/review-ca-agent` | `.agents/commands/review-ca-agent.md` | Visual diff inspection, type checking, and component sanity reviews. |
 | `/security-audit-ca-agent` | `.agents/commands/security-audit-ca-agent.md` | Applying Zod runtime schemas, securing sessions, and scanning for secret leaks. |
 | `/release-check-ca-agent` | `.agents/commands/release-check-ca-agent.md` | Running production bundle build (`npm run build`) and generating pre-deployment checklist. |
 
 ---
 
-## 4. Andrej Karpathy Engineering Skill (`andrej-karpathy-skill`)
+## 4. Developer Choice Engineering Skills (`core-engineering-skills`)
 
-Embedded within `.agents/skills/andrej-karpathy-skill/SKILL.md`, this skill equips the AI agent with core heuristics for high-velocity Vibe Coding:
+Embedded within `core repository skills in .agents/skills/`, this skill equips the AI agent with core heuristics for high-velocity Vibe Coding:
 - **Inspect the Raw Data First:** Never guess API shapes or schema fields. Inspect mock data or database payloads directly.
 - **Single-Batch Overfit / Micro-Baseline:** Make a single vertical feature slice (e.g. 1 classroom attendance sheet) work completely before abstracting into multi-school hierarchies.
 - **Immediate Feedback Loops:** Keep diffs small, verify each change live in the browser, and avoid blind multi-file refactoring.
@@ -98,12 +98,8 @@ Embedded within `.agents/skills/andrej-karpathy-skill/SKILL.md`, this skill equi
 
 ```mermaid
 flowchart TD
-    SetupV["Setup & Project Renaming<br/>(Extract to 'school-management-system')"] --> IDEDetectV{"IDE Detection<br/>(docs/ide-compatibility.md)"}
-    IDEDetectV -->|"Single-IDE"| PruneV["Auto-prune unused IDE adapters"]
-    IDEDetectV -->|"Multi-IDE"| SyncV["Harmonize active adapters to AGENTS.md"]
-    
-    PruneV --> PV1["Step V1: /plan-ca-agent<br/>(Plan Mode: Aesthetic palette, stack, Bento grid)"]
-    SyncV --> PV1
+    SetupV["Setup & Project Renaming<br/>(Extract to 'school-management-system')"] --> CmdCheckV{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheckV --> PV1["Step V1: /plan-ca-agent<br/>(Plan Mode: Aesthetic palette, stack, Bento grid)"]
     
     PV1 --> HumanV1{"Human Approval<br/>of Plan & Vibe?"}
     HumanV1 -->|"Revisions needed"| PV1
@@ -111,7 +107,7 @@ flowchart TD
     
     PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
     
-    LiveCheck --> PV3["Step V3: /task-ca-agent + /review-ca-agent<br/>(Karpathy Loops: 30-sec attendance sheet, 1-click pills)"]
+    LiveCheck --> PV3["Step V3: /task-ca-agent + /review-ca-agent<br/>(Fluid Feedback Loops: 30-sec attendance sheet, 1-click pills)"]
     
     PV3 --> LoopV{"Vibe & speed feel right?"}
     LoopV -->|"No: adjust styling or micro-animations"| PV3
@@ -147,7 +143,7 @@ Active IDE: Antigravity (or Cursor)
 
 **What the AI Agent Does:**
 1. Invokes the `.agents/commands/plan-ca-agent.md` contract in **Plan Mode (Read-Only)**.
-2. Detects the active IDE and prunes irrelevant competitor config files per `docs/ide-compatibility.md`.
+2. Verifies custom slash commands and repository governance in `.agents/`.
 3. Inspects `AGENTS.md` and repository guidelines.
 4. Generates a comprehensive **17-section planning report** covering:
    - Tech stack: Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui, Lucide Icons, Supabase (PostgreSQL).
@@ -190,7 +186,7 @@ Follow immediately with:
 **Command Typed into Chat:**
 ```markdown
 /task-ca-agent Implement the flagship feature at '/dashboard/attendance': the 30-Second Classroom Attendance Sheet.
-Apply Andrej Karpathy heuristics:
+Apply First-Principles heuristics:
 1. Header Controls: Dropdown for Class (default: "Grade 10-A") and Date Picker (default: Today), plus a live counter pill: 'Total: 25 | Present: 22 | Absent: 2 | Late: 1 (92%)'.
 2. Top Batch Action: Add a 1-click emerald '[Mark All Present]' button.
 3. High-Density Student Grid: For each student, display their avatar, roll number, full name, and 4 tactile status toggle pills:
@@ -242,4 +238,6 @@ Verify production compilation ('npm run build') and generate the deployment read
 1. **Keep Prompts Actionable:** Combine the slash command with clear visual and functional intent (e.g. `/task-ca-agent Add a search filter for student names with a 200ms debounce`).
 2. **Review Diffs Regularly:** Run `/review-ca-agent` after each major UI iteration to keep the codebase clean and maintainable.
 3. **Never Skip the Build Gate:** Always run `/release-check-ca-agent` before pushing to production or staging to guarantee that `npm run build` succeeds without errors.
+
+
 

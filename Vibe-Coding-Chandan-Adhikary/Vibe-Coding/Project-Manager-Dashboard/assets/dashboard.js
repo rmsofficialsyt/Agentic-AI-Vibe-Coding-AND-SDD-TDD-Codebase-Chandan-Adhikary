@@ -855,7 +855,26 @@ class BentoDashboardClient {
       return;
     }
 
-    taskListEl.innerHTML = filtered.map(task => {
+    // Status weight: running / in-progress tasks pinned first (Task 1, Task 2, etc.)
+    const statusWeight = {
+      'IN_PROGRESS': 0,
+      'RED_TEST_FAIL': 0,
+      'RUNNING': 0,
+      'BLOCKED': 1,
+      'TODO': 2,
+      'PENDING': 2,
+      'DONE': 3
+    };
+
+    // Stable sort: Current running task always on top, followed by sequential numerical order
+    const sortedTasks = [...filtered].sort((a, b) => {
+      const weightDiff = (statusWeight[a.status] ?? 2) - (statusWeight[b.status] ?? 2);
+      if (weightDiff !== 0) return weightDiff;
+      return (a.id || '').localeCompare(b.id || '', undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    taskListEl.innerHTML = sortedTasks.map(task => {
+      const isRunning = task.status === 'IN_PROGRESS' || task.status === 'RED_TEST_FAIL' || task.status === 'RUNNING';
       const completedSubtasks = task.subtasks ? task.subtasks.filter(s => s.completed).length : 0;
       const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
       const progressPercent = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
@@ -875,10 +894,11 @@ class BentoDashboardClient {
       ` : '';
 
       return `
-        <div class="bento-task-card">
+        <div class="bento-task-card ${isRunning ? 'active-running-card' : ''}">
           <div class="task-card-header">
             <div class="task-badges">
               <span class="task-id-badge">${this.escapeHtml(task.id)}</span>
+              ${isRunning ? `<span class="badge-running-top">⚡ CURRENT RUNNING TASK</span>` : ''}
               <span class="priority-pill ${task.priority}">${task.priority}</span>
               ${totalSubtasks > 0 ? `<span style="font-size:10px;color:var(--text-faint);font-family:var(--font-mono)">(${completedSubtasks}/${totalSubtasks} · ${progressPercent}%)</span>` : ''}
             </div>
@@ -1215,10 +1235,11 @@ class BentoDashboardClient {
 
     const feedEl = document.getElementById('commit-feed-container');
     if (feedEl && git.commits) {
-      feedEl.innerHTML = git.commits.map(c => `
-        <div class="commit-item">
+      feedEl.innerHTML = git.commits.map((c, idx) => `
+        <div class="commit-item ${idx === 0 ? 'head-commit-item' : ''}">
           <div class="commit-item-top">
             <span class="commit-hash">${c.hash}</span>
+            ${idx === 0 ? '<span class="badge-head-commit">HEAD / CURRENT COMMIT</span>' : ''}
             <span class="commit-author">${this.escapeHtml(c.author)} · ${this.escapeHtml(c.relativeTime)}</span>
           </div>
           <span class="commit-msg" title="${this.escapeHtml(c.subject)}">${this.escapeHtml(c.subject)}</span>
