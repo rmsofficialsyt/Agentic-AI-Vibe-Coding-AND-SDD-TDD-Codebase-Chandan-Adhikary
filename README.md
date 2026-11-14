@@ -100,6 +100,7 @@ Guide-Github/
 ├── README.md                                         # Universal overview & quick-start guide
 ├── LICENSE.md                                        # MIT License (Chandan Adhikary / RMS Officials)
 ├── CUSTOM-SLASH-COMMANDS-GUIDE.md                    # Universal Slash Commands & Prompting Guide
+├── PROJECT-MANAGER-DASHBOARD-GUIDE.md                # In-IDE Project-Manager-Dashboard Step-by-Step Guide
 ├── .gitignore                                        # Standard development ignores
 ├── .github/
 │   ├── SECURITY.md                                   # Vulnerability disclosure & security policy
@@ -219,6 +220,7 @@ The in-built **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear-in
 
 ### 1. Universal Guides for ANY Project
 - **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** — Master guide for slash commands, prompt formats, activation steps, and Webdev / Data Analysis reference architectures.
+- **[PROJECT-MANAGER-DASHBOARD-GUIDE.md](PROJECT-MANAGER-DASHBOARD-GUIDE.md)** — In-IDE Project-Manager-Dashboard step-by-step launch, docking, AC engine, and token telemetry guide.
 - **[Vibe-Coding-Production-Guide-Universal.md](Vibe-Coding-Production-Guide-Universal.md)** — Universal Vibe-Coding production guide with variable mapping for any SaaS, web app, or marketplace.
 - **[SDD-TDD-Production-Guide-Universal.md](SDD-TDD-Production-Guide-Universal.md)** — Universal SDD-TDD production guide with variable mapping for enterprise and regulated systems.
 - **[Vibe-Coding-Custom-Slash-Command-Universal.md](Vibe-Coding-Custom-Slash-Command-Universal.md)** — Tabular operational reference for all 16 Vibe commands.
