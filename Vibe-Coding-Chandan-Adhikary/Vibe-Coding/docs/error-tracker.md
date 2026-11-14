@@ -1,7 +1,7 @@
 # Defect & Error Tracker
 
 > **Document class:** Living feature/specification  
-> **Framework:** Vibe-Coding  
+> **Framework:** Vibe Coding  
 > **Guideline baseline:** 2.0.0  
 > **Status:** Active Standard  
 
@@ -43,3 +43,12 @@ flowchart LR
 | Defect ID | Date | Sev | Summary | Trigger / Root Cause | Fix (Commit / PR) | Verification | Status |
 |---|---|---|---|---|---|---|---|
 | `ERR-001` | 2026-11-13 | `P1` | Sample: Mobile menu overflow on small screens | CSS fixed width on nav container | commit `f4e3d2c` | Responsive viewport test | `RESOLVED` |
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.
+- **MUST** route process changes through formal baseline revisions and living feature specifications.
+
+## Vibe Coding interpretation
+
+- Treat defect logs and sensory glitch records as active inputs for iterative refactoring.

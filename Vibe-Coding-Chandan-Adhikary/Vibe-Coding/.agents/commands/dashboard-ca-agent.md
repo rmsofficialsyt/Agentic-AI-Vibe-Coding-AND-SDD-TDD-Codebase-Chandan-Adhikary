@@ -1,4 +1,4 @@
-﻿---
+---
 description: Start or verify the in-IDE Project-Manager-Dashboard local daemon (Vibe-Coding Track)
 ---
 

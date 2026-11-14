@@ -84,3 +84,14 @@ Every interactive component MUST explicitly define and test the following 8 stat
 - **MUST** achieve WCAG 2.1 AA compliance across all components.
 - **MUST** support dynamic light/dark theme switching without layout flashes (FOUC).
 - **MUST** verify responsive scaling using dynamic viewport testing across ultra-wide, desktop, and mobile form factors.
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
+- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
+- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** verify the latest approved feature spec version before changing implementation.
+- **MUST** stop if this document conflicts with approved guidelines; pursue a guideline revision rather than an implicit exception.

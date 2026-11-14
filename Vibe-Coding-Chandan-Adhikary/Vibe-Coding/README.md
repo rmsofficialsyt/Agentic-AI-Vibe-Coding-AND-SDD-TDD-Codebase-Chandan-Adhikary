@@ -1,4 +1,4 @@
-﻿# Vibe Coding — Production-Grade AI Development Guide
+# Vibe Coding — Production-Grade AI Development Guide
 
 **Status:** reusable, implementation-ready guideline templates; not an application codebase.
 

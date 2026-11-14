@@ -4,11 +4,11 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 158,
+  "file_count_excluding_manifest": 152,
   "files": [
     {
       "path": ".agents/README.md",
-      "sha256": "2aa8e97d08e43f3936cb1cd3ccaad0a5d470940f0c24e6d8dbfe03058fdd02d4"
+      "sha256": "5869ba092711cfb81dc70646146911ec99b8fb5b678fa3ff83fe903af3d50649"
     },
     {
       "path": ".agents/commands/README.md",
@@ -20,7 +20,7 @@
     },
     {
       "path": ".agents/commands/dashboard-ca-agent.md",
-      "sha256": "2c9d7e171b0daaacd8fdddd0da9f46f77bbcb21970f21a662ec8d0f0b8c4e9db"
+      "sha256": "f3817937695d18644ffada0854f40acff4e3cc584dedce15dc48f3ed2328262f"
     },
     {
       "path": ".agents/commands/errorlogs-ca-agent.md",
@@ -89,10 +89,6 @@
     {
       "path": ".agents/skills/accessibility-auditor/SKILL.md",
       "sha256": "d66be39815789d62198443fafd94a7bd930ef892c5d0808bda9e946ef0c52c06"
-    },
-    {
-      "path": ".agents/skills/andrej-karpathy-skill/SKILL.md",
-      "sha256": "50dac02d5e4b571516f45a3aa622308456cd84720801538af016055858e8204f"
     },
     {
       "path": ".agents/skills/api-contract-review/SKILL.md",
@@ -172,7 +168,7 @@
     },
     {
       "path": ".agents/workflows/dashboard-ca-agent.md",
-      "sha256": "2c9d7e171b0daaacd8fdddd0da9f46f77bbcb21970f21a662ec8d0f0b8c4e9db"
+      "sha256": "f3817937695d18644ffada0854f40acff4e3cc584dedce15dc48f3ed2328262f"
     },
     {
       "path": ".agents/workflows/errorlogs-ca-agent.md",
@@ -229,14 +225,6 @@
     {
       "path": ".agents/workflows/verify-ca-agent.md",
       "sha256": "d92433b9f45a0467b87640595a00c12a584b0b1101709f68414aee3ba3774e02"
-    },
-    {
-      "path": ".cursor/rules/project-policy.mdc",
-      "sha256": "409b72664c0cfbc9637ca2388a0027b33cb23903edd062c8bcbe070b99dbeb19"
-    },
-    {
-      "path": ".cursorrules",
-      "sha256": "fb01169a12a9320656fd15b6dd7e58b7f4dd59320155f050ad120f37a662fe93"
     },
     {
       "path": ".editorconfig",
@@ -299,24 +287,16 @@
       "sha256": "f792cc17b0fe7b6d0cd48dea30769d30330bbe6b64ca4e20433efbd78740b49e"
     },
     {
-      "path": ".vscode/tasks.json",
-      "sha256": "0d11889892e404a37598bfb12fbc71b015aba3ab9cc8cdae4d9d065e2e382450"
-    },
-    {
-      "path": ".windsurf/rules/project-policy.md",
-      "sha256": "5236a39624d8b96b86fd75f203a3fcad4e23ed0a156ebcce6a5cfd8ce7a3bfc4"
-    },
-    {
-      "path": ".windsurfrules",
-      "sha256": "6611c16caf9c9d17c03bf96b6e36dddc83e780a96b489815c281ca083c9e72cb"
-    },
-    {
       "path": "AGENTS.md",
-      "sha256": "5612f6ab6b0b17c04444ac0c1f7b4395db3d10a610e9585fcfe00ab263107021"
+      "sha256": "8689c70a0501ed6291e15a9a256b8a10d0011564a9eda8730f5e9492b17a8133"
     },
     {
       "path": "CLAUDE.md",
       "sha256": "96eadd172b0dde540313b6e5f8a12463124f2f636728366ab4c17ba2cd459389"
+    },
+    {
+      "path": "GEMINI.md",
+      "sha256": "72a4f4de22933052e85c326668737f6910b036a71aedbfcf6bfc77ec4d999cb2"
     },
     {
       "path": "LICENSE-DECISION.md",
@@ -324,7 +304,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/README.md",
-      "sha256": "0ca5e282483e335122eafbe30e5a2f1e0c7692b5848f6804506e965c0a5fb632"
+      "sha256": "ecbcb461c08d97aa51e2ba8571040fa0273aa3da09792fbffcc439ba88c99f56"
     },
     {
       "path": "Project-Manager-Dashboard/assets/anime.min.js",
@@ -332,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "48ce5f4c12ea9f86107708598d495538eed5a73583946d97c5f188bc90450e58"
+      "sha256": "7289c031030317dce06fb656864fc9be803965c0a8ae926735af1320df76a32f"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "a95406ebe7621adc7504115e88154a9638fd5ecf54cd543e6da6012d0764977b"
+      "sha256": "206dc2fb625a309e66715dfc4511723e975704c472324b5a0b616f9de33e619f"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -356,7 +336,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "8d674562b92d11e3a206ff716338b63ceee46c31672cf78d1557f6ddb0f62d54"
+      "sha256": "a75ec5f0a504f0bf03fe8e019b9c09596ff9c8f1612f90b3fe6842d96c95cb08"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
@@ -364,7 +344,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "44b96f4d737110e7671cf0c3bfcc17c8385fa90940ab2ef9136940234734e83c"
+      "sha256": "8200005e9f229cfc840a47a4c6b593b163218c5ae3dfe0acea24ecb3c33f9ae0"
     },
     {
       "path": "SOURCE-NOTES.md",
@@ -376,7 +356,7 @@
     },
     {
       "path": "docs/INDEX.md",
-      "sha256": "4d037316ad1ac7c147e25dd7eef94f6d382c4bb5eb56bd88dca8b0d3c7b6f40a"
+      "sha256": "f71c1cf7ab67e00c9d596516338c2c39dbacb1871bd8f2f3b293c5959ef3b4f0"
     },
     {
       "path": "docs/acceptance-criteria.md",
@@ -440,7 +420,7 @@
     },
     {
       "path": "docs/design.md",
-      "sha256": "2cbd6a4e9722a73b96238d127d183f55bdf725e9b4f65b0770cf7e39cd1d8796"
+      "sha256": "4867190d89685dbb3b6ec69c6d9d8fd1f413e479516dc3100e9490f8a65951b3"
     },
     {
       "path": "docs/devops.md",
@@ -456,7 +436,7 @@
     },
     {
       "path": "docs/error-tracker.md",
-      "sha256": "ab99fa9357462274ac6daa5021a567df5e32816fcc53bab5f1b6f05343b84c86"
+      "sha256": "5c8a182fba654d2621d32062fea3d09c7f707590a2a481641d935b5520233048"
     },
     {
       "path": "docs/features/001-example-feature.md",
@@ -468,7 +448,7 @@
     },
     {
       "path": "docs/features/README.md",
-      "sha256": "eea4580ed4ec0e3e670c274168e62de0c6aeda160dea6eadda329797376ad5ec"
+      "sha256": "137d4a6c9ee7f93b3b002d66eed575c1f3c44fb1ac75e687d19b37ee4e9ea032"
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
@@ -481,10 +461,6 @@
     {
       "path": "docs/hooks.md",
       "sha256": "349e05b4cf73939eaae6a8c563b047ef2647289cf20934ca62bab13eeea8cf1a"
-    },
-    {
-      "path": "docs/ide-compatibility.md",
-      "sha256": "214e790f2a6977a528c6593a5b366a2246fee22e350618f1316a358cc7d637ee"
     },
     {
       "path": "docs/memory.md",
@@ -512,7 +488,7 @@
     },
     {
       "path": "docs/prd.md",
-      "sha256": "b2ce7aea2d07ddafa067cbc270f1fc168035b1341f9a1ec7fe9fd166b8b26a3e"
+      "sha256": "3dee46e862f1c2299387a77819f9e4eac13587a4ad4065a0ff267cdfa40d260f"
     },
     {
       "path": "docs/product.md",
@@ -548,11 +524,11 @@
     },
     {
       "path": "docs/skills.md",
-      "sha256": "b077c85b8fbde614c4ef04adea587ff9232ff47bc522bc9cc41230f66356af71"
+      "sha256": "a2646485a848a113a7470a563a702be0ac5a1d34db641d762d310c03f3899760"
     },
     {
       "path": "docs/system-architecture.md",
-      "sha256": "6f290bc03dfad41e62a9c81d35152d109c96bc3a34ae41cfe8e2f3e02c2c7fc5"
+      "sha256": "eae2142c48dc072900c30d5a09747f39e8c755a9e53f72f5ae4bc8adf6643376"
     },
     {
       "path": "docs/task.md",
@@ -564,15 +540,15 @@
     },
     {
       "path": "playbooks/01-Setup-Project.txt",
-      "sha256": "6e075e7581b28022bc74460627ef28cd5d9dece4b3e81d17ab7097109c41f3a0"
+      "sha256": "fdb496595ea6ef6929aca59bc7c04a14e5d82bedad5786849b2da8c0f13b9933"
     },
     {
       "path": "playbooks/02-Project-Implementation.txt",
-      "sha256": "60226de7962e00dc00e8bf44f4b1f1086a05840a0abaadbb081b86ce1326e2cb"
+      "sha256": "331a476aaa8113faa7ce11e9d91b9ace6118599d19968d0c95f6a08603ae20b9"
     },
     {
       "path": "playbooks/03-Features-Development.txt",
-      "sha256": "5640825098cfa50cf02d37fbbc9bbb19305b577a5b60232c1b58a73aede922c8"
+      "sha256": "fbd8036371df33f4f900c556f5a68d0ec80aa50bd48f2e93a2a3af96019fa920"
     },
     {
       "path": "playbooks/04-Authentication-Security.txt",
@@ -592,7 +568,7 @@
     },
     {
       "path": "playbooks/08-Debugging.txt",
-      "sha256": "5490fe42eb0cdd4c251bd47618ec6335523815311e35f6e42d0d587ac22e4a26"
+      "sha256": "fbb7f7c408d057377eb9c100adf7cff7079d170d629a435dc0b39f9f893b43c4"
     },
     {
       "path": "playbooks/09-Validation.txt",

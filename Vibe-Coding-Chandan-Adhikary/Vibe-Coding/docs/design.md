@@ -1,7 +1,7 @@
 # Visual Design & UI System Contract
 
 > **Document class:** Living feature/specification  
-> **Framework:** Vibe-Coding  
+> **Framework:** Vibe Coding  
 > **Guideline baseline:** 2.0.0  
 > **Status:** Template; project-specific instantiation requires review  
 
@@ -72,3 +72,12 @@ flowchart LR
 - **MUST** provide instant visual feedback on user inputs.
 - **MUST** support seamless light/dark theme switching.
 - **MUST** look balanced and polished across all resolutions from mobile screens to 4K ultrawide monitors.
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.
+- **MUST** route process changes through formal baseline revisions and living feature specifications.
+
+## Vibe Coding interpretation
+
+- Treat living plans, design tokens, and sensory specifications as authoritative guides for implementation.

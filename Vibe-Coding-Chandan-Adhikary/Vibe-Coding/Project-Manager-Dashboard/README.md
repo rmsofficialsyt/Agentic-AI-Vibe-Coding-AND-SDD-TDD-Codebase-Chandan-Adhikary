@@ -1,4 +1,4 @@
-﻿# Project-Manager-Dashboard (Vibe-Coding In-IDE Subproject)
+# Project-Manager-Dashboard (Vibe-Coding In-IDE Subproject)
 
 > **Local Machine Only** | **Never Pushed to Remote Repositories** | **Strictly In-IDE Interface**
 

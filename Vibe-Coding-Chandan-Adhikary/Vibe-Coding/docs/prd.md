@@ -1,7 +1,7 @@
 # PRD
 
 > **Document class:** Living feature/specification  
-> **Framework:** Vibe-Coding  
+> **Framework:** Vibe Coding  
 > **Guideline baseline:** 2.0.0  
 > **Status:** Template; project-specific content requires review  
 
@@ -77,3 +77,7 @@ Product requirements, technical architecture constraints, user vibes, and measur
 
 - **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.
 - **MUST** route process changes through formal baseline revisions and living feature specifications.
+
+## Vibe Coding interpretation
+
+- Product and technical requirements are living guides refined through fluid iterations and user feedback.

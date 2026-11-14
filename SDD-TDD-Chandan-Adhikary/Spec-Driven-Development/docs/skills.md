@@ -40,3 +40,14 @@ Registry of portable agent skills and third-party skills installation policy.
 
 - **MUST** evaluate security and privileges before running any third-party skill installed from GitHub.
 - **MUST NOT** allow a skill to alter an `APPROVED` specification without formal human review.
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
+- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
+- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** verify the latest approved feature spec version before changing implementation.
+- **MUST** stop if this document conflicts with approved guidelines; pursue a guideline revision rather than an implicit exception.

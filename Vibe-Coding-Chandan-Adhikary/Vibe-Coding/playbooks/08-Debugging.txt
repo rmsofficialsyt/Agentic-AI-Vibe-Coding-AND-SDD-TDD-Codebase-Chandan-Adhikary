@@ -1,4 +1,4 @@
-﻿08-Debugging
+08-Debugging
 ============
 
 Purpose: Diagnose root causes using real logs and minimal reproduction tests while preserving Vibe Coding velocity and tests.

@@ -1,7 +1,7 @@
 # System Architecture & System Design Specification
 
 > **Document class:** Living feature/specification  
-> **Framework:** Vibe-Coding  
+> **Framework:** Vibe Coding  
 > **Guideline baseline:** 2.0.0  
 > **Status:** Template; project-specific instantiation requires review  
 
@@ -118,3 +118,12 @@ sequenceDiagram
 - **MUST** keep system architecture synchronized with actual codebase implementations.
 - **MUST** document major architectural shifts in `docs/adrs/`.
 - **MUST** maintain clean separation between domain logic and presentation layers.
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.
+- **MUST** route process changes through formal baseline revisions and living feature specifications.
+
+## Vibe Coding interpretation
+
+- System design architecture serves as a living foundation that evolves dynamically with product features.

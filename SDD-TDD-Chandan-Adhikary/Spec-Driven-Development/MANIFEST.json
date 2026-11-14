@@ -4,11 +4,11 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 164,
+  "file_count_excluding_manifest": 158,
   "files": [
     {
       "path": ".agents/README.md",
-      "sha256": "2aa8e97d08e43f3936cb1cd3ccaad0a5d470940f0c24e6d8dbfe03058fdd02d4"
+      "sha256": "5869ba092711cfb81dc70646146911ec99b8fb5b678fa3ff83fe903af3d50649"
     },
     {
       "path": ".agents/commands/README.md",
@@ -89,10 +89,6 @@
     {
       "path": ".agents/skills/accessibility-auditor/SKILL.md",
       "sha256": "d66be39815789d62198443fafd94a7bd930ef892c5d0808bda9e946ef0c52c06"
-    },
-    {
-      "path": ".agents/skills/andrej-karpathy-skill/SKILL.md",
-      "sha256": "50dac02d5e4b571516f45a3aa622308456cd84720801538af016055858e8204f"
     },
     {
       "path": ".agents/skills/api-contract-review/SKILL.md",
@@ -231,14 +227,6 @@
       "sha256": "d92433b9f45a0467b87640595a00c12a584b0b1101709f68414aee3ba3774e02"
     },
     {
-      "path": ".cursor/rules/project-policy.mdc",
-      "sha256": "18ad7a161ce98d603245a0dd2dee54038200131b44764e1c5b62664eb76ec857"
-    },
-    {
-      "path": ".cursorrules",
-      "sha256": "e6a1da6d2b0897872918b047399bbf3c914c3ea2a24dd8112416b3289dc08fcc"
-    },
-    {
       "path": ".editorconfig",
       "sha256": "0bf274e7d17b0a5102414a78a7261c8523b7f3fbb71e7ea3a4104cad66337b25"
     },
@@ -299,24 +287,16 @@
       "sha256": "f792cc17b0fe7b6d0cd48dea30769d30330bbe6b64ca4e20433efbd78740b49e"
     },
     {
-      "path": ".vscode/tasks.json",
-      "sha256": "625b39d12f1a7023416d9f76bf2a4b4f3daa9dcf9b1d5201709961315112a3d0"
-    },
-    {
-      "path": ".windsurf/rules/project-policy.md",
-      "sha256": "9421dfab85a921c1833884ce0cfdf74f2f25cdc162a02ab0b4e74926e3820c12"
-    },
-    {
-      "path": ".windsurfrules",
-      "sha256": "b800e735b452e4fd44f47a754338da708a485325c52441a1cd2a46b93b3ac142"
-    },
-    {
       "path": "AGENTS.md",
-      "sha256": "576871127b8e3d107b3e894e60889563142442e41e05e0d0c19e03423b7fe274"
+      "sha256": "c4c9ca308b8e5b3b7bb15167894f54a77ee7d5c8cadb4683dfd90080e5b6257d"
     },
     {
       "path": "CLAUDE.md",
       "sha256": "4ea2b462d0c35778d7d7d4d59b7e44ac58367ad580cae7cb0873dab2d80a775b"
+    },
+    {
+      "path": "GEMINI.md",
+      "sha256": "9a961e64156ebab9f13414f9ca0b4e00a56468ef4a78775a4336e2cae5b5d5ea"
     },
     {
       "path": "LICENSE-DECISION.md",
@@ -332,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "48ce5f4c12ea9f86107708598d495538eed5a73583946d97c5f188bc90450e58"
+      "sha256": "7289c031030317dce06fb656864fc9be803965c0a8ae926735af1320df76a32f"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "a95406ebe7621adc7504115e88154a9638fd5ecf54cd543e6da6012d0764977b"
+      "sha256": "206dc2fb625a309e66715dfc4511723e975704c472324b5a0b616f9de33e619f"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -356,7 +336,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "8d674562b92d11e3a206ff716338b63ceee46c31672cf78d1557f6ddb0f62d54"
+      "sha256": "a75ec5f0a504f0bf03fe8e019b9c09596ff9c8f1612f90b3fe6842d96c95cb08"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
@@ -364,7 +344,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "bba4c1a9443b78cafe62237325e18c864b2b78673366afb921f92256c4f39f86"
+      "sha256": "8fae18b9abcdb4f4e4d5654eb03c4a74262ee1a5a1f987f9e651f1e49bd0d16f"
     },
     {
       "path": "SOURCE-NOTES.md",
@@ -376,7 +356,7 @@
     },
     {
       "path": "docs/INDEX.md",
-      "sha256": "7852243eca4f3b18e12456171995049cef4cf5cb2fad45125f9656a0548bdb64"
+      "sha256": "074bebc29c4ea4c3b06e6d503ff6a350d6caa0fe6509c4de74eae112a4526779"
     },
     {
       "path": "docs/acceptance-criteria.md",
@@ -456,7 +436,7 @@
     },
     {
       "path": "docs/design.md",
-      "sha256": "457702adb0fb5e153ef71269733b261d7e1f614409d0b5d12bda20440076dfae"
+      "sha256": "2fb8d57feec7f661eaa60c768f2e062ab8a104a4253ab62e9e9b7e17bd42a83c"
     },
     {
       "path": "docs/devops.md",
@@ -472,7 +452,7 @@
     },
     {
       "path": "docs/error-tracker.md",
-      "sha256": "c304689eb913cd6eb4380eb212e527e389909fb7ab00fadccfe4042334b82444"
+      "sha256": "223a334ddda9dd0b60e0780dac91d1fba04b15e41e87f068740e811e43ad6d3d"
     },
     {
       "path": "docs/features/001-example-feature/acceptance.md",
@@ -496,7 +476,7 @@
     },
     {
       "path": "docs/features/README.md",
-      "sha256": "fe80ca2ff2b5a4d7e267c27ae58db9983ee22b62229c3c30d637bec52cf21be3"
+      "sha256": "83f575f0082e8e5fd296313a938fc487e7d058ff28193c7f788591d524a18664"
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
@@ -509,10 +489,6 @@
     {
       "path": "docs/hooks.md",
       "sha256": "426fc58ac9f12a679edad660c5f15e88eb7732dc4ca034a1d3ff5200c9f311f0"
-    },
-    {
-      "path": "docs/ide-compatibility.md",
-      "sha256": "50084950c54f04518fd2ac49344d6a92fd382874af02f5f819ebaf74920add56"
     },
     {
       "path": "docs/memory.md",
@@ -536,7 +512,7 @@
     },
     {
       "path": "docs/prd.md",
-      "sha256": "fe64f589b490b2d1eafa6739820a0cb87ee86ef631b0853d7ab778928fe2a101"
+      "sha256": "19a860721cc75c69be0db82581d381c25e024ae8121f31a1aefc840e30caeded"
     },
     {
       "path": "docs/product.md",
@@ -568,7 +544,7 @@
     },
     {
       "path": "docs/skills.md",
-      "sha256": "71cc73a4b13718150f7665b506e87160ed0cf1b0ed70d239b7a67b9030a7b89b"
+      "sha256": "5d7f8dafc3bfc6ca014a5bae5fa1bee28e74caebe2139c17219710411aff7389"
     },
     {
       "path": "docs/spec.md",
@@ -576,7 +552,7 @@
     },
     {
       "path": "docs/system-architecture.md",
-      "sha256": "c365e20fa7033315a092ac11fabafcbaa16c92db4bd8f0f6c71b0b2475dc9482"
+      "sha256": "82ace7d7af2e5a6fe94e3a841723a3772c7a27827be63cd0bc5c573965f5427f"
     },
     {
       "path": "docs/task.md",
@@ -588,15 +564,15 @@
     },
     {
       "path": "playbooks/01-Setup-Project.txt",
-      "sha256": "bff41d3ac11b56912c0ba484f51e1792b24c4d8495e99f85264f9ab88d44743a"
+      "sha256": "785e94f488e64eb5695cc4ae098e96a38fe4d49df4b1d3aa434ee5675ad193f2"
     },
     {
       "path": "playbooks/02-Project-Implementation.txt",
-      "sha256": "814e8791c97a8d47c9bd4e628341a026e27e6fc201f8b1938f25832ab755d4ea"
+      "sha256": "2f8b29e71bf672c6ce6fa001b722dfa6d04741e16ef7010931fa7bde57d9628d"
     },
     {
       "path": "playbooks/03-Features-Development.txt",
-      "sha256": "92978328505f3de14ea5da49a3ea463940ba1d3b60055262a1a6c1dd730df3c6"
+      "sha256": "fea6c2c083d4bfcc1e4b4ea7d0d31af6cc3531c3a9fcf6aa7ab20705049c5c21"
     },
     {
       "path": "playbooks/04-Authentication-Security.txt",
@@ -616,7 +592,7 @@
     },
     {
       "path": "playbooks/08-Debugging.txt",
-      "sha256": "fc404bc3c6871aaac392e063799ac56717c34113b14ff2839647e8da2dea2d0e"
+      "sha256": "4dd1e4fb5d0f0c7ad90d891571a1cc609aeaee328b3d696ca27da77c7169e620"
     },
     {
       "path": "playbooks/09-Validation.txt",

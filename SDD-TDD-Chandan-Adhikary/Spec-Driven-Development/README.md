@@ -1,4 +1,4 @@
-﻿# SDD — Production-Grade AI Development Guide
+# SDD — Production-Grade AI Development Guide
 
 **Status:** reusable, implementation-ready guideline templates; not an application codebase.
 

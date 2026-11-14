@@ -1,4 +1,0 @@
-# Windsurf legacy compatibility adapter — Vibe Coding
-# MUST defer to AGENTS.md and approved docs/ policies.
-# MUST check current Windsurf rules/workflows support before relying on this legacy file.
-# Prototype work stays isolated and labelled DRAFT; production-bound work requires an APPROVED feature in docs/features/, tests first, permissions and real evidence reporting.

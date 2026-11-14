@@ -1,7 +1,7 @@
 # Skills Registry & Developer Choice Policy
 
 > **Document class:** Controlled process guideline  
-> **Framework:** Vibe-Coding  
+> **Framework:** Vibe Coding  
 > **Guideline baseline:** 2.0.0  
 > **Status:** Active Standard  
 
@@ -31,3 +31,12 @@ Registry of portable agent skills and developer choice installation policy.
 | `code-reviewer` | `.agents/skills/code-reviewer/` | Reviews code changes for quality, sensory feedback, and simplicity. |
 | `security-auditor`| `.agents/skills/security-auditor/`| Scans code for secrets, CVEs, and input sanitization flaws. |
 | `release-validator`| `.agents/skills/release-validator/`| Verifies builds, tests, and readiness before shipping. |
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.
+- **MUST** route process changes through formal baseline revisions and living feature specifications.
+
+## Vibe Coding interpretation
+
+- Skills are portable execution assistants; living contracts remain with the project developer.

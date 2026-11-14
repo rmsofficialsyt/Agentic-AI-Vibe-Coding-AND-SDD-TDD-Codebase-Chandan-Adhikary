@@ -51,3 +51,14 @@ flowchart LR
 - **MUST** link every bug to an explicit `AC-FEAT###-##` or declare a formal `SPEC-GAP`.
 - **MUST** implement a failing regression test before writing fix code.
 - **MUST** never close an error without automated test verification.
+
+## Evidence and change control
+
+- **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.
+- **MUST** route changes to process rules through `docs/guideline-CHANGELOG.md` and formal baseline revision; route feature behavior through approved versioned specs and `docs/CHANGELOG.md`.
+- **SHOULD** keep links to canonical artifacts instead of duplicating definitions.
+
+## SDD enforcement
+
+- **MUST** verify the latest approved feature spec version before changing implementation.
+- **MUST** stop if this document conflicts with approved guidelines; pursue a guideline revision rather than an implicit exception.
