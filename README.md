@@ -1,7 +1,7 @@
 # AI-Powered Project Development Frameworks
 ### 2-in-1 Architecture: Vibe-Coding & Spec-Driven Development (SDD + TDD)
 
-**Engineering Lead:** Chandan Adhikary & Antigravity Engineering  
+**Engineering Lead:** Chandan Adhikary  
 **Version:** 2.0.0 (Production-Grade Universal Release)  
 **Supported Platforms:** Claude Code, Cursor, Windsurf, Antigravity, OpenCode, Codex, Trae, VS Code with AI Agents, Terminal CLI Agents  
 **License:** [MIT License](LICENSE.md) · **Security:** [Security Policy](.github/SECURITY.md)

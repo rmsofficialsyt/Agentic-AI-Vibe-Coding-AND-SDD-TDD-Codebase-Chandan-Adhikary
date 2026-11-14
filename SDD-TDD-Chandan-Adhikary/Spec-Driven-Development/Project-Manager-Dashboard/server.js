@@ -22,6 +22,7 @@ const parser = new DashboardParser(PROJECT_ROOT);
 const SESSION_TOKEN = crypto.randomBytes(24).toString('hex');
 const MAX_BODY_BYTES = 64 * 1024;
 const ALLOWED_TASK_STATUSES = new Set(['BACKLOG', 'READY', 'IN_PROGRESS', 'BLOCKED', 'REVIEW', 'DONE', 'RED_TEST_FAIL', 'REVIEW_BLOCKED']);
+const ALLOWED_AC_STATUSES = new Set(['GREEN', 'RED', 'PENDING']);
 
 /** Only accept requests addressed to this daemon (defeats DNS-rebinding). */
 function isAllowedHost(req) {
@@ -265,6 +266,29 @@ const server = http.createServer((req, res) => {
         const success = parser.updateTaskStatus(taskId, newStatus);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success, taskId, newStatus }));
+        broadcastState();
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4b. AC Contract Status Mutation Endpoint
+  if (req.url === '/api/ac-status' && req.method === 'POST') {
+    readJsonBody(req, res, ({ acId, newStatus }) => {
+      try {
+        if (typeof acId !== 'string' || !/^[A-Za-z0-9._-]{3,50}$/.test(acId) ||
+            typeof newStatus !== 'string' || !ALLOWED_AC_STATUSES.has(newStatus)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Valid acId and newStatus (GREEN|RED|PENDING) required' }));
+          return;
+        }
+
+        const success = parser.updateAcStatus(acId, newStatus);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success, acId, newStatus }));
         broadcastState();
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });

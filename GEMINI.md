@@ -57,6 +57,9 @@ Before creating any application code or directories:
 ### Directive 4: Single Canonical License
 - The master license is `LICENSE.md` in the repository root (MIT License).
 
+### Directive 5: Strict Terminology Privacy
+- **Never disclose, use, or write the term "Antigravity" paired with "Engineering" anywhere** across documentation, codebase, commits, responses, artifacts, or metadata.
+
 ---
 
 ## 3. The 16 Collision-Free Slash Commands
@@ -86,8 +89,12 @@ All custom slash commands carry the `-ca-agent` namespace to guarantee zero coll
 
 ## 4. In-IDE Project-Manager-Dashboard
 
-Both tracks feature the zero-dependency, Apple/Linear-inspired Bento Grid Mission Control:
+Both tracks feature the zero-dependency, Apple/Linear & Shadcn UI-inspired Bento Grid Mission Control:
 - **100% Fluid & Portable:** Responsive across all resolutions (mobile to 4K Ultrawide).
+- **Shadcn UI Aesthetic:** Built with Shadcn UI Zinc dark design tokens, Radix-style Sheet dialogs, precision status pills, and subtle micro-spring physics.
 - **Current Running Task Always on Top:** Actively running task (`Task 1`, `Task 2`, `IN_PROGRESS`, `RED_TEST_FAIL`, `RUNNING`) floats to index 0 with glowing `⚡ CURRENT RUNNING TASK` badge.
-- **HEAD Git Commit Always on Top:** Latest commit pinned at top with `[HEAD / CURRENT COMMIT]` indicator.
+- **HEAD Git Commit Always on Top:** Latest commit pinned at top with `[HEAD / CURRENT COMMIT]` indicator and exact `📅 DD-MM-YYYY` timestamp.
+- **Ubiquitous Dates in DD-MM-YYYY:** Live real-time header clock, Task Start/Stop date chips (`🟢 Start: DD-MM-YYYY`, `⏹️ Stop: DD-MM-YYYY`), Kanban date spans, and Phase milestones strictly formatted in `DD-MM-YYYY`.
+- **Working AC Contract Engine:** Acceptance Criteria (AC-*) with Given/When/Then scenario inspection, test traceability mapping, automatic task correlation, and live interactive status cycling (`GREEN` / `RED` / `PENDING`).
 - **Port:** `http://127.0.0.1:4200` (SDD) / `http://127.0.0.1:4201` (Vibe).
+

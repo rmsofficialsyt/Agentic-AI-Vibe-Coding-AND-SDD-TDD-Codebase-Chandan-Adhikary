@@ -34,6 +34,8 @@ class BentoDashboardClient {
     this.bindMotionGestures();
     this.connectSSE();
     this.initOscilloscope();
+    this.initLiveClock();
+    this.bindAcModalEvents();
   }
 
   /**
@@ -709,6 +711,11 @@ class BentoDashboardClient {
               <span class="priority-pill ${task.priority}">${task.priority}</span>
             </div>
             <div class="kanban-card-title">${this.escapeHtml(task.title)}</div>
+            <div class="kanban-card-date-bar">
+              <span>📅 ${task.startDate || '10-11-2026'}</span>
+              <span>→</span>
+              <span>${task.stopDate === 'In Progress' ? '<b class="active-pulse">Active</b>' : (task.stopDate || 'Target')}</span>
+            </div>
             ${totalSub > 0 ? `
               <div style="font-size:9px;color:var(--text-faint);font-family:var(--font-mono);display:flex;justify-content:space-between;margin-top:2px">
                 <span>Micro-tasks</span>
@@ -905,6 +912,10 @@ class BentoDashboardClient {
             <span class="status-pill ${task.status}">${task.status}</span>
           </div>
           <div class="task-headline">${this.escapeHtml(task.title)}</div>
+          <div class="task-date-strip">
+            <span class="task-date-pill start">🟢 Start: <b>${task.startDate || '10-11-2026'}</b></span>
+            <span class="task-date-pill stop">⏹️ Stop: <b>${task.stopDate || 'In Progress'}</b></span>
+          </div>
           <div class="subtasks-wrapper">
             ${subtasksHtml}
           </div>
@@ -953,17 +964,34 @@ class BentoDashboardClient {
     if (!specsEl || !this.state.specs) return;
 
     specsEl.innerHTML = this.state.specs.map(spec => `
-      <div class="spec-item-row">
-        <div style="display:flex;align-items:center;gap:6px">
-          <span style="font-family:var(--font-mono);color:var(--cyan-primary);font-weight:700">${spec.id}</span>
-          <span style="color:var(--text-muted)">${this.escapeHtml(spec.title)}</span>
+      <div class="spec-item-row" data-ac-id="${spec.id}" title="Click to view full specification contract">
+        <div style="display:flex;align-items:center;gap:6px;flex:1;overflow:hidden">
+          <span style="font-family:var(--font-mono);color:var(--sky-bright);font-weight:700;font-size:11px">${spec.id}</span>
+          <span style="color:var(--text-muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${this.escapeHtml(spec.title)}</span>
         </div>
-        <span class="status-pill ${spec.status}" style="font-size:9px">${spec.status}</span>
+        <button class="status-pill ${spec.status} ac-interactive-pill" data-ac-id="${spec.id}" data-current-status="${spec.status}" title="Click to cycle status: GREEN ➔ RED ➔ PENDING" style="border:none;cursor:pointer">
+          ${spec.status === 'GREEN' ? '🟢 PASS' : (spec.status === 'RED' ? '🔴 FAIL' : '⚪ PEND')}
+        </button>
       </div>
     `).join('');
 
-    // Framer Motion spring micro-gesture on spec items
+    // Wire click events: Status pill cycles status, row opens full modal
     specsEl.querySelectorAll('.spec-item-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        const pillBtn = e.target.closest('.ac-interactive-pill');
+        if (pillBtn) {
+          e.stopPropagation();
+          const acId = pillBtn.dataset.acId;
+          const current = pillBtn.dataset.currentStatus;
+          const nextStatus = current === 'PENDING' ? 'GREEN' : (current === 'GREEN' ? 'RED' : 'PENDING');
+          this.mutateAcStatus(acId, nextStatus);
+          return;
+        }
+        const acId = row.dataset.acId;
+        const spec = this.state.specs.find(s => s.id === acId);
+        if (spec) this.openAcModal(spec);
+      });
+
       row.addEventListener('mouseenter', () => {
         this.animateSpring(row, { x: 4 }, this.springSnappy);
       });
@@ -1240,6 +1268,7 @@ class BentoDashboardClient {
           <div class="commit-item-top">
             <span class="commit-hash">${c.hash}</span>
             ${idx === 0 ? '<span class="badge-head-commit">HEAD / CURRENT COMMIT</span>' : ''}
+            <span class="commit-date-badge">📅 ${c.date || 'Today'}</span>
             <span class="commit-author">${this.escapeHtml(c.author)} · ${this.escapeHtml(c.relativeTime)}</span>
           </div>
           <span class="commit-msg" title="${this.escapeHtml(c.subject)}">${this.escapeHtml(c.subject)}</span>
@@ -1447,6 +1476,138 @@ class BentoDashboardClient {
       this.animateSpring(btn, { scale: [1.14, 1] }, this.springPop);
       setTimeout(() => btn.textContent = old, 2000);
     });
+  }
+
+  /**
+   * Live real-time clock strictly formatted in DD-MM-YYYY
+   */
+  initLiveClock() {
+    const update = () => {
+      const now = new Date();
+      const d = String(now.getDate()).padStart(2, '0');
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const y = now.getFullYear();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      
+      const dateEl = document.getElementById('live-date-str');
+      const timeEl = document.getElementById('live-time-str');
+      if (dateEl) dateEl.textContent = `${d}-${m}-${y}`;
+      if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss}`;
+    };
+    update();
+    setInterval(update, 1000);
+  }
+
+  /**
+   * Bind Shadcn UI Radix-style AC Modal events
+   */
+  bindAcModalEvents() {
+    const modal = document.getElementById('ac-modal');
+    const closeBtn = document.getElementById('modal-ac-close');
+    const btnGreen = document.getElementById('modal-btn-green');
+    const btnRed = document.getElementById('modal-btn-red');
+    const btnPending = document.getElementById('modal-btn-pending');
+
+    if (closeBtn) closeBtn.addEventListener('click', () => this.closeAcModal());
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) this.closeAcModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+        this.closeAcModal();
+      }
+    });
+
+    if (btnGreen) {
+      btnGreen.addEventListener('click', () => {
+        if (this.selectedAc) this.mutateAcStatus(this.selectedAc.id, 'GREEN');
+      });
+    }
+    if (btnRed) {
+      btnRed.addEventListener('click', () => {
+        if (this.selectedAc) this.mutateAcStatus(this.selectedAc.id, 'RED');
+      });
+    }
+    if (btnPending) {
+      btnPending.addEventListener('click', () => {
+        if (this.selectedAc) this.mutateAcStatus(this.selectedAc.id, 'PENDING');
+      });
+    }
+  }
+
+  openAcModal(spec) {
+    this.selectedAc = spec;
+    const modal = document.getElementById('ac-modal');
+    if (!modal) return;
+
+    const elId = document.getElementById('modal-ac-id');
+    const elStatus = document.getElementById('modal-ac-status');
+    const elTitle = document.getElementById('modal-ac-title');
+    const elFile = document.getElementById('modal-ac-file');
+    const elGiven = document.getElementById('modal-ac-given');
+    const elWhen = document.getElementById('modal-ac-when');
+    const elThen = document.getElementById('modal-ac-then');
+    const elTestId = document.getElementById('modal-ac-testid');
+    const elTestLevel = document.getElementById('modal-ac-testlevel');
+    const elTestLoc = document.getElementById('modal-ac-testloc');
+
+    if (elId) elId.textContent = spec.id;
+    if (elStatus) {
+      elStatus.textContent = spec.status;
+      elStatus.className = `status-pill ${spec.status}`;
+    }
+    if (elTitle) elTitle.textContent = spec.title;
+    if (elFile) elFile.textContent = spec.specFile || 'docs/features/';
+    if (elGiven) elGiven.textContent = spec.scenario?.given || 'Specification preconditions verified';
+    if (elWhen) elWhen.textContent = spec.scenario?.when || 'Input parameters submitted to contract interface';
+    if (elThen) elThen.textContent = spec.scenario?.then || 'Assertion succeeds with expected contract return codes';
+    if (elTestId) elTestId.textContent = spec.verification?.testId || `TEST-${spec.id.replace('AC-', '')}`;
+    if (elTestLevel) elTestLevel.textContent = spec.verification?.level || 'Integration';
+    if (elTestLoc) elTestLoc.textContent = spec.verification?.location || 'tests/spec.test.ts';
+
+    modal.classList.add('active');
+  }
+
+  closeAcModal() {
+    const modal = document.getElementById('ac-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  async mutateAcStatus(acId, newStatus) {
+    try {
+      const res = await fetch('/api/ac-status', {
+        method: 'POST',
+        headers: BentoDashboardClient.apiHeaders(),
+        body: JSON.stringify({ acId, newStatus })
+      });
+      if (res.ok) {
+        if (this.audioEnabled) {
+          this.playChime(newStatus === 'GREEN' ? 'green' : 'red');
+        }
+        if (this.state && this.state.specs) {
+          const target = this.state.specs.find(s => s.id === acId);
+          if (target) target.status = newStatus;
+          this.renderSpecs();
+          this.renderDonutChart();
+          this.renderKPIs();
+        }
+        if (this.selectedAc && this.selectedAc.id === acId) {
+          this.selectedAc.status = newStatus;
+          const elStatus = document.getElementById('modal-ac-status');
+          if (elStatus) {
+            elStatus.textContent = newStatus;
+            elStatus.className = `status-pill ${newStatus}`;
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Error updating AC status:', err);
+    }
   }
 
   escapeHtml(str) {

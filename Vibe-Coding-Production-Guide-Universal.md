@@ -1,7 +1,7 @@
 # AI-Powered Project Development — Universal Vibe-Coding Production Guide for Any Project
 
 **Framework:** Vibe Coding Framework · Rapid Prototyping to Production-Hardened SaaS  
-**Author:** Chandan Adhikary & Antigravity Engineering  
+**Author:** Chandan Adhikary  
 **Application Scope:** Universal (SaaS Platforms, Consumer Web Apps, B2B Dashboards, Marketplaces, AI Web Interfaces, Internal Tools)  
 **Reference Example:** EduSphere Multi-Tenant School Management SaaS Website (SMS)  
 **Target IDEs:** Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, Trae, VS Code with AI Agents  

@@ -2,7 +2,7 @@
 ### Operational Reference for `.agents/commands/` & Complete Universal Vibe-Coding Demo for Any Project
 
 **Framework:** Vibe Coding Framework · Rapid Interactive Prototyping to Production SaaS  
-**Author / Engineering Lead:** Chandan Adhikary & Antigravity Engineering  
+**Author / Engineering Lead:** Chandan Adhikary  
 **Version:** 2.0.0 (Production-Grade Universal Release)  
 **Application Scope:** Universal (SaaS Platforms, Consumer Web Apps, B2B Dashboards, Marketplaces, AI Web Interfaces, Internal Tools)  
 **Reference Example:** EduSphere Multi-Tenant School Management SaaS Website (SMS)  

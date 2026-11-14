@@ -47,8 +47,11 @@ Before creating or altering codebase files:
 ## 3. In-IDE Project-Manager-Dashboard
 
 - Launch via `/dashboard-ca-agent` (Port `4201`).
+- Styled with Shadcn UI Zinc dark theme design tokens, Radix-style Sheet dialogs, and subtle spring physics.
 - The dashboard is 100% fluid across all monitor resolutions.
 - Current running task (`Task 1`, `Task 2`, `IN_PROGRESS`) and latest HEAD git commit are pinned to the top.
+- Dates strictly formatted in `DD-MM-YYYY` across live header clock, Task Start/Stop date chips, and git commits.
+- Interactive AC Contract engine: Given/When/Then scenario inspection, test traceability, and live status cycling.
 
 ---
 
@@ -60,3 +63,10 @@ python scripts/check_docs.py
 python scripts/manifest.py --check
 ```
 Both checks must report **0 errors** before any release.
+
+---
+
+## 5. Strict Terminology Privacy Directive
+
+- **Never disclose, use, or write the term "Antigravity" paired with "Engineering" anywhere** across documentation, codebase, commits, responses, artifacts, or metadata.
+

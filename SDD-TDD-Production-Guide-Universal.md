@@ -1,7 +1,7 @@
 # AI-Powered Project Development — Universal Spec-Driven Development (SDD) & TDD Production Guide for Any Project
 
 **Framework:** Spec-Driven Development (SDD) + Test-Driven Development (TDD) · Enterprise Production Software  
-**Author:** Chandan Adhikary & Antigravity Engineering  
+**Author:** Chandan Adhikary  
 **Application Scope:** Universal (Enterprise SaaS, Web Apps, Mobile Backends, Microservices, FinTech, HealthTech, AI Agents, E-commerce, DevTools)  
 **Reference Example:** EduSphere Enterprise Multi-Tenant School Management System (SMS)  
 **Target IDEs:** Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, Trae, VS Code with AI Agents  

@@ -2,7 +2,7 @@
 ### Operational Reference for `.agents/commands/` & Complete Vibe-Coding SMS SaaS Demo
 
 **Framework:** Vibe Coding Framework · Rapid Interactive Prototyping to Production SaaS  
-**Author / Engineering Lead:** Chandan Adhikary & Antigravity Engineering  
+**Author / Engineering Lead:** Chandan Adhikary  
 **Version:** 2.0.0 (Production-Grade Universal Release)  
 **Applies to:** Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Codex, Trae, VS Code with AI Agents  
 

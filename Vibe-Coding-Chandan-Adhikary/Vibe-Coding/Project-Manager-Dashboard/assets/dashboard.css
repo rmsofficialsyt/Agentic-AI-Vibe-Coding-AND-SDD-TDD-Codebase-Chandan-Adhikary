@@ -1813,3 +1813,276 @@ body {
 .token-history-table tr:hover {
   background: rgba(6, 182, 212, 0.06);
 }
+
+/* ==============================================================================
+   SHADCN UI DESIGN SYSTEM TOKENS & COMPONENTS (ZERO-DEPENDENCY)
+   Zinc Dark Palette, Radix Sheet Modals, and Precision Date Formatting
+   ============================================================================== */
+
+/* 1. Live Header Clock Badge */
+.live-clock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-main);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.live-clock-badge .clock-icon {
+  font-size: 11px;
+}
+.live-clock-badge .live-date-val {
+  color: var(--sky-bright);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.live-clock-badge .clock-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+.live-clock-badge .live-time-val {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+/* 2. Task Start & Stop Date Chips (Shadcn Badge Pattern) */
+.task-date-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 8px;
+  flex-wrap: wrap;
+}
+.task-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text-muted);
+}
+.task-date-pill.start {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.08);
+  color: #34d399;
+}
+.task-date-pill.stop {
+  border-color: rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.08);
+  color: #38bdf8;
+}
+.task-date-pill b {
+  font-weight: 700;
+}
+
+/* Kanban Card Date Bar */
+.kanban-card-date-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+.kanban-card-date-bar b.active-pulse {
+  color: #34d399;
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+
+/* Git Commit Date Badge */
+.commit-date-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--sky-bright);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* 3. Interactive Shadcn-Style AC Contract List */
+.spec-item-row {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.spec-item-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(2px);
+}
+.ac-interactive-pill {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+.ac-interactive-pill:hover {
+  transform: scale(1.08);
+  filter: brightness(1.2);
+}
+.ac-interactive-pill:active {
+  transform: scale(0.94);
+}
+
+/* 4. Shadcn UI Radix-Style Sheet Dialog */
+.shadcn-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.shadcn-sheet-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.shadcn-modal-dialog {
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  color: var(--text-main);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shadcn-sheet-backdrop.active .shadcn-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+.shadcn-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 14px;
+}
+.shadcn-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.shadcn-modal-desc {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.shadcn-close-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.shadcn-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+}
+.shadcn-scenario-box {
+  background: rgba(24, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.shadcn-scenario-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.shadcn-scenario-row b {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--sky-bright);
+  min-width: 52px;
+}
+.shadcn-btn-group {
+  display: flex;
+  gap: 8px;
+}
+.shadcn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.shadcn-btn-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.shadcn-btn-green:hover {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+.shadcn-btn-red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.shadcn-btn-red:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+.shadcn-btn-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.shadcn-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+}
+

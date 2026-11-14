@@ -23,6 +23,13 @@
       </div>
 
       <div class="header-actions">
+        <!-- Shadcn Live Real-Time Date & Clock (DD-MM-YYYY) -->
+        <div class="live-clock-badge" title="Live System Date & Time (DD-MM-YYYY)">
+          <span class="clock-icon">🕒</span>
+          <span id="live-date-str" class="live-date-val">14-11-2026</span>
+          <span class="clock-sep">·</span>
+          <span id="live-time-str" class="live-time-val">12:30:00</span>
+        </div>
         <div class="agent-pulse">
           <span class="pulse-dot"></span>
           <span id="agent-status-text">Active · Telemetry Synced</span>
@@ -442,6 +449,60 @@
               <!-- Dynamic rows populated from parser.js tokens.recentTurns -->
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+    <!-- Shadcn UI Radix-Style Sheet Dialog for AC Contract Inspection & Verification -->
+    <div id="ac-modal" class="shadcn-sheet-backdrop">
+      <div class="shadcn-modal-dialog">
+        <div class="shadcn-modal-header">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span id="modal-ac-id" style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--sky-bright)">AC-FEAT001-01</span>
+              <span id="modal-ac-status" class="status-pill GREEN">GREEN</span>
+            </div>
+            <div id="modal-ac-title" class="shadcn-modal-title" style="margin-top:6px">Valid credentials create a session</div>
+            <div id="modal-ac-file" class="shadcn-modal-desc">docs/features/001-example-feature/acceptance.md</div>
+          </div>
+          <button id="modal-ac-close" class="shadcn-close-btn">✕ Esc</button>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-top:4px">
+          Acceptance Scenario Contract
+        </div>
+        <div class="shadcn-scenario-box">
+          <div class="shadcn-scenario-row">
+            <b>GIVEN</b>
+            <span id="modal-ac-given" style="color:var(--text-main)">Active user of an active tenant</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>WHEN</b>
+            <span id="modal-ac-when" style="color:var(--text-main)">Submits valid email, password and tenant_id</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>THEN</b>
+            <span id="modal-ac-then" style="color:var(--text-main)">Response 200, httpOnly session cookies set and profile returned</span>
+          </div>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-top:4px">
+          Verification & Test Traceability
+        </div>
+        <div style="display:flex;gap:8px;font-family:var(--font-mono);font-size:11px;background:rgba(24,24,27,0.7);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.08)">
+          <div>🧪 <b id="modal-ac-testid">TEST-FEAT001-01</b></div>
+          <div style="color:var(--text-faint)">·</div>
+          <div id="modal-ac-testlevel" style="color:var(--sky-bright)">Integration</div>
+          <div style="color:var(--text-faint)">·</div>
+          <div id="modal-ac-testloc" style="color:var(--text-muted)">tests/integration/auth/login.test.ts</div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
+          <span style="font-size:11px;color:var(--text-muted)">Change Contract Status:</span>
+          <div class="shadcn-btn-group">
+            <button id="modal-btn-green" class="shadcn-btn shadcn-btn-green">🟢 Set PASS (Green)</button>
+            <button id="modal-btn-red" class="shadcn-btn shadcn-btn-red">🔴 Set FAIL (Red)</button>
+            <button id="modal-btn-pending" class="shadcn-btn shadcn-btn-outline">⚪ Reset Pending</button>
+          </div>
         </div>
       </div>
     </div>

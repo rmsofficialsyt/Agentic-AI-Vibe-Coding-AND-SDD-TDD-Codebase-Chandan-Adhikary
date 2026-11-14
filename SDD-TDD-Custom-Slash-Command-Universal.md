@@ -2,7 +2,7 @@
 ### Operational Reference for `.agents/commands/` & Complete Universal Production Demo for Any Project
 
 **Framework:** Spec-Driven Development (SDD) + Test-Driven Development (TDD) · High-Assurance Production Software  
-**Author / Engineering Lead:** Chandan Adhikary & Antigravity Engineering  
+**Author / Engineering Lead:** Chandan Adhikary  
 **Version:** 2.0.0 (Production-Grade Universal Release)  
 **Application Scope:** Universal (Enterprise SaaS, Multi-Tenant Platforms, FinTech, HealthTech, Core APIs, Regulated Systems)  
 **Reference Example:** EduSphere Enterprise Multi-Tenant School Management System (SMS)  

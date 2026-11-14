@@ -296,7 +296,7 @@
     },
     {
       "path": "GEMINI.md",
-      "sha256": "72a4f4de22933052e85c326668737f6910b036a71aedbfcf6bfc77ec4d999cb2"
+      "sha256": "5c178e0104ce8e5b158268028941454fa6e44cf1d37a8a9a42a306024d99e2cf"
     },
     {
       "path": "LICENSE-DECISION.md",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "7289c031030317dce06fb656864fc9be803965c0a8ae926735af1320df76a32f"
+      "sha256": "b6b2e9af1119a6dec44e385b99bbe316f95b414c6be1d4f76c726fa962d442b6"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "206dc2fb625a309e66715dfc4511723e975704c472324b5a0b616f9de33e619f"
+      "sha256": "159ac4a23ba8d2650a0f9ed6f1f207aa3d344a1d4ea4da5bf209727d7f2f6bf4"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "9c4fa9cc2dd67f552f015cfb1cd8d5ff7809bb5fa88078560db33684470d1962"
+      "sha256": "782addcf5e5c3037f7f57a0e22fea31f2c6e7f72fcc22b2b261c93a59d6de5c8"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
@@ -336,11 +336,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "a75ec5f0a504f0bf03fe8e019b9c09596ff9c8f1612f90b3fe6842d96c95cb08"
+      "sha256": "f2c726ff0d534ada7da821ede00b43811dcd9854f74ef1d0c7a0cb657fee89a5"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "ef173b6f40050200306a524bf8290a98ea3eddc6f43504881e82b71ac76457c4"
+      "sha256": "c5e3e169cd7eac85d4d9ed50d2176be6bbeae52bcf70cb30d60d017d63febf6a"
     },
     {
       "path": "README.md",
