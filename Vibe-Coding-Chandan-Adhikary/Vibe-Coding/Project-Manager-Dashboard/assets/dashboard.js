@@ -18,6 +18,8 @@ class BentoDashboardClient {
     this.searchQuery = '';
     this.draggedTaskId = null;
     this.currentTddState = 'GREEN';
+    this.errorFilter = 'all';
+    this.errorSearchQuery = '';
 
     this.initMotion();
     this.initTheme();
@@ -29,6 +31,7 @@ class BentoDashboardClient {
     this.initLiveClock();
     this.initTokenTimers();
     this.bindAcModalEvents();
+    this.bindErrorControls();
     this.connectSSE();
   }
 
@@ -350,10 +353,13 @@ class BentoDashboardClient {
       else if (e.key === '4') this.switchView('tokens');
       else if (e.key === '5') this.switchView('git');
       else if (e.key === '6') this.switchView('actions');
+      else if (e.key === '7' || e.key === 'e' || e.key === 'E') this.switchView('errors');
       else if (e.key === 'r' || e.key === 'R') this.runAction('run-tests');
       else if (e.key === 's' || e.key === 'S') this.copyStandupToClipboard();
       else if (e.key === 'Escape') {
         this.closeAcModal();
+        this.closeErrorDetail();
+        this.closeNewErrorModal();
         this.closeDrawer();
       }
     });
@@ -490,6 +496,7 @@ class BentoDashboardClient {
     this.renderSpecsAndPhases();
     this.renderTokenTelemetry();
     this.renderGitRadar();
+    this.renderErrors();
   }
 
   /* --------------------------------------------------------------------------
@@ -1143,6 +1150,285 @@ class BentoDashboardClient {
     });
 
     container.innerHTML = html;
+  }
+
+  /* --------------------------------------------------------------------------
+     18. PREVENTIVE ERROR TRACKING & DEFECT COMMAND CENTER
+     -------------------------------------------------------------------------- */
+  bindErrorControls() {
+    const btnOpenNew = document.getElementById('btn-open-error-modal');
+    if (btnOpenNew) btnOpenNew.addEventListener('click', () => this.openNewErrorModal());
+
+    const btnCloseDetail = document.getElementById('modal-err-close');
+    if (btnCloseDetail) btnCloseDetail.addEventListener('click', () => this.closeErrorDetail());
+
+    const btnCloseNew = document.getElementById('modal-new-err-close');
+    if (btnCloseNew) btnCloseNew.addEventListener('click', () => this.closeNewErrorModal());
+
+    const btnCancelNew = document.getElementById('btn-cancel-new-err');
+    if (btnCancelNew) btnCancelNew.addEventListener('click', () => this.closeNewErrorModal());
+
+    const formLog = document.getElementById('form-log-defect');
+    if (formLog) {
+      formLog.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.submitNewDefect();
+      });
+    }
+
+    const btnResolve = document.getElementById('modal-err-btn-resolve');
+    if (btnResolve) {
+      btnResolve.addEventListener('click', () => {
+        const id = document.getElementById('modal-err-id').textContent;
+        this.updateDefectStatus(id, 'RESOLVED');
+      });
+    }
+
+    const btnActive = document.getElementById('modal-err-btn-active');
+    if (btnActive) {
+      btnActive.addEventListener('click', () => {
+        const id = document.getElementById('modal-err-id').textContent;
+        this.updateDefectStatus(id, 'ACTIVE');
+      });
+    }
+
+    // Filter tabs
+    document.querySelectorAll('.error-filter-tabs .filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.error-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        this.errorFilter = tab.getAttribute('data-error-filter') || 'all';
+        this.renderErrors();
+      });
+    });
+
+    // Search filter input
+    const filterInput = document.getElementById('error-filter-input');
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        this.errorSearchQuery = (e.target.value || '').toLowerCase().trim();
+        this.renderErrors();
+      });
+    }
+  }
+
+  renderErrors() {
+    const errorTracking = (this.state && this.state.errorTracking) || { defects: [], summary: {} };
+    const allDefects = errorTracking.defects || [];
+    const summary = errorTracking.summary || {};
+
+    // 1. Update Navigation Badge
+    const navBadge = document.getElementById('nav-error-badge');
+    const activeCount = summary.active !== undefined ? summary.active : allDefects.filter(d => d.status !== 'RESOLVED').length;
+    if (navBadge) {
+      navBadge.textContent = activeCount;
+      navBadge.style.display = activeCount > 0 ? 'inline-block' : 'none';
+    }
+
+    // 2. Update Bento Stat Cards
+    const elActive = document.getElementById('stat-error-active');
+    const elActivePill = document.getElementById('stat-error-active-pill');
+    const elTotal = document.getElementById('stat-error-total');
+    const elResolved = document.getElementById('stat-error-resolved');
+    const elRate = document.getElementById('stat-error-rate');
+
+    if (elActive) elActive.textContent = activeCount;
+    if (elActivePill) {
+      const p0 = summary.p0 || 0;
+      const p1 = summary.p1 || 0;
+      elActivePill.textContent = `${p0} P0 · ${p1} P1`;
+      elActivePill.className = `status-pill ${p0 > 0 || p1 > 0 ? 'RED' : 'GREEN'}`;
+    }
+    if (elTotal) elTotal.textContent = summary.total !== undefined ? summary.total : allDefects.length;
+    if (elResolved) elResolved.textContent = summary.resolved !== undefined ? summary.resolved : allDefects.filter(d => d.status === 'RESOLVED').length;
+    if (elRate) elRate.textContent = `${summary.rate !== undefined ? summary.rate : 100}%`;
+
+    // 3. Filter defects
+    const filtered = allDefects.filter(d => {
+      if (this.errorFilter === 'active' && d.status === 'RESOLVED') return false;
+      if (this.errorFilter === 'resolved' && d.status !== 'RESOLVED') return false;
+      if (this.errorFilter === 'p0p1' && !['P0', 'P1'].includes(d.severity)) return false;
+
+      if (this.errorSearchQuery) {
+        const text = `${d.id} ${d.summary} ${d.impactedPath} ${d.violatedAc} ${d.rootCause}`.toLowerCase();
+        if (!text.includes(this.errorSearchQuery)) return false;
+      }
+      return true;
+    });
+
+    // 4. Render Table Body
+    const tbody = document.getElementById('error-table-body');
+    if (!tbody) return;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="9" style="text-align:center;padding:36px;color:var(--text-muted)">
+            🎉 No defects matching current filter criteria. All contracts guarded.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    let rowsHtml = '';
+    filtered.forEach(d => {
+      const isResolved = d.status === 'RESOLVED';
+      const statusPillClass = isResolved ? 'GREEN' : 'RED';
+      rowsHtml += `
+        <tr class="error-row" data-err-id="${d.id}">
+          <td><span class="modal-ac-code">${d.id}</span></td>
+          <td><span class="sev-pill ${d.severity}">${d.severity}</span> <span style="font-size:10.5px;color:var(--text-faint);margin-left:4px">${d.sla || ''}</span></td>
+          <td><span class="date-mono">${d.date}</span></td>
+          <td><span style="font-weight:600;color:var(--text-main)">${d.summary}</span></td>
+          <td><span class="path-mono" title="${d.impactedPath}">${d.impactedPath}</span></td>
+          <td><span class="ac-tag">${d.violatedAc}</span></td>
+          <td><span style="color:var(--text-muted);font-size:11.5px;max-width:220px;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.rootCause}</span></td>
+          <td><span class="path-mono" style="color:var(--text-faint)">${d.regressionTest}</span></td>
+          <td>
+            <button class="status-pill ${statusPillClass}" style="cursor:pointer;border:none" data-err-toggle="${d.id}" title="Click to toggle status">
+              ${d.status}
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = rowsHtml;
+
+    // Attach click listeners
+    tbody.querySelectorAll('tr.error-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('[data-err-toggle]')) return;
+        const id = row.getAttribute('data-err-id');
+        this.openErrorDetail(id);
+      });
+    });
+
+    tbody.querySelectorAll('[data-err-toggle]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-err-toggle');
+        const defect = allDefects.find(x => x.id === id);
+        if (defect) {
+          const nextStatus = defect.status === 'RESOLVED' ? 'ACTIVE' : 'RESOLVED';
+          this.updateDefectStatus(id, nextStatus);
+        }
+      });
+    });
+  }
+
+  openErrorDetail(defectId) {
+    const errorTracking = (this.state && this.state.errorTracking) || {};
+    const defects = errorTracking.defects || [];
+    const defect = defects.find(d => d.id === defectId);
+    if (!defect) return;
+
+    const modal = document.getElementById('error-detail-modal');
+    if (!modal) return;
+
+    const elId = document.getElementById('modal-err-id');
+    const elSev = document.getElementById('modal-err-sev');
+    const elStatus = document.getElementById('modal-err-status');
+    const elSummary = document.getElementById('modal-err-summary');
+    const elPath = document.getElementById('modal-err-path');
+    const elDate = document.getElementById('modal-err-date');
+    const elSla = document.getElementById('modal-err-sla');
+    const elAc = document.getElementById('modal-err-ac');
+    const elTest = document.getElementById('modal-err-test');
+    const elFix = document.getElementById('modal-err-fix');
+    const elRoot = document.getElementById('modal-err-rootcause');
+
+    if (elId) elId.textContent = defect.id;
+    if (elSev) {
+      elSev.className = `sev-pill ${defect.severity}`;
+      elSev.textContent = defect.severity;
+    }
+    if (elStatus) {
+      elStatus.className = `status-pill ${defect.status === 'RESOLVED' ? 'GREEN' : 'RED'}`;
+      elStatus.textContent = defect.status;
+    }
+    if (elSummary) elSummary.textContent = defect.summary;
+    if (elPath) elPath.textContent = defect.impactedPath;
+    if (elDate) elDate.textContent = defect.date;
+    if (elSla) elSla.textContent = defect.sla || 'Within standard SLA';
+    if (elAc) elAc.textContent = defect.violatedAc;
+    if (elTest) elTest.textContent = defect.regressionTest;
+    if (elFix) elFix.textContent = defect.fix || 'In Triage';
+    if (elRoot) elRoot.textContent = defect.rootCause;
+
+    modal.classList.add('active');
+  }
+
+  closeErrorDetail() {
+    const modal = document.getElementById('error-detail-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  openNewErrorModal() {
+    const modal = document.getElementById('new-error-modal');
+    if (modal) modal.classList.add('active');
+  }
+
+  closeNewErrorModal() {
+    const modal = document.getElementById('new-error-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  async updateDefectStatus(errorId, newStatus) {
+    try {
+      const res = await fetch('/api/error-status', {
+        method: 'POST',
+        headers: BentoDashboardClient.apiHeaders(),
+        body: JSON.stringify({ errorId, newStatus })
+      });
+      const data = await res.json();
+      if (data.success) {
+        this.showToast(`Defect ${errorId} set to ${newStatus}`);
+        this.closeErrorDetail();
+      } else {
+        this.showToast(`Failed: ${data.error || 'Server error'}`);
+      }
+    } catch (err) {
+      this.showToast(`Error updating status: ${err.message}`);
+    }
+  }
+
+  async submitNewDefect() {
+    const summary = document.getElementById('input-err-summary').value;
+    const severity = document.getElementById('select-err-sev').value;
+    const impactedPath = document.getElementById('input-err-path').value;
+    const violatedAc = document.getElementById('input-err-ac').value || 'N/A';
+    const regressionTest = document.getElementById('input-err-test').value || 'tests/';
+    const rootCause = document.getElementById('input-err-rootcause').value || 'Root cause under investigation';
+    const fix = document.getElementById('input-err-fix').value || 'In Triage';
+
+    try {
+      const res = await fetch('/api/log-error', {
+        method: 'POST',
+        headers: BentoDashboardClient.apiHeaders(),
+        body: JSON.stringify({
+          summary,
+          severity,
+          impactedPath,
+          violatedAc,
+          regressionTest,
+          rootCause,
+          fix
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        this.showToast(`Defect ${data.defectId} logged to docs/error-tracker.md`);
+        this.closeNewErrorModal();
+        const form = document.getElementById('form-log-defect');
+        if (form) form.reset();
+      } else {
+        this.showToast(`Failed: ${data.error || 'Server error'}`);
+      }
+    } catch (err) {
+      this.showToast(`Error logging defect: ${err.message}`);
+    }
   }
 
   showToast(msg) {

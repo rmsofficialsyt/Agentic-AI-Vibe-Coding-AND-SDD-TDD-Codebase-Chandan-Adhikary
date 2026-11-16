@@ -605,28 +605,205 @@ class DashboardParser {
   }
 
   /**
-   * Parse active blockers from docs/error-tracker.md
+   * Parse complete defect and error tracking telemetry from docs/error-tracker.md
+   * Extracts Date, Path, Violated AC, Root Cause, Fix, Regression Test, and Status.
    */
   parseErrors() {
     const content = this.readFileSafe(path.join(this.docsDir, 'error-tracker.md'));
-    const blockers = [];
-    if (!content) return blockers;
+    const defects = [];
+    if (!content) return defects;
 
     const lines = this.contentLines(content);
     lines.forEach(line => {
-      if (line.includes('[P0]') || line.includes('[P1]') || line.toLowerCase().includes('blocker')) {
-        const clean = line.replace(/^[#\s\-*]+/, '').trim();
-        if (clean.length > 5 && !clean.toLowerCase().startsWith('error tracker') && !clean.toLowerCase().startsWith('normative')) {
-          blockers.push({
-            description: clean,
-            severity: line.includes('[P0]') ? 'P0' : 'P1',
-            status: line.toLowerCase().includes('resolved') ? 'RESOLVED' : 'ACTIVE'
+      const trimmed = line.trim();
+
+      // Check if table row with ERR-###
+      if (trimmed.startsWith('|') && trimmed.includes('ERR-')) {
+        const parts = trimmed.split('|').map(p => p.trim().replace(/^`|`$/g, ''));
+        // parts[0] is empty before first pipe
+        if (parts.length >= 8) {
+          const id = parts[1] || '';
+          const rawDate = parts[2] || '';
+          const sev = (parts[3] || 'P2').toUpperCase();
+          const summary = parts[4] || '';
+
+          let impactedPath = '';
+          let violatedAc = '';
+          let rootCause = '';
+          let fix = '';
+          let regressionTest = '';
+          let status = 'ACTIVE';
+
+          if (parts.length >= 11) {
+            // Full 10-column schema
+            impactedPath = parts[5] || '';
+            violatedAc = parts[6] || '';
+            rootCause = parts[7] || '';
+            fix = parts[8] || '';
+            regressionTest = parts[9] || '';
+            status = (parts[10] || 'ACTIVE').toUpperCase();
+          } else {
+            // Fallback for smaller tables
+            rootCause = parts[5] || '';
+            fix = parts[6] || '';
+            regressionTest = parts[7] || '';
+            status = (parts[8] || 'ACTIVE').toUpperCase();
+          }
+
+          // Format Date to DD-MM-YYYY
+          let dateStr = rawDate;
+          if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
+            const [y, m, d] = rawDate.split('-');
+            dateStr = `${d}-${m}-${y}`;
+          }
+
+          // Compute SLA response target
+          let sla = 'Next iteration';
+          if (sev.includes('P0')) sla = 'Immediate (< 2h)';
+          else if (sev.includes('P1')) sla = 'Same session (< 8h)';
+          else if (sev.includes('P2')) sla = 'Within 3 days';
+          else if (sev.includes('P3')) sla = 'Next release polish';
+
+          defects.push({
+            id,
+            date: dateStr || formatDDMMYYYY(),
+            severity: sev.replace(/[^P0-3]/g, '') || 'P2',
+            summary,
+            impactedPath: impactedPath || 'docs/error-tracker.md',
+            violatedAc: violatedAc || 'N/A',
+            rootCause: rootCause || 'Root cause under investigation',
+            fix: fix || 'In Triage',
+            regressionTest: regressionTest || 'tests/',
+            status: status.includes('RESOLVED') ? 'RESOLVED' : (status.includes('TRIAGE') ? 'IN_TRIAGE' : 'ACTIVE'),
+            sla
+          });
+        }
+      } else if (trimmed.includes('[P0]') || trimmed.includes('[P1]') || trimmed.toLowerCase().includes('blocker')) {
+        const clean = trimmed.replace(/^[#\s\-*]+/, '').trim();
+        if (clean.length > 5 && !clean.toLowerCase().startsWith('error tracker') && !clean.toLowerCase().startsWith('normative') && !clean.startsWith('|')) {
+          defects.push({
+            id: `ERR-${String(defects.length + 1).padStart(3, '0')}`,
+            date: formatDDMMYYYY(),
+            severity: trimmed.includes('[P0]') ? 'P0' : 'P1',
+            summary: clean,
+            impactedPath: 'docs/error-tracker.md',
+            violatedAc: 'N/A',
+            rootCause: 'Logged via markdown list blocker note',
+            fix: 'Pending patch',
+            regressionTest: 'tests/',
+            status: trimmed.toLowerCase().includes('resolved') ? 'RESOLVED' : 'ACTIVE',
+            sla: trimmed.includes('[P0]') ? 'Immediate (< 2h)' : 'Same session (< 8h)'
           });
         }
       }
     });
 
-    return blockers;
+    return defects;
+  }
+
+  /**
+   * Aggregate Error Tracking Telemetry with SLA and Rollup Counts
+   */
+  parseErrorTelemetry() {
+    const defects = this.parseErrors();
+    const total = defects.length;
+    const active = defects.filter(d => d.status === 'ACTIVE' || d.status === 'IN_TRIAGE').length;
+    const resolved = defects.filter(d => d.status === 'RESOLVED').length;
+    const p0 = defects.filter(d => d.severity === 'P0' && d.status !== 'RESOLVED').length;
+    const p1 = defects.filter(d => d.severity === 'P1' && d.status !== 'RESOLVED').length;
+    const p2 = defects.filter(d => d.severity === 'P2' && d.status !== 'RESOLVED').length;
+    const p3 = defects.filter(d => d.severity === 'P3' && d.status !== 'RESOLVED').length;
+    const rate = total > 0 ? Math.round((resolved / total) * 100) : 100;
+
+    return {
+      defects,
+      summary: {
+        total,
+        active,
+        p0,
+        p1,
+        p2,
+        p3,
+        resolved,
+        rate
+      }
+    };
+  }
+
+  /**
+   * Update error status directly in docs/error-tracker.md
+   */
+  updateErrorStatus(errorId, newStatus) {
+    const filePath = path.join(this.docsDir, 'error-tracker.md');
+    const content = this.readFileSafe(filePath);
+    if (!content) return false;
+
+    const lines = content.split(/\r?\n/);
+    let updated = false;
+
+    const newLines = lines.map(line => {
+      if (line.includes(`\`${errorId}\``) || line.includes(`| ${errorId} `)) {
+        const parts = line.split('|');
+        if (parts.length >= 4) {
+          parts[parts.length - 2] = ` \`${newStatus}\` `;
+          updated = true;
+          return parts.join('|');
+        }
+      }
+      return line;
+    });
+
+    if (updated) {
+      fs.writeFileSync(filePath, newLines.join('\n'), 'utf8');
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Log a new defect into docs/error-tracker.md
+   */
+  logNewError(defectData = {}) {
+    const filePath = path.join(this.docsDir, 'error-tracker.md');
+    const content = this.readFileSafe(filePath);
+    if (!content) return null;
+
+    const existing = this.parseErrors();
+    const maxNum = existing.reduce((max, d) => {
+      const match = d.id.match(/ERR-(\d+)/);
+      return match ? Math.max(max, parseInt(match[1], 10)) : max;
+    }, 0);
+
+    const nextId = `ERR-${String(maxNum + 1).padStart(3, '0')}`;
+    const dateStr = formatDDMMYYYY();
+    const sev = (defectData.severity || 'P2').toUpperCase();
+    const summary = (defectData.summary || 'Unspecified defect').replace(/\|/g, '-');
+    const pathVal = (defectData.impactedPath || 'src/').replace(/\|/g, '-');
+    const acVal = (defectData.violatedAc || 'N/A').replace(/\|/g, '-');
+    const rootCause = (defectData.rootCause || 'Root cause under investigation').replace(/\|/g, '-');
+    const fixVal = (defectData.fix || 'Pending patch').replace(/\|/g, '-');
+    const testVal = (defectData.regressionTest || 'tests/').replace(/\|/g, '-');
+    const statusVal = 'ACTIVE';
+
+    const newRow = `| \`${nextId}\` | ${dateStr} | \`${sev}\` | ${summary} | \`${pathVal}\` | \`${acVal}\` | ${rootCause} | ${fixVal} | \`${testVal}\` | \`${statusVal}\` |`;
+
+    const lines = content.split(/\r?\n/);
+    let lastTableIdx = -1;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (lines[i].trim().startsWith('|') && !lines[i].includes('---')) {
+        lastTableIdx = i;
+        break;
+      }
+    }
+
+    if (lastTableIdx !== -1) {
+      lines.splice(lastTableIdx + 1, 0, newRow);
+    } else {
+      lines.push(newRow);
+    }
+
+    fs.writeFileSync(filePath, lines.join('\n'), 'utf8');
+    return nextId;
   }
 
   /**
@@ -1046,7 +1223,8 @@ class DashboardParser {
     const tasks = this.parseTasks();
     const phases = this.parsePhases();
     const specs = this.parseSpecs(tasks);
-    const blockers = this.parseErrors();
+    const errorTracking = this.parseErrorTelemetry();
+    const blockers = errorTracking.defects;
     const git = this.getGitTelemetry();
     const tokens = this.parseTokenTelemetry();
 
@@ -1176,6 +1354,7 @@ class DashboardParser {
       phases,
       specs,
       blockers,
+      errorTracking,
       git,
       tokens
     };

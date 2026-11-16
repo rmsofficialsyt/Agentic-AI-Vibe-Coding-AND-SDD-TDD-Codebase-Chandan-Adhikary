@@ -161,7 +161,23 @@ For the ultimate distraction-free developer experience, dock the dashboard direc
 - **Context Capacity Guages:** Visual progress bars displaying current context utilization against maximum capacity (e.g., 1M, 200k tokens).
 - **Multi-Window Rate Limiting:** Monitors 5-hour rolling windows, hourly limits, and daily consumption with automatic reset countdown timers.
 
-### 6. One-Click Pipeline Action Terminal
+### 6. Prev Error Tracking (Preventive & Defect Matrix)
+- **Dedicated Navigation Bar Item:** Quick access with a real-time red badge showing active defect counts (`#nav-errors`, hotkey `7` or `E`).
+- **4-Card Bento Summary:** Visual metrics displaying Active Defects, Resolved count, P0 Blocker alerts, and SLA Triage Health percentage.
+- **Filter Tabs & Instant Search:** Filter defects instantly by `ALL`, `ACTIVE`, `RESOLVED`, `P0/P1`, or by typing keywords (ID, path, summary).
+- **Comprehensive 10-Column Defect Matrix:**
+  - **Defect ID:** Monospace badge (`ERR-001`, `ERR-002`, etc.).
+  - **Severity & SLA:** Color-coded severity chips (`P0 - 4h SLA`, `P1 - 24h SLA`, `P2 - 72h SLA`, `P3 - Backlog`).
+  - **Date:** Strict `DD-MM-YYYY` logged dates.
+  - **Summary:** Concise defect description.
+  - **Impacted Path:** Clickable/inspectable file path badge.
+  - **Violated AC:** Associated Acceptance Criteria contract badge.
+  - **Root Cause & Regression Test:** Underlying failure trigger and protecting automated test.
+  - **Status:** Interactive badge (`ACTIVE`, `IN_TRIAGE`, `RESOLVED`).
+- **Interactive Radix Sheet Defect Inspector:** Click any defect row to view full root cause analysis, stack traces, impacted paths, and toggle status between `ACTIVE` and `RESOLVED` with 1-click Markdown persistence back to `docs/error-tracker.md`.
+- **+ Log New Defect Modal:** Form dialog to log new defects directly from the IDE into `docs/error-tracker.md` with automatic ID generation, severity SLA attribution, and CSRF token protection.
+
+### 7. One-Click Pipeline Action Terminal
 The dashboard features an integrated command center for triggering automated actions:
 - **Run Tests (`btn-run-tests`):** Executes unit and integration test suites.
 - **Spec Check (`btn-spec-check`):** Validates spec traceability and acceptance criteria compliance.
@@ -222,15 +238,19 @@ lsof -ti:4201 | xargs kill -9
 **Resolution:**
 This occurs when Git touches file timestamps during commits. Simply click **"Overwrite"** on the notification, or press `Ctrl + Shift + P` and run **`File: Revert File`**. The `.gitattributes` file in the repository root guarantees consistent LF endings to prevent recurring conflicts.
 
-### Q3: How do I test the token telemetry engine?
+### Q3: How do I test the dashboard telemetry, AC contracts, and error tracker engines?
 **Resolution:**
-Run the dedicated test suite:
+Run the dedicated test suites:
 ```bash
 # SDD-TDD Track
 node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_token_telemetry.js
+node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_ac_contracts.js
+node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_error_tracker.js
 
 # Vibe-Coding Track
 node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_token_telemetry.js
+node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_ac_contracts.js
+node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_error_tracker.js
 ```
 
 ---

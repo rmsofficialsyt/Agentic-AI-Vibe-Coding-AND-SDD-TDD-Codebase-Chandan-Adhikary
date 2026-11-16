@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 160,
+  "file_count_excluding_manifest": 161,
   "files": [
     {
       "path": ".agents/README.md",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "c9bf8b8c478eb1995a2f5382b238cb461e614d5b247708a240379c206dbcc742"
+      "sha256": "04c3da0292d3636199ef1d0efcd880274e60ae729de36be8da2f55df4c3a20c0"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "ed5071d9f19886a563e994ddf0bcb62d0134dd14cc9ff19568799704561136eb"
+      "sha256": "77d3e93de42f338734262393210d0d5e0e08f0e9ebbea06226c34dcf48222dbc"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "e8b80d0a3a2fa4d02db04637d3d86c1b937f035675681222d8b671578420dff4"
+      "sha256": "4edb34612ee4cbcd24ffbe557f4d4f7a9f3ef329f0870c1e575d6df6e6ce4a29"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
@@ -336,11 +336,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "f71407bd67f8cd02f09e3283cbf241dada20f357ef54df4b634bd0b1d8117adc"
+      "sha256": "a1b5b2b10e3c8b0b642b0eae0aad233f4c78edbc4b87b9bc2f7807af2cfc1606"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "2c6d7a1148edae49b474dc9ecc1f8c9c247749663b28b6f32a120d3f4dc61533"
+      "sha256": "4ec4719b5308f87677f363d4ae3ede12622cba0acb1ddf328d9aeb9fe516a4d1"
     },
     {
       "path": "README.md",
@@ -452,7 +452,7 @@
     },
     {
       "path": "docs/error-tracker.md",
-      "sha256": "223a334ddda9dd0b60e0780dac91d1fba04b15e41e87f068740e811e43ad6d3d"
+      "sha256": "669d10bd084a276958a4eaeedfe039e97a149c8b35f23165e2ad504a7d8dfdb8"
     },
     {
       "path": "docs/features/001-example-feature/acceptance.md",
@@ -641,6 +641,10 @@
     {
       "path": "tests/test_ac_contracts.js",
       "sha256": "63a042f958914683c97b0893ac7362b7a985e4946a60479f6d11febe49ce3a87"
+    },
+    {
+      "path": "tests/test_error_tracker.js",
+      "sha256": "c6ccb2cf90ac4a1e20885c543e8ee3ffd1b6db31d2167ec8bc7dbb03c9aee7df"
     },
     {
       "path": "tests/test_token_telemetry.js",

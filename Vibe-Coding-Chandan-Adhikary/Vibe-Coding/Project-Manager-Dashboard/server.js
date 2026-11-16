@@ -24,6 +24,7 @@ const SESSION_TOKEN = crypto.randomBytes(24).toString('hex');
 const MAX_BODY_BYTES = 64 * 1024;
 const ALLOWED_TASK_STATUSES = new Set(['BACKLOG', 'READY', 'IN_PROGRESS', 'BLOCKED', 'REVIEW', 'DONE', 'RED_TEST_FAIL', 'REVIEW_BLOCKED']);
 const ALLOWED_AC_STATUSES = new Set(['GREEN', 'RED', 'PENDING']);
+const ALLOWED_ERROR_STATUSES = new Set(['ACTIVE', 'IN_TRIAGE', 'RESOLVED']);
 
 /** Only accept requests addressed to this daemon (defeats DNS-rebinding). */
 function isAllowedHost(req) {
@@ -212,6 +213,9 @@ const server = http.createServer((req, res) => {
             const runners = [];
             if (fs.existsSync(path.join(testsDir, 'test_ac_contracts.js'))) {
               runners.push(`"${path.join(testsDir, 'test_ac_contracts.js')}"`);
+            }
+            if (fs.existsSync(path.join(testsDir, 'test_error_tracker.js'))) {
+              runners.push(`"${path.join(testsDir, 'test_error_tracker.js')}"`);
             }
             if (fs.existsSync(path.join(testsDir, 'test_token_telemetry.js'))) {
               runners.push(`"${path.join(testsDir, 'test_token_telemetry.js')}"`);
@@ -431,6 +435,51 @@ const server = http.createServer((req, res) => {
         const success = parser.updateAcStatus(acId, newStatus);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success, acId, newStatus }));
+        broadcastState();
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4c. Defect & Error Status Mutation Endpoint
+  if (req.url === '/api/error-status' && req.method === 'POST') {
+    readJsonBody(req, res, ({ errorId, newStatus }) => {
+      try {
+        if (typeof errorId !== 'string' || !/^ERR-[0-9]{3,6}$/i.test(errorId) ||
+            typeof newStatus !== 'string' || !ALLOWED_ERROR_STATUSES.has(newStatus)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Valid errorId (ERR-###) and newStatus (ACTIVE|IN_TRIAGE|RESOLVED) required' }));
+          return;
+        }
+
+        const success = parser.updateErrorStatus(errorId.toUpperCase(), newStatus);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success, errorId, newStatus }));
+        broadcastState();
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4d. Log New Defect Endpoint
+  if (req.url === '/api/log-error' && req.method === 'POST') {
+    readJsonBody(req, res, (defectData) => {
+      try {
+        if (!defectData || typeof defectData.summary !== 'string' || defectData.summary.trim().length === 0) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Valid defect summary is required' }));
+          return;
+        }
+
+        const newId = parser.logNewError(defectData);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: !!newId, defectId: newId }));
         broadcastState();
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });

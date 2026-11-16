@@ -54,6 +54,11 @@
             <span class="nav-icon">🧠</span>
             <span class="nav-label">Token Telemetry</span>
           </a>
+          <a href="#errors" class="nav-item" data-view="errors" id="nav-errors">
+            <span class="nav-icon">🛡️</span>
+            <span class="nav-label">Prev Error Tracking</span>
+            <span id="nav-error-badge" class="nav-badge red">1</span>
+          </a>
 
           <div class="nav-divider"></div>
 
@@ -555,6 +560,99 @@
         </div>
       </section>
 
+      <!-- VIEW 7: PREVENTIVE ERROR TRACKING & DEFECT COMMAND CENTER -->
+      <section id="view-errors" class="dashboard-view-panel">
+        <div class="view-header-bar">
+          <div>
+            <h2 class="view-section-title">Defect & Preventive Error Tracking</h2>
+            <p class="view-section-sub">Systematic triage, root cause isolation, regression tests, and living error history</p>
+          </div>
+          <div class="actions-group">
+            <button id="btn-open-error-modal" class="primary-btn">
+              <span class="btn-pulse-dot"></span>
+              <span>➕ Log New Defect</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-Card Bento Stat Grid -->
+        <div class="error-bento-grid">
+          <div class="teamify-card stat-box">
+            <div class="stat-card-header">
+              <span class="card-tag">ACTIVE BLOCKERS</span>
+              <span id="stat-error-active-pill" class="status-pill RED">0 P0/P1</span>
+            </div>
+            <div class="stat-big-num red" id="stat-error-active">0</div>
+            <span class="card-tag-sub">Critical / high priority defects requiring triage</span>
+          </div>
+
+          <div class="teamify-card stat-box">
+            <div class="stat-card-header">
+              <span class="card-tag">TOTAL LOGGED</span>
+              <span class="card-icon-pill">📋</span>
+            </div>
+            <div class="stat-big-num" id="stat-error-total">0</div>
+            <span class="card-tag-sub">All-time defect volume in docs/error-tracker.md</span>
+          </div>
+
+          <div class="teamify-card stat-box">
+            <div class="stat-card-header">
+              <span class="card-tag">RESOLVED & GUARDED</span>
+              <span class="status-pill GREEN">Guarded</span>
+            </div>
+            <div class="stat-big-num green" id="stat-error-resolved">0</div>
+            <span class="card-tag-sub">Defects patched with verified regression tests</span>
+          </div>
+
+          <div class="teamify-card stat-box">
+            <div class="stat-card-header">
+              <span class="card-tag">RESOLUTION RATE</span>
+              <span class="card-icon-pill">📈</span>
+            </div>
+            <div class="stat-big-num cyan" id="stat-error-rate">100%</div>
+            <span class="card-tag-sub">Quality health & defect remediation SLA</span>
+          </div>
+        </div>
+
+        <!-- Filter & Control Toolbar -->
+        <div class="error-toolbar-card teamify-card">
+          <div class="error-filter-tabs">
+            <button class="filter-tab active" data-error-filter="all">All Defects</button>
+            <button class="filter-tab" data-error-filter="active">🚨 Active Only</button>
+            <button class="filter-tab" data-error-filter="p0p1">🔥 P0 / P1 Blockers</button>
+            <button class="filter-tab" data-error-filter="resolved">✅ Resolved</button>
+          </div>
+          <div class="error-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="error-filter-input" placeholder="Filter by ID, file path, AC or root cause..." />
+          </div>
+        </div>
+
+        <!-- Defect Matrix Table Card -->
+        <div class="teamify-card error-table-card">
+          <div class="error-table-responsive">
+            <table class="error-matrix-table">
+              <thead>
+                <tr>
+                  <th>Defect ID</th>
+                  <th>Severity & SLA</th>
+                  <th>Date (DD-MM-YYYY)</th>
+                  <th>Summary</th>
+                  <th>Impacted Path</th>
+                  <th>Violated AC</th>
+                  <th>Root Cause & Trigger</th>
+                  <th>Regression Test</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="error-table-body">
+                <!-- Dynamically populated via dashboard.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <!-- VIEW 6: ACTION CONSOLE & EXECUTIVE COMMAND CENTER -->
       <section id="view-actions" class="dashboard-view-panel">
         <div class="view-header-bar">
@@ -692,6 +790,125 @@
             <button id="modal-btn-pending" class="shadcn-btn shadcn-btn-outline">⚪ Reset Pending</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- RADIX-STYLE SHEET DIALOG FOR DEFECT DETAIL & DIAGNOSTICS -->
+    <div id="error-detail-modal" class="shadcn-sheet-backdrop">
+      <div class="shadcn-modal-dialog">
+        <div class="shadcn-modal-header">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span id="modal-err-id" class="modal-ac-code">ERR-001</span>
+              <span id="modal-err-sev" class="sev-pill P1">P1</span>
+              <span id="modal-err-status" class="status-pill RED">ACTIVE</span>
+            </div>
+            <div id="modal-err-summary" class="shadcn-modal-title">Defect Summary</div>
+            <div id="modal-err-path" class="shadcn-modal-desc path-mono">assets/dashboard.css</div>
+          </div>
+          <button id="modal-err-close" class="shadcn-close-btn">✕ Esc</button>
+        </div>
+
+        <div class="modal-section-label">Defect Telemetry & Metadata</div>
+        <div class="shadcn-scenario-box">
+          <div class="shadcn-scenario-row">
+            <b>DATE LOGGED</b>
+            <span id="modal-err-date">16-11-2026</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>SLA TARGET</b>
+            <span id="modal-err-sla" class="sky">Immediate (< 2h)</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>VIOLATED AC</b>
+            <span id="modal-err-ac" class="cyan">AC-FEAT001-02</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>REGRESSION TEST</b>
+            <span id="modal-err-test" class="loc">tests/unit/student-enrollment.test.ts</span>
+          </div>
+          <div class="shadcn-scenario-row">
+            <b>FIX REFERENCE</b>
+            <span id="modal-err-fix" class="gold">commit a1b2c3d</span>
+          </div>
+        </div>
+
+        <div class="modal-section-label">Root Cause Analysis & Trigger</div>
+        <div class="shadcn-scenario-box">
+          <div class="shadcn-scenario-row" style="flex-direction:column;align-items:flex-start;gap:6px">
+            <span id="modal-err-rootcause" style="line-height:1.6;color:var(--text-main)">Analysis details...</span>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <span class="footer-lbl">Toggle Resolution Status:</span>
+          <div class="shadcn-btn-group">
+            <button id="modal-err-btn-resolve" class="shadcn-btn shadcn-btn-green">🟢 Mark Resolved</button>
+            <button id="modal-err-btn-active" class="shadcn-btn shadcn-btn-red">🔴 Mark Active (Blocker)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL FOR LOGGING NEW DEFECT -->
+    <div id="new-error-modal" class="shadcn-sheet-backdrop">
+      <div class="shadcn-modal-dialog">
+        <div class="shadcn-modal-header">
+          <div>
+            <div class="shadcn-modal-title">🛡️ Log New Defect / Error</div>
+            <div class="shadcn-modal-desc">Appends a structured defect record directly to docs/error-tracker.md</div>
+          </div>
+          <button id="modal-new-err-close" class="shadcn-close-btn">✕ Esc</button>
+        </div>
+
+        <form id="form-log-defect" class="defect-entry-form">
+          <div class="form-field-group">
+            <label for="input-err-summary">Defect Summary / Error Description *</label>
+            <input type="text" id="input-err-summary" required placeholder="e.g. Unhandled promise rejection on rapid SSE client reconnect" />
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-field-group">
+              <label for="select-err-sev">Severity Level & SLA *</label>
+              <select id="select-err-sev" class="linear-task-select" style="width:100%;height:38px;padding:6px 10px;font-size:12.5px">
+                <option value="P0">P0 - Critical (Outage / Crash < 2h)</option>
+                <option value="P1" selected>P1 - High (Core Action Broken < 8h)</option>
+                <option value="P2">P2 - Medium (Minor Contract Flaw / 3d)</option>
+                <option value="P3">P3 - Low (Cosmetic Flaw / Polish)</option>
+              </select>
+            </div>
+            <div class="form-field-group">
+              <label for="input-err-path">Impacted File Path *</label>
+              <input type="text" id="input-err-path" required placeholder="e.g. Project-Manager-Dashboard/server.js" />
+            </div>
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-field-group">
+              <label for="input-err-ac">Violated AC Contract / Spec Gap</label>
+              <input type="text" id="input-err-ac" placeholder="e.g. AC-FEAT001-01" />
+            </div>
+            <div class="form-field-group">
+              <label for="input-err-test">Regression Test Location</label>
+              <input type="text" id="input-err-test" placeholder="e.g. tests/test_sse_stream.js" />
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="input-err-rootcause">Root Cause Analysis / Trigger Conditions</label>
+            <textarea id="input-err-rootcause" rows="3" placeholder="Describe how to trigger the defect and suspected root cause..."></textarea>
+          </div>
+
+          <div class="form-field-group">
+            <label for="input-err-fix">Fix Reference / Plan (Optional)</label>
+            <input type="text" id="input-err-fix" placeholder="e.g. In Triage / Pending patch" />
+          </div>
+
+          <div class="modal-footer-actions" style="margin-top:16px">
+            <button type="button" id="btn-cancel-new-err" class="shadcn-btn shadcn-btn-outline">Cancel</button>
+            <button type="submit" id="btn-submit-new-err" class="primary-btn">➕ Submit & Persist to docs/error-tracker.md</button>
+          </div>
+        </form>
       </div>
     </div>
 

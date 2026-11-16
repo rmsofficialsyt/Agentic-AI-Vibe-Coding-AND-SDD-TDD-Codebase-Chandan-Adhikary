@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 154,
+  "file_count_excluding_manifest": 155,
   "files": [
     {
       "path": ".agents/README.md",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "c9bf8b8c478eb1995a2f5382b238cb461e614d5b247708a240379c206dbcc742"
+      "sha256": "04c3da0292d3636199ef1d0efcd880274e60ae729de36be8da2f55df4c3a20c0"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "ed5071d9f19886a563e994ddf0bcb62d0134dd14cc9ff19568799704561136eb"
+      "sha256": "77d3e93de42f338734262393210d0d5e0e08f0e9ebbea06226c34dcf48222dbc"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "8e007fd186f8940a5cd0f5e3a6225379dc98c80eb5ea4a619f777b6249240686"
+      "sha256": "129df6220bfb59d1f9a152db4610f7ba50c3cf1de2bd5d7349fa5cde04911038"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
@@ -336,11 +336,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "6ce0e960958b77409c7623de68d91e1af5408d6031afabdf8abd0d81acbbbfb3"
+      "sha256": "253635cc3cf3118f134fba7408ae48939145f0734c87b82d6230694072f7222e"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "3ae0149c97f3b750f35ac84f933c78f810be5a7cf9533d0bec150444b590cb61"
+      "sha256": "2fd42e8f6b67002b96a9237a82915ae41636ce0b0bc958c71b6c7bbb3b158f87"
     },
     {
       "path": "README.md",
@@ -436,7 +436,7 @@
     },
     {
       "path": "docs/error-tracker.md",
-      "sha256": "5c8a182fba654d2621d32062fea3d09c7f707590a2a481641d935b5520233048"
+      "sha256": "8d88ffc43022fa59153d73b242d56dbbb12e63b2026c32a066fc63f1519a5ea7"
     },
     {
       "path": "docs/features/001-example-feature.md",
@@ -617,6 +617,10 @@
     {
       "path": "tests/test_ac_contracts.js",
       "sha256": "63a042f958914683c97b0893ac7362b7a985e4946a60479f6d11febe49ce3a87"
+    },
+    {
+      "path": "tests/test_error_tracker.js",
+      "sha256": "c6ccb2cf90ac4a1e20885c543e8ee3ffd1b6db31d2167ec8bc7dbb03c9aee7df"
     },
     {
       "path": "tests/test_token_telemetry.js",

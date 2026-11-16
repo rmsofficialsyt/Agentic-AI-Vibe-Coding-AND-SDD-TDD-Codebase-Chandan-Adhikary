@@ -40,9 +40,12 @@ flowchart LR
 
 ## 3. Active & Resolved Defect Log
 
-| Defect ID | Date | Sev | Summary | Trigger / Root Cause | Fix (Commit / PR) | Verification | Status |
-|---|---|---|---|---|---|---|---|
-| `ERR-001` | 2026-11-13 | `P1` | Sample: Mobile menu overflow on small screens | CSS fixed width on nav container | commit `f4e3d2c` | Responsive viewport test | `RESOLVED` |
+| Defect ID | Date | Sev | Summary | Impacted Path | Violated AC / Spec Gap | Root Cause / Trigger | Fix (Commit / PR) | Regression Test | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ERR-001` | 13-11-2026 | `P1` | Sample: Mobile menu overflow on small screens | `assets/dashboard.css` | `AC-FEAT001-02` | CSS fixed width on nav container overriding flex | commit `f4e3d2c` | `tests/test_dashboard_responsive.js` | `RESOLVED` |
+| `ERR-002` | 16-11-2026 | `P0` | Test runner ENOENT crash when package.json absent | `Project-Manager-Dashboard/server.js` | `AC-FEAT001-03` | Hardcoded npm test command in server action | commit `f9ef182` | `tests/test_ac_contracts.js` | `RESOLVED` |
+| `ERR-003` | 16-11-2026 | `P1` | AC inspection sheet displayed placeholder fallback text | `Project-Manager-Dashboard/assets/dashboard.js` | `AC-FEAT001-01` | Modal queried spec.given instead of spec.scenario | commit `f9ef182` | `tests/test_ac_contracts.js` | `RESOLVED` |
+| `ERR-004` | 16-11-2026 | `P2` | Unhandled stream event on rapid SSE client reconnection | `Project-Manager-Dashboard/server.js` | `AC-FEAT001-01` | Client socket destroyed before SSE handshake flush | In Triage | `tests/test_sse_stream.js` | `ACTIVE` |
 
 ## Evidence and change control
 
