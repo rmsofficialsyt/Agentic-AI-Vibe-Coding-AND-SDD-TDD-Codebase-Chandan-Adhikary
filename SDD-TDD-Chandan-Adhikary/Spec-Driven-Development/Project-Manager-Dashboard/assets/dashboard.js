@@ -251,7 +251,12 @@ class BentoDashboardClient {
     if (btnSidebarCta) btnSidebarCta.addEventListener('click', () => this.runAction('run-tests'));
 
     const btnRunTestsSpecs = document.getElementById('btn-run-tests-specs');
-    if (btnRunTestsSpecs) btnRunTestsSpecs.addEventListener('click', () => this.runAction('run-tests'));
+    if (btnRunTestsSpecs) {
+      btnRunTestsSpecs.addEventListener('click', () => {
+        this.switchView('actions');
+        this.runAction('run-tests');
+      });
+    }
 
     const btnCloseDrawer = document.getElementById('close-drawer');
     if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', () => this.closeDrawer());
@@ -986,16 +991,35 @@ class BentoDashboardClient {
     const modal = document.getElementById('ac-modal');
     if (!modal) return;
 
-    document.getElementById('modal-ac-id').textContent = spec.id;
-    document.getElementById('modal-ac-title').textContent = spec.title;
-    document.getElementById('modal-ac-status').className = `status-pill ${spec.status}`;
-    document.getElementById('modal-ac-status').textContent = spec.status;
+    const elId = document.getElementById('modal-ac-id');
+    const elTitle = document.getElementById('modal-ac-title');
+    const elStatus = document.getElementById('modal-ac-status');
+    const elFile = document.getElementById('modal-ac-file');
+    const elGiven = document.getElementById('modal-ac-given');
+    const elWhen = document.getElementById('modal-ac-when');
+    const elThen = document.getElementById('modal-ac-then');
+    const elTestId = document.getElementById('modal-ac-testid');
+    const elTestLevel = document.getElementById('modal-ac-testlevel');
+    const elTestLoc = document.getElementById('modal-ac-testloc');
 
-    document.getElementById('modal-ac-given').textContent = spec.given || 'Active user in system';
-    document.getElementById('modal-ac-when').textContent = spec.when || 'Executes contractual action';
-    document.getElementById('modal-ac-then').textContent = spec.then || 'System verifies contract assertions';
+    if (elId) elId.textContent = spec.id;
+    if (elTitle) elTitle.textContent = spec.title;
+    if (elStatus) {
+      elStatus.className = `status-pill ${spec.status}`;
+      elStatus.textContent = spec.status;
+    }
+    if (elFile) elFile.textContent = spec.specFile || spec.file || 'docs/features/';
 
-    document.getElementById('modal-ac-testid').textContent = `TEST-${spec.id}`;
+    const sc = spec.scenario || {};
+    if (elGiven) elGiven.textContent = sc.given || spec.given || 'Active user in system';
+    if (elWhen) elWhen.textContent = sc.when || spec.when || 'Executes contractual action';
+    if (elThen) elThen.textContent = sc.then || spec.then || 'System verifies contract assertions';
+
+    const verification = spec.verification || {};
+    if (elTestId) elTestId.textContent = verification.testId || `TEST-${spec.id.replace('AC-', '')}`;
+    if (elTestLevel) elTestLevel.textContent = verification.level || 'Integration';
+    if (elTestLoc) elTestLoc.textContent = verification.location || 'tests/spec.test.ts';
+
     modal.classList.add('active');
   }
 

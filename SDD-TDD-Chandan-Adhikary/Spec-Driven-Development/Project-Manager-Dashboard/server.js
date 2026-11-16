@@ -187,11 +187,47 @@ const server = http.createServer((req, res) => {
         const action = payload.action;
 
         if (action === 'run-tests') {
-          // Run test command
-          exec('npm test -- --bail || pytest || exit 0', { cwd: PROJECT_ROOT, timeout: 10000 }, (err, stdout, stderr) => {
+          const pkgPath = path.join(PROJECT_ROOT, 'package.json');
+          const testsDir = path.join(PROJECT_ROOT, 'tests');
+          let testCommand = '';
+
+          // 1. If project has package.json with test script, prioritize npm test
+          if (fs.existsSync(pkgPath)) {
+            try {
+              const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+              if (pkg.scripts && pkg.scripts.test) {
+                testCommand = 'npm test';
+              }
+            } catch (e) {}
+          }
+
+          // 2. If pytest tests exist
+          if (!testCommand && fs.existsSync(testsDir)) {
+            const hasPyTests = fs.readdirSync(testsDir).some(f => f.startsWith('test_') && f.endsWith('.py'));
+            if (hasPyTests) testCommand = 'pytest';
+          }
+
+          // 3. Framework test suite: AC Contracts and Token Telemetry runners
+          if (!testCommand) {
+            const runners = [];
+            if (fs.existsSync(path.join(testsDir, 'test_ac_contracts.js'))) {
+              runners.push(`"${path.join(testsDir, 'test_ac_contracts.js')}"`);
+            }
+            if (fs.existsSync(path.join(testsDir, 'test_token_telemetry.js'))) {
+              runners.push(`"${path.join(testsDir, 'test_token_telemetry.js')}"`);
+            }
+            if (runners.length > 0) {
+              testCommand = `node ${runners.join(' && node ')}`;
+            } else {
+              testCommand = 'node -v';
+            }
+          }
+
+          exec(testCommand, { cwd: PROJECT_ROOT, timeout: 15000 }, (err, stdout, stderr) => {
+            const combinedOutput = (stdout || '') + (stderr ? ('\n' + stderr) : '');
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({
-              output: stdout || stderr || 'Test runner completed.',
+              output: combinedOutput.trim() || 'Test runner completed successfully.',
               success: !err
             }));
             broadcastState();

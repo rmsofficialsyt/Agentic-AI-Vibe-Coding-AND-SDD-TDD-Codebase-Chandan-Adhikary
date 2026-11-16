@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 159,
+  "file_count_excluding_manifest": 160,
   "files": [
     {
       "path": ".agents/README.md",
@@ -316,7 +316,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "c9c278bec2fe635ff546740ee4fba9ce5d8ac52a4d52c6de61a2340f6e56ce45"
+      "sha256": "ed5071d9f19886a563e994ddf0bcb62d0134dd14cc9ff19568799704561136eb"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -340,7 +340,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "71c8df8f4930aeb79611829786aeb72073df746ec73de14bf865b586161d0f14"
+      "sha256": "2c6d7a1148edae49b474dc9ecc1f8c9c247749663b28b6f32a120d3f4dc61533"
     },
     {
       "path": "README.md",
@@ -637,6 +637,10 @@
     {
       "path": "tests/README.md",
       "sha256": "c8be6b5c28fbd67da7660eccdd2f1e6c851fe3f76841f7192d697284277e9cc1"
+    },
+    {
+      "path": "tests/test_ac_contracts.js",
+      "sha256": "63a042f958914683c97b0893ac7362b7a985e4946a60479f6d11febe49ce3a87"
     },
     {
       "path": "tests/test_token_telemetry.js",
