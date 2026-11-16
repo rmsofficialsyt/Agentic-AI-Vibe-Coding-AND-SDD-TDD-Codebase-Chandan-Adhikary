@@ -52,6 +52,10 @@ class BentoDashboardClient {
 
   initTheme() {
     document.documentElement.setAttribute('data-theme', this.theme);
+    if (document.body) {
+      document.body.classList.remove('theme-dark', 'theme-light');
+      document.body.classList.add(`theme-${this.theme}`);
+    }
     const themeIcon = document.getElementById('theme-icon');
     if (themeIcon) themeIcon.textContent = this.theme === 'dark' ? '🌙' : '☀️';
   }
@@ -60,6 +64,11 @@ class BentoDashboardClient {
     this.theme = this.theme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('pm_dashboard_theme', this.theme);
     this.initTheme();
+    if (this.state) {
+      this.renderDeliveries();
+      this.renderOrbitalHealth();
+      this.renderPillars();
+    }
     this.showToast(`Theme switched to ${this.theme}`);
   }
 
@@ -643,7 +652,7 @@ class BentoDashboardClient {
     const ticks = [24, 20, 16, 12, 8, 4, 0];
     ticks.forEach((val, idx) => {
       const y = Math.round(10 + (idx / (ticks.length - 1)) * chartH);
-      gridHtml += `<line x1="${paddingLeft}" y1="${y}" x2="${width}" y2="${y}" stroke="rgba(255, 255, 255, 0.05)" stroke-dasharray="3,3" />`;
+      gridHtml += `<line x1="${paddingLeft}" y1="${y}" x2="${width}" y2="${y}" stroke="var(--chart-grid)" stroke-dasharray="3,3" />`;
       gridHtml += `<text x="${paddingLeft - 8}" y="${y + 4}" text-anchor="end" font-family="var(--font-mono)" font-size="9" fill="var(--text-faint)">${val}</text>`;
     });
 
@@ -684,7 +693,7 @@ class BentoDashboardClient {
       ${gridHtml}
       <path d="${pathTarget}" fill="none" stroke="var(--cyan-accent)" stroke-width="2.8" filter="url(#glowCyan)"/>
       <path d="${pathAchieved}" fill="none" stroke="var(--coral-accent)" stroke-width="3" filter="url(#glowCoral)"/>
-      <line x1="${activeX}" y1="10" x2="${activeX}" y2="${height - paddingBottom}" stroke="rgba(255, 255, 255, 0.35)" stroke-dasharray="4,4" />
+      <line x1="${activeX}" y1="10" x2="${activeX}" y2="${height - paddingBottom}" stroke="var(--chart-marker)" stroke-dasharray="4,4" />
       <circle cx="${activeX}" cy="${activeAchievedY}" r="4.5" fill="#ffffff" stroke="var(--coral-accent)" stroke-width="2.5" />
       <circle cx="${activeX}" cy="${activeTargetY}" r="4" fill="#ffffff" stroke="var(--cyan-accent)" stroke-width="2.5" />
     `;

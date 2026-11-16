@@ -230,19 +230,40 @@ Conduct rigorous product, technical, and regulatory research:
 
 ## 4. Required Features
 
-### Core Enterprise Modules
-1. **Tenant Onboarding & Institutional Provisioning**:
+Define the target feature inventory for the project, spanning Feature 1 through Feature N (`docs/features/[NNN]-[FEATURE_SLUG].md`) as per user / developer requirements. Each feature contract must specify its domain boundary, data lifecycle, state transitions, and verifiable acceptance criteria:
+
+### Target Feature Inventory (Feature 1 through Feature N — As Per User / Developer Requirements)
+1. **Feature 1: [FEATURE_1_NAME] (`docs/features/001-[FEATURE_1_SLUG].md`)**:
+   - [FEATURE_1_DESCRIPTION: Foundational setup, authentication, tenant/account provisioning, or baseline domain onboarding as per user/developer requirements].
+2. **Feature 2: [PRIMARY_FEATURE_NAME] (`docs/features/002-[PRIMARY_FEATURE].md`)**:
+   - [PRIMARY_FEATURE_DESCRIPTION: Primary core workflow, entity lifecycle, state machine transitions, verification rules, and automated ID/record generation as per user/developer requirements].
+3. **Feature 3: [FEATURE_3_NAME] (`docs/features/003-[FEATURE_3_SLUG].md`)**:
+   - [FEATURE_3_DESCRIPTION: State tracking, event auditing, temporal record logging, or system history tracking as per user/developer requirements].
+4. **Feature 4: [FEATURE_4_NAME] (`docs/features/004-[FEATURE_4_SLUG].md`)**:
+   - [FEATURE_4_DESCRIPTION: Processing engine, business calculations, formula execution, atomic verification, or data pipelines as per user/developer requirements].
+5. **Feature 5: [FEATURE_5_NAME] (`docs/features/005-[FEATURE_5_SLUG].md`)**:
+   - [FEATURE_5_DESCRIPTION: Financial, transactional allocation, invoicing, reconciliation, or payment/ledger generation as per user/developer requirements].
+6. **Feature N: [FEATURE_N_NAME] (`docs/features/[NNN]-[FEATURE_N_SLUG].md`)**:
+   - [FEATURE_N_DESCRIPTION: Additional domain capabilities, role-based access boundaries, granular data masking, reporting, or integrations up to Feature N as per user/developer requirements].
+
+<details>
+<summary><b>View Concrete Example Reference (Enterprise SaaS / SMS Reference Mapping)</b></summary>
+
+The generalized feature inventory above maps to concrete business domains as demonstrated in this illustrative enterprise reference:
+
+1. **Feature 1 (Tenant Onboarding & Institutional Provisioning)**:
    - Provisioning new organizations/tenants, configuration profiles, and department structures.
-2. **Primary Core Workflow (`docs/features/002-[PRIMARY_FEATURE].md`)**:
-   - [PRIMARY_FEATURE_DESCRIPTION: Detail the core entity lifecycle, verification rules, and automated ID generation].
-3. **Audit Logging & Historical State Tracking**:
+2. **Feature 2 (Primary Core Workflow — `docs/features/002-[PRIMARY_FEATURE].md`)**:
+   - Core entity lifecycle, verification rules, and automated ID generation (e.g., Student Enrollment or Transaction Processing).
+3. **Feature 3 (Audit Logging & Historical State Tracking)**:
    - Immutable audit logging: any retrospective change to records requires a recorded actor, timestamp, reason, and signature.
-4. **Processing & Calculation Engine**:
+4. **Feature 4 (Processing & Calculation Engine)**:
    - Business calculations, formula execution, atomic verification, and tamper-evident audit trails.
-5. **Billing, Transaction Allocation & Invoicing**:
+5. **Feature 5 (Billing, Transaction Allocation & Invoicing)**:
    - Payment/transaction structures, automated invoicing, reconciliation, and ledger generation.
-6. **Role-Based Portals & Granular Access Control**:
+6. **Feature 6 (Role-Based Portals & Granular Access Control)**:
    - Strict data masking: Users only access data permitted by their verified organization and role boundaries.
+</details>
 
 ---
 

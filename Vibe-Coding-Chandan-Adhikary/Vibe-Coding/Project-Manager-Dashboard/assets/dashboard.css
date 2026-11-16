@@ -3,7 +3,9 @@
    Strict Implementation of the User-Provided Design Reference Pattern
    ============================================================================== */
 
-:root {
+:root,
+html[data-theme="dark"],
+body.theme-dark {
   /* Matte Slate & Charcoal Canvas Surface Hierarchy */
   --bg-canvas: #19191c;
   --bg-sidebar: #1e1e22;
@@ -49,6 +51,67 @@
   --radius-card: 22px;
   --radius-pill: 9999px;
   --radius-badge: 8px;
+
+  /* Chart & Surface Specifics */
+  --chart-grid: rgba(255, 255, 255, 0.05);
+  --chart-marker: rgba(255, 255, 255, 0.35);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --card-hover-bg: rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="light"],
+body.theme-light {
+  /* Matte Slate & Crisp Light Surface Hierarchy (Shadcn Zinc Light & Apple Clean Slate) */
+  --bg-canvas: #f4f4f6;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-elevated: #f8f8fa;
+  --bg-card-hover: #f0f0f4;
+  --bg-input: #f4f4f7;
+
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-card: 1px solid rgba(0, 0, 0, 0.07);
+  --border-highlight: rgba(0, 0, 0, 0.14);
+
+  /* Teamify Distinct Semantic Color Accents (Optimized for High-Contrast Light Backgrounds) */
+  --coral-accent: #ea580c;
+  --coral-peach: #f97316;
+  --coral-glow: rgba(234, 88, 12, 0.16);
+
+  --cyan-accent: #0284c7;
+  --cyan-glow: rgba(2, 132, 199, 0.16);
+
+  --gold-accent: #d97706;
+  --gold-glow: rgba(217, 119, 6, 0.16);
+
+  --purple-accent: #7c3aed;
+  --purple-glow: rgba(124, 58, 237, 0.16);
+
+  --mint-accent: #059669;
+  --mint-glow: rgba(5, 150, 105, 0.16);
+
+  --crimson-red: #dc2626;
+  --crimson-glow: rgba(220, 38, 38, 0.16);
+
+  /* Typography Colors */
+  --text-main: #09090b;
+  --text-muted: #71717a;
+  --text-faint: #a1a1aa;
+
+  /* Typography Scales */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Smooth Pill Radii */
+  --radius-card: 22px;
+  --radius-pill: 9999px;
+  --radius-badge: 8px;
+
+  /* Chart & Surface Specifics */
+  --chart-grid: rgba(0, 0, 0, 0.06);
+  --chart-marker: rgba(0, 0, 0, 0.22);
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --card-hover-bg: rgba(0, 0, 0, 0.04);
 }
 
 /* Base Reset & Fluid Typography */
@@ -180,7 +243,7 @@ html, body {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .brand-track-badge {
@@ -215,11 +278,11 @@ html, body {
 
 .nav-item:hover {
   color: var(--text-main);
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: var(--card-hover-bg);
 }
 
 .nav-item.active {
-  color: #ffffff;
+  color: var(--text-main);
   background-color: rgba(255, 112, 67, 0.14);
   font-weight: 600;
 }
@@ -307,9 +370,9 @@ html, body {
   width: 100%;
   padding: 8px 12px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  background: var(--card-hover-bg, rgba(255, 255, 255, 0.07));
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
@@ -319,7 +382,7 @@ html, body {
 .sidebar-action-btn:hover {
   background: rgba(255, 112, 67, 0.2);
   border-color: var(--coral-accent);
-  color: #ffffff;
+  color: var(--coral-accent);
 }
 
 /* ==============================================================================
@@ -350,7 +413,7 @@ html, body {
   font-size: clamp(20px, 2vw, 24px);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .header-greeting-sub {
@@ -450,7 +513,7 @@ html, body {
 
 .btn-icon:hover {
   background: var(--bg-card-hover);
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .notif-count-pill {
@@ -512,7 +575,7 @@ html, body {
   border-radius: var(--radius-card);
   padding: 22px;
   position: relative;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: var(--card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -527,7 +590,7 @@ html, body {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .card-tag-sub {
@@ -691,7 +754,7 @@ html, body {
 .stat-big-num {
   font-size: 20px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
   padding-left: 13px;
   font-family: var(--font-sans);
 }
@@ -988,7 +1051,7 @@ html, body {
 .view-section-title {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .view-section-sub {
@@ -1278,7 +1341,7 @@ html, body {
 .action-card-title {
   font-size: 13.5px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .action-card-sub {
@@ -1650,7 +1713,7 @@ html, body {
 .shadcn-modal-title {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-main);
   margin-top: 4px;
 }
 
@@ -1783,9 +1846,9 @@ html, body {
   border: 1px solid var(--border-highlight);
   border-radius: 12px;
   padding: 12px 18px;
-  color: #ffffff;
+  color: var(--text-main);
   font-size: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 /* ==============================================================================
@@ -2163,4 +2226,115 @@ html, body {
   .form-row-2col {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==============================================================================
+   8. LIGHT MODE REFINEMENTS (Teamify Clean Slate / Shadcn Zinc Light)
+   100% Geometry, Radius, Spacing & Layout Preserved — Pure Surface & Contrast Tuning
+   ============================================================================== */
+html[data-theme="light"] .floating-delivery-card,
+body.theme-light .floating-delivery-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .bento-task-card,
+body.theme-light .bento-task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+html[data-theme="light"] .bento-task-card:hover,
+body.theme-light .bento-task-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+}
+
+html[data-theme="light"] .col-count,
+html[data-theme="light"] .wip-limit-pill,
+body.theme-light .col-count,
+body.theme-light .wip-limit-pill {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-muted);
+}
+
+html[data-theme="light"] .status-pill.PENDING,
+body.theme-light .status-pill.PENDING {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-muted);
+}
+
+html[data-theme="light"] .token-capacity-track,
+body.theme-light .token-capacity-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] .subtasks-bar-track,
+body.theme-light .subtasks-bar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] .error-matrix-table th,
+body.theme-light .error-matrix-table th {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+html[data-theme="light"] .path-mono,
+body.theme-light .path-mono {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+html[data-theme="light"] .path-mono:hover,
+body.theme-light .path-mono:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .sidebar-action-btn,
+body.theme-light .sidebar-action-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .lamp-cord,
+body.theme-light .lamp-cord {
+  background: #a1a1aa;
+}
+
+html[data-theme="light"] .lamp-shade,
+body.theme-light .lamp-shade {
+  background: #d4d4d8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .shadcn-scenario-box,
+body.theme-light .shadcn-scenario-box {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-subtle);
+}
+
+html[data-theme="light"] .test-traceability-row,
+body.theme-light .test-traceability-row {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-subtle);
+}
+
+html[data-theme="light"] .action-terminal-body,
+body.theme-light .action-terminal-body {
+  background: #18181b;
+  color: #38bdf8;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="light"] .test-drawer,
+body.theme-light .test-drawer {
+  background: #18181b;
+}
+
+html[data-theme="light"] .view-tab-btn:hover:not(.active),
+html[data-theme="light"] .filter-tab:hover:not(.active),
+body.theme-light .view-tab-btn:hover:not(.active),
+body.theme-light .filter-tab:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
 }

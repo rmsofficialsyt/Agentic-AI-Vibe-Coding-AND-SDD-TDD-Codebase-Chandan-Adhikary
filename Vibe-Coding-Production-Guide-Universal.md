@@ -197,26 +197,47 @@ Conduct evidence-based product and UI/UX research on the [DOMAIN_AREA: e.g., EdT
 
 ## 4. Required Features
 
-### Core MVP Features
-1. **Public Marketing Landing Page**:
+Define the target MVP feature inventory for the project, spanning Feature 1 through Feature N (`docs/features/[NNN]-[FEATURE_SLUG].md` or living UI specs) as per user / developer requirements. Structure each feature with intuitive user journeys, interactive UI states, and rapid visual feedback:
+
+### Target Feature Inventory (Feature 1 through Feature N — As Per User / Developer Requirements)
+1. **Feature 1: [FEATURE_1_NAME] (`docs/features/001-[FEATURE_1_SLUG].md`)**:
+   - [FEATURE_1_DESCRIPTION: Public landing page, product overview, key benefits, interactive preview, and conversion CTAs as per user/developer requirements].
+2. **Feature 2: [FEATURE_2_NAME] (`docs/features/002-[FEATURE_2_SLUG].md`)**:
+   - [FEATURE_2_DESCRIPTION: Authentication, multi-role onboarding, session management, and route protection as per user/developer requirements].
+3. **Feature 3: [FEATURE_3_NAME] (`docs/features/003-[FEATURE_3_SLUG].md`)**:
+   - [FEATURE_3_DESCRIPTION: Responsive master dashboard, navigation bar, KPI summary cards, and quick actions as per user/developer requirements].
+4. **Feature 4: [PRIMARY_FLAGSHIP_FEATURE] (`docs/features/004-[PRIMARY_FLAGSHIP_FEATURE].md`)**:
+   - [PRIMARY_FLAGSHIP_FEATURE_DESCRIPTION: Interactive flagship workflow, high-density list with live filtering, 1-click batch actions, and real-time status pill buttons as per user/developer requirements].
+5. **Feature 5: [FEATURE_5_NAME] (`docs/features/005-[FEATURE_5_SLUG].md`)**:
+   - [FEATURE_5_DESCRIPTION: Searchable entity directory, profile views, quick-access modal sheets, and detail drawers as per user/developer requirements].
+6. **Feature N: [FEATURE_N_NAME] (`docs/features/[NNN]-[FEATURE_N_SLUG].md`)**:
+   - [FEATURE_N_DESCRIPTION: Activity tracker, billing/invoicing, notifications, reporting, or domain capabilities up to Feature N as per user/developer requirements].
+
+<details>
+<summary><b>View Concrete Example Reference (SaaS / Web App Reference Mapping)</b></summary>
+
+The generalized feature inventory above maps to concrete user journeys as demonstrated in this illustrative MVP reference:
+
+1. **Feature 1 (Public Marketing Landing Page)**:
    - Hero section with interactive preview, key feature bento grid, role-based benefit cards, interactive pricing tier calculator, and high-conversion CTAs.
-2. **Multi-Role Authentication & Onboarding**:
+2. **Feature 2 (Multi-Role Authentication & Onboarding)**:
    - Role-based login and onboarding flow for primary personas.
    - Secure session management, password reset, and role-based route middleware.
-3. **Responsive Master Dashboard**:
+3. **Feature 3 (Responsive Master Dashboard)**:
    - Collapsible sidebar navigation with active path highlights.
    - Executive statistics cards (KPI counters, active rates, pending tasks).
    - Quick action shortcuts.
-4. **Interactive Flagship Feature (`[CORE_FLAGSHIP_FEATURE]`)**:
+4. **Feature 4 (Interactive Flagship Feature — e.g. Attendance & Classroom Roster / Core Workflow)**:
    - High-density list with live filtering and search.
    - 1-click batch actions.
    - Interactive status pill buttons with immediate optimistic visual feedback.
    - Real-time summary counters updating on every toggle.
-5. **Entity Directory & Management**:
+5. **Feature 5 (Entity Directory & Management)**:
    - Searchable, filterable card and table views.
    - Quick view profile modal/drawer.
-6. **Billing, Invoicing & Activity Tracker**:
+6. **Feature 6 (Billing, Invoicing & Activity Tracker)**:
    - Invoicing/transaction tracker, status badges, and receipt view.
+</details>
 
 ---
 
