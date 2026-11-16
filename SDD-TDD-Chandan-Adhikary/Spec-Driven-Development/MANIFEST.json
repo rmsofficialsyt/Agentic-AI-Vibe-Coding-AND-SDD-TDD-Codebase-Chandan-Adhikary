@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 161,
+  "file_count_excluding_manifest": 162,
   "files": [
     {
       "path": ".agents/README.md",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "04c3da0292d3636199ef1d0efcd880274e60ae729de36be8da2f55df4c3a20c0"
+      "sha256": "cd881d8935ede3d56f3074a889f6f4de6a3e2056ddc76f38b26b1f7e6b33821a"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "77d3e93de42f338734262393210d0d5e0e08f0e9ebbea06226c34dcf48222dbc"
+      "sha256": "b462d7088ba3094b92de50085173ae047d8cfbd4ada5b3981bb6565bc9a4cb38"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "4edb34612ee4cbcd24ffbe557f4d4f7a9f3ef329f0870c1e575d6df6e6ce4a29"
+      "sha256": "50ae8165c76d63f0925f5fbd6c8c0724debfe68eba11059c53c0dd1fd195c014"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
@@ -641,6 +641,10 @@
     {
       "path": "tests/test_ac_contracts.js",
       "sha256": "63a042f958914683c97b0893ac7362b7a985e4946a60479f6d11febe49ce3a87"
+    },
+    {
+      "path": "tests/test_dashboard_theme.js",
+      "sha256": "c8deef90cbaafe7a54c56a200aebc8bc76174d9952b2adb3497b8822431cd8b3"
     },
     {
       "path": "tests/test_error_tracker.js",
