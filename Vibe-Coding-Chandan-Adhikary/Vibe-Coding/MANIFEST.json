@@ -312,7 +312,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "bf707aedc4483c6e46dea6a2075261385331d3d1a4cdac04100ef57ad86e5280"
+      "sha256": "c9bf8b8c478eb1995a2f5382b238cb461e614d5b247708a240379c206dbcc742"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "66c7391d998f8121a2b7e97f0fab48cefbbc9f0f9cac188ad171ca004ebee82a"
+      "sha256": "8e007fd186f8940a5cd0f5e3a6225379dc98c80eb5ea4a619f777b6249240686"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
