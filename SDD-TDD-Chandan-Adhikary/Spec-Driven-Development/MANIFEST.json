@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 162,
+  "file_count_excluding_manifest": 165,
   "files": [
     {
       "path": ".agents/README.md",
@@ -280,7 +280,7 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "a6522bd69520602e45c59f5c090a221dadb5b8ebda33510e76970e3b1e0a649f"
+      "sha256": "ac7a78a199a6f575d8297660584e1a9399b85a0889258bc65ab21bee80a6b20d"
     },
     {
       "path": ".pre-commit-config.yaml",
@@ -288,7 +288,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "c4c9ca308b8e5b3b7bb15167894f54a77ee7d5c8cadb4683dfd90080e5b6257d"
+      "sha256": "108a88ca54705b4af5148cebaa89c92097dbc74efb16cc818bb4ba976f8d9e4f"
     },
     {
       "path": "CLAUDE.md",
@@ -296,7 +296,7 @@
     },
     {
       "path": "GEMINI.md",
-      "sha256": "013bce8a53067ade6471c0abc8af18309a0e71923f440de226f9bf6e92eee178"
+      "sha256": "24a61e29a01ec09a1352ee2b12e28731de5bc492bd8af3a19a74bddd17d16dbd"
     },
     {
       "path": "LICENSE-DECISION.md",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "cd881d8935ede3d56f3074a889f6f4de6a3e2056ddc76f38b26b1f7e6b33821a"
+      "sha256": "9455b585ae9a812ad2b0b50895a5a8e6d8c3cc3608f6cd77ed844174b51ab4af"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "b462d7088ba3094b92de50085173ae047d8cfbd4ada5b3981bb6565bc9a4cb38"
+      "sha256": "e38ae3261ccb0f892f7e33ef1c6f83150b91af6c07d5cd994d0694130b67ef94"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,7 +324,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "50ae8165c76d63f0925f5fbd6c8c0724debfe68eba11059c53c0dd1fd195c014"
+      "sha256": "21177b6b442f0c2474640098e343b455aa501950f84076d541076330a53394f0"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
@@ -336,11 +336,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "a1b5b2b10e3c8b0b642b0eae0aad233f4c78edbc4b87b9bc2f7807af2cfc1606"
+      "sha256": "3c4a5388b8cd7cffd56b6d6537cddee7674ce6d412c4a6c0ca27cc42ffc1d9ac"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "4ec4719b5308f87677f363d4ae3ede12622cba0acb1ddf328d9aeb9fe516a4d1"
+      "sha256": "7ed226c8122c790fbd3eb2a8971cdee918e3202733fd6ff6686541ccc5f1eb15"
     },
     {
       "path": "README.md",
@@ -416,7 +416,7 @@
     },
     {
       "path": "docs/constitution.md",
-      "sha256": "22ca98b0b64609ce28c0ec98b6c87ae199ce5eafd76c159af5d5a5bc25811838"
+      "sha256": "3f232d0e81f3d4511928fe7b5f2c451c4e8c782598a7ac140defcee0f9463958"
     },
     {
       "path": "docs/database.md",
@@ -436,7 +436,7 @@
     },
     {
       "path": "docs/design.md",
-      "sha256": "2fb8d57feec7f661eaa60c768f2e062ab8a104a4253ab62e9e9b7e17bd42a83c"
+      "sha256": "bf55cd18168009fab3e01e068febcb85389e582acfeb81fcaed943af99579b1d"
     },
     {
       "path": "docs/devops.md",
@@ -480,7 +480,7 @@
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
-      "sha256": "628948ef7958bc1e9ac96753d61a6e4911a304dff3bc6c687598ae66f14e9c46"
+      "sha256": "c515c752de294e00e8d515ce353919481c5e3f2f2aeb55c11c7e4346f4de2bb3"
     },
     {
       "path": "docs/handoff.md",
@@ -496,7 +496,7 @@
     },
     {
       "path": "docs/observability.md",
-      "sha256": "0fcc26842769b9eb9d51c07e0cb8ec0fe7b3195ae81b94cac90ac0529d96c9c0"
+      "sha256": "3d4cd006f0adb832d97f570233783754edf3bab872c2f74c8a4fa187bd753d94"
     },
     {
       "path": "docs/performance.md",
@@ -504,7 +504,7 @@
     },
     {
       "path": "docs/phases.md",
-      "sha256": "edebd18a16aee487cf1c7184078276f33e12a38bdeee350316edb1969b6172ad"
+      "sha256": "8a416e2e4d3a7ad429c7cb76e53f8c15c3e6531eadb3a1abf8ef18428a2833a7"
     },
     {
       "path": "docs/plugins.md",
@@ -532,7 +532,7 @@
     },
     {
       "path": "docs/rules.md",
-      "sha256": "368a6e2283823d6927d9c5dfa72408b68edf182a96bada6f5c04e3a5626fe313"
+      "sha256": "56d675a7e65238e6c58dc9427763bfee73af5dff0541ecf3d08918be85453035"
     },
     {
       "path": "docs/runbook.md",
@@ -552,7 +552,7 @@
     },
     {
       "path": "docs/system-architecture.md",
-      "sha256": "82ace7d7af2e5a6fe94e3a841723a3772c7a27827be63cd0bc5c573965f5427f"
+      "sha256": "979cd02caa0d56f416701f394a665f91c16149e77b6a718f02abb0d98d403f75"
     },
     {
       "path": "docs/task.md",
@@ -563,16 +563,20 @@
       "sha256": "01a850a52dab11675fa239d2d32964508d16c2f262858d11e2f9e9f939ca85cc"
     },
     {
+      "path": "logs/.gitkeep",
+      "sha256": "fe029d3a0a8107ff3a66abf3ec4d34bfab06ee4579684dfa98563e7b3ec398d1"
+    },
+    {
       "path": "playbooks/01-Setup-Project.txt",
-      "sha256": "785e94f488e64eb5695cc4ae098e96a38fe4d49df4b1d3aa434ee5675ad193f2"
+      "sha256": "e75eb2bc0ffd57c7ad1c86c8eb007872a04d091ee59170cb4a3d0a03cc33ff1e"
     },
     {
       "path": "playbooks/02-Project-Implementation.txt",
-      "sha256": "2f8b29e71bf672c6ce6fa001b722dfa6d04741e16ef7010931fa7bde57d9628d"
+      "sha256": "0fedbf1feab1df4c48b8c09518c88bc6682a75012d38a1c78ba72074854df129"
     },
     {
       "path": "playbooks/03-Features-Development.txt",
-      "sha256": "fea6c2c083d4bfcc1e4b4ea7d0d31af6cc3531c3a9fcf6aa7ab20705049c5c21"
+      "sha256": "93f1fc1cf537d4685231221c04e007171024e6c23316dad92df0a89845e587ec"
     },
     {
       "path": "playbooks/04-Authentication-Security.txt",
@@ -600,7 +604,7 @@
     },
     {
       "path": "playbooks/10-Error-Handling.txt",
-      "sha256": "e17941b0090fd1ca115e2b413a522bf78d116f163467c361c8ec7e20ce559d79"
+      "sha256": "fa79dd663a4112db8a30f8d5eed81f4afdf28675196819da290c7d665095c991"
     },
     {
       "path": "playbooks/11-Checklist.txt",
@@ -643,12 +647,20 @@
       "sha256": "63a042f958914683c97b0893ac7362b7a985e4946a60479f6d11febe49ce3a87"
     },
     {
+      "path": "tests/test_architecture_feature.js",
+      "sha256": "479cec37ce8f3346419cecbd39bb63b83f473a6ffa49abfe19f3f68a843a9007"
+    },
+    {
       "path": "tests/test_dashboard_theme.js",
       "sha256": "c8deef90cbaafe7a54c56a200aebc8bc76174d9952b2adb3497b8822431cd8b3"
     },
     {
       "path": "tests/test_error_tracker.js",
       "sha256": "c6ccb2cf90ac4a1e20885c543e8ee3ffd1b6db31d2167ec8bc7dbb03c9aee7df"
+    },
+    {
+      "path": "tests/test_logs_feature.js",
+      "sha256": "54023d7499749883a5fb1cfdc69ed5f1e99e165b9c270d0a5013088b118a4597"
     },
     {
       "path": "tests/test_token_telemetry.js",

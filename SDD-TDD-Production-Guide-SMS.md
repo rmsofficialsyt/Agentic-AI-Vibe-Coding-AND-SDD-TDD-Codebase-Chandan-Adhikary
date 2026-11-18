@@ -19,6 +19,8 @@
    - **Green**: Write the absolute minimum production code required to satisfy the tests.
    - **Refactor**: Clean up the architecture, eliminate duplication, and optimize performance while ensuring all tests remain 100% green.
 4. **Zero Hallucination / Zero Scope Creep**: Autonomous AI agents are restricted to approved specifications. Any unapproved feature or undocumented modification is treated as an architectural defect.
+5. **Staged Web Development (Frontend-First Verification)**: For web application development, never build all features at once. First build and verify the frontend (UI design, layout, responsiveness, mock/client state, component interactions). Verify through a live demo run (`/run-ca-agent`) that design, layout, functionalities, and features work completely and look right interactively. Only after the frontend demo run is 100% verified and approved, proceed to backend persistence, security hardening, automated test suites, and maintenance.
+6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
 This guide provides an end-to-end, production-ready blueprint for building **EduSphere Enterprise**—a secure, multi-tenant School Management System designed for strict regulatory compliance (FERPA, COPPA, GDPR) and mission-critical reliability.
 
@@ -110,6 +112,17 @@ Before executing prompts, verify and activate `.agents/commands/*-ca-agent.md`:
 
 ---
 
+### Pre-Step 5 Gate: Domain Knowledge & System Design Synthesis
+> **CRITICAL PRE-PROMPTING PREREQUISITE:** Before issuing Prompt 1 (Step 5), you must ensure comprehensive domain clarity and system design foundations are in place:
+> 1. **Domain Knowledge Mastery**: Understand domain vocabulary, institutional/business workflows, regulatory constraints, and user personas.
+> 2. **System Design Blueprint**: Formulate high-level architecture (client, gateway, backend services, database, queues) and low-level data flows.
+> 3. **AI Agent Consultation Protocol**: If you do not have domain knowledge or system design blueprints prepared manually, you **MUST ask the AI agent first during planning**:
+>    *Example Pre-Prompting Inquiry:*
+>    > *"Before we execute Step 5 (Prompt 1), act as a Principal Enterprise Architect and explain the complete domain knowledge, end-to-end system design architecture, entity relationships, and technical trade-offs for EduSphere Enterprise SMS."*
+> 4. **Integration with First Prompt (Prompt 1)**: The synthesized domain knowledge and system design are explicitly integrated into Prompt 1 below, requiring the agent to formalize HLD/LLD diagrams, domain glossary, and architecture trade-offs before writing specifications.
+
+---
+
 ## Step 5 — Prompt 1: Master Architecture, R&D & Pre-Development Planning
 
 > **Mode:** Plan Mode / Ask Mode / Read-Only Planning  
@@ -165,6 +178,8 @@ Rules:
 - MUST NOT implement unapproved features.
 - MUST NOT delete or overwrite existing files without authorization.
 - MUST report any contradictory specifications or missing policies.
+- MUST maintain all development logs inside a dedicated `logs/` folder (`logs/*.log`) with sensitive information sanitized.
+- MUST enforce staged web development (Frontend-First): verify frontend design and features via a live demo run (`/run-ca-agent`) before implementing backend persistence.
 
 ---
 
@@ -184,6 +199,11 @@ Conduct rigorous product, technical, and regulatory research:
 ### 3.3 UI/UX & Accessibility Research
 - WCAG 2.1 AA Compliance: High-contrast ratios, complete keyboard navigation, screen reader accessibility (ARIA live regions for attendance status).
 - High-density data tables: Keyboard-driven cell navigation, virtualized scrolling for large student rosters (1,000+ records), sticky headers, and instant column filtering.
+
+### 3.4 Domain Knowledge & System Design Synthesis
+- Comprehensive School Management Domain Glossary: Core educational entities (Tenants, Campuses, Students, Guardians, Enrollments, Sections, Grades, Attendance, Invoices).
+- High-Level Architecture (HLD): Ingress routing, reverse proxy, API Gateway, Tenant Resolver middleware, PostgreSQL with Row-Level Security (RLS), Redis cache.
+- Low-Level Architecture (LLD): Sequence diagrams for student enrollment, attendance audit logs, fee payments, and GPA calculation pipelines.
 
 ---
 

@@ -181,6 +181,7 @@ stateDiagram-v2
 [project-root]/
 ├── docs/                     # Specifications, architecture, PRD, and guidelines
 ├── playbooks/                # Step-by-step operational workflows
+├── logs/                     # Mandatory development logs (*.log)
 ├── .agents/                  # Autonomous commands, skills, and templates
 │   ├── commands/             # Custom deterministic slash command contracts
 │   └── skills/               # Core repository skills
@@ -192,6 +193,9 @@ stateDiagram-v2
 
 ## 8. Normative Enforcement Rules
 
+- **MUST** complete domain knowledge synthesis and system design modeling before Step 5 (First Prompting); if not manually provided, consult the AI agent during planning to formulate system architecture and integrate it into Prompt 1.
+- **MUST** follow staged web development (Frontend-First Verification): develop and verify frontend design and features during a demo run before backend persistence.
+- **MUST** maintain all development logs inside `logs/` (`logs/*.log`) with credentials sanitized.
 - **MUST** document any architectural change via an Architecture Decision Record (ADR) under `docs/adrs/`.
 - **MUST** maintain up-to-date visual Mermaid diagrams matching deployed infrastructure.
 - **MUST** stop and review if an implementation conflicts with approved boundary contracts or scalability constraints.

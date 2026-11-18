@@ -21,6 +21,8 @@
    - **Green**: Write the absolute minimum production code required to satisfy the tests.
    - **Refactor**: Clean up the architecture, eliminate duplication, and optimize performance while ensuring all tests remain 100% green.
 4. **Zero Hallucination / Zero Scope Creep**: Autonomous AI agents are restricted strictly to approved specifications. Any unapproved feature or undocumented modification is treated as an architectural defect.
+5. **Staged Web Development (Frontend-First Verification)**: For websites and web applications, never attempt to build all features at once. First develop the frontend (UI design, layout, responsiveness, mock/client state, component interactions). Verify through a live demo run (`/run-ca-agent`) that design, layout, functionalities, and features work completely and look right interactively. Only after the frontend demo run is 100% verified and approved, proceed to backend persistence, security hardening, automated test suites, and maintenance.
+6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
 ---
 
@@ -152,6 +154,17 @@ Before executing prompts, verify and activate `.agents/commands/*-ca-agent.md`:
 
 ---
 
+### Pre-Step 5 Gate: Domain Knowledge & System Design Synthesis
+> **CRITICAL PRE-PROMPTING PREREQUISITE:** Before issuing Prompt 1 (Step 5), you must ensure comprehensive domain clarity and system design foundations are in place:
+> 1. **Domain Knowledge Mastery**: Understand domain vocabulary, institutional/business workflows, regulatory constraints, and user personas.
+> 2. **System Design Blueprint**: Formulate high-level architecture (client, gateway, backend services, database, queues) and low-level data flows.
+> 3. **AI Agent Consultation Protocol**: If you do not have domain knowledge or system design blueprints prepared manually, you **MUST ask the AI agent first during planning**:
+>    *Example Pre-Prompting Inquiry:*
+>    > *"Before we execute Step 5 (Prompt 1), act as a Principal Enterprise Architect and explain the complete domain knowledge, end-to-end system design architecture, entity relationships, and technical trade-offs for [PROJECT_NAME]."*
+> 4. **Integration with First Prompt (Prompt 1)**: The synthesized domain knowledge and system design are explicitly integrated into Prompt 1 below, requiring the agent to formalize HLD/LLD diagrams, domain glossary, and architecture trade-offs before writing specifications.
+
+---
+
 ## Step 5 — Prompt 1: Master Architecture, R&D & Pre-Development Planning
 
 > **Mode:** Plan Mode / Ask Mode / Read-Only Planning  
@@ -207,6 +220,8 @@ Rules:
 - MUST NOT implement unapproved features.
 - MUST NOT delete or overwrite existing files without authorization.
 - MUST report any contradictory specifications or missing policies.
+- MUST maintain all development logs inside a dedicated `logs/` folder (`logs/*.log`) with sensitive information sanitized.
+- MUST enforce staged web development (Frontend-First): verify frontend design and features via a live demo run (`/run-ca-agent`) before implementing backend persistence.
 
 ---
 
@@ -225,6 +240,11 @@ Conduct rigorous product, technical, and regulatory research:
 ### 3.3 UI/UX & Accessibility Research
 - Accessibility Compliance: WCAG 2.1 AA Compliance, complete keyboard navigation, high contrast ratios, and ARIA live regions.
 - High-density data presentation: Keyboard-driven cell navigation, virtualized scrolling for large datasets, sticky headers, and instant column filtering.
+
+### 3.4 Domain Knowledge & System Design Synthesis
+- Comprehensive Domain Glossary: Define institutional/business concepts, domain boundaries, and entity lifecycles for [PROJECT_NAME].
+- High-Level Architecture (HLD): Map client ingress, API gateway, service layers, asynchronous message brokers, and relational database persistence.
+- Low-Level Architecture (LLD): Detail component interactions, data flow sequences, state machines, and architectural trade-off evaluations.
 
 ---
 

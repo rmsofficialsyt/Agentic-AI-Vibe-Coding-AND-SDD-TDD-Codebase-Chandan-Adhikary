@@ -39,6 +39,13 @@ Production metrics, logs, tracing and alerting.
 
 - **MUST** — Where relevant track evaluation drift, error rates, input/output risk and model/token cost.
 
+### 7. Development logging
+
+- **MUST** — Maintain proper development log files (`*.log`) inside a dedicated `logs/` directory at the project root (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+- **MUST** — Pipe server runtime, test runner execution, and diagnostic dumps into their corresponding log files in `logs/`.
+- **MUST** — Sanitize all credentials, tokens, and PII before writing to disk.
+- **MUST** — Preserve `logs/.gitkeep` in version control while ignoring `logs/*.log` files in `.gitignore`.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.

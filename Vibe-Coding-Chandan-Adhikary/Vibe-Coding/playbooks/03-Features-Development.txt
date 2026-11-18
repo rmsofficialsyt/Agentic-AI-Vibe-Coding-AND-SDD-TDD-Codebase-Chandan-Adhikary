@@ -23,6 +23,7 @@ Procedure:
 2. Intake & Feature Spec Authoring:
    - Copy from `docs/features/FEATURE-TEMPLATE.md`.
    - Assign feature ID and sensory acceptance criteria.
-3. Step-by-Step Implementation:
-   - Implement one feature at a time.
-   - Run `/implement-ca-agent`, verify live in browser, review diffs, update docs upon completion.
+3. Step-by-Step Implementation & Frontend-First Verification:
+   - Implement one feature at a time following staged web progression.
+   - Build frontend first; verify live in browser with `/run-ca-agent`; only then proceed to backend persistence and security.
+   - Maintain execution and test logs in `logs/` (`logs/*.log`), updating `docs/task.md` upon completion.

@@ -51,6 +51,9 @@ When an AI agent receives a slash command (such as `/spec-check-ca-agent` or `/t
 2. **Tests Before Code (Red First):** Any command attempting to implement code before failing tests are authored and executed will be aborted.
 3. **Traceability Invariant:** Every commit and pull request must cite the active Spec ID and Acceptance Criteria (e.g. `feat([module]): satisfy AC-FEAT[NNN]-01`).
 4. **Collision Prevention (`-ca-agent` Suffix):** Standard tokens (`/plan`, `/test`, `/review`) are namespace-protected with `-ca-agent` to eliminate collisions with IDE-native commands across Cursor, Claude Code, Windsurf, Antigravity, and VS Code.
+5. **Mandatory Development Logging (`logs/`):** Maintain all test execution, build, server, and diagnostic outputs inside dedicated log files in `logs/` (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+6. **Pre-Step 5 Domain Knowledge & System Design Synthesis:** Before first prompting (`/plan-ca-agent`), establish domain clarity and system design; if not manually prepared, ask the agent to formulate system design during planning and integrate it into Prompt 1.
+7. **Staged Web Development (Frontend-First Verification):** For web applications, develop and verify the frontend first via live demo run (`/run-ca-agent`) before implementing backend persistence, security, and maintenance.
 
 ---
 

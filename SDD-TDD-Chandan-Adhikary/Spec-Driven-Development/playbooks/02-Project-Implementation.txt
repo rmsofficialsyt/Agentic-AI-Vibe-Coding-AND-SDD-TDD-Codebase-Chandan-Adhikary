@@ -9,6 +9,8 @@ Prerequisites:
 - Feature spec in `docs/features/` MUST have `Status: APPROVED` and a valid `APR-###` record in `docs/approvals/`, and MUST be indexed in `docs/spec.md`.
 - Task MUST be `READY` in `docs/task.md` with allowed files and acceptance criteria (`AC-FEAT###-##`).
 - **RULE OF SPEC PACING:** Never attempt to implement all core features at once. Implement strictly one spec at a time (Red → Green → Refactor → Verify → Update Docs) before starting the next.
+- **STAGED WEB DEVELOPMENT (Frontend-First Verification):** For web applications, do NOT build all features at once. First build and verify the frontend during a live demo run (`/run-ca-agent`). Only after visual and functional approval on screen, implement backend APIs, database persistence, and security controls.
+- **MANDATORY DEVELOPMENT LOGGING:** Pipe and maintain test executions, build logs, and runtime outputs inside dedicated log files in `logs/` (`logs/test.log`, `logs/dev.log`, `logs/error.log`). Never scatter raw logs in project root.
 
 Commands & Skills:
 - Commands: `/spec-check-ca-agent`, `/plan-ca-agent`, `/task-ca-agent`, `/tdd-ca-agent`, `/implement-ca-agent`, `/verify-ca-agent`, `/review-ca-agent`

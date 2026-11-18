@@ -85,6 +85,16 @@ Every interactive component MUST explicitly define and test the following 8 stat
 - **MUST** support dynamic light/dark theme switching without layout flashes (FOUC).
 - **MUST** verify responsive scaling using dynamic viewport testing across ultra-wide, desktop, and mobile form factors.
 
+---
+
+## 5. Staged Web Application Lifecycle (Frontend-First Verification)
+
+For websites and web applications, development MUST follow strict staged sequencing:
+1. **Stage A (Frontend First & Interactive Demo):** Build UI components, responsive layouts, mock data state, and interactive controls first. Run `/run-ca-agent` and verify design aesthetics, user flows, and features interactively in the browser during a live demo.
+2. **Stage B (Backend Integration):** Only after frontend design, layout, and feature workflows are completely approved by the developer during the demo run, proceed to backend API implementation and database persistence.
+3. **Stage C (Security & Hardening):** Implement authentication, permissions, and security controls.
+4. **Stage D (Production Readiness):** Run automated test suites and finalize deployment checklists.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.

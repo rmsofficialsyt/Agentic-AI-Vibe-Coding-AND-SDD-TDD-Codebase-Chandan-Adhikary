@@ -20,6 +20,11 @@ class BentoDashboardClient {
     this.currentTddState = 'GREEN';
     this.errorFilter = 'all';
     this.errorSearchQuery = '';
+    this.activeLogFile = 'dev.log';
+    this.logTailLines = 100;
+    this.logSearchQuery = '';
+    this.logAutoScroll = true;
+    this.isFetchingLog = false;
 
     this.initMotion();
     this.initTheme();
@@ -32,6 +37,8 @@ class BentoDashboardClient {
     this.initTokenTimers();
     this.bindAcModalEvents();
     this.bindErrorControls();
+    this.bindLogControls();
+    this.bindArchitectureEvents();
     this.connectSSE();
   }
 
@@ -169,6 +176,10 @@ class BentoDashboardClient {
         panel.classList.remove('active');
       }
     });
+
+    if (viewName === 'logs') {
+      this.fetchActiveLogContent();
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -357,18 +368,21 @@ class BentoDashboardClient {
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
 
       if (e.key === '1') this.switchView('overview');
-      else if (e.key === '2') this.switchView('tasks');
-      else if (e.key === '3') this.switchView('specs');
-      else if (e.key === '4') this.switchView('tokens');
-      else if (e.key === '5') this.switchView('git');
-      else if (e.key === '6') this.switchView('actions');
-      else if (e.key === '7' || e.key === 'e' || e.key === 'E') this.switchView('errors');
+      else if (e.key === '2' || e.key === 'a' || e.key === 'A') this.switchView('architecture');
+      else if (e.key === '3' || e.key === 't' || e.key === 'T') this.switchView('tasks');
+      else if (e.key === '4') this.switchView('specs');
+      else if (e.key === '5' || e.key === 'e' || e.key === 'E') this.switchView('errors');
+      else if (e.key === '6' || e.key === 'l' || e.key === 'L') this.switchView('logs');
+      else if (e.key === '7' || e.key === 'g' || e.key === 'G') this.switchView('git');
+      else if (e.key === '8') this.switchView('tokens');
+      else if (e.key === '9') this.switchView('actions');
       else if (e.key === 'r' || e.key === 'R') this.runAction('run-tests');
       else if (e.key === 's' || e.key === 'S') this.copyStandupToClipboard();
       else if (e.key === 'Escape') {
         this.closeAcModal();
         this.closeErrorDetail();
         this.closeNewErrorModal();
+        this.closeArchitectureModal();
         this.closeDrawer();
       }
     });
@@ -496,6 +510,7 @@ class BentoDashboardClient {
     this.renderNotificationsFeed();
 
     // 2. Render Granular Views
+    this.renderArchitecture();
     if (this.taskViewMode === 'kanban') {
       this.renderKanbanTasks();
     } else {
@@ -506,6 +521,7 @@ class BentoDashboardClient {
     this.renderTokenTelemetry();
     this.renderGitRadar();
     this.renderErrors();
+    this.renderLogs();
   }
 
   /* --------------------------------------------------------------------------
@@ -1437,6 +1453,514 @@ class BentoDashboardClient {
       }
     } catch (err) {
       this.showToast(`Error logging defect: ${err.message}`);
+    }
+  }
+
+  escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /* --------------------------------------------------------------------------
+     14. LIVE DEVELOPMENT LOGS EXPLORER (logs/ DIRECTORY)
+     -------------------------------------------------------------------------- */
+  bindLogControls() {
+    // Tail select dropdown
+    const tailSelect = document.getElementById('log-tail-select');
+    if (tailSelect) {
+      tailSelect.addEventListener('change', (e) => {
+        this.logTailLines = parseInt(e.target.value, 10);
+        this.fetchActiveLogContent();
+      });
+    }
+
+    // Keyword search input
+    const searchInput = document.getElementById('log-search-input');
+    if (searchInput) {
+      let debounce = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounce);
+        debounce = setTimeout(() => {
+          this.logSearchQuery = e.target.value.trim();
+          this.fetchActiveLogContent();
+        }, 200);
+      });
+    }
+
+    // Auto-scroll toggle
+    const autoscrollToggle = document.getElementById('log-autoscroll-toggle');
+    if (autoscrollToggle) {
+      autoscrollToggle.addEventListener('change', (e) => {
+        this.logAutoScroll = e.target.checked;
+      });
+    }
+
+    // Refresh button
+    const btnRefresh = document.getElementById('btn-refresh-log');
+    if (btnRefresh) {
+      btnRefresh.addEventListener('click', () => {
+        this.fetchActiveLogContent();
+      });
+    }
+
+    // Copy to clipboard
+    const btnCopy = document.getElementById('btn-copy-log');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', () => {
+        const body = document.getElementById('log-viewer-body');
+        if (!body) return;
+        const text = body.innerText || body.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          const original = btnCopy.textContent;
+          btnCopy.textContent = '✅ Copied!';
+          setTimeout(() => { btnCopy.textContent = original; }, 1500);
+        }).catch(err => {
+          console.error('Copy failed:', err);
+        });
+      });
+    }
+
+    // Download log file
+    const btnDownload = document.getElementById('btn-download-log');
+    if (btnDownload) {
+      btnDownload.addEventListener('click', () => {
+        const body = document.getElementById('log-viewer-body');
+        if (!body) return;
+        const text = body.innerText || body.textContent;
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.activeLogFile || 'download.log';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    // Clear log button
+    const btnClear = document.getElementById('btn-clear-log');
+    if (btnClear) {
+      btnClear.addEventListener('click', async () => {
+        if (!this.activeLogFile) return;
+        const confirmClear = window.confirm(`Are you sure you want to clear/truncate "${this.activeLogFile}"?`);
+        if (!confirmClear) return;
+
+        try {
+          const res = await fetch('/api/clear-log', {
+            method: 'POST',
+            headers: BentoDashboardClient.apiHeaders(),
+            body: JSON.stringify({ filename: this.activeLogFile })
+          });
+          const result = await res.json();
+          if (result.success) {
+            this.showToast(`Cleared ${this.activeLogFile}`);
+            this.fetchActiveLogContent();
+          } else {
+            alert(`Error: ${result.error || 'Failed to clear log'}`);
+          }
+        } catch (err) {
+          alert(`Network error clearing log: ${err.message}`);
+        }
+      });
+    }
+  }
+
+  renderLogs() {
+    const logsData = (this.state && this.state.logs) || { files: [], summary: {} };
+    const files = logsData.files || [];
+    const summary = logsData.summary || {};
+
+    // 1. Update Navigation Badge
+    const navBadge = document.getElementById('nav-log-badge');
+    if (navBadge) {
+      const count = summary.totalFiles !== undefined ? summary.totalFiles : files.length;
+      navBadge.textContent = count;
+      navBadge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+
+    // 2. Update Bento Summary Cards
+    const elFiles = document.getElementById('stat-log-files');
+    const elSize = document.getElementById('stat-log-size');
+    const elLines = document.getElementById('stat-log-lines');
+    const elErrors = document.getElementById('stat-log-errors');
+    const elErrorsSub = document.getElementById('stat-log-errors-sub');
+    const elActivity = document.getElementById('stat-log-activity');
+    const elFileActive = document.getElementById('stat-log-file-active');
+
+    if (elFiles) elFiles.textContent = summary.totalFiles !== undefined ? summary.totalFiles : files.length;
+    if (elSize) elSize.textContent = summary.formattedSize || '0 B';
+    if (elLines) elLines.textContent = `${summary.totalLines || 0} lines tracked across files`;
+    if (elErrors) elErrors.textContent = summary.errorLines || 0;
+    if (elErrorsSub) elErrorsSub.textContent = `${summary.errorLines || 0} errors · ${summary.warnLines || 0} warnings`;
+    if (elActivity) elActivity.textContent = summary.lastModified ? summary.lastModified.split(' ')[1] : '-';
+    if (elFileActive) elFileActive.textContent = `Active: ${this.activeLogFile || (files[0] && files[0].filename) || 'dev.log'}`;
+
+    // 3. Render Log File Selector Pills
+    const pillsContainer = document.getElementById('logs-file-pills');
+    if (pillsContainer) {
+      if (files.length === 0) {
+        pillsContainer.innerHTML = '<span style="color:var(--text-muted);font-size:12px">No .log files found in logs/</span>';
+      } else {
+        if (!this.activeLogFile || !files.some(f => f.filename === this.activeLogFile)) {
+          this.activeLogFile = files[0].filename;
+        }
+
+        let html = '';
+        files.forEach(f => {
+          const isActive = f.filename === this.activeLogFile;
+          html += `
+            <button class="log-pill ${isActive ? 'active' : ''}" data-logfile="${f.filename}" title="${f.filename} (${f.formattedSize}, ${f.lineCount} lines)">
+              <span class="log-pill-name">📜 ${f.filename}</span>
+              <span class="log-pill-size">${f.formattedSize}</span>
+              ${f.errorCount > 0 ? `<span class="log-pill-err" title="${f.errorCount} error lines">${f.errorCount}</span>` : ''}
+            </button>
+          `;
+        });
+        pillsContainer.innerHTML = html;
+
+        // Attach click listeners to pills
+        pillsContainer.querySelectorAll('.log-pill').forEach(pill => {
+          pill.addEventListener('click', () => {
+            const file = pill.getAttribute('data-logfile');
+            if (file && file !== this.activeLogFile) {
+              this.activeLogFile = file;
+              this.renderLogs();
+              this.fetchActiveLogContent();
+            }
+          });
+        });
+      }
+    }
+
+    // If currently viewing logs, auto-fetch updated content
+    if (this.activeView === 'logs') {
+      this.fetchActiveLogContent();
+    }
+  }
+
+  async fetchActiveLogContent() {
+    if (!this.activeLogFile || this.isFetchingLog) return;
+    this.isFetchingLog = true;
+
+    try {
+      const url = `/api/log-content?file=${encodeURIComponent(this.activeLogFile)}&lines=${this.logTailLines}&search=${encodeURIComponent(this.logSearchQuery)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.error) {
+        const body = document.getElementById('log-viewer-body');
+        if (body) {
+          body.innerHTML = `<div class="log-line log-line-error"><span class="log-line-num">!</span><span class="log-line-content">${this.escapeHtml(data.error)}</span></div>`;
+        }
+        return;
+      }
+
+      // Update header details
+      const titleEl = document.getElementById('log-viewer-file-title');
+      const linesPill = document.getElementById('log-viewer-line-count-pill');
+      const sizePill = document.getElementById('log-viewer-size-pill');
+      const mtimeEl = document.getElementById('log-viewer-mtime');
+
+      if (titleEl) titleEl.textContent = `📜 ${data.filename}`;
+      if (linesPill) linesPill.textContent = `${data.displayedLines} / ${data.totalLines} lines`;
+      if (sizePill) sizePill.textContent = data.formattedSize;
+      if (mtimeEl) mtimeEl.textContent = `Last Modified: ${data.lastModified || '-'}`;
+
+      // Render lines
+      const body = document.getElementById('log-viewer-body');
+      if (body) {
+        if (!data.lines || data.lines.length === 0) {
+          body.innerHTML = '<div style="color:var(--text-muted);padding:24px;text-align:center">No log entries found. Start development servers or tests to stream logs into logs/' + this.escapeHtml(data.filename) + '</div>';
+        } else {
+          let linesHtml = '';
+          data.lines.forEach(l => {
+            linesHtml += `<div class="log-line log-line-${l.type}"><span class="log-line-num">${l.lineNum}</span><span class="log-line-content">${this.escapeHtml(l.text)}</span></div>`;
+          });
+          body.innerHTML = linesHtml;
+
+          if (this.logAutoScroll) {
+            const container = document.getElementById('log-terminal-container');
+            if (container) container.scrollTop = container.scrollHeight;
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch log content:', err);
+    } finally {
+      this.isFetchingLog = false;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     25. SYSTEM ARCHITECTURE & BOUNDARY BLUEPRINT CONTROLLER
+     -------------------------------------------------------------------------- */
+  bindArchitectureEvents() {
+    const btnRefresh = document.getElementById('btn-refresh-arch');
+    if (btnRefresh) {
+      btnRefresh.addEventListener('click', async () => {
+        try {
+          const res = await fetch('/api/state');
+          if (res.ok) {
+            this.state = await res.json();
+            this.renderArchitecture();
+            this.showToast('🏛️ Architecture blueprint synchronized from disk');
+          }
+        } catch (e) {
+          this.showToast('Failed to sync architecture');
+        }
+      });
+    }
+
+    const btnViewSpec = document.getElementById('btn-view-arch-spec');
+    if (btnViewSpec) {
+      btnViewSpec.addEventListener('click', () => {
+        this.openArchitectureModal();
+      });
+    }
+
+    const btnCloseModal = document.getElementById('modal-arch-close');
+    const btnCloseModalBottom = document.getElementById('btn-modal-close-arch-btn');
+    if (btnCloseModal) btnCloseModal.addEventListener('click', () => this.closeArchitectureModal());
+    if (btnCloseModalBottom) btnCloseModalBottom.addEventListener('click', () => this.closeArchitectureModal());
+
+    const archModal = document.getElementById('arch-modal');
+    if (archModal) {
+      archModal.addEventListener('click', (e) => {
+        if (e.target === archModal) this.closeArchitectureModal();
+      });
+    }
+
+    // Tier filter tabs
+    document.querySelectorAll('#arch-tier-filter-tabs .filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#arch-tier-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const tier = tab.getAttribute('data-tier') || 'all';
+        this.filterHldTiers(tier);
+      });
+    });
+  }
+
+  openArchitectureModal() {
+    const modal = document.getElementById('arch-modal');
+    const mdBody = document.getElementById('arch-modal-markdown');
+    const titleEl = document.getElementById('arch-modal-title');
+    const fileEl = document.getElementById('arch-modal-file');
+    const statusEl = document.getElementById('arch-modal-status-badge');
+    const lastModEl = document.getElementById('arch-modal-lastmod');
+
+    const arch = (this.state && this.state.architecture) || {};
+    const meta = arch.meta || {};
+
+    if (titleEl) titleEl.textContent = meta.title || 'System Architecture & System Design Specification';
+    if (fileEl) fileEl.textContent = `${meta.docPath || 'docs/system-architecture.md'} · Guideline Baseline ${meta.baseline || '2.0.0'}`;
+    if (statusEl) statusEl.textContent = meta.status || 'Active Baseline';
+    if (lastModEl) lastModEl.textContent = `Synced: ${meta.lastUpdated || this.formatDDMMYYYY()} · Strict DD-MM-YYYY`;
+
+    if (mdBody) {
+      mdBody.textContent = arch.rawContent || 'No architecture specification content found at docs/system-architecture.md.';
+    }
+
+    if (modal) {
+      modal.classList.add('active');
+      const dialog = modal.querySelector('.shadcn-modal-dialog');
+      if (dialog) this.animateSpring(dialog, { opacity: [0, 1], scale: [0.96, 1], y: [16, 0] }, this.springSnappy);
+    }
+  }
+
+  closeArchitectureModal() {
+    const modal = document.getElementById('arch-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  filterHldTiers(tierId) {
+    const columns = document.querySelectorAll('.arch-tier-column');
+    const arrows = document.querySelectorAll('.arch-tier-arrow');
+
+    if (tierId === 'all') {
+      columns.forEach(col => col.style.display = 'flex');
+      arrows.forEach(arr => arr.style.display = 'flex');
+    } else {
+      columns.forEach(col => {
+        if (col.getAttribute('data-tier') === tierId) {
+          col.style.display = 'flex';
+        } else {
+          col.style.display = 'none';
+        }
+      });
+      arrows.forEach(arr => arr.style.display = 'none');
+    }
+  }
+
+  renderArchitecture() {
+    const arch = (this.state && this.state.architecture) || {};
+    const meta = arch.meta || {};
+    const hld = arch.hld || {};
+    const lld = arch.lld || {};
+    const consistency = arch.consistency || {};
+    const caching = arch.caching || {};
+    const resilience = arch.resilience || {};
+
+    // 1. Header Badges
+    const versionBadge = document.getElementById('arch-version-badge');
+    if (versionBadge) {
+      versionBadge.textContent = `v${meta.baseline || '2.0.0'} · ${meta.status || 'Production Baseline'}`;
+    }
+
+    // 2. Bento Metrics
+    const statIngress = document.getElementById('arch-stat-ingress');
+    const statCompute = document.getElementById('arch-stat-compute');
+    const statStorage = document.getElementById('arch-stat-storage');
+    const statResilience = document.getElementById('arch-stat-resilience');
+    if (statIngress) statIngress.textContent = 'Cloudflare WAF';
+    if (statCompute) statCompute.textContent = `${(lld.layers && lld.layers.length) || 4} Clean Layers`;
+    if (statStorage) statStorage.textContent = 'PostgreSQL + Redis';
+    if (statResilience) statResilience.textContent = 'Circuit Breakers';
+
+    // 3. High-Level Design (HLD) Visual Topology Flow
+    const hldContainer = document.getElementById('arch-hld-container');
+    if (hldContainer && hld.tiers) {
+      let tiersHtml = '<div class="arch-tiers-flex">';
+      hld.tiers.forEach((tier, idx) => {
+        tiersHtml += `
+          <div class="arch-tier-column" data-tier="${tier.id}">
+            <div class="arch-tier-header">
+              <div class="arch-tier-title-wrap">
+                <span class="arch-tier-icon">${tier.icon || '📦'}</span>
+                <span class="arch-tier-title">${tier.name}</span>
+              </div>
+              <span class="arch-tier-badge">${tier.badge}</span>
+            </div>
+            <div class="arch-tier-nodes">
+              ${(tier.nodes || []).map(node => `
+                <div class="arch-node-card accent-${tier.color || 'blue'}">
+                  <div class="arch-node-top">
+                    <span class="arch-node-name">${node.name}</span>
+                    <span class="arch-node-tag">${node.tag}</span>
+                  </div>
+                  <div class="arch-node-desc">${node.desc}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        if (idx < hld.tiers.length - 1) {
+          tiersHtml += `<div class="arch-tier-arrow">➔</div>`;
+        }
+      });
+      tiersHtml += '</div>';
+      hldContainer.innerHTML = tiersHtml;
+    }
+
+    // 4. Clean Architecture (LLD) Layers Stack
+    const layersList = document.getElementById('arch-clean-layers-list');
+    if (layersList && lld.layers) {
+      let layersHtml = '';
+      lld.layers.forEach(l => {
+        layersHtml += `
+          <div class="arch-layer-item layer-${l.id}">
+            <div class="arch-layer-header">
+              <div class="arch-layer-name-wrap">
+                <span class="arch-layer-icon">${l.icon || '📦'}</span>
+                <span class="arch-layer-name">${l.name}</span>
+              </div>
+              <span class="arch-layer-dep-rule">${l.depRule}</span>
+            </div>
+            <div class="arch-layer-desc">${l.description}</div>
+            <div class="arch-layer-components">
+              ${(l.items || []).map(item => `<span class="arch-comp-pill">${item}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      });
+      layersList.innerHTML = layersHtml;
+    }
+
+    // 5. Data Consistency & Idempotency Pipeline Timeline
+    const consistencyTimeline = document.getElementById('arch-consistency-timeline');
+    if (consistencyTimeline && consistency.steps) {
+      let timelineHtml = '';
+      consistency.steps.forEach(s => {
+        timelineHtml += `
+          <div class="arch-step-item">
+            <div class="arch-step-num">${s.step}</div>
+            <div class="arch-step-content">
+              <div class="arch-step-header">
+                <span class="arch-step-title">${s.title}</span>
+                <span class="arch-step-actor">${s.actor}</span>
+              </div>
+              <div class="arch-step-desc">${s.desc}</div>
+            </div>
+          </div>
+        `;
+      });
+      consistencyTimeline.innerHTML = timelineHtml;
+    }
+
+    // 6. Multi-Layer Caching Strategy
+    const cachingList = document.getElementById('arch-caching-list');
+    if (cachingList && caching.layers) {
+      let cachingHtml = '';
+      caching.layers.forEach(c => {
+        cachingHtml += `
+          <div class="arch-cache-card">
+            <div class="arch-cache-header">
+              <div class="arch-cache-name-wrap">
+                <span class="arch-cache-level">${c.level}</span>
+                <span class="arch-cache-name">${c.name}</span>
+              </div>
+              <div class="arch-cache-meta">
+                <span class="arch-cache-latency">⚡ ${c.latency}</span>
+                <span class="arch-cache-ttl">TTL: ${c.ttl}</span>
+              </div>
+            </div>
+            <div class="arch-cache-target">Target Scope: ${c.target}</div>
+          </div>
+        `;
+      });
+      cachingList.innerHTML = cachingHtml;
+    }
+
+    // 7. Circuit Breaker States & Guards
+    const breakerStates = document.getElementById('arch-breaker-states');
+    if (breakerStates && resilience.states) {
+      let breakerHtml = '';
+      resilience.states.forEach(st => {
+        const cls = st.state.toLowerCase().replace(/_/g, '-');
+        breakerHtml += `
+          <div class="arch-breaker-state-card state-${cls}">
+            <div class="arch-breaker-state-header">
+              <span class="arch-breaker-state-name">${st.state}</span>
+              <span class="status-pill ${st.color === 'emerald' ? 'GREEN' : (st.color === 'red' ? 'RED' : 'WARN')}">${st.badge}</span>
+            </div>
+            <div class="arch-breaker-condition">${st.condition}</div>
+            <div class="arch-breaker-action">${st.action}</div>
+          </div>
+        `;
+      });
+      breakerStates.innerHTML = breakerHtml;
+    }
+
+    const guardsList = document.getElementById('arch-guards-list');
+    if (guardsList && resilience.guards) {
+      let guardsHtml = '';
+      resilience.guards.forEach(g => {
+        guardsHtml += `
+          <div class="arch-guard-row">
+            <span style="color:var(--mint-accent)">✓</span>
+            <span class="arch-guard-name">${g.name}:</span>
+            <span class="arch-guard-desc">${g.desc}</span>
+          </div>
+        `;
+      });
+      guardsList.innerHTML = guardsHtml;
     }
   }
 

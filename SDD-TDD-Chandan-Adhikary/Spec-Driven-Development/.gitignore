@@ -19,6 +19,10 @@
 **/.dashboard-state.json
 **/local-dashboard-logs/
 
+# Development logs (directory preserved via .gitkeep)
+logs/*.log
+!logs/.gitkeep
+
 
 # Dashboard-generated draft approval records (local only until a human completes them)
 docs/approvals/approval-phase-*.md

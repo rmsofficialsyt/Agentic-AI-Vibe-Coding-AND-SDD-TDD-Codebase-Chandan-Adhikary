@@ -45,6 +45,9 @@ When you type a slash command (such as `/plan-ca-agent` or `/implement-ca-agent`
 1. **Preventing AI Drift:** Autonomous agents frequently hallucinate unneeded dependencies or change design tokens without permission. Slash commands force the agent to consult repository guidelines (`AGENTS.md`) first.
 2. **Zero Reserved Token Collisions (`-ca-agent` Suffix):** Major AI IDEs (Cursor, Claude Code, Windsurf, Antigravity) reserve native tokens like `/run`, `/plan`, or `/test`. Our custom commands use the explicit `-ca-agent` namespace to guarantee 100% collision-free execution across all editors.
 3. **Taste & Visual Verification:** Commands like `/run-ca-agent` and `/review-ca-agent` ensure that developers test working software interactively before layering further complexity.
+4. **Mandatory Development Logging (`logs/`):** Maintain all test execution, build, server, and diagnostic outputs inside dedicated log files in `logs/` (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+5. **Pre-Prompting Domain Knowledge & System Design Synthesis:** Before first prompting (`/plan-ca-agent`), establish domain clarity and system design; if not manually prepared, ask the agent to formulate system design during planning and integrate it into Prompt 1.
+6. **Staged Web Development (Frontend-First Verification):** For web applications, develop and verify the frontend first via live demo run (`/run-ca-agent`) before implementing backend persistence, security, and maintenance.
 
 ---
 

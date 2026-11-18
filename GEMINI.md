@@ -60,6 +60,25 @@ Before creating any application code or directories:
 ### Directive 5: Strict Terminology Privacy
 - **Never disclose, use, or write the term "Antigravity" paired with "Engineering" anywhere** across documentation, codebase, commits, responses, artifacts, or metadata.
 
+### Directive 6: Mandatory Development Logging (`logs/` Folder)
+- **Always maintain proper log (`*.log`) files during development** inside a separate, dedicated `logs/` folder at the project root (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+- Never dump unorganized log files or test outputs in the root directory or source folders.
+- Ensure all sensitive credentials, API keys, and personal data (PII) are strictly sanitized/redacted prior to writing to `logs/*.log`.
+- Keep the `logs/` directory tracked in git via `logs/.gitkeep` while ignoring individual `logs/*.log` files in `.gitignore`.
+
+### Directive 7: Pre-Prompting Domain Knowledge & System Design Synthesis (Before Step 5 / First Prompting)
+- **Before executing Step 5 (First Prompting in SDD-TDD)** or the initial planning prompt in Vibe-Coding, ensure deep domain knowledge (industry vocabulary, business rules, regulatory standards) and comprehensive system design (HLD/LLD, data flow, entity relationships) are established.
+- **AI Agent Consultation Protocol:** If domain knowledge or system design blueprints are not available manually, the developer **MUST ask the AI agent** to explain and formulate the overall system design, component boundaries, and domain taxonomy during the pre-planning phase.
+- **First Prompt Integration:** The synthesized domain knowledge and system design must be explicitly integrated into Prompt 1 so the agent models architecture before any code or specifications are scaffolded.
+
+### Directive 8: Staged Web App Development (Frontend-First Verification & Progressive Hardening)
+- **For website and web application development, do NOT try to build all features at once.**
+- Development must strictly proceed through progressive stages:
+  1. **Stage A — Frontend-First Development & Sensory/Interactive Demo:** Develop the frontend first (UI components, styling, responsive layouts, mock/client-side state, and interactive controls). Run a live demo (`/run-ca-agent`) and ensure design, layout, functionalities, and features are completely verified and approved on screen.
+  2. **Stage B — Backend Integration & Persistence:** Only after the frontend demo run is verified and working properly, implement backend API endpoints, persistent database models, migrations, and transactional business logic.
+  3. **Stage C — Authentication, Security & Permissions:** Implement authentication guards, RBAC/ABAC authorization, Row-Level Security (RLS), input validation, and CSRF/rate-limiting protections.
+  4. **Stage D — Testing, Production Readiness & Maintenance:** Execute full automated test suites (unit, integration, contract, E2E), performance optimization, CI/CD verification gates, error tracking, and maintenance runbooks.
+
 ---
 
 ## 3. The 16 Collision-Free Slash Commands

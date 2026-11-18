@@ -33,7 +33,7 @@ Release milestones and phase-level acceptance.
 
 ### 5. Template
 
-- **SHOULD** — Start with Discovery, Foundation, Authentication, Core Features, Integrations, Hardening, Release and Handoff where applicable.
+- **SHOULD** — Start with Discovery (Pre-Prompting Domain Knowledge & System Design Synthesis), Foundation (including `logs/` scaffolding), Frontend Prototyping & Live Demo (for webapps), Backend & Data Persistence, Authentication & Security, Hardening, Release and Handoff where applicable.
 
 ### 6. Scope change
 

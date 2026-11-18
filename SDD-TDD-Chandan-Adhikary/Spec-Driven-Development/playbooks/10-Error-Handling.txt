@@ -17,6 +17,7 @@ Procedure:
    - Return documented HTTP status codes (`400`, `401`, `403`, `404`, `422`, `429`, `5xx`) without leaking stack traces or secrets.
 2. Observability & Correlation:
    - Log structured error codes, correlation/request IDs, and sanitized context at system boundaries.
+   - Maintain development and runtime error traces in `logs/error.log`; ensure secrets, credentials, and PII are redacted.
 3. Negative Tests & Runbook:
    - Add tests for malformed payloads, timeouts, and downstream failures; document recovery steps in `docs/runbook.md`.
 

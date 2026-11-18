@@ -9,6 +9,8 @@ Prerequisites:
 - Feature spec drafted in `docs/features/`.
 - Task identified in `docs/task.md`.
 - **SPEC PACING RULE:** Step-by-step spec development. Build, test, sensory check, and update docs for one feature before moving to the next.
+- **STAGED WEB DEVELOPMENT (Frontend-First Verification):** For web applications, do NOT build all features at once. First build and verify the frontend during a live demo run (`/run-ca-agent`). Only after visual and functional approval on screen, implement backend APIs, database persistence, and security controls.
+- **MANDATORY DEVELOPMENT LOGGING:** Pipe and maintain test executions, build logs, and runtime outputs inside dedicated log files in `logs/` (`logs/test.log`, `logs/dev.log`, `logs/server.log`, `logs/error.log`). Never scatter raw logs in project root.
 
 Commands & Skills:
 - Commands: `/plan-ca-agent`, `/implement-ca-agent`, `/run-ca-agent`, `/task-ca-agent`, `/review-ca-agent`, `/verify-ca-agent`

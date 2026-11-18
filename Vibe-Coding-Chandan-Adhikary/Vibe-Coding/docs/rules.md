@@ -22,6 +22,7 @@ Enforceable engineering and AI-agent process baseline.
 ### 2. Before coding
 
 - **MUST** — Confirm objective, approved feature ID/version, acceptance criteria, task scope, architecture, allowed files and testing plan.
+- **MUST** — Synthesize domain knowledge and system design before the first prompting phase; if not manually provided, ask the AI agent to formulate overall system design during planning and integrate it into Prompt 1.
 
 ### 3. TDD
 
@@ -62,6 +63,17 @@ Enforceable engineering and AI-agent process baseline.
 ### 12. Experiments
 
 - **MAY** — Allow disposable vibe prototypes based on provisional requirements if isolated from production and real sensitive information.
+
+### 13. Development logging
+
+- **MUST** — Always maintain proper log files (`*.log`) during development inside a separate, dedicated `logs/` directory at the project root (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+- **MUST** — Redact secrets, tokens, credentials, and sensitive personal information (PII) before writing to log files.
+- **MUST NOT** — Dump unorganized log files, test traces, or server dumps into the project root or source code directories.
+
+### 14. Staged web application development
+
+- **MUST** — For website and web application development, do not attempt to build all features at once.
+- **MUST** — Follow strict staged progression: first build the frontend (UI components, layouts, responsive design, mock/client state, interactive controls); verify design, functionalities, and features completely during a live demo run (`/run-ca-agent`); only after demo approval proceed to backend endpoints, persistent databases, security hardening, and maintenance.
 
 ## Evidence and change control
 

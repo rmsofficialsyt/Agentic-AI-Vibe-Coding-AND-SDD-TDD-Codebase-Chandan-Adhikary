@@ -9,6 +9,8 @@ Prerequisites:
 - Copy framework files to the **workspace/git root** (IDEs discover `.agents/` at the repo root, not nested subfolders).
 - Read `AGENTS.md`, `docs/INDEX.md`, and `LICENSE.md`.
 - **MANDATORY PRE-CODEBASE GATE:** Verify and activate custom slash commands in both the AI Chat dropdown (type `/` to see all 16 `*-ca-agent` commands) and Terminal CLI (`ls .agents/commands/*-ca-agent.md`) BEFORE creating any application directories.
+- **MANDATORY LOGS DIRECTORY:** Ensure `logs/` folder exists with `logs/.gitkeep` for development logs (`*.log`). Verify `logs/*.log` is ignored in `.gitignore`.
+- **PRE-STEP 5 DOMAIN & SYSTEM DESIGN GATE:** Establish thorough domain knowledge and system design before issuing Prompt 1. If not manually prepared, ask the AI agent to explain and formulate system design during planning, and integrate it into Prompt 1.
 
 Commands & Skills:
 - Commands: `/plan-ca-agent`, `/dashboard-ca-agent`, `/spec-check-ca-agent`

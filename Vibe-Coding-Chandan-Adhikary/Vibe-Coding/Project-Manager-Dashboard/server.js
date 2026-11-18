@@ -99,8 +99,8 @@ setInterval(() => {
   broadcastState();
 }, 3500);
 
-// Watch target folders (feature specs live in docs/features/)
-['docs', 'tests'].forEach(subDir => {
+// Watch target folders (feature specs live in docs/features/, logs in logs/)
+['docs', 'tests', 'logs'].forEach(subDir => {
   const dirPath = path.join(PROJECT_ROOT, subDir);
   if (fs.existsSync(dirPath)) {
     try {
@@ -178,6 +178,39 @@ const server = http.createServer((req, res) => {
     const tokens = parser.parseTokenTelemetry();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(tokens));
+    return;
+  }
+
+  // 2c. Log Files Telemetry Endpoint
+  if (req.url === '/api/logs' && req.method === 'GET') {
+    const logs = parser.getLogFilesTelemetry();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(logs));
+    return;
+  }
+
+  // 2d. Log File Content Stream Endpoint (tail lines and keyword filter)
+  if (req.url.startsWith('/api/log-content') && req.method === 'GET') {
+    try {
+      const parsedUrl = new URL(req.url, `http://${HOST}`);
+      const filename = parsedUrl.searchParams.get('file') || 'dev.log';
+      const maxLines = parseInt(parsedUrl.searchParams.get('lines') || '250', 10);
+      const search = parsedUrl.searchParams.get('search') || '';
+
+      const result = parser.readLogFileContent(filename, maxLines, search);
+      if (result.error) {
+        const statusCode = result.error.includes('denied') ? 403 : (result.error.includes('not found') ? 404 : 400);
+        res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+        return;
+      }
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    }
     return;
   }
 
@@ -480,6 +513,34 @@ const server = http.createServer((req, res) => {
         const newId = parser.logNewError(defectData);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: !!newId, defectId: newId }));
+        broadcastState();
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4e. Clear / Truncate Log File Endpoint
+  if (req.url === '/api/clear-log' && req.method === 'POST') {
+    readJsonBody(req, res, ({ filename }) => {
+      try {
+        if (!filename || typeof filename !== 'string' || !/^[a-zA-Z0-9._-]+\.log$/.test(filename)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Valid log filename (.log) is required' }));
+          return;
+        }
+
+        const success = parser.clearLogFile(filename);
+        if (!success) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: `Could not clear log file "${filename}". Ensure file exists inside logs/.` }));
+          return;
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, filename }));
         broadcastState();
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });

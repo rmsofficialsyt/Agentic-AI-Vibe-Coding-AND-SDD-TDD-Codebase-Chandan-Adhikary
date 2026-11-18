@@ -24,3 +24,10 @@ GUIDE.md
 **/.dashboard-state.json
 **/local-dashboard-logs/
 
+# Runtime development logs (directory structure preserved via .gitkeep)
+logs/*.log
+**/logs/*.log
+!logs/.gitkeep
+!**/logs/.gitkeep
+
+

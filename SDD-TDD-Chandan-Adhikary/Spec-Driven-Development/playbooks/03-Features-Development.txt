@@ -29,8 +29,10 @@ Procedure:
 4. Validation & Approval:
    - Run `/spec-check-ca-agent` (skill: `spec-validator`).
    - Obtain human approval in `docs/approvals/APR-###.md` and update `docs/spec.md`.
-5. Step-by-Step Pacing:
-   - Develop one spec at a time following `playbooks/02-Project-Implementation.txt`. Update docs and error tracker upon completion.
+5. Step-by-Step Pacing & Frontend-First Staging:
+   - Develop one spec at a time following `playbooks/02-Project-Implementation.txt`.
+   - For web applications: develop and verify the frontend first via live demo (`/run-ca-agent`) before implementing backend endpoints.
+   - Maintain execution and test logs in `logs/` (`logs/*.log`), updating `docs/task.md` and `docs/error-tracker.md` upon completion.
 
 Required output:
 - Validated feature spec in `docs/features/`, updated `docs/spec.md`, approval record `APR-###`.

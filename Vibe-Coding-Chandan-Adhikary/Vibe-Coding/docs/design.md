@@ -73,6 +73,16 @@ flowchart LR
 - **MUST** support seamless light/dark theme switching.
 - **MUST** look balanced and polished across all resolutions from mobile screens to 4K ultrawide monitors.
 
+---
+
+## 5. Staged Web Application Lifecycle (Frontend-First Verification)
+
+For websites and web applications, development MUST follow strict staged sequencing:
+1. **Stage A (Frontend First & Interactive Demo):** Build UI components, responsive layouts, mock data state, and interactive controls first. Run `/run-ca-agent` and verify design aesthetics, user flows, and features interactively in the browser during a live demo.
+2. **Stage B (Backend Integration):** Only after frontend design, layout, and feature workflows are completely approved by the developer during the demo run, proceed to backend API implementation and database persistence.
+3. **Stage C (Security & Hardening):** Implement authentication, permissions, and security controls.
+4. **Stage D (Production Readiness):** Run automated test suites and finalize deployment checklists.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, and traceable evidence in the applicable project instantiation.

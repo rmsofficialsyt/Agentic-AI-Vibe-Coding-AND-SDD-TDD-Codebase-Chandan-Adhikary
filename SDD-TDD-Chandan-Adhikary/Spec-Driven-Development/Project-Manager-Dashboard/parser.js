@@ -807,6 +807,501 @@ class DashboardParser {
   }
 
   /**
+   * Scan logs/ directory and extract comprehensive telemetry for all *.log files
+   */
+  getLogFilesTelemetry() {
+    const logsDir = path.join(this.projectRoot, 'logs');
+    const emptyResult = {
+      files: [],
+      summary: {
+        totalFiles: 0,
+        totalBytes: 0,
+        formattedSize: '0 B',
+        totalLines: 0,
+        errorLines: 0,
+        warnLines: 0,
+        lastModified: null,
+        lastModifiedFile: null
+      }
+    };
+
+    if (!fs.existsSync(logsDir)) return emptyResult;
+
+    try {
+      const entries = fs.readdirSync(logsDir);
+      const logFiles = entries.filter(f => f.endsWith('.log'));
+      let totalBytes = 0;
+      let totalLines = 0;
+      let totalErrors = 0;
+      let totalWarns = 0;
+      let latestMtime = 0;
+      let latestFile = null;
+
+      const files = logFiles.map(filename => {
+        const fullPath = path.join(logsDir, filename);
+        let size = 0;
+        let mtime = new Date(0);
+        let lineCount = 0;
+        let errorCount = 0;
+        let warnCount = 0;
+
+        try {
+          const stat = fs.statSync(fullPath);
+          size = stat.size;
+          mtime = stat.mtime;
+          totalBytes += size;
+
+          if (mtime.getTime() > latestMtime) {
+            latestMtime = mtime.getTime();
+            latestFile = filename;
+          }
+
+          // Read content to count lines and errors (bounded to 1MB to avoid memory pressure)
+          if (size <= 1024 * 1024) {
+            const content = fs.readFileSync(fullPath, 'utf8');
+            const lines = content.length === 0 ? [] : content.replace(/\r?\n$/, '').split(/\r?\n/);
+            lineCount = lines.length;
+            totalLines += lineCount;
+            lines.forEach(l => {
+              if (/(?:\[ERROR\]|\bERROR\b|\bFATAL\b|\bFAIL\b|\bException\b|ERR-[0-9]+)/i.test(l)) {
+                errorCount++;
+              } else if (/(?:\[WARN\]|\bWARN\b|\bWARNING\b)/i.test(l)) {
+                warnCount++;
+              }
+            });
+            totalErrors += errorCount;
+            totalWarns += warnCount;
+          }
+        } catch (e) {}
+
+        const formatSize = (bytes) => {
+          if (bytes === 0) return '0 B';
+          const k = 1024;
+          const sizes = ['B', 'KB', 'MB', 'GB'];
+          const i = Math.floor(Math.log(bytes) / Math.log(k));
+          return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        };
+
+        const dt = (mtime instanceof Date && !isNaN(mtime.getTime())) ? mtime : new Date();
+        const day = String(dt.getDate()).padStart(2, '0');
+        const month = String(dt.getMonth() + 1).padStart(2, '0');
+        const year = dt.getFullYear();
+        const hours = String(dt.getHours()).padStart(2, '0');
+        const minutes = String(dt.getMinutes()).padStart(2, '0');
+        const seconds = String(dt.getSeconds()).padStart(2, '0');
+
+        return {
+          filename,
+          size,
+          sizeBytes: size,
+          formattedSize: formatSize(size),
+          lineCount,
+          errorCount,
+          warnCount,
+          lastModified: `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`,
+          mtimeEpoch: mtime.getTime()
+        };
+      });
+
+      // Sort files: error.log, dev.log, test.log, server.log first, or alphabetically
+      const priority = { 'error.log': 1, 'dev.log': 2, 'test.log': 3, 'server.log': 4 };
+      files.sort((a, b) => (priority[a.filename] || 99) - (priority[b.filename] || 99) || a.filename.localeCompare(b.filename));
+
+      const formatTotal = (bytes) => {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+      };
+
+      let lastModifiedStr = null;
+      if (latestMtime > 0) {
+        const dt = new Date(latestMtime);
+        const day = String(dt.getDate()).padStart(2, '0');
+        const month = String(dt.getMonth() + 1).padStart(2, '0');
+        const year = dt.getFullYear();
+        const hours = String(dt.getHours()).padStart(2, '0');
+        const minutes = String(dt.getMinutes()).padStart(2, '0');
+        const seconds = String(dt.getSeconds()).padStart(2, '0');
+        lastModifiedStr = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+      }
+
+      return {
+        files,
+        summary: {
+          totalFiles: files.length,
+          totalBytes,
+          formattedSize: formatTotal(totalBytes),
+          totalLines,
+          errorLines: totalErrors,
+          warnLines: totalWarns,
+          lastModified: lastModifiedStr,
+          lastModifiedFile: latestFile
+        }
+      };
+    } catch (err) {
+      return emptyResult;
+    }
+  }
+
+  /**
+   * Semantic line highlighter identifying error, warn, success, info, and default
+   */
+  classifyLogLine(lineText) {
+    if (!lineText) return 'default';
+    const text = String(lineText);
+    if (/(?:\[ERROR\]|\bERROR\b|\bFATAL\b|\bFAIL\b|\bException\b|ERR-[0-9]+)/i.test(text)) {
+      return 'error';
+    } else if (/(?:\[WARN\]|\bWARN\b|\bWARNING\b)/i.test(text)) {
+      return 'warn';
+    } else if (/(?:\[SUCCESS\]|\bPASS\b|\bGREEN\b|\bSUCCESS\b|✓|200 OK)/i.test(text)) {
+      return 'success';
+    } else if (/(?:\[INFO\]|\bINFO\b|GET \/|POST \/|SSE)/i.test(text)) {
+      return 'info';
+    }
+    return 'default';
+  }
+
+  /**
+   * Safely read content from a specific *.log file with tail limit and optional search
+   */
+  readLogFileContent(filename, maxLines = 250, searchQuery = '') {
+    if (typeof filename !== 'string' || !/^[a-zA-Z0-9._-]+\.log$/.test(filename)) {
+      return { error: 'Invalid log filename. Only alphanumeric .log files allowed.' };
+    }
+
+    let linesLimit = maxLines;
+    let query = searchQuery;
+    if (typeof maxLines === 'object' && maxLines !== null) {
+      linesLimit = maxLines.lines !== undefined ? maxLines.lines : 250;
+      query = maxLines.search !== undefined ? maxLines.search : '';
+    }
+
+    const logsDir = path.resolve(this.projectRoot, 'logs');
+    const fullPath = path.resolve(logsDir, filename);
+
+    // Prevent directory traversal
+    if (!fullPath.startsWith(logsDir)) {
+      return { error: 'Access denied: Path traversal outside logs/ directory.' };
+    }
+
+    if (!fs.existsSync(fullPath)) {
+      return { error: `Log file "${filename}" not found in logs/ directory.` };
+    }
+
+    try {
+      const stat = fs.statSync(fullPath);
+      const rawContent = fs.readFileSync(fullPath, 'utf8');
+      const allLines = rawContent.length === 0 ? [] : rawContent.replace(/\r?\n$/, '').split(/\r?\n/);
+      const totalLines = allLines.length;
+
+      let filteredLines = allLines.map((text, idx) => ({
+        lineNum: idx + 1,
+        text
+      }));
+
+      // Search filter
+      if (query && typeof query === 'string' && query.trim()) {
+        const q = query.toLowerCase().trim();
+        filteredLines = filteredLines.filter(l => l.text.toLowerCase().includes(q));
+      }
+
+      // Tail lines limit
+      const limit = Number(linesLimit) || 250;
+      if (limit > 0 && filteredLines.length > limit) {
+        filteredLines = filteredLines.slice(-limit);
+      }
+
+      // Classify line types for UI syntax coloring
+      const parsedLines = filteredLines.map(l => ({
+        lineNum: l.lineNum,
+        text: l.text,
+        type: this.classifyLogLine(l.text)
+      }));
+
+      const formatSize = (bytes) => {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+      };
+
+      const dt = stat.mtime;
+      const day = String(dt.getDate()).padStart(2, '0');
+      const month = String(dt.getMonth() + 1).padStart(2, '0');
+      const year = dt.getFullYear();
+      const hours = String(dt.getHours()).padStart(2, '0');
+      const minutes = String(dt.getMinutes()).padStart(2, '0');
+      const seconds = String(dt.getSeconds()).padStart(2, '0');
+
+      return {
+        filename,
+        lines: parsedLines,
+        displayedLines: parsedLines.length,
+        totalLines,
+        size: stat.size,
+        sizeBytes: stat.size,
+        formattedSize: formatSize(stat.size),
+        lastModified: `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`,
+        errorCount: parsedLines.filter(l => l.type === 'error').length,
+        warnCount: parsedLines.filter(l => l.type === 'warn').length
+      };
+    } catch (err) {
+      return { error: `Failed to read log file: ${err.message}` };
+    }
+  }
+
+  /**
+   * Safely clear/truncate a specific *.log file
+   */
+  clearLogFile(filename) {
+    if (typeof filename !== 'string' || !/^[a-zA-Z0-9._-]+\.log$/.test(filename)) {
+      return false;
+    }
+
+    const logsDir = path.resolve(this.projectRoot, 'logs');
+    const fullPath = path.resolve(logsDir, filename);
+
+    if (!fullPath.startsWith(logsDir)) return false;
+    if (!fs.existsSync(fullPath)) return false;
+
+    try {
+      fs.writeFileSync(fullPath, '', 'utf8');
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  /**
+   * Parse System Architecture specification from docs/system-architecture.md
+   */
+  parseArchitecture() {
+    const archFilePath = path.join(this.docsDir, 'system-architecture.md');
+    const content = this.readFileSafe(archFilePath);
+
+    let baseline = '2.0.0';
+    let framework = 'SDD';
+    let status = 'Production Baseline';
+    let title = 'System Architecture & System Design Specification';
+
+    if (content) {
+      const bMatch = content.match(/Guideline baseline:\s*([0-9.]+)/i);
+      if (bMatch) baseline = bMatch[1];
+      const fMatch = content.match(/Framework:\s*([A-Za-z\s-]+)/i);
+      if (fMatch) framework = fMatch[1].trim();
+      const sMatch = content.match(/Status:\s*([A-Za-z\s-;]+)/i);
+      if (sMatch) status = sMatch[1].trim();
+      const tMatch = content.match(/^#\s+(.+)$/m);
+      if (tMatch) title = tMatch[1].trim();
+    }
+
+    return {
+      meta: {
+        title,
+        baseline,
+        framework,
+        status,
+        docPath: 'docs/system-architecture.md',
+        lastUpdated: formatDDMMYYYY(),
+        exists: !!content
+      },
+      metrics: {
+        totalTiers: 5,
+        cleanLayers: 4,
+        cachingLevels: 3,
+        circuitBreakerStates: 3,
+        isolationLevel: 'READ COMMITTED / SERIALIZABLE',
+        eventModel: 'At-Least-Once (Outbox + DLQ)'
+      },
+      hld: {
+        title: 'High-Level Design (HLD) Topology',
+        summary: 'End-to-end multi-tier architecture spanning Edge Ingress, Gateway Routing, Application Compute, and Distributed Persistence.',
+        tiers: [
+          {
+            id: 'ingress',
+            name: 'Client Ingress Tier',
+            badge: 'Tier 1 · Ingress',
+            color: 'blue',
+            icon: '🌐',
+            nodes: [
+              { name: 'Web Browser (SPA / SSR)', desc: 'Desktop & mobile responsive clients (React / Next.js / Vanilla JS)', tag: 'HTTPS' },
+              { name: 'Native Mobile Apps', desc: 'iOS & Android native clients with offline storage', tag: 'Mobile' },
+              { name: 'External API Partners', desc: 'B2B authenticated consumers via mTLS / API keys', tag: 'B2B' }
+            ]
+          },
+          {
+            id: 'edge',
+            name: 'Edge & Security Tier',
+            badge: 'Tier 2 · Perimeter',
+            color: 'cyan',
+            icon: '🛡️',
+            nodes: [
+              { name: 'Global Anycast DNS', desc: 'Latency-based edge routing (Cloudflare / Route 53)', tag: 'DNS' },
+              { name: 'Edge CDN Caching', desc: 'Static assets & edge SSR HTML distribution', tag: 'CDN' },
+              { name: 'WAF & DDoS Shield', desc: 'L7 rate limiting, bot protection & TLS 1.3 termination', tag: 'WAF' }
+            ]
+          },
+          {
+            id: 'gateway',
+            name: 'Gateway & Routing Tier',
+            badge: 'Tier 3 · Reverse Proxy',
+            color: 'purple',
+            icon: '🚪',
+            nodes: [
+              { name: 'API Gateway', desc: 'Dynamic reverse proxy, routing & CORS policies (Kong / Envoy)', tag: 'Gateway' },
+              { name: 'Auth Filter & Guard', desc: 'OAuth2 / OIDC token verification & tenant context injection', tag: 'Auth' }
+            ]
+          },
+          {
+            id: 'app',
+            name: 'Core Application Tier',
+            badge: 'Tier 4 · Compute',
+            color: 'emerald',
+            icon: '⚡',
+            nodes: [
+              { name: 'Core Application Server', desc: 'Stateless domain services & transactional logic pods', tag: 'Compute' },
+              { name: 'Async Worker Pool', desc: 'Decoupled job queues, cron jobs & event consumers', tag: 'Workers' },
+              { name: 'Observability Telemetry', desc: 'OTel distributed tracing, Prometheus metrics & structured logs', tag: 'OTel' }
+            ]
+          },
+          {
+            id: 'data',
+            name: 'Persistence & Caching Tier',
+            badge: 'Tier 5 · Storage',
+            color: 'amber',
+            icon: '💾',
+            nodes: [
+              { name: 'Primary DB (ACID)', desc: 'PostgreSQL relational database with strict ACID transaction guarantees', tag: 'Primary' },
+              { name: 'Read Replicas', desc: 'Connection pooling (PgBouncer) for read-heavy query offloading', tag: 'Replicas' },
+              { name: 'Redis In-Memory Cache', desc: 'Distributed session store, rate limit counters & L2 cache', tag: 'L2 Cache' },
+              { name: 'Message Broker', desc: 'Kafka / RabbitMQ broker with Dead-Letter Queues (DLQ)', tag: 'Events' },
+              { name: 'Object Storage', desc: 'S3 / GCS cloud bucket persistence for blobs and media', tag: 'Blobs' }
+            ]
+          }
+        ]
+      },
+      lld: {
+        title: 'Clean Architecture (LLD)',
+        subtitle: 'Strict inward dependency rule: Domain Core has zero external dependencies.',
+        layers: [
+          {
+            id: 'domain',
+            order: 1,
+            name: 'Domain Layer (Core)',
+            tag: 'Layer 1 · Pure Domain',
+            color: 'blue',
+            icon: '💎',
+            depRule: 'Zero framework dependencies',
+            description: 'Pure enterprise entities, value objects, domain rules, and domain-specific exceptions.',
+            items: ['Entities (User, Order, Spec)', 'Value Objects (IdempotencyKey, Money)', 'Domain Events', 'Domain Exceptions']
+          },
+          {
+            id: 'application',
+            order: 2,
+            name: 'Application / Use Case Layer',
+            tag: 'Layer 2 · Orchestration',
+            color: 'purple',
+            icon: '⚙️',
+            depRule: 'Depends only on Domain Layer',
+            description: 'Coordinates application workflows, use case interactors, and input/output boundary DTOs.',
+            items: ['Use Case Interactors', 'Input Boundary Ports', 'Output Boundary Ports / DTOs', 'Event Handlers & Sagas']
+          },
+          {
+            id: 'infrastructure',
+            order: 3,
+            name: 'Infrastructure Layer',
+            tag: 'Layer 3 · Adapters',
+            color: 'amber',
+            icon: '🔌',
+            depRule: 'Implements Application Ports',
+            description: 'Concrete adapters for databases, external APIs, message queues, and caching drivers.',
+            items: ['SQL / ORM Repositories', 'Redis Distributed Lock Client', 'Kafka / RabbitMQ Event Outbox', 'Third-Party HTTP Clients']
+          },
+          {
+            id: 'presentation',
+            order: 4,
+            name: 'Presentation / Interface Layer',
+            tag: 'Layer 4 · Entry Points',
+            color: 'emerald',
+            icon: '🖥️',
+            depRule: 'Invokes Application Use Cases',
+            description: 'HTTP controllers, API route handlers, request validation schemas, and view presenters.',
+            items: ['REST API Controllers', 'Validation Middleware (Zod/Joi)', 'Response Serializers / JSON', 'Error Response Formatters']
+          }
+        ],
+        patterns: [
+          { name: 'Repository Pattern', desc: 'Abstracts underlying storage mechanisms behind deterministic domain interfaces.' },
+          { name: 'Dependency Injection (DI)', desc: 'Inverts control across layers to ensure complete mockability in TDD unit tests.' },
+          { name: 'Unit of Work Pattern', desc: 'Maintains transactional integrity across multiple entity aggregates in a single commit.' },
+          { name: 'Factory & Strategy', desc: 'Decouples swappable runtime implementations (e.g. multi-provider auth or payments).' }
+        ]
+      },
+      consistency: {
+        title: 'Data Consistency & Idempotency Pipeline',
+        subtitle: 'Defends against duplicate executions via Redis distributed locks and transactional outbox guarantees.',
+        steps: [
+          { step: 1, title: 'Client Request', actor: 'Client', desc: 'Sends mutating request with unique Idempotency-Key header.' },
+          { step: 2, title: 'Gateway Ingress', actor: 'API Gateway', desc: 'Validates key format and forwards request to Core Application.' },
+          { step: 3, title: 'Cache Resolution Check', actor: 'Redis L2', desc: 'Checks idemp:X key in Redis. If resolved, immediately returns cached 200 OK.' },
+          { step: 4, title: 'Distributed Lock Acquisition', actor: 'Redis Lock', desc: 'Acquires lock:X with a 10s auto-expiring TTL to prevent race conditions.' },
+          { step: 5, title: 'ACID Transaction Commit', actor: 'Primary DB', desc: 'Executes core database mutations and writes event to outbox table.' },
+          { step: 6, title: 'Outbox Event Dispatch', actor: 'Message Broker', desc: 'Worker polls outbox table and emits domain events to Kafka / RabbitMQ.' },
+          { step: 7, title: 'Response & Lock Release', actor: 'Core Service', desc: 'Stores final response in Redis, releases distributed lock, and returns 201 Created.' }
+        ]
+      },
+      caching: {
+        title: 'Multi-Layer Caching Architecture',
+        subtitle: 'Tiered caching with strict TTL enforcement and Cache-Aside pattern.',
+        layers: [
+          { level: 'Layer 1', name: 'Browser / Client Cache', target: 'Static assets, bundle hashes, immutable resources', ttl: 'stale-while-revalidate', latency: '< 1ms' },
+          { level: 'Layer 2', name: 'Edge CDN Cache', target: 'Public marketing pages, edge SSR HTML snapshots', ttl: '60s - 3600s', latency: '5 - 20ms' },
+          { level: 'Layer 3', name: 'Redis In-Memory Distributed', target: 'User sessions, hot database queries, rate limit tokens', ttl: '60s - 300s (Cache-Aside)', latency: '1 - 3ms' }
+        ]
+      },
+      resilience: {
+        title: 'Resilience & Circuit Breaker State Machine',
+        subtitle: 'Protects upstream services and prevents cascading network failures.',
+        states: [
+          {
+            state: 'CLOSED',
+            name: 'Normal Operation',
+            color: 'emerald',
+            badge: 'Healthy',
+            condition: 'Failure rate < 50% in 10s window',
+            action: 'All requests routed directly to downstream services.'
+          },
+          {
+            state: 'OPEN',
+            name: 'Tripped / Fallback Active',
+            color: 'red',
+            badge: 'Fail-Fast Active',
+            condition: 'Failure rate >= 50% within 10s window',
+            action: 'Calls fail fast immediately without network execution; returns cached fallback.'
+          },
+          {
+            state: 'HALF-OPEN',
+            name: 'Canary Probe Recovery',
+            color: 'amber',
+            badge: 'Probing',
+            condition: 'Sleep window of 30s has elapsed',
+            action: 'Allows 3 canary probe requests. 3 successes reset to CLOSED; any failure returns to OPEN.'
+          }
+        ],
+        guards: [
+          { name: 'Circuit Breaker Guards', desc: 'All outbound third-party calls (payment gateways, external APIs) are protected.' },
+          { name: 'Token Bucket Rate Limiting', desc: 'Enforced at API Gateway per client IP and authenticated user ID.' },
+          { name: 'Graceful Degradation', desc: 'Gracefully falls back to stale cache or deterministic defaults during downstream outages.' },
+          { name: 'Zero-Trust Security Perimeter', desc: 'mTLS between internal microservices, scoped JWT claims, and parameterized SQL exclusively.' }
+        ]
+      },
+      rawContent: content || ''
+    };
+  }
+
+  /**
    * Extract Git telemetry with strictly formatted DD-MM-YYYY dates
    */
   getGitTelemetry() {
@@ -1227,6 +1722,8 @@ class DashboardParser {
     const blockers = errorTracking.defects;
     const git = this.getGitTelemetry();
     const tokens = this.parseTokenTelemetry();
+    const logs = this.getLogFilesTelemetry();
+    const architecture = this.parseArchitecture();
 
     // Calculate Scope Progress %
     const totalPhases = phases.length;
@@ -1345,6 +1842,7 @@ class DashboardParser {
         blockerCount: blockers.filter(b => b.status === 'ACTIVE').length,
         tddState,
         karpathyLoops: 3,
+        logFilesCount: logs.summary.totalFiles,
         agentStatus: 'Active · Telemetry Synced'
       },
       taskStrength,
@@ -1356,7 +1854,9 @@ class DashboardParser {
       blockers,
       errorTracking,
       git,
-      tokens
+      tokens,
+      logs,
+      architecture
     };
   }
 }

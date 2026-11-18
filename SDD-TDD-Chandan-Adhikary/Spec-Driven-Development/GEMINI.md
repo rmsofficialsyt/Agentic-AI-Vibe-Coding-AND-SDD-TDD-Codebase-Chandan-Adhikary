@@ -33,6 +33,21 @@
    - Consult `docs/system-architecture.md` for High-Level Design (HLD), Low-Level Design (LLD), scalability, caching hierarchy, data consistency (ACID vs. BASE), and asynchronous message queuing before modifying services or database schemas.
    - Consult Section 5 of `docs/prd.md` for technical requirements guidelines.
 
+6. **Mandatory Development Logging (`logs/` Folder):**
+   - **Always maintain proper log files (`*.log`) during development** inside a separate, dedicated `logs/` directory at the project root (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+   - Never write loose log files into source code or root folders.
+   - Sanitize all credentials, tokens, and PII prior to logging. Keep directory tracked via `logs/.gitkeep` and git-ignore `logs/*.log`.
+
+7. **Pre-Step 5 Domain Knowledge & System Design Synthesis:**
+   - Before executing Step 5 (Prompt 1: Master Architecture), developers and agents must synthesize comprehensive domain knowledge (business rules, regulatory constraints) and system design (HLD/LLD, data models, entity relationships).
+   - If not manually provided, the developer **MUST ask the AI agent** about the overall system design during the planning phase, and integrate this synthesized design directly into the first prompt.
+
+8. **Web App Frontend-First Verification & Progressive Hardening:**
+   - For website and web application development, **do NOT try to build all features at once**.
+   - Develop the frontend first (UI components, styling, responsive layouts, mock/client-side state, and interactive flows).
+   - Perform a live demo run (`/run-ca-agent`) to confirm design, functionalities, and features work completely and look right interactively.
+   - Only after the frontend demo run is 100% verified and approved, proceed to backend persistence, security hardening, automated test suites, and maintenance.
+
 ---
 
 ## 2. Mandatory Verification Gate: Step 0 Activation

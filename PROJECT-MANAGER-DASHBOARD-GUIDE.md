@@ -186,6 +186,23 @@ The dashboard features an integrated command center for triggering automated act
 - **Release Verification (`btn-release-verify`):** Runs pre-flight ship/no-ship quality gate checks.
 - **Live Terminal Output:** Real-time execution output streams directly into the embedded terminal card.
 
+### 8. Live Development Logs Explorer (`logs/` Directory)
+The dashboard includes a dedicated Live Development Logs Explorer integrated directly into the navigation bar (`#nav-logs`, hotkey `8` or `L`):
+- **Real-Time Navigation Badge:** Displays the total count of active `.log` files in the dedicated `logs/` folder (`dev.log`, `test.log`, `server.log`, `error.log`).
+- **4-Card Bento Telemetry Summary:**
+  - **Active Log Files:** Total tracked log files count.
+  - **Total Disk Size & Lines:** Aggregated byte footprint (`KB`/`MB`) and total lines tracked.
+  - **Error Stream Alerts:** Real-time error line count and warning metrics.
+  - **Last Log Activity:** Precise timestamp (`DD-MM-YYYY HH:mm:ss`) and actively selected file.
+- **Log File Selector Pills:** One-click pills to switch between log streams with file size and error count badges.
+- **Interactive Controls & Tailing:**
+  - **Tail Lines Dropdown:** View last 50, 100, 250, 500, or All lines.
+  - **Real-Time Keyword Search:** Debounced instant filter matching error traces, routes, or keywords.
+  - **Auto-Scroll Toggle:** Sticks to the terminal bottom as new logs arrive.
+  - **Actions Toolbar:** Refresh (`btn-refresh-log`), Copy to Clipboard (`btn-copy-log`), Download (`btn-download-log`), and Clear/Truncate (`btn-clear-log`).
+- **Semantic Line Highlighting:** Distinct monospace line colors for `.log-line-error` (red), `.log-line-warn` (amber), `.log-line-success` (green), and `.log-line-info` (cyan).
+- **Strict Path-Traversal Security:** Enforces strict bounding within `logs/` directory and regex validation (`/^[a-zA-Z0-9._-]+\.log$/`) to prevent arbitrary file disclosure.
+
 ---
 
 ## 5. Configuration & Environment Variables
@@ -238,7 +255,7 @@ lsof -ti:4201 | xargs kill -9
 **Resolution:**
 This occurs when Git touches file timestamps during commits. Simply click **"Overwrite"** on the notification, or press `Ctrl + Shift + P` and run **`File: Revert File`**. The `.gitattributes` file in the repository root guarantees consistent LF endings to prevent recurring conflicts.
 
-### Q3: How do I test the dashboard telemetry, AC contracts, and error tracker engines?
+### Q3: How do I test the dashboard telemetry, AC contracts, error tracker, and logs explorer engines?
 **Resolution:**
 Run the dedicated test suites:
 ```bash
@@ -246,11 +263,13 @@ Run the dedicated test suites:
 node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_token_telemetry.js
 node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_ac_contracts.js
 node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_error_tracker.js
+node SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/tests/test_logs_feature.js
 
 # Vibe-Coding Track
 node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_token_telemetry.js
 node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_ac_contracts.js
 node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_error_tracker.js
+node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/tests/test_logs_feature.js
 ```
 
 ---

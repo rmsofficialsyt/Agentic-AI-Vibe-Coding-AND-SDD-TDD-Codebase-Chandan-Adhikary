@@ -47,6 +47,14 @@ Immutable engineering principles and authority hierarchy.
 
 - **MAY** — Add domain-specific appendices through the same revision process.
 
+### 9. Development observability
+
+- **MUST** — Maintain proper development logs in a dedicated `logs/` folder; ensure complete auditability of build, test, and server events with sensitive information redacted.
+
+### 10. Staged verification
+
+- **MUST** — For web applications, verify the frontend experience completely during a live demo run before committing to backend persistence, security hardening, or complex integrations.
+
 ## Evidence and change control
 
 - **MUST** record owner, revision/date, relevant approval reference, and traceable evidence in the applicable project instantiation.

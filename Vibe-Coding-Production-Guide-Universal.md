@@ -17,6 +17,8 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 2. **Visual feedback over theoretical debate**: Build live interactive screens early so you can test real UX flows rather than imagining them.
 3. **First-Principles Heuristics**: Adhere to small, verifiable diffs, avoid premature abstraction, maintain clean data pipelines, and verify every step interactively.
 4. **Progressive Hardening**: Once the visual flow and feature ergonomics feel right, lock down types, add validation schemas (Zod), implement authentication guards, and verify production builds.
+5. **Staged Web Development (Frontend-First Verification)**: Never build all features at once. First build and visually verify the frontend during a live demo run (`/run-ca-agent`). Once design and features work completely on screen, proceed to backend persistence, security hardening, and maintenance.
+6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
 ---
 
@@ -121,6 +123,17 @@ Before executing prompts, verify and activate `.agents/commands/*-ca-agent.md`:
 
 ---
 
+### Pre-Prompting Gate: Domain Knowledge & System Design Synthesis
+> **CRITICAL PRE-PROMPTING PREREQUISITE:** Before issuing Prompt 1 (Step 4), ensure deep domain clarity and system design foundations are in place:
+> 1. **Domain Knowledge Mastery**: Understand domain vocabulary, user personas, UX workflows, and competitive benchmarks.
+> 2. **System Design Blueprint**: Formulate high-level architecture (client state, real-time sync, caching, database persistence) and low-level component trees.
+> 3. **AI Agent Consultation Protocol**: If you do not have domain knowledge or system design blueprints prepared manually, you **MUST ask the AI agent first during planning**:
+>    *Example Pre-Prompting Inquiry:*
+>    > *"Before we execute Prompt 1, act as a Senior Full-Stack Architect and explain the complete domain knowledge, end-to-end system design architecture, component boundaries, and state flow for [PROJECT_NAME]."*
+> 4. **Integration with First Prompt (Prompt 1)**: The synthesized domain knowledge and system design are explicitly integrated into Prompt 1 below, requiring the agent to formalize HLD/LLD diagrams, domain glossary, and architecture trade-offs before scaffolding components.
+
+---
+
 ## Step 4 — Prompt 1: Vibe Project Discovery, UI/UX & Tech Stack Evaluation
 
 > **Mode:** Plan Mode / Ask Mode / Read-Only Architecture  
@@ -172,6 +185,8 @@ Rules:
 - MUST NOT create a separate `docs/features/` directory; keep all specifications and living plans inside `docs/`.
 - MUST NOT write or generate application code in this step.
 - MUST report any file discrepancies or orphaned configurations.
+- MUST maintain all development logs inside a dedicated `logs/` folder (`logs/*.log`) with sensitive information sanitized.
+- MUST enforce staged web development (Frontend-First): verify frontend design and features via a live demo run (`/run-ca-agent`) before implementing backend persistence.
 
 ---
 
@@ -192,6 +207,11 @@ Conduct evidence-based product and UI/UX research on the [DOMAIN_AREA: e.g., EdT
 - Modern SaaS aesthetic: Clean Bento Grid cards, subtle border radius (rounded-xl), high-contrast accessibility (WCAG AA).
 - Color psychology: Primary brand trust colors, positive success states, and gentle warning/alert hues.
 - High-efficiency micro-interactions: 1-click status toggle pills, optimistic visual updates on click, smooth drawer transitions on mobile viewports.
+
+### 3.4 Domain Knowledge & System Design Synthesis
+- Comprehensive Domain Glossary: Define domain terminology, user journeys, role boundaries, and business entities for [PROJECT_NAME].
+- High-Level Architecture (HLD): Map client rendering, client-side state stores, real-time sync channels, API routes, and database models.
+- Low-Level Architecture (LLD): Detail component hierarchy trees, optimistic state mutation flows, and caching strategies.
 
 ---
 

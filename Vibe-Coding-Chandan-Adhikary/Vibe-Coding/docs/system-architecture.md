@@ -115,6 +115,9 @@ sequenceDiagram
 
 ## 5. Normative Enforcement Rules
 
+- **MUST** complete domain knowledge synthesis and system design modeling before the first prompting phase; if not manually provided, consult the AI agent during planning to formulate system architecture and integrate it into Prompt 1.
+- **MUST** follow staged web development (Frontend-First Verification): develop and verify frontend design and features during a demo run before backend persistence.
+- **MUST** maintain all development logs inside `logs/` (`logs/*.log`) with credentials sanitized.
 - **MUST** keep system architecture synchronized with actual codebase implementations.
 - **MUST** document major architectural shifts in `docs/adrs/`.
 - **MUST** maintain clean separation between domain logic and presentation layers.

@@ -9,6 +9,9 @@
   - `docs/features/README.md` — single rule set for feature location, Flat/Modular formats, lifecycle and IDs; expanded `FEATURE-TEMPLATE.md`; rewritten samples.
   - `docs/adrs/ADR-TEMPLATE.md` and `ADR-0001` example; domain extension template; instantiation templates in 12 living docs.
   - `scripts/check_docs.py`, `scripts/manifest.py`, `.github/workflows/docs-ci.yml`, local pre-commit hooks, `.github/copilot-instructions.md`.
+  - Mandatory development logging (`logs/*.log` in separate `logs/` directory; `logs/.gitkeep` tracked; `.gitignore` configured).
+  - Pre-Prompting domain knowledge & system design synthesis: required domain mastery and system architecture before prompt execution, including AI agent consultation protocol.
+  - Staged web development (Frontend-First Verification): develop and verify frontend design/features during live demo run before backend persistence, security, or maintenance.
 - **Changed rules:**
   - Feature specifications live only in `docs/features/`; a `specs/` directory is prohibited in both frameworks (INDEX, ide-compatibility, READMEs, guides, dashboard aligned).
   - Canonical lifecycle `DRAFT → IN REVIEW → APPROVED → SUPERSEDED | DEPRECATED` (+ `PROTOTYPE` in Vibe) and canonical ID scheme (`CAP`, `REQ`, `NFR`, `FEAT`, `FR/NFR/AC/TEST-FEAT###-##`, `TASK`, `CR`, `APR`, `ADR`, `DEC`, `RISK`, `ERR`, `PER`) in `docs/requirements-traceability.md`.

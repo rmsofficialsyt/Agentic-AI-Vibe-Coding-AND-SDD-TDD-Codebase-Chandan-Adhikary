@@ -10,6 +10,9 @@ Canonical `.agents/` contracts (`.agents/commands/`, `.agents/skills/`) serve as
 ## Sovereign Agent Configuration & Commands
 
 - **MUST** verify custom slash commands (`.agents/commands/*-ca-agent.md`) in the chat dropdown and terminal CLI before creating or altering application code.
+- **MUST** maintain proper development log files (`*.log`) during all development, test runs, and debugging inside a separate `logs/` directory.
+- **MUST** establish complete domain knowledge and system design before the first prompting phase; if not manually prepared, ask the agent to formulate system design during planning and integrate it into Prompt 1.
+- **MUST** enforce staged web development (Frontend-First): build frontend first, verify design and features completely via interactive demo run (`/run-ca-agent`), then proceed to backend persistence, security, and maintenance.
 - **MUST** preserve canonical project guidelines, living specifications, and repository standards.
 - **MUST** rely on canonical `AGENTS.md` and `.agents/` as the single source of truth across all coding platforms.
 - **MUST NOT** assume external tools or uninstalled third-party skills exist.

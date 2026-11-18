@@ -12,9 +12,11 @@
 
 This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. 
 
-Both frameworks share the foundational rule of agentic engineering:
-> **Do not ask the AI agent to start coding immediately.**  
-> First, let the agent inspect repository governance, propose an architecture, configure safe documentation, and obtain your approval.
+Both frameworks share the foundational rules of production-grade agentic engineering:
+> 1. **Do not ask the AI agent to start coding immediately:** First, let the agent inspect repository governance, propose an architecture, configure safe documentation, and obtain your approval.
+> 2. **Pre-Prompting Domain Knowledge & System Design Synthesis:** Before Step 5 (First Prompting), establish deep domain mastery and system design blueprints; if not manually prepared, ask the AI agent to formulate the overall system design during planning and integrate it with Prompt 1.
+> 3. **Mandatory Development Logging (`logs/` Folder):** Always maintain clean development log files (`*.log`) inside a separate, dedicated `logs/` folder (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
+> 4. **Staged Web Development (Frontend-First Verification):** For websites and webapps, never build all features at once. First develop the frontend, verify it completely via an interactive demo run (`/run-ca-agent`), and only after visual and functional sign-off, build backend persistence, security hardening, and maintenance.
 
 ---
 
