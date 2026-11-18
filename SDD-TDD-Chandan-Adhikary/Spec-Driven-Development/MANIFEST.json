@@ -4,7 +4,7 @@
   "created": "2026-11-04",
   "license": "Guideline package: MIT (repository root LICENSE); instantiated project: select per LICENSE-DECISION.md",
   "hash_note": "sha256 of file bytes; text files normalized to LF line endings before hashing",
-  "file_count_excluding_manifest": 165,
+  "file_count_excluding_manifest": 166,
   "files": [
     {
       "path": ".agents/README.md",
@@ -304,7 +304,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/README.md",
-      "sha256": "f61665c8564c80ef4dc44cf3a325fc4706164a426a6e4a3beaea251387350738"
+      "sha256": "9b0a72d3ddb2e537590169ee5897d0d877028e9f1ae3ad6bc123a52a55b9d7cc"
     },
     {
       "path": "Project-Manager-Dashboard/assets/anime.min.js",
@@ -312,11 +312,11 @@
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.css",
-      "sha256": "9455b585ae9a812ad2b0b50895a5a8e6d8c3cc3608f6cd77ed844174b51ab4af"
+      "sha256": "438474ce31550eaf82c12662894ab4137914e8bbd85b0113116e2ae1e101214e"
     },
     {
       "path": "Project-Manager-Dashboard/assets/dashboard.js",
-      "sha256": "e38ae3261ccb0f892f7e33ef1c6f83150b91af6c07d5cd994d0694130b67ef94"
+      "sha256": "cfb4e1d4f712ff494165be96ad8108223b2b18c22ad1a3c87810c5bbbd487128"
     },
     {
       "path": "Project-Manager-Dashboard/assets/motion.min.js",
@@ -324,23 +324,23 @@
     },
     {
       "path": "Project-Manager-Dashboard/index.html",
-      "sha256": "21177b6b442f0c2474640098e343b455aa501950f84076d541076330a53394f0"
+      "sha256": "0f3e70b71d52dfc84e9bfd403dd9cd928ad0d49d0837c9a35fe49ab914ab5517"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.bat",
-      "sha256": "af327d2c55d0a65487a79a6dab062be45a4d13be8bea88c0202a3a1e7dd56244"
+      "sha256": "4bbf17472648977c8f3c24cbc008d7c5a7c7374d5f0958a61aaf6384f71c2160"
     },
     {
       "path": "Project-Manager-Dashboard/open-in-ide.sh",
-      "sha256": "482934bfae072cd1f3edad14bd5ac5cc89df85bb0f7e119e623f0eaf5c35fe57"
+      "sha256": "43c7040a715f61b0f1f63a2beb47856e91d2f9cf0c43d42be0d6833bb539c6ce"
     },
     {
       "path": "Project-Manager-Dashboard/parser.js",
-      "sha256": "3c4a5388b8cd7cffd56b6d6537cddee7674ce6d412c4a6c0ca27cc42ffc1d9ac"
+      "sha256": "45eea94519005f6417b9a7cdf700164a3604a1cedfac995f2d2ab96bc52dcc73"
     },
     {
       "path": "Project-Manager-Dashboard/server.js",
-      "sha256": "7ed226c8122c790fbd3eb2a8971cdee918e3202733fd6ff6686541ccc5f1eb15"
+      "sha256": "2a245e09784701c1d6ea9ded4b403b4fbfcd45909e96e388c63ec8f97b34b560"
     },
     {
       "path": "README.md",
@@ -649,6 +649,10 @@
     {
       "path": "tests/test_architecture_feature.js",
       "sha256": "479cec37ce8f3346419cecbd39bb63b83f473a6ffa49abfe19f3f68a843a9007"
+    },
+    {
+      "path": "tests/test_dashboard_design_system.js",
+      "sha256": "f311fe2bacfe2f3c90c880d4ec24ae56ffc5f3d4a5fc31ff18563091ef6e47c4"
     },
     {
       "path": "tests/test_dashboard_theme.js",

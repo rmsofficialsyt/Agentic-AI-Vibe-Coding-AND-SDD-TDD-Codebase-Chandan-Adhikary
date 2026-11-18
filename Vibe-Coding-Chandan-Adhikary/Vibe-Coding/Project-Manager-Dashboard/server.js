@@ -11,10 +11,33 @@ const crypto = require('crypto');
 const { exec } = require('child_process');
 const DashboardParser = require('./parser');
 
-const PORT = Number(process.env.PORT) || 4201;
+// Universal CLI Flags & Env Overrides:
+// e.g. node server.js --port=4201 --project=/path/to/any/project
+// or node server.js /path/to/any/project 4201
+let cliProjectDir = null;
+let cliPort = null;
+
+for (let i = 2; i < process.argv.length; i++) {
+  const arg = process.argv[i];
+  if (arg.startsWith('--project=')) {
+    cliProjectDir = arg.slice(10);
+  } else if (arg.startsWith('--port=')) {
+    cliPort = Number(arg.slice(7));
+  } else if (!cliProjectDir && !arg.startsWith('--')) {
+    if (/^\d+$/.test(arg)) {
+      cliPort = Number(arg);
+    } else {
+      cliProjectDir = arg;
+    }
+  } else if (!cliPort && /^\d+$/.test(arg)) {
+    cliPort = Number(arg);
+  }
+}
+
+const PORT = cliPort || Number(process.env.PORT) || 4201;
 let currentPort = PORT;
 const HOST = '127.0.0.1';
-const PROJECT_ROOT = path.resolve(__dirname, '..');
+const PROJECT_ROOT = path.resolve(cliProjectDir || process.env.PROJECT_ROOT || process.env.DASHBOARD_PROJECT_DIR || path.join(__dirname, '..'));
 const DASHBOARD_ROOT = path.resolve(__dirname);
 const parser = new DashboardParser(PROJECT_ROOT);
 

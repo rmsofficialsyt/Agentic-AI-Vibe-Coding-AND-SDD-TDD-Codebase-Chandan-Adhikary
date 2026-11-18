@@ -5,7 +5,7 @@ echo [Project-Manager-Dashboard] Starting In-IDE Local Daemon (Vibe-Coding Track
 echo ==============================================================================
 
 cd /d "%~dp0"
-start "PM-Dashboard-Vibe-Daemon" /b node server.js
+start "PM-Dashboard-Vibe-Daemon" node server.js %*
 
 echo.
 echo Daemon is running in background at: http://127.0.0.1:4201

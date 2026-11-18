@@ -6,7 +6,7 @@ echo "==========================================================================
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
-node server.js &
+node server.js "$@" &
 
 echo ""
 echo "Daemon is running in background at: http://127.0.0.1:4200"

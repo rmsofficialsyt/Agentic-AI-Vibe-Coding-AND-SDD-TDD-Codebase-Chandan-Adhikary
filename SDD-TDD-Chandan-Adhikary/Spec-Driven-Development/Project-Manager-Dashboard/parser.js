@@ -1712,6 +1712,78 @@ class DashboardParser {
   }
 
   /**
+   * Universal Project Metadata Detection
+   * Infers project name, framework track, active phase, and root directory dynamically.
+   */
+  getProjectMetadata(frameworkType = 'SDD', phases = []) {
+    let name = path.basename(this.projectRoot) || 'Universal Project';
+
+    // 1. Try reading package.json for project name
+    try {
+      const pkgPath = path.join(this.projectRoot, 'package.json');
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.name) name = pkg.name;
+      }
+    } catch (e) {}
+
+    // 2. Try reading docs/prd.md title if package.json has generic name or missing
+    if (name === 'Spec-Driven-Development' || name === 'Vibe-Coding' || name === 'Universal Project') {
+      try {
+        const prdContent = this.readFileSafe(path.join(this.docsDir, 'prd.md'));
+        const m = prdContent.match(/^#\s+(.+)$/m);
+        if (m && m[1]) {
+          const cand = m[1].replace(/[—–-].*$/, '').trim();
+          if (cand && !/^(prd|readme|spec|template|phases)$/i.test(cand)) {
+            name = cand;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 3. Detect framework track
+    let track = 'Universal Project · In-IDE';
+    if (frameworkType === 'SDD' || fs.existsSync(path.join(this.docsDir, 'spec.md')) || fs.existsSync(this.featuresDir)) {
+      track = 'SDD-TDD · In-IDE';
+    } else if (frameworkType === 'VIBE' || fs.existsSync(path.join(this.docsDir, 'decision-log.md'))) {
+      track = 'Vibe-Coding · In-IDE';
+    }
+
+    // 4. Detect Active Phase Title from parsed phases or docs/phases.md
+    let activePhaseTitle = 'Phase Active · All Systems Nominal';
+    if (phases && phases.length > 0) {
+      const activePhase = phases.find(p => p.status === 'IN_PROGRESS') || phases[0];
+      if (activePhase && activePhase.name) {
+        activePhaseTitle = `${activePhase.name} · All Systems Nominal`;
+      }
+    } else {
+      try {
+        const phasesContent = this.readFileSafe(path.join(this.docsDir, 'phases.md'));
+        const phaseLines = phasesContent.split(/\r?\n/);
+        for (const line of phaseLines) {
+          if (line.includes('IN_PROGRESS') || line.includes('Active') || line.includes('Phase')) {
+            const match = line.match(/Phase\s+\d+[^|\n\r]*/i);
+            if (match) {
+              activePhaseTitle = match[0].trim() + ' · All Systems Nominal';
+              break;
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    return {
+      name,
+      track,
+      root: this.projectRoot,
+      activePhaseTitle,
+      hasDocs: fs.existsSync(this.docsDir),
+      hasLogs: fs.existsSync(path.join(this.projectRoot, 'logs')),
+      hasTests: fs.existsSync(this.testsDir)
+    };
+  }
+
+  /**
    * Full aggregate state object for the dashboard
    */
   getDashboardState(frameworkType = 'SDD') {
@@ -1724,12 +1796,13 @@ class DashboardParser {
     const tokens = this.parseTokenTelemetry();
     const logs = this.getLogFilesTelemetry();
     const architecture = this.parseArchitecture();
+    const project = this.getProjectMetadata(frameworkType, phases);
 
     // Calculate Scope Progress %
     const totalPhases = phases.length;
     const completedPhases = phases.filter(p => p.status === 'DONE').length;
     const inProgressPhases = phases.filter(p => p.status === 'IN_PROGRESS').length;
-    const scopeProgress = Math.round(((completedPhases * 100) + (inProgressPhases * 50)) / totalPhases);
+    const scopeProgress = totalPhases > 0 ? Math.round(((completedPhases * 100) + (inProgressPhases * 50)) / totalPhases) : 0;
 
     // Calculate AC Pass Rate
     const totalAcs = specs.length;
@@ -1758,17 +1831,40 @@ class DashboardParser {
       total: tasks.length
     };
 
-    // Project Deliveries Trajectory (Dual Wavy Spline Chart Points in strict 2026 DD-MM-YYYY)
+    // Project Deliveries Trajectory (Dual Spline Chart Points dynamically generated strictly in DD-MM-YYYY)
+    const now = new Date();
+    const dynamicLabels = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 7 * 86400000);
+      dynamicLabels.push(formatDDMMYYYY(d));
+    }
+    const totalScopeCount = Math.max(tasks.length, 1);
+    const targetPoints = [
+      Math.max(1, Math.round(totalScopeCount * 0.16)),
+      Math.max(1, Math.round(totalScopeCount * 0.33)),
+      Math.max(1, Math.round(totalScopeCount * 0.50)),
+      Math.max(1, Math.round(totalScopeCount * 0.67)),
+      Math.max(1, Math.round(totalScopeCount * 0.83)),
+      totalScopeCount
+    ];
+    const achievedPoints = [
+      Math.round(completedTasks * 0.15),
+      Math.round(completedTasks * 0.35),
+      Math.round(completedTasks * 0.55),
+      Math.round(completedTasks * 0.75),
+      Math.round(completedTasks * 0.9),
+      completedTasks
+    ];
     const deliveriesTrajectory = {
-      labels: ['10-10-2026', '17-10-2026', '24-10-2026', '31-10-2026', '07-11-2026', '14-11-2026'],
-      target: [4, 8, 12, 16, 20, 24],
-      achieved: [4, 9, 13, 17, 21, Math.max(completedTasks, 22)],
+      labels: dynamicLabels,
+      target: targetPoints,
+      achieved: achievedPoints,
       currentTooltip: {
-        milestone: '14-11-2026',
-        achievedLabel: `${completedTasks || 22} Tasks Done`,
-        targetLabel: `${tasks.length || 24} Total Scope`,
-        achievedVal: completedTasks || 22,
-        targetVal: tasks.length || 24,
+        milestone: formatDDMMYYYY(now),
+        achievedLabel: `${completedTasks} Tasks Done`,
+        targetLabel: `${tasks.length} Total Scope`,
+        achievedVal: completedTasks,
+        targetVal: tasks.length,
         xPct: 100
       }
     };
@@ -1830,6 +1926,7 @@ class DashboardParser {
     });
 
     return {
+      project,
       frameworkType,
       currentDate: formatDDMMYYYY(),
       timestamp: new Date().toISOString(),

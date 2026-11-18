@@ -29,6 +29,7 @@ class BentoDashboardClient {
     this.initMotion();
     this.initTheme();
     this.bindNavigation();
+    this.bindTactileButtons();
     this.bindTaskControls();
     this.bindActionControls();
     this.bindSearchFilter();
@@ -55,6 +56,27 @@ class BentoDashboardClient {
       } catch (e) {}
     }
     return null;
+  }
+
+  bindTactileButtons() {
+    // Universal tactile micro-spring press feedback across buttons
+    document.addEventListener('pointerdown', (e) => {
+      const btn = e.target.closest('button, .ui-btn, .action-card-btn, .filter-tab, .view-tab-btn, .logs-btn, .shadcn-btn, .sidebar-action-btn');
+      if (!btn || btn.disabled || btn.classList.contains('is-disabled')) return;
+      this.animateSpring(btn, { scale: [1, 0.96] }, { stiffness: 600, damping: 30 });
+    });
+
+    document.addEventListener('pointerup', (e) => {
+      const btn = e.target.closest('button, .ui-btn, .action-card-btn, .filter-tab, .view-tab-btn, .logs-btn, .shadcn-btn, .sidebar-action-btn');
+      if (!btn) return;
+      this.animateSpring(btn, { scale: [0.96, 1] }, { stiffness: 500, damping: 25 });
+    });
+
+    document.addEventListener('pointercancel', (e) => {
+      const btn = e.target.closest('button, .ui-btn, .action-card-btn, .filter-tab, .view-tab-btn, .logs-btn, .shadcn-btn, .sidebar-action-btn');
+      if (!btn) return;
+      this.animateSpring(btn, { scale: 1 }, { stiffness: 500, damping: 25 });
+    });
   }
 
   initTheme() {
@@ -502,6 +524,9 @@ class BentoDashboardClient {
   render() {
     if (!this.state) return;
 
+    // 0. Dynamic Project Metadata Binding
+    this.renderProjectMetadata();
+
     // 1. Render Overview 5-Card Teamify Charts
     this.renderTaskStrengthBars();
     this.renderConcentricOrbitalHealth();
@@ -522,6 +547,32 @@ class BentoDashboardClient {
     this.renderGitRadar();
     this.renderErrors();
     this.renderLogs();
+  }
+
+  renderProjectMetadata() {
+    if (!this.state || !this.state.project) return;
+    const p = this.state.project;
+
+    // Document Title
+    if (p.name && p.name !== 'Universal Project') {
+      document.title = `${p.name} — Project Manager Dashboard`;
+    }
+
+    // Sidebar & Mobile Brand Titles
+    const brandNameEl = document.getElementById('app-brand-name');
+    if (brandNameEl && p.name) brandNameEl.textContent = p.name;
+
+    const mobileBrandEl = document.getElementById('mobile-brand-title');
+    if (mobileBrandEl && p.name) mobileBrandEl.textContent = p.name;
+
+    const trackBadgeEl = document.getElementById('app-track-badge');
+    if (trackBadgeEl && p.track) trackBadgeEl.textContent = p.track;
+
+    // Greeting Subtitle
+    const subtitleEl = document.getElementById('header-subtitle');
+    if (subtitleEl && p.activePhaseTitle) {
+      subtitleEl.textContent = p.activePhaseTitle;
+    }
   }
 
   /* --------------------------------------------------------------------------

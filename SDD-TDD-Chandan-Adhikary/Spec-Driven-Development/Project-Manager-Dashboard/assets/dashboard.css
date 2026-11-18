@@ -47,16 +47,85 @@ body.theme-dark {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
-  /* Smooth Pill Radii */
+  --font-size-3xs: 9.5px;
+  --font-size-2xs: 10.5px;
+  --font-size-xs: 11.5px;
+  --font-size-sm: 12.5px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+
+  /* Spacing System Tokens */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Smooth Pill & Box Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
   --radius-card: 22px;
   --radius-pill: 9999px;
   --radius-badge: 8px;
+
+  /* Button Sizing Tokens */
+  --btn-height-sm: 28px;
+  --btn-height-md: 36px;
+  --btn-height-lg: 44px;
+
+  /* Motion & Timing Tokens */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-gentle: 600ms;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-tactile: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Chart & Surface Specifics */
   --chart-grid: rgba(255, 255, 255, 0.05);
   --chart-marker: rgba(255, 255, 255, 0.35);
   --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   --card-hover-bg: rgba(255, 255, 255, 0.04);
+
+  /* Elevation Shadows & Glow Tokens */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.65);
+  --shadow-glow-coral: 0 4px 16px var(--coral-glow);
+  --shadow-glow-cyan: 0 4px 16px var(--cyan-glow);
+  --shadow-glow-mint: 0 4px 16px var(--mint-glow);
+  --shadow-glow-gold: 0 4px 16px var(--gold-glow);
 }
 
 html[data-theme="light"],
@@ -102,16 +171,85 @@ body.theme-light {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
-  /* Smooth Pill Radii */
+  --font-size-3xs: 9.5px;
+  --font-size-2xs: 10.5px;
+  --font-size-xs: 11.5px;
+  --font-size-sm: 12.5px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+
+  /* Spacing System Tokens */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Smooth Pill & Box Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
   --radius-card: 22px;
   --radius-pill: 9999px;
   --radius-badge: 8px;
+
+  /* Button Sizing Tokens */
+  --btn-height-sm: 28px;
+  --btn-height-md: 36px;
+  --btn-height-lg: 44px;
+
+  /* Motion & Timing Tokens */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-gentle: 600ms;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-tactile: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Chart & Surface Specifics */
   --chart-grid: rgba(0, 0, 0, 0.06);
   --chart-marker: rgba(0, 0, 0, 0.22);
   --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
   --card-hover-bg: rgba(0, 0, 0, 0.04);
+
+  /* Elevation Shadows & Glow Tokens */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow-coral: 0 4px 14px var(--coral-glow);
+  --shadow-glow-cyan: 0 4px 14px var(--cyan-glow);
+  --shadow-glow-mint: 0 4px 14px var(--mint-glow);
+  --shadow-glow-gold: 0 4px 14px var(--gold-glow);
 }
 
 /* Base Reset & Fluid Typography */
@@ -131,6 +269,211 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* ==============================================================================
+   STANDARDIZED BUTTON SYSTEM & INTERACTIVE MICRO-INTERACTIONS
+   ============================================================================== */
+
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--btn-height-md);
+  padding: 0 var(--space-3-5);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background-color: var(--bg-card-elevated);
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  transition: background var(--duration-fast) var(--ease-smooth),
+              color var(--duration-fast) var(--ease-smooth),
+              border-color var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-fast) var(--ease-smooth),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.ui-btn:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-btn:active {
+  transform: translateY(1px) scale(0.975);
+  box-shadow: none;
+}
+
+.ui-btn:focus-visible {
+  outline: 2px solid var(--cyan-accent);
+  outline-offset: 2px;
+}
+
+.ui-btn[disabled],
+.ui-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Button Variants */
+.ui-btn-primary {
+  background: linear-gradient(135deg, var(--coral-accent), var(--coral-peach));
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px var(--coral-glow);
+}
+
+.ui-btn-primary:hover {
+  background: linear-gradient(135deg, #ff8159, #ff6438);
+  box-shadow: 0 4px 16px var(--coral-glow);
+  transform: translateY(-1.5px);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.ui-btn-primary:active {
+  transform: translateY(1px) scale(0.975);
+  box-shadow: 0 1px 4px var(--coral-glow);
+}
+
+.ui-btn-secondary,
+.ui-btn-outline {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-highlight);
+}
+
+.ui-btn-secondary:hover,
+.ui-btn-outline:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+  color: var(--text-main);
+}
+
+.ui-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.ui-btn-ghost:hover {
+  background: var(--card-hover-bg);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+  transform: none;
+}
+
+.ui-btn-danger {
+  background: rgba(248, 113, 113, 0.14);
+  color: var(--crimson-red);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+.ui-btn-danger:hover {
+  background: rgba(248, 113, 113, 0.24);
+  border-color: var(--crimson-red);
+  box-shadow: 0 2px 12px var(--crimson-glow);
+}
+
+.ui-btn-success {
+  background: rgba(52, 211, 153, 0.14);
+  color: var(--mint-accent);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.ui-btn-success:hover {
+  background: rgba(52, 211, 153, 0.24);
+  border-color: var(--mint-accent);
+  box-shadow: 0 2px 12px var(--mint-glow);
+}
+
+.ui-btn-warning {
+  background: rgba(251, 191, 36, 0.14);
+  color: var(--gold-accent);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.ui-btn-warning:hover {
+  background: rgba(251, 191, 36, 0.24);
+  border-color: var(--gold-accent);
+  box-shadow: 0 2px 12px var(--gold-glow);
+}
+
+/* Button Sizes */
+.ui-btn-sm {
+  height: var(--btn-height-sm);
+  padding: 0 var(--space-2-5);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-sm);
+  gap: var(--space-1-5);
+}
+
+.ui-btn-md {
+  height: var(--btn-height-md);
+  padding: 0 var(--space-3-5);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+}
+
+.ui-btn-lg {
+  height: var(--btn-height-lg);
+  padding: 0 var(--space-5);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-lg);
+  gap: var(--space-2-5);
+}
+
+.ui-btn-icon {
+  width: var(--btn-height-md);
+  height: var(--btn-height-md);
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+.ui-btn-icon.ui-btn-sm {
+  width: var(--btn-height-sm);
+  height: var(--btn-height-sm);
+}
+
+.ui-btn-pill {
+  border-radius: var(--radius-pill);
+}
+
+/* Universal Button Focus Rings & Active States for All Buttons */
+button:focus-visible,
+[role="button"]:focus-visible,
+.filter-tab:focus-visible,
+.view-tab-btn:focus-visible,
+.action-card-btn:focus-visible,
+.clean-link-btn:focus-visible {
+  outline: 2px solid var(--cyan-accent);
+  outline-offset: 2px;
+}
+
+button:active,
+.action-card-btn:active,
+.sidebar-action-btn:active,
+.logs-btn:active,
+.shadcn-btn:active,
+.filter-tab:active,
+.view-tab-btn:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 /* ==============================================================================
@@ -552,8 +895,29 @@ html, body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+    box-shadow: 0 0 6px var(--mint-accent);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 14px var(--mint-accent);
+  }
+}
+
+@keyframes keyframes-pulse-glow {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+    box-shadow: 0 0 6px var(--mint-accent);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 14px var(--mint-accent);
+  }
 }
 
 /* ==============================================================================
@@ -1278,17 +1642,6 @@ html, body {
   color: var(--text-muted);
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.35);
-    opacity: 1;
-    box-shadow: 0 0 14px var(--mint-accent);
-  }
-}
 
 /* Action Console & Command Center */
 .actions-bento-grid {
@@ -3303,4 +3656,78 @@ body.theme-light .arch-pattern-tag {
   background: rgba(0, 0, 0, 0.03);
   color: #18181b;
   border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ==============================================================================
+   STANDARDIZED ANIMATION KEYFRAMES & ACCESSIBLE REDUCED MOTION
+   ============================================================================== */
+
+@keyframes keyframes-sheet-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes keyframes-sheet-backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes keyframes-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes keyframes-toast-in {
+  from {
+    transform: translateY(16px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes keyframes-skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Accessibility: Strict Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .pulse-dot,
+  .btn-pulse-dot,
+  .status-pill.RED,
+  .heartbeat-status .pulse-dot {
+    animation: none !important;
+  }
 }

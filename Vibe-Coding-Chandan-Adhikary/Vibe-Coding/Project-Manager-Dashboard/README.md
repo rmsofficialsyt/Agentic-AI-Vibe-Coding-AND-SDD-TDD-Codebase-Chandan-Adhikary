@@ -30,6 +30,9 @@ bash open-in-ide.sh
 
 # Or directly with Node:
 node server.js
+
+# Universal Project Usage (Run against any workspace or custom port):
+node server.js --project=/path/to/any/workspace --port=4201
 ```
 
 ### 2. Dock the Dashboard in Your IDE (Zero External Browser)
