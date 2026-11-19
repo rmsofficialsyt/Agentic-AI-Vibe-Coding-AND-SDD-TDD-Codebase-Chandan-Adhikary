@@ -35,7 +35,7 @@
 The end-to-end SDD-TDD lifecycle follows a strict contract-first progression:
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef gov fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef spec fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
@@ -166,7 +166,7 @@ All custom commands carry the `-ca-agent` namespace to guarantee zero collisions
 ## 📁 Repository Structure & Component Map
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef agent fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
     classDef doc fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
     classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;

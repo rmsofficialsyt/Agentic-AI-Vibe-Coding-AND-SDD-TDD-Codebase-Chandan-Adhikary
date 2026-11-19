@@ -168,7 +168,7 @@ To provide actionable guidance during active pairing sessions, the 16 commands a
 ## 5. Visual Workflow Diagram: The Universal SDD + TDD Flow
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;

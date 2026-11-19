@@ -25,7 +25,7 @@
 This guide provides an end-to-end, production-ready blueprint for building **EduSphere Enterprise**—a secure, multi-tenant School Management System designed for strict regulatory compliance (FERPA, COPPA, GDPR) and mission-critical reliability.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef app fill:#082f49,stroke:#0284c7,stroke-width:1.5px,color:#f0f9ff;
     classDef db fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;

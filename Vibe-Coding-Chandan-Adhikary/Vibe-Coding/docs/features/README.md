@@ -23,7 +23,7 @@
 ## 🏛️ Flat vs. Modular Decision Tree
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef start fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef flat fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
@@ -53,7 +53,7 @@ flowchart TD
 ## 🔄 Step-by-Step Spec Development Protocol
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;

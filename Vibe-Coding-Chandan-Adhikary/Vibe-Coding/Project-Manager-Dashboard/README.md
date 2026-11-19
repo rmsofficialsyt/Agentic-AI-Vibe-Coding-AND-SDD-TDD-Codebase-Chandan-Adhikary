@@ -22,7 +22,7 @@
 The **Project-Manager-Dashboard** is an embedded telemetry mission control designed exclusively for local IDE development within the **Vibe-Coding** framework. It runs side-by-side with your code in an IDE split tab (Simple Browser), providing immediate, real-time visibility into prototype iterations, living feature contracts, visual UI milestones, git commits, and agent token usage.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
     classDef daemon fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
@@ -102,7 +102,7 @@ node server.js
 
 ### 2. Dock the Dashboard in Your IDE (Side-by-Side Viewport)
 ```mermaid
-flowchart TD
+flowchart LR
     classDef code fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef dash fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
 

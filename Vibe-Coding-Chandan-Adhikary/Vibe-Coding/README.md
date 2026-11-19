@@ -33,7 +33,7 @@
 ## 🏛️ Vibe-Coding Architecture & Sensory Loop
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
@@ -159,7 +159,7 @@ All custom commands carry the `-ca-agent` namespace to guarantee zero collisions
 ## 📁 Repository Structure & Component Map
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef agent fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
     classDef doc fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;

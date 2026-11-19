@@ -23,7 +23,7 @@
 The **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear and Shadcn UI-inspired telemetry dashboard designed specifically for local development workflows. It runs side-by-side with your code inside the IDE, providing live visibility into tasks, acceptance criteria contracts, git commits, milestones, error triage, logs, and AI agent token consumption.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
     classDef daemon fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
@@ -166,7 +166,7 @@ node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/Project-Manager-Dashboard/server.j
 For the ultimate distraction-free developer experience, dock the dashboard directly inside your IDE alongside your code.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef editor fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef term fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#f8fafc;

@@ -23,7 +23,7 @@ The test harness in **Spec-Driven Development (SDD-TDD)** is an immutable qualit
 ## 🏛️ Testing Pyramid & AC Traceability Pipeline
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef spec fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
     classDef unit fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef integ fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;

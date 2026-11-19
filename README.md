@@ -23,7 +23,7 @@
 This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. Whether you are building rapid consumer-facing SaaS products or mission-critical, enterprise multi-tenant systems, this repository enforces strict governance, zero speculative coding, and measurable quality gates.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
@@ -85,7 +85,7 @@ Choose the framework that matches your delivery model and architectural requirem
 ### Track 1: Vibe-Coding Prompt & Sensory Loop
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
@@ -136,7 +136,7 @@ flowchart TD
 ### Track 2: Spec-Driven Development + TDD Quality-Gated Loop
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
@@ -192,7 +192,7 @@ flowchart TD
 ## 📁 Repository Architecture Blueprint
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef root fill:#0f172a,stroke:#94a3b8,stroke-width:2px,color:#f8fafc;
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;

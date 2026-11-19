@@ -22,7 +22,7 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 This guide provides an end-to-end, production-ready blueprint for creating **EduSphere**—a multi-tenant, cloud-based School Management SaaS Website serving Administrators, Principals, Teachers, Students, and Parents.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef sensory fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef store fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef backend fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc;

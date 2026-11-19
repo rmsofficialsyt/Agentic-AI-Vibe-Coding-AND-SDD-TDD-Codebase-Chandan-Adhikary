@@ -21,7 +21,7 @@ High-level and low-level system designs, aesthetic/interactive boundaries, data 
 The High-Level Design provides the end-to-end topology balancing fluid user experiences, instant UI feedback, and backend scalability.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef edge fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;
     classDef app fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;

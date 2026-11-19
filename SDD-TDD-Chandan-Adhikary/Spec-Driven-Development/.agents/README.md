@@ -26,7 +26,7 @@ The `.agents/` directory is the single cross-IDE canonical source of truth for a
 ## 🏛️ Agent Asset Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef asset fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef ide fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
 

@@ -21,7 +21,7 @@ High-level and low-level system designs, architectural patterns, boundary contra
 The High-Level Design outlines the end-to-end topological boundaries, ingress traffic flows, microservices / modular monolith components, and peripheral infrastructure.
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef edge fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;
     classDef gw fill:#1e293b,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
