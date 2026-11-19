@@ -30,20 +30,20 @@ flowchart TD
     classDef pass fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph SensoryStage ["🎨 STAGE 1: SENSORY UI DEMO VERIFICATION"]
-        LiveDemo["<b>🔌 Run /run-ca-agent</b><br/><sub>Starts Live Dev Server at http://localhost:3000</sub>"]:::sensory
-        SensoryCheck["<b>🌐 Sensory UX Inspection</b><br/><sub>Inspect Visual Aesthetics, Responsiveness & Animations</sub>"]:::sensory
-        VibeSignOff{"<b>✨ Vibe Approval Gate</b><br/><sub>Does the user experience feel right?</sub>"}:::gate
+        LiveDemo["<b>🔌 Run /run-ca-agent</b><br/><small>Starts Live Dev Server at http://localhost:3000</small>"]:::sensory
+        SensoryCheck["<b>🌐 Sensory UX Inspection</b><br/><small>Inspect Visual Aesthetics, Responsiveness & Animations</small>"]:::sensory
+        VibeSignOff{"Vibe Approved?"}:::gate
     end
 
     subgraph HardeningStage ["🔒 STAGE 2: PROGRESSIVE HARNESS HARDENING"]
-        ComponentTests["<b>🧩 Component & State Tests</b><br/><sub>Header, Dialogs, Cards (tests/components/)</sub>"]:::harden
-        ValidationTests["<b>📑 Schema & DTO Tests</b><br/><sub>Zod Validation & Typed Form Inputs</sub>"]:::harden
-        RegressionTests["<b>🔌 API Regression Tests</b><br/><sub>Route Handlers & State Persistence (tests/integration/)</sub>"]:::harden
+        ComponentTests["<b>🧩 Component & State Tests</b><br/><small>Header, Dialogs, Cards (tests/components/)</small>"]:::harden
+        ValidationTests["<b>📑 Schema & DTO Tests</b><br/><small>Zod Validation & Typed Form Inputs</small>"]:::harden
+        RegressionTests["<b>🔌 API Regression Tests</b><br/><small>Route Handlers & State Persistence (tests/integration/)</small>"]:::harden
     end
 
     subgraph ReleaseStage ["🚀 STAGE 3: PRE-DEPLOY RELEASE GATE"]
-        TestRun[["<b>🏃 Execute /testing-ca-agent</b><br/><sub>Automated Test Harness Output -> logs/test.log</sub>"]]:::harden
-        ShipVerdict(["<b>🎉 /release-check-ca-agent Passed</b><br/><sub>Zero-Defect Production Deployment Authorized</sub>"]):::pass
+        TestRun[["<b>🏃 Execute /testing-ca-agent</b><br/><small>Automated Test Harness Output -> logs/test.log</small>"]]:::harden
+        ShipVerdict(["<b>🎉 /release-check-ca-agent Passed</b><br/><small>Zero-Defect Production Deployment Authorized</small>"]):::pass
     end
 
     LiveDemo --> SensoryCheck

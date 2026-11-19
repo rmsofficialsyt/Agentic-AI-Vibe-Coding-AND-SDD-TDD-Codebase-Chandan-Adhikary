@@ -43,29 +43,29 @@ flowchart TD
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
     subgraph GovernancePhase ["🏛️ 1. GOVERNANCE & ARCHITECTURE SYNTHESIS"]
-        ProductVision["<b>💡 Product Vision & Capabilities</b><br/><sub>docs/product.md • CAP-### Taxonomy</sub>"]:::gov
-        PRD["<b>📑 System Requirements (PRD)</b><br/><sub>docs/prd.md • REQ-### Requirements</sub>"]:::gov
-        SysArch["<b>🏛️ System Architecture & HLD/LLD</b><br/><sub>docs/system-architecture.md • Boundaries</sub>"]:::gov
+        ProductVision["<b>💡 Product Vision & Capabilities</b><br/><small>docs/product.md • CAP-### Taxonomy</small>"]:::gov
+        PRD["<b>📑 System Requirements (PRD)</b><br/><small>docs/prd.md • REQ-### Requirements</small>"]:::gov
+        SysArch["<b>🏛️ System Architecture & HLD/LLD</b><br/><small>docs/system-architecture.md • Boundaries</small>"]:::gov
     end
 
     subgraph SpecPhase ["📋 2. EXECUTABLE SPECIFICATION CONTRACT"]
-        SpecFormat{"<b>📐 Spec Format Decision</b><br/><sub>Flat (Tier 1/2) vs. Modular (Tier 3)</sub>"}:::gate
-        SpecDraft["<b>📝 Feature Specification Drafting</b><br/><sub>docs/features/NNN-name.md (FEAT-###)</sub>"]:::spec
-        ACDefine["<b>🧪 Acceptance Criteria (AC-*)</b><br/><sub>Given / When / Then Scenario Modeling</sub>"]:::spec
-        HumanReview{"<b>👤 Human Lead Approval Gate</b><br/><sub>Formal Sign-Off in docs/approvals/</sub>"}:::gate
+        SpecFormat{"Spec Format?"}:::gate
+        SpecDraft["<b>📝 Feature Specification Drafting</b><br/><small>docs/features/NNN-name.md (FEAT-###)</small>"]:::spec
+        ACDefine["<b>🧪 Acceptance Criteria (AC-*)</b><br/><small>Given / When / Then Scenario Modeling</small>"]:::spec
+        HumanReview{"Architecture Approved?"}:::gate
     end
 
     subgraph TDDPhase ["🧪 3. TEST-DRIVEN IMPLEMENTATION (TDD)"]
-        RedTest["<b>🔴 RED PHASE: Failing Tests First</b><br/><sub>Run /testing-ca-agent -> Confirm Fail</sub>"]:::red
-        GreenCode["<b>🟢 GREEN PHASE: Minimal Code</b><br/><sub>Satisfy Assertions -> All Tests Pass</sub>"]:::green
-        Refactor["<b>✨ REFACTOR PHASE: Architecture Polish</b><br/><sub>Eliminate Duplication • Zero Regression</sub>"]:::green
+        RedTest["<b>🔴 RED PHASE: Failing Tests First</b><br/><small>Run /testing-ca-agent -> Confirm Fail</small>"]:::red
+        GreenCode["<b>🟢 GREEN PHASE: Minimal Code</b><br/><small>Satisfy Assertions -> All Tests Pass</small>"]:::green
+        Refactor["<b>✨ REFACTOR PHASE: Architecture Polish</b><br/><small>Eliminate Duplication • Zero Regression</small>"]:::green
     end
 
     subgraph GatePhase ["🚀 4. QUALITY AUDIT & RELEASE GATE"]
-        CodeReview["<b>🔍 /review-ca-agent & /verify-ca-agent</b><br/><sub>Diff Inspection & AC Scorecard Check</sub>"]:::gov
-        SecurityScan["<b>🛡️ /security-audit-ca-agent</b><br/><sub>SAST, Secret Leaks & Dependency Scan</sub>"]:::gov
-        ReleaseGate{"<b>🚀 /release-check-ca-agent</b><br/><sub>Production Ship / No-Ship Decision</sub>"}:::gate
-        ProductionDeploy(["<b>🎉 Production-Ready Release</b><br/><sub>Zero-Defect Enterprise Deployment</sub>"]):::green
+        CodeReview["<b>🔍 /review-ca-agent & /verify-ca-agent</b><br/><small>Diff Inspection & AC Scorecard Check</small>"]:::gov
+        SecurityScan["<b>🛡️ /security-audit-ca-agent</b><br/><small>SAST, Secret Leaks & Dependency Scan</small>"]:::gov
+        ReleaseGate{"Release Gate Passed?"}:::gate
+        ProductionDeploy(["<b>🎉 Production-Ready Release</b><br/><small>Zero-Defect Enterprise Deployment</small>"]):::green
     end
 
     ProductVision -->|"Refines"| PRD
@@ -76,7 +76,7 @@ flowchart TD
     SpecDraft -->|"Specifies"| ACDefine
     ACDefine -->|"Submits for Sign-off"| HumanReview
 
-    HumanReview -->|"Revisions Needed"| SpecDraft
+    HumanReview -->|"Revise"| SpecDraft
     HumanReview -->|"APPROVED"| RedTest
 
     RedTest -->|"Write Production Code"| GreenCode
@@ -103,11 +103,11 @@ flowchart LR
     classDef test fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef code fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    CAP["<b>💡 CAPABILITY</b><br/><sub>CAP-001: Student Lifecycle</sub>"]:::cap -->|"Deconstructs to"| REQ["<b>📑 REQUIREMENT</b><br/><sub>REQ-002: Enrollment Service</sub>"]:::req
-    REQ -->|"Specified by"| FEAT["<b>📝 FEATURE SPEC</b><br/><sub>FEAT-002: Admission Workflow</sub>"]:::feat
-    FEAT -->|"Enforces Contract"| AC["<b>🧪 ACCEPTANCE CRITERIA</b><br/><sub>AC-FEAT002-01: Unique ID Check</sub>"]:::ac
-    AC -->|"Directly Verified by"| TEST["<b>🔬 AUTOMATED TEST</b><br/><sub>TEST-FEAT002-01 (tests/unit/)</sub>"]:::test
-    TEST ==>|"Guarantees"| CODE["<b>💻 PRODUCTION CODE</b><br/><sub>src/modules/students/enroll.ts</sub>"]:::code
+    CAP["<b>💡 CAPABILITY</b><br/><small>CAP-001: Student Lifecycle</small>"]:::cap -->|"Deconstructs to"| REQ["<b>📑 REQUIREMENT</b><br/><small>REQ-002: Enrollment Service</small>"]:::req
+    REQ -->|"Specified by"| FEAT["<b>📝 FEATURE SPEC</b><br/><small>FEAT-002: Admission Workflow</small>"]:::feat
+    FEAT -->|"Enforces Contract"| AC["<b>🧪 ACCEPTANCE CRITERIA</b><br/><small>AC-FEAT002-01: Unique ID Check</small>"]:::ac
+    AC -->|"Directly Verified by"| TEST["<b>🔬 AUTOMATED TEST</b><br/><small>TEST-FEAT002-01 (tests/unit/)</small>"]:::test
+    TEST ==>|"Guarantees"| CODE["<b>💻 PRODUCTION CODE</b><br/><small>src/modules/students/enroll.ts</small>"]:::code
 ```
 
 ---
@@ -174,12 +174,12 @@ flowchart TD
     classDef log fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
 
     subgraph RepoRoot ["🛡️ SPEC-DRIVEN-DEVELOPMENT /"]
-        AGENTS["<b>🤖 Agent Master Directives</b><br/><sub>AGENTS.md • GEMINI.md • CLAUDE.md Governance</sub>"]:::agent
-        AgentsDir["<b>🛠️ .agents/ Canonical Asset Store</b><br/><sub>16 Commands • 18 Skills • Lifecycle Hooks</sub>"]:::agent
-        DocsDir["<b>📑 docs/ Architecture & Living Specs</b><br/><sub>Living Specs • System Design • ADR Records</sub>"]:::doc
-        DashboardDir["<b>🖥️ Project-Manager-Dashboard</b><br/><sub>In-IDE Mission Control • Local Port 4200</sub>"]:::dash
-        TestsDir["<b>🧪 tests/ Automated Test Harness</b><br/><sub>Unit, Integration & E2E Acceptance Suites</sub>"]:::test
-        LogsDir["<b>🪵 logs/ Audit Directory</b><br/><sub>Structured Runtime Logs • Sanitized PII</sub>"]:::log
+        AGENTS["<b>🤖 Agent Master Directives</b><br/><small>AGENTS.md • GEMINI.md • CLAUDE.md Governance</small>"]:::agent
+        AgentsDir["<b>🛠️ .agents/ Canonical Asset Store</b><br/><small>16 Commands • 18 Skills • Lifecycle Hooks</small>"]:::agent
+        DocsDir["<b>📑 docs/ Architecture & Living Specs</b><br/><small>Living Specs • System Design • ADR Records</small>"]:::doc
+        DashboardDir["<b>🖥️ Project-Manager-Dashboard</b><br/><small>In-IDE Mission Control • Local Port 4200</small>"]:::dash
+        TestsDir["<b>🧪 tests/ Automated Test Harness</b><br/><small>Unit, Integration & E2E Acceptance Suites</small>"]:::test
+        LogsDir["<b>🪵 logs/ Audit Directory</b><br/><small>Structured Runtime Logs • Sanitized PII</small>"]:::log
     end
 ```
 

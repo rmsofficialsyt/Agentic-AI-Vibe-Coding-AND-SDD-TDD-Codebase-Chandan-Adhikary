@@ -28,12 +28,12 @@ flowchart TD
     classDef ship fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph VibeProgression ["🎨 VIBE-CODING PROGRESSIVE HARDENING PIPELINE"]
-        V1["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><sub>Design Tokens • Color Palette • User Personas</sub>"]:::vibe --> V2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • /run-ca-agent</sub>"]:::vibe
-        V2 --> V3["<b>✨ Prompt V3: Conversational Vibe-Tuning</b><br/><sub>Micro-Interactions • Spacing • Fluid Feedback</sub>"]:::vibe
-        V3 --> SensoryApproval{"<b>👤 Visual & Tactile Sign-Off</b><br/><sub>Does the user experience feel right?</sub>"}:::gate
+        V1["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><small>Design Tokens • Color Palette • User Personas</small>"]:::vibe --> V2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • /run-ca-agent</small>"]:::vibe
+        V2 --> V3["<b>✨ Prompt V3: Conversational Vibe-Tuning</b><br/><small>Micro-Interactions • Spacing • Fluid Feedback</small>"]:::vibe
+        V3 --> SensoryApproval{"Vibe Approved?"}:::gate
         SensoryApproval -->|"Iterate UI"| V3
-        SensoryApproval -->|"Approved"| V4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database Models</sub>"]:::harden
-        V4 --> V5["<b>🚀 Prompt V5: Security & Release Gate</b><br/><sub>/security-audit-ca-agent • /release-check-ca-agent</sub>"]:::ship
+        SensoryApproval -->|"Approved"| V4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><small>Zod Validation • Error Boundaries • Database Models</small>"]:::harden
+        V4 --> V5["<b>🚀 Prompt V5: Security & Release Gate</b><br/><small>/security-audit-ca-agent • /release-check-ca-agent</small>"]:::ship
     end
 ```
 

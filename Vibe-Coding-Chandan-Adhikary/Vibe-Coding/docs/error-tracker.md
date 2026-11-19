@@ -24,11 +24,11 @@ flowchart LR
     classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef close fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    Detect(["<b>🐛 1. Defect Logged</b><br/><sub>Ingest & Assign ERR-###</sub>"]):::err
-    Isolate["<b>🔍 2. Isolate Cause</b><br/><sub>Console & Server Logs</sub>"]:::step
-    Patch["<b>🛠️ 3. Targeted Patch</b><br/><sub>Surgical Code Diff</sub>"]:::step
-    Verify["<b>🌐 4. Live Sensory Check</b><br/><sub>Verify at localhost:3000</sub>"]:::sensory
-    Close(["<b>✅ 5. Log & Close Defect</b><br/><sub>Status: RESOLVED</sub>"]):::close
+    Detect(["<b>🐛 1. Defect Logged</b><br/><small>Ingest & Assign ERR-###</small>"]):::err
+    Isolate["<b>🔍 2. Isolate Cause</b><br/><small>Console & Server Logs</small>"]:::step
+    Patch["<b>🛠️ 3. Targeted Patch</b><br/><small>Surgical Code Diff</small>"]:::step
+    Verify["<b>🌐 4. Live Sensory Check</b><br/><small>Verify at localhost:3000</small>"]:::sensory
+    Close(["<b>✅ 5. Log & Close Defect</b><br/><small>Status: RESOLVED</small>"]):::close
 
     Detect -->|"Isolate"| Isolate
     Isolate -->|"Patch"| Patch

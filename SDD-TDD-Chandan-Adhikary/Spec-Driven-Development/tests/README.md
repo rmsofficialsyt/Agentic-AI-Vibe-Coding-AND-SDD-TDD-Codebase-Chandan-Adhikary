@@ -31,17 +31,17 @@ flowchart TD
     classDef runner fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef log fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
 
-    SpecAC[("<b>📑 Approved Acceptance Criteria</b><br/><sub>docs/features/**.md: AC-FEAT###-##</sub>")]:::spec
+    SpecAC[("<b>📑 Approved Acceptance Criteria</b><br/><small>docs/features/**.md: AC-FEAT###-##</small>")]:::spec
 
     subgraph Pyramid ["🧪 TEST HARNESS PYRAMID TIERS"]
-        E2E["<b>🌐 End-to-End Tests (10%)</b><br/><sub>Full browser journeys & payment gateways (tests/e2e/)</sub>"]:::e2e
-        Integration["<b>🔌 Integration Tests (20-30%)</b><br/><sub>API routes, DB queries, auth guards, RLS (tests/integration/)</sub>"]:::integ
-        Unit["<b>⚡ Unit Tests (60-70%)</b><br/><sub>Pure domain logic, algorithms, state models (tests/unit/)</sub>"]:::unit
+        E2E["<b>🌐 End-to-End Tests (10%)</b><br/><small>Full browser journeys & payment gateways (tests/e2e/)</small>"]:::e2e
+        Integration["<b>🔌 Integration Tests (20-30%)</b><br/><small>API routes, DB queries, auth guards, RLS (tests/integration/)</small>"]:::integ
+        Unit["<b>⚡ Unit Tests (60-70%)</b><br/><small>Pure domain logic, algorithms, state models (tests/unit/)</small>"]:::unit
     end
 
     subgraph ExecutionGate ["⚙️ TEST RUNNER & GATE EXECUTION"]
-        TestRunner[["<b>🏃 Test Suite Runner</b><br/><sub>Vitest / Jest / PyTest Harness</sub>"]]:::runner
-        CoverageReport[("<b>🪵 Test Audit & Gate Report</b><br/><sub>logs/test.log Stream Output</sub>")]:::log
+        TestRunner[["<b>🏃 Test Suite Runner</b><br/><small>Vitest / Jest / PyTest Harness</small>"]]:::runner
+        CoverageReport[("<b>🪵 Test Audit & Gate Report</b><br/><small>logs/test.log Stream Output</small>")]:::log
     end
 
     SpecAC -->|"AC Contract Binding"| Unit

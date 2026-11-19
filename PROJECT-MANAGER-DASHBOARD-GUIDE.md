@@ -30,24 +30,24 @@ flowchart TD
     classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
     subgraph WorkspaceState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
-        Tasks[("<b>📋 docs/task.md</b><br/><sub>Sequential Task Tree & Priorities</sub>")]:::store
-        Phases[("<b>🏁 docs/phases.md</b><br/><sub>Milestone Deliverables & Gates</sub>")]:::store
-        Specs[("<b>📑 docs/features/**/*.md</b><br/><sub>AC Given/When/Then Specs</sub>")]:::store
-        Errors[("<b>🐛 docs/error-tracker.md</b><br/><sub>P0-P3 Blocker Defect Matrix</sub>")]:::store
-        GitRepo[("<b>🗄️ .git/ Repository</b><br/><sub>HEAD Commit, Diffs, Branches</sub>")]:::store
-        Logs[("<b>🪵 logs/*.log Streams</b><br/><sub>dev.log, test.log, error.log</sub>")]:::store
-        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><sub>Token Health & Cache Rates</sub>")]:::store
+        Tasks[("<b>📋 docs/task.md</b><br/><small>Sequential Task Tree & Priorities</small>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestone Deliverables & Gates</small>")]:::store
+        Specs[("<b>📑 docs/features/**/*.md</b><br/><small>AC Given/When/Then Specs</small>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>P0-P3 Blocker Defect Matrix</small>")]:::store
+        GitRepo[("<b>🗄️ .git/ Repository</b><br/><small>HEAD Commit, Diffs, Branches</small>")]:::store
+        Logs[("<b>🪵 logs/*.log Streams</b><br/><small>dev.log, test.log, error.log</small>")]:::store
+        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><small>Token Health & Cache Rates</small>")]:::store
     end
 
     subgraph DaemonTier ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (NATIVE NODE.JS)"]
-        Parser[["<b>🔍 parser.js AST Engine</b><br/><sub>Regex Extractors & JSON Synthesizer</sub>"]]:::daemon
-        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><sub>Port 4200 (SDD) / 4201 (Vibe)</sub>"]]:::daemon
-        SecurityGuard{"<b>🛡️ 127.0.0.1 DNS-Rebind Guard</b><br/><sub>Origin & Host Header Validation</sub>"}:::sec
-        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><sub>X-Dashboard-Token Security Guard</sub>"]:::sec
+        Parser[["<b>🔍 parser.js AST Engine</b><br/><small>Regex Extractors & JSON Synthesizer</small>"]]:::daemon
+        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><small>Port 4200 (SDD) / 4201 (Vibe)</small>"]]:::daemon
+        SecurityGuard["<b>🛡️ DNS-Rebind Guard</b><br/><small>Origin & Host Header Validation</small>"]:::sec
+        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><small>X-Dashboard-Token Security Guard</small>"]:::sec
     end
 
     subgraph ViewportTier ["🖥️ IN-IDE SIMPLE BROWSER VIEWPORT"]
-        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><sub>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</sub>"]:::client
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><small>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</small>"]:::client
     end
 
     WorkspaceState -->|"📁 Real-Time File Watch (2s)"| Parser
@@ -75,18 +75,18 @@ flowchart LR
     classDef client fill:#0f172a,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
 
     subgraph SDDInstance ["🛡️ PORT 4200: SPEC-DRIVEN DEVELOPMENT"]
-        SDDServer[["<b>🔌 SDD Local Daemon</b><br/><sub>server.js --port=4200</sub>"]]:::sdd
-        SDDTarget[("<b>📑 SDD Workspace</b><br/><sub>Spec-Driven-Development/</sub>")]:::sdd
+        SDDServer[["<b>🔌 SDD Local Daemon</b><br/><small>server.js --port=4200</small>"]]:::sdd
+        SDDTarget[("<b>📑 SDD Workspace</b><br/><small>Spec-Driven-Development/</small>")]:::sdd
     end
 
     subgraph VibeInstance ["🌟 PORT 4201: VIBE-CODING"]
-        VibeServer[["<b>🔌 Vibe Local Daemon</b><br/><sub>server.js --port=4201</sub>"]]:::vibe
-        VibeTarget[("<b>🎨 Vibe Workspace</b><br/><sub>Vibe-Coding/</sub>")]:::vibe
+        VibeServer[["<b>🔌 Vibe Local Daemon</b><br/><small>server.js --port=4201</small>"]]:::vibe
+        VibeTarget[("<b>🎨 Vibe Workspace</b><br/><small>Vibe-Coding/</small>")]:::vibe
     end
 
     subgraph BrowserClient ["🖥️ DOCKED IN-IDE SIMPLE BROWSERS"]
-        Client1(["<b>Simple Browser 1</b><br/><sub>http://127.0.0.1:4200</sub>"]):::client
-        Client2(["<b>Simple Browser 2</b><br/><sub>http://127.0.0.1:4201</sub>"]):::client
+        Client1(["<b>Simple Browser 1</b><br/><small>http://127.0.0.1:4200</small>"]):::client
+        Client2(["<b>Simple Browser 2</b><br/><small>http://127.0.0.1:4201</small>"]):::client
     end
 
     SDDServer <-->|"Watches State"| SDDTarget
@@ -174,14 +174,14 @@ flowchart TD
     subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW (VS Code / Cursor / Windsurf / Antigravity)"]
         direction LR
         subgraph Col1 ["📝 Editor Group 1 (Left 60%)"]
-            SourceCode["<b>Active Source Code & Specs</b><br/><sub>src/auth/login.ts • docs/features/002-*.md</sub>"]:::editor
+            SourceCode["<b>Active Source Code & Specs</b><br/><small>src/auth/login.ts • docs/features/002-*.md</small>"]:::editor
         end
         subgraph Col2 ["📊 Editor Group 2 (Right 40%)"]
-            SimpleBrowser["<b>Docked Simple Browser Viewport</b><br/><sub>http://127.0.0.1:4200 (SDD) / :4201 (Vibe)</sub>"]:::dash
+            SimpleBrowser["<b>Docked Simple Browser Viewport</b><br/><small>http://127.0.0.1:4200 (SDD) / :4201 (Vibe)</small>"]:::dash
         end
     end
     subgraph TerminalPane ["💻 Integrated Terminal Pane (Bottom)"]
-        DevServer["<b>Integrated Terminal Execution Pane</b><br/><sub>Active Dev Server • Automated Tests • logs/*.log</sub>"]:::term
+        DevServer["<b>Integrated Terminal Execution Pane</b><br/><small>Active Dev Server • Automated Tests • logs/*.log</small>"]:::term
     end
 ```
 

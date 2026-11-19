@@ -27,14 +27,14 @@ flowchart LR
     classDef ext fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
     classDef code fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    Core[("<b>🎨 Core Framework Baseline</b><br/><sub>docs/rules.md • docs/design.md</sub>")]:::core
+    Core[("<b>🎨 Core Framework Baseline</b><br/><small>docs/rules.md • docs/design.md</small>")]:::core
 
-    Ext1["<b>🌐 Web & Interactive UI</b><br/><sub>docs/domains/web.md • Micro-Interactions</sub>"]:::ext
-    Ext2["<b>📱 Mobile Applications</b><br/><sub>docs/domains/mobile.md • React Native</sub>"]:::ext
-    Ext3["<b>🎮 Creative & 3D WebGL</b><br/><sub>docs/domains/3d.md • Three.js / Canvas</sub>"]:::ext
-    Ext4["<b>🤖 AI Agent Interfaces</b><br/><sub>docs/domains/agents.md • Streaming UI</sub>"]:::ext
+    Ext1["<b>🌐 Web & Interactive UI</b><br/><small>docs/domains/web.md • Micro-Interactions</small>"]:::ext
+    Ext2["<b>📱 Mobile Applications</b><br/><small>docs/domains/mobile.md • React Native</small>"]:::ext
+    Ext3["<b>🎮 Creative & 3D WebGL</b><br/><small>docs/domains/3d.md • Three.js / Canvas</small>"]:::ext
+    Ext4["<b>🤖 AI Agent Interfaces</b><br/><small>docs/domains/agents.md • Streaming UI</small>"]:::ext
 
-    ProjectCode(["<b>💻 Prototype & Production Code</b><br/><sub>Responsive Application Assets</sub>"]):::code
+    ProjectCode(["<b>💻 Prototype & Production Code</b><br/><small>Responsive Application Assets</small>"]):::code
 
     Core -->|"Extends Rules"| Ext1
     Core -->|"Extends Rules"| Ext2

@@ -25,11 +25,11 @@ flowchart LR
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef close fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    Detect(["<b>🐛 1. Defect Logged</b><br/><sub>Ingest & Assign ERR-###</sub>"]):::err
-    Isolate["<b>🔍 2. Root Cause</b><br/><sub>Reproduce Failing State</sub>"]:::step
-    RegressionTest["<b>🔴 3. Write Failing Test</b><br/><sub>Scaffold Red Contract</sub>"]:::red
-    Patch["<b>🟢 4. Minimal Code Fix</b><br/><sub>Pass Test & Refactor</sub>"]:::green
-    Verify(["<b>✅ 5. Verify & Close</b><br/><sub>Green & Status RESOLVED</sub>"]):::close
+    Detect(["<b>🐛 1. Defect Logged</b><br/><small>Ingest & Assign ERR-###</small>"]):::err
+    Isolate["<b>🔍 2. Root Cause</b><br/><small>Reproduce Failing State</small>"]:::step
+    RegressionTest["<b>🔴 3. Write Failing Test</b><br/><small>Scaffold Red Contract</small>"]:::red
+    Patch["<b>🟢 4. Minimal Code Fix</b><br/><small>Pass Test & Refactor</small>"]:::green
+    Verify(["<b>✅ 5. Verify & Close</b><br/><small>Green & Status RESOLVED</small>"]):::close
 
     Detect -->|"Reproduce"| Isolate
     Isolate -->|"Scaffold"| RegressionTest

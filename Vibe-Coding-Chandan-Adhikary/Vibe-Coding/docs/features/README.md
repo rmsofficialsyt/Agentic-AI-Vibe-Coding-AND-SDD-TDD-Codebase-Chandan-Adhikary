@@ -29,13 +29,13 @@ flowchart TD
     classDef flat fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef modular fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
 
-    Start(["<b>🚀 Initiate New Feature Specification</b><br/><sub>Triggered via /plan-ca-agent or Vibe Planning</sub>"]):::start --> DevAsk{"<b>👤 Developer Inquiry Gate</b><br/><sub>'Would you prefer Flat or Modular format?'</sub>"}:::gate
+    Start(["<b>🚀 Initiate New Feature Specification</b><br/><small>Triggered via /plan-ca-agent or Vibe Planning</small>"]):::start --> DevAsk{"Format Choice?"}:::gate
     
-    DevAsk -->|"Developer Explicitly Specifies"| UserChoice["<b>🎯 Follow Explicit User Choice</b><br/><sub>Adhere strictly to chosen format</sub>"]:::start
-    DevAsk -->|"Developer Defers / Leaves Open"| AutoTier{"<b>⚖️ Complexity Tier Evaluation</b><br/><sub>Evaluate Scope, Model Count & Impact</sub>"}:::gate
+    DevAsk -->|"User Defined"| UserChoice["<b>🎯 Follow Explicit User Choice</b><br/><small>Adhere strictly to chosen format</small>"]:::start
+    DevAsk -->|"Auto Detect"| AutoTier{"Evaluate Tier?"}:::gate
     
-    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Medium)<br/>1 to 6 files impacted"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><sub>docs/features/NNN-name.md • Single Living Contract</sub>"]:::flat
-    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><sub>docs/features/NNN-name/ • Multi-File Modular Spec</sub>"]:::modular
+    AutoTier -->|"Tier 1 / Tier 2"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><small>docs/features/NNN-name.md • Single Living Contract</small>"]:::flat
+    AutoTier -->|"Tier 3"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><small>docs/features/NNN-name/ • Multi-File Modular Spec</small>"]:::modular
 ```
 
 ---
@@ -58,12 +58,12 @@ flowchart TD
     classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
-    SelectSpec["<b>1. 📑 Select Living Spec</b><br/><sub>e.g., FEAT-001 (Living Contract)</sub>"]:::step --> ScaffoldCode["<b>2. 🎨 Implement Layout & Interaction</b><br/><sub>Satisfy visual and functional needs</sub>"]:::step
-    ScaffoldCode --> LiveVerify["<b>3. 🌐 Test & Sensory Verification</b><br/><sub>Visual inspection via /run-ca-agent at :3000</sub>"]:::sensory
-    LiveVerify --> UpdateDocs["<b>4. 📝 Update Docs & Living Trackers</b><br/><sub>docs/task.md, docs/error-tracker.md</sub>"]:::step
-    UpdateDocs --> NextSpec{"<b>🔄 More Features in Scope?</b><br/><sub>Check Remaining Features in docs/features/</sub>"}:::gate
-    NextSpec -->|"Yes: Step-by-step next spec"| SelectSpec
-    NextSpec -->|"No: All Done"| FinalAudit(["<b>5. 🚀 Run /release-check-ca-agent</b><br/><sub>Pre-flight Production Release Gate</sub>"]):::sensory
+    SelectSpec["<b>1. 📑 Select Living Spec</b><br/><small>e.g., FEAT-001 (Living Contract)</small>"]:::step --> ScaffoldCode["<b>2. 🎨 Implement Layout & Interaction</b><br/><small>Satisfy visual and functional needs</small>"]:::step
+    ScaffoldCode --> LiveVerify["<b>3. 🌐 Test & Sensory Verification</b><br/><small>Visual inspection via /run-ca-agent at :3000</small>"]:::sensory
+    LiveVerify --> UpdateDocs["<b>4. 📝 Update Docs & Living Trackers</b><br/><small>docs/task.md, docs/error-tracker.md</small>"]:::step
+    UpdateDocs --> NextSpec{"Next Spec?"}:::gate
+    NextSpec -->|"Next Spec"| SelectSpec
+    NextSpec -->|"All Done"| FinalAudit(["<b>5. 🚀 Run /release-check-ca-agent</b><br/><small>Pre-flight Production Release Gate</small>"]):::sensory
 ```
 
 > [!CRITICAL]

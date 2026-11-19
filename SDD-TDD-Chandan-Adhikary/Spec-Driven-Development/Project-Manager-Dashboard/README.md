@@ -29,32 +29,34 @@ flowchart TD
     classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
     subgraph FilesystemState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
-        Tasks[("<b>📋 docs/task.md</b><br/><sub>Sequential Task Tree & Priorities</sub>")]:::store
-        Phases[("<b>🏁 docs/phases.md</b><br/><sub>Milestone Deliverables & Gates</sub>")]:::store
-        Specs[("<b>📑 docs/features/**/*.md</b><br/><sub>AC Given/When/Then Specs</sub>")]:::store
-        Errors[("<b>🐛 docs/error-tracker.md</b><br/><sub>P0-P3 Blocker Defect Matrix</sub>")]:::store
-        GitMeta[("<b>🗄️ .git/ Repository</b><br/><sub>HEAD Commit, Diffs, Branches</sub>")]:::store
-        LogsStream[("<b>🪵 logs/*.log Streams</b><br/><sub>dev.log, test.log, error.log</sub>")]:::store
-        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><sub>Token Health & Cache Rates</sub>")]:::store
+        Tasks[("<b>📋 docs/task.md</b><br/><small>Sequential Task Tree & Priorities</small>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestone Deliverables & Gates</small>")]:::store
+        Specs[("<b>📑 docs/features/**/*.md</b><br/><small>AC Given/When/Then Specs</small>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>P0-P3 Blocker Defect Matrix</small>")]:::store
+        GitMeta[("<b>🗄️ .git/ Repository</b><br/><small>HEAD Commit, Diffs, Branches</small>")]:::store
+        LogsStream[("<b>🪵 logs/*.log Streams</b><br/><small>dev.log, test.log, error.log</small>")]:::store
+        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><small>Token Health & Cache Rates</small>")]:::store
     end
 
     subgraph DaemonEngine ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (PORT 4200)"]
-        Watcher[["<b>📁 File Polling Engine</b><br/><sub>Real-Time Ingestion (Every 2s)</sub>"]]:::daemon
-        ASTParser[["<b>🔍 parser.js AST Extractors</b><br/><sub>Regex Extractors & JSON Synthesizer</sub>"]]:::daemon
-        SecFilter{"<b>🛡️ 127.0.0.1 DNS-Rebind Guard</b><br/><sub>Host Header & Origin Validation</sub>"}:::sec
-        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><sub>X-Dashboard-Token Security Guard</sub>"]:::sec
+        Watcher[["<b>📁 File Polling Engine</b><br/><small>Real-Time Ingestion (Every 2s)</small>"]]:::daemon
+        ASTParser[["<b>🔍 parser.js AST Extractors</b><br/><small>Regex Extractors & JSON Synthesizer</small>"]]:::daemon
+        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><small>Native Node.js Server on Port 4200</small>"]]:::daemon
+        SecFilter["<b>🛡️ DNS-Rebind Guard</b><br/><small>Host Header & Origin Validation</small>"]:::sec
+        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><small>X-Dashboard-Token Security Guard</small>"]:::sec
     end
 
     subgraph UIClient ["🖥️ IN-IDE SIMPLE BROWSER (http://127.0.0.1:4200)"]
-        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><sub>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</sub>"]:::client
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><small>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</small>"]:::client
     end
 
     FilesystemState -->|"Real-Time Watch"| Watcher
     Watcher -->|"Raw Content"| ASTParser
-    SecFilter -->|"Enforces Isolation"| DaemonEngine
-    CSRFManager -->|"Session Token"| DaemonEngine
-    ASTParser ==>|"⚡ Live SSE Telemetry Stream"| DashboardUI
-    DashboardUI -.->|"🔒 Interactive Action / CSRF Verified"| DaemonEngine
+    ASTParser -->|"Synthesized State"| Server
+    SecFilter -->|"Enforces Isolation"| Server
+    CSRFManager -->|"Session Token"| Server
+    Server ==>|"⚡ Live SSE Telemetry"| DashboardUI
+    DashboardUI -.->|"🔒 Interactive Action"| Server
 ```
 
 ---
@@ -71,13 +73,13 @@ flowchart LR
     classDef git fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
 
     subgraph TaskStream ["📋 TASK STREAM RE-ORDERING ENGINE"]
-        IncomingTasks["<b>Raw Task List</b><br/><sub>Task 1, Task 2, Task 3...</sub>"]:::normal --> StateCheck{"<b>🔍 State Evaluator</b><br/><sub>Is Task IN_PROGRESS<br/>or RED_TEST_FAIL?</sub>"}
-        StateCheck -->|"Yes: Match Found"| FloatTop["<b>⚡ CURRENT RUNNING TASK</b><br/><sub>Dynamically Floated to Index 0</sub>"]:::active
-        StateCheck -->|"No: All Idle"| NaturalOrder["<b>Preserve Order</b><br/><sub>Sequential Numbering</sub>"]:::normal
+        IncomingTasks["<b>Raw Task List</b><br/><small>Task 1, Task 2, Task 3...</small>"]:::normal --> StateCheck{"Task Active?"}
+        StateCheck -->|"Yes"| FloatTop["<b>⚡ CURRENT RUNNING TASK</b><br/><small>Dynamically Floated to Index 0</small>"]:::active
+        StateCheck -->|"No"| NaturalOrder["<b>Preserve Order</b><br/><small>Sequential Numbering</small>"]:::normal
     end
 
     subgraph GitStream ["🗄️ GIT TELEMETRY STREAM"]
-        GitLog["<b>Raw Git Log</b><br/><sub>Recent Commit History</sub>"]:::git --> PinHead["<b>📅 HEAD COMMIT PINNED</b><br/><sub>Index 0 • DD-MM-YYYY Date</sub>"]:::git
+        GitLog["<b>Raw Git Log</b><br/><small>Recent Commit History</small>"]:::git --> PinHead["<b>📅 HEAD COMMIT PINNED</b><br/><small>Index 0 • DD-MM-YYYY Date</small>"]:::git
     end
 ```
 
@@ -107,10 +109,10 @@ flowchart TD
     subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW"]
         direction LR
         subgraph Col1 ["📝 Editor Group 1 (Active Code)"]
-            Code["<b>Active Source Code & Specs</b><br/><sub>src/components/ • tests/unit/</sub>"]:::code
+            Code["<b>Active Source Code & Specs</b><br/><small>src/components/ • tests/unit/</small>"]:::code
         end
         subgraph Col2 ["📊 Editor Group 2 (Simple Browser Tab)"]
-            Dash["<b>Docked Simple Browser Viewport</b><br/><sub>http://127.0.0.1:4200 • Live Telemetry</sub>"]:::dash
+            Dash["<b>Docked Simple Browser Viewport</b><br/><small>http://127.0.0.1:4200 • Live Telemetry</small>"]:::dash
         end
     end
 ```

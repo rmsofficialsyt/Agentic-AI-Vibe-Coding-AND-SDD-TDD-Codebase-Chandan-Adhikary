@@ -304,7 +304,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/README.md",
-      "sha256": "4b1be7a8451b4494de8fff345f3cbab1e8d3ec3b13586fbe6d914712a25b9baf"
+      "sha256": "7725167f01836940c895484b3da98617863aec5f340eb6133a5ee0cfdeb91bee"
     },
     {
       "path": "Project-Manager-Dashboard/assets/anime.min.js",
@@ -344,7 +344,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "27b21ebb32728ca2fcf9ce08d14900bb86445bb27775cad6adc1c4593c3aafad"
+      "sha256": "8a71aa202258326d054df3179b38220a4645149c2bbadf8b5a6aaa8110482a3b"
     },
     {
       "path": "SOURCE-NOTES.md",
@@ -436,7 +436,7 @@
     },
     {
       "path": "docs/design.md",
-      "sha256": "1f8136f5a8c19512c330dc631b70bbe20d975c67142048a916d4ad690491ca9f"
+      "sha256": "784fd837fc5126c83ce352feb21e553d52ac23511e6bf906ab2dc60290109600"
     },
     {
       "path": "docs/devops.md",
@@ -444,7 +444,7 @@
     },
     {
       "path": "docs/domains/README.md",
-      "sha256": "48ccfa9f5b84a5cf1a0d64a0b4ed981cfd941b0cb69f468b5bab5a99244c5e7a"
+      "sha256": "6d969a861561b4606eaae1d6789c1f9d6689010dc540f1a9d4d1d01ab2d79f6b"
     },
     {
       "path": "docs/environments.md",
@@ -452,7 +452,7 @@
     },
     {
       "path": "docs/error-tracker.md",
-      "sha256": "780a0a1562c7e38955b9ca258f6d330c49310bf7113449e7e2ef1f6cf5e0c5b7"
+      "sha256": "0afb6e296d1968d726127b1613a32d7693e8c44c970b6600ea898f2e5e0b4443"
     },
     {
       "path": "docs/features/001-example-feature/acceptance.md",
@@ -476,7 +476,7 @@
     },
     {
       "path": "docs/features/README.md",
-      "sha256": "3569dd0dc7bd7668c2802b2c730778694ce92abdd7945763b0b65dae3debdbd8"
+      "sha256": "8d63e54cb818adfea4f9c71c38149cb3851e9c0483a97ef8f433f3cd4dc6cc0b"
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
@@ -552,7 +552,7 @@
     },
     {
       "path": "docs/system-architecture.md",
-      "sha256": "6e428209b4628e94324cac6976ce61cecc646a1cf8ebe5015517c46477580f2b"
+      "sha256": "76596d6e7f4a22e7d69d131a1e90a9ed742103a3908224a8bbacb62c5e5747ea"
     },
     {
       "path": "docs/task.md",
@@ -640,7 +640,7 @@
     },
     {
       "path": "tests/README.md",
-      "sha256": "ac08a784117910c8b445f69ff29a6c364e0d2bbc3513ed892eb8f8013681c503"
+      "sha256": "d2bddd6f2c8f9baf3cff425c878e32322c16ac57336878fe5868de19b66fde4f"
     },
     {
       "path": "tests/test_ac_contracts.js",

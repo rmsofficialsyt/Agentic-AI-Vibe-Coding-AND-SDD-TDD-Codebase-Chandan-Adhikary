@@ -30,34 +30,34 @@ flowchart TD
     classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
 
     subgraph Clients ["🌐 CLIENT INGRESS TIER"]
-        Browser(["<b>🖥️ Desktop & Mobile Web</b><br/><sub>Next.js / React • SPA & SSR</sub>"]):::client
-        MobileApp(["<b>📱 Native Mobile Clients</b><br/><sub>iOS / Android App Shells</sub>"]):::client
-        ExternalAPI(["<b>🏢 B2B External Consumers</b><br/><sub>Third-Party API Integrations</sub>"]):::client
+        Browser(["<b>🖥️ Desktop & Mobile Web</b><br/><small>Next.js / React • SPA & SSR</small>"]):::client
+        MobileApp(["<b>📱 Native Mobile Clients</b><br/><small>iOS / Android App Shells</small>"]):::client
+        ExternalAPI(["<b>🏢 B2B External Consumers</b><br/><small>Third-Party API Integrations</small>"]):::client
     end
 
     subgraph Edge ["🛡️ EDGE & SECURITY TIER"]
-        DNS["<b>🌐 Anycast Global DNS</b><br/><sub>Cloudflare / Route 53 Routing</sub>"]:::edge
-        CDN["<b>⚡ Static & Edge CDN</b><br/><sub>Asset Caching & Edge Compute</sub>"]:::edge
-        WAF["<b>🛡️ WAF & DDoS Shield</b><br/><sub>Rate Limiting & TLS Termination</sub>"]:::edge
+        DNS["<b>🌐 Anycast Global DNS</b><br/><small>Cloudflare / Route 53 Routing</small>"]:::edge
+        CDN["<b>⚡ Static & Edge CDN</b><br/><small>Asset Caching & Edge Compute</small>"]:::edge
+        WAF["<b>🛡️ WAF & DDoS Shield</b><br/><small>Rate Limiting & TLS Termination</small>"]:::edge
     end
 
     subgraph Gateway ["🔌 GATEWAY & ROUTING TIER"]
-        APIGateway["<b>🔀 Reverse Proxy Gateway</b><br/><sub>Kong / Envoy / Nginx Routing</sub>"]:::gw
-        AuthFilter["<b>🔑 Auth Guard & JWT Validator</b><br/><sub>OAuth2 / OIDC Session Filter</sub>"]:::gw
+        APIGateway["<b>🔀 Reverse Proxy Gateway</b><br/><small>Kong / Envoy / Nginx Routing</small>"]:::gw
+        AuthFilter["<b>🔑 Auth Guard & JWT Validator</b><br/><small>OAuth2 / OIDC Session Filter</small>"]:::gw
     end
 
     subgraph AppTier ["⚙️ CORE APPLICATION TIER"]
-        CoreService["<b>⚙️ Core Application Server</b><br/><sub>Modular Monolith / Microservices</sub>"]:::app
-        AsyncWorker["<b>🏃 Background Worker Pool</b><br/><sub>Job Queues & Cron Processors</sub>"]:::app
-        Telemetry["<b>📊 Observability Agent</b><br/><sub>OTel & Winston Telemetry</sub>"]:::app
+        CoreService["<b>⚙️ Core Application Server</b><br/><small>Modular Monolith / Microservices</small>"]:::app
+        AsyncWorker["<b>🏃 Background Worker Pool</b><br/><small>Job Queues & Cron Processors</small>"]:::app
+        Telemetry["<b>📊 Observability Agent</b><br/><small>OTel & Winston Telemetry</small>"]:::app
     end
 
     subgraph DataTier ["💾 PERSISTENCE & CACHING TIER"]
-        PrimaryDB[("<b>🗄️ Primary ACID RDBMS</b><br/><sub>PostgreSQL / MySQL Core Store</sub>")]:::data
-        ReadReplica[("<b>📑 Read Replica Nodes</b><br/><sub>Read-Heavy Query Offloading</sub>")]:::data
-        RedisCache[("<b>⚡ Distributed Cache</b><br/><sub>Redis Sessions & Rate Limits</sub>")]:::cache
-        MsgQueue[("<b>📨 Message Streaming Broker</b><br/><sub>Kafka / RabbitMQ / Streams</sub>")]:::cache
-        BlobStore[("<b>📦 Object Storage</b><br/><sub>S3 / GCS Artifact Buckets</sub>")]:::data
+        PrimaryDB[("<b>🗄️ Primary ACID RDBMS</b><br/><small>PostgreSQL / MySQL Core Store</small>")]:::data
+        ReadReplica[("<b>📑 Read Replica Nodes</b><br/><small>Read-Heavy Query Offloading</small>")]:::data
+        RedisCache[("<b>⚡ Distributed Cache</b><br/><small>Redis Sessions & Rate Limits</small>")]:::cache
+        MsgQueue[("<b>📨 Message Streaming Broker</b><br/><small>Kafka / RabbitMQ / Streams</small>")]:::cache
+        BlobStore[("<b>📦 Object Storage</b><br/><small>S3 / GCS Artifact Buckets</small>")]:::data
     end
 
     Clients -->|"DNS Resolution"| DNS

@@ -66,10 +66,10 @@ Layouts must be 100% fluid and auto-responsive. Fixed widths (e.g. `1440px`) are
 flowchart LR
     classDef bp fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
 
-    Mobile["<b>📱 Mobile (&lt; 640px)</b><br/><sub>1-Column Stack • 12px Gutters</sub>"]:::bp
-    Tablet["<b>📟 Tablet (640px–1024px)</b><br/><sub>2-Column Bento • 16px Gutters</sub>"]:::bp
-    Desktop["<b>💻 Desktop (1024px–1440px)</b><br/><sub>3–4 Columns • 20px Gutters</sub>"]:::bp
-    Ultrawide["<b>🖥️ Ultra-Wide (&gt; 1440px)</b><br/><sub>Fluid Auto-Grid • 24px Gutters</sub>"]:::bp
+    Mobile["<b>📱 Mobile (&lt; 640px)</b><br/><small>1-Column Stack • 12px Gutters</small>"]:::bp
+    Tablet["<b>📟 Tablet (640px–1024px)</b><br/><small>2-Column Bento • 16px Gutters</small>"]:::bp
+    Desktop["<b>💻 Desktop (1024px–1440px)</b><br/><small>3–4 Columns • 20px Gutters</small>"]:::bp
+    Ultrawide["<b>🖥️ Ultra-Wide (&gt; 1440px)</b><br/><small>Fluid Auto-Grid • 24px Gutters</small>"]:::bp
 
     Mobile -->|"Fluid Expand"| Tablet
     Tablet -->|"Fluid Expand"| Desktop

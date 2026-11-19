@@ -107,34 +107,34 @@ flowchart TD
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
     subgraph V1Phase ["🎨 PHASE 1: EDUSPHERE DISCOVERY & AESTHETIC VIBE"]
-        SetupV(["<b>⚙️ Setup & Project Renaming</b><br/><sub>Extract Blueprint to 'school-management-system'</sub>"]):::step
-        CmdCheckV{"<b>🔍 Verify Slash Commands</b><br/><sub>Check 16 /-ca-agent in Dropdown & CLI</sub>"}:::gate
-        PV1["<b>💡 Step V1: /plan-ca-agent</b><br/><sub>Plan Mode • Zinc Palette • EduSphere Bento Grid • Next.js 15</sub>"]:::step
-        HumanV1{"<b>👤 Human Lead Approval</b><br/><sub>Sign-Off on School Management UI Vibe & Stack</sub>"}:::gate
+        SetupV(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract Blueprint to 'school-management-system'</small>"]):::step
+        CmdCheckV["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
+        PV1["<b>💡 Step V1: /plan-ca-agent</b><br/><small>Plan Mode • Zinc Palette • EduSphere Bento Grid • Next.js 15</small>"]:::step
+        HumanV1{"Lead Approved?"}:::gate
     end
 
     subgraph V2Phase ["🏗️ PHASE 2: LIVE SENSORY UI PROTOTYPING"]
-        PV2["<b>🏗️ Step V2: /implement-ca-agent</b><br/><sub>Scaffold Next.js Shell • Admin Cards • Mock Student Store</sub>"]:::step
-        RunV["<b>🚀 Launch Dev Server</b><br/><sub>Execute /run-ca-agent -> http://localhost:3000</sub>"]:::step
-        LiveCheck["<b>🌐 Live Browser Verification</b><br/><sub>Tactile & Visual Inspection of Admin & Teacher Dashboards</sub>"]:::live
+        PV2["<b>🏗️ Step V2: /implement-ca-agent</b><br/><small>Scaffold Next.js Shell • Admin Cards • Mock Student Store</small>"]:::step
+        RunV["<b>🚀 Launch Dev Server</b><br/><small>Execute /run-ca-agent -> http://localhost:3000</small>"]:::step
+        LiveCheck["<b>🌐 Live Browser Verification</b><br/><small>Tactile & Visual Inspection of Admin & Teacher Dashboards</small>"]:::live
     end
 
     subgraph V3Phase ["✨ PHASE 3: FLUID CONVERSATIONAL VIBE-TUNING"]
-        PV3["<b>🎨 Step V3: /task-ca-agent</b><br/><sub>30-Sec Attendance Sheet • Interactive Pills • Student Drawer</sub>"]:::step
-        ReviewV["<b>🔍 Surgical Review</b><br/><sub>Run /review-ca-agent -> Keep Diffs Clean & Focused</sub>"]:::step
-        LoopV{"<b>✨ Sensory Vibe Approval</b><br/><sub>Does the Attendance & Roster UX feel instant and seamless?</sub>"}:::gate
+        PV3["<b>🎨 Step V3: /task-ca-agent</b><br/><small>30-Sec Attendance Sheet • Interactive Pills • Student Drawer</small>"]:::step
+        ReviewV["<b>🔍 Surgical Review</b><br/><small>Run /review-ca-agent -> Keep Diffs Clean & Focused</small>"]:::step
+        LoopV{"Vibe Approved?"}:::gate
     end
 
     subgraph V4Phase ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
-        PV4["<b>🔒 Step V4: Hardening & Persistence</b><br/><sub>Zod Validation • PostgreSQL Prisma Models • Auth Route Guards</sub>"]:::step
-        AuditsV["<b>🛡️ Pre-Flight Verification Gates</b><br/><sub>Execute /security-audit-ca-agent & /release-check-ca-agent</sub>"]:::step
-        ShipV(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Enterprise School Management SaaS Ship</sub>"]):::ship
+        PV4["<b>🔒 Step V4: Hardening & Persistence</b><br/><small>Zod Validation • PostgreSQL Prisma Models • Auth Route Guards</small>"]:::step
+        AuditsV["<b>🛡️ Pre-Flight Verification Gates</b><br/><small>Execute /security-audit-ca-agent & /release-check-ca-agent</small>"]:::step
+        ShipV(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Enterprise School Management SaaS Ship</small>"]):::ship
     end
 
     SetupV -->|"Workspace Ready"| CmdCheckV
     CmdCheckV -->|"Commands Verified"| PV1
     PV1 -->|"Submit Architecture"| HumanV1
-    HumanV1 -->|"Revisions Needed"| PV1
+    HumanV1 -->|"Revise"| PV1
     HumanV1 -->|"Approved"| PV2
 
     PV2 -->|"Build Shell"| RunV
@@ -143,8 +143,8 @@ flowchart TD
 
     PV3 -->|"Apply Feedback"| ReviewV
     ReviewV -->|"Instant Fast Refresh"| LoopV
-    LoopV -->|"No: Adjust Styling/Padding"| PV3
-    LoopV -->|"YES: Vibe Approved"| PV4
+    LoopV -->|"Iterate UI"| PV3
+    LoopV -->|"Approved"| PV4
 
     PV4 -->|"Automated Scans"| AuditsV
     AuditsV -->|"All Gates Passed"| ShipV

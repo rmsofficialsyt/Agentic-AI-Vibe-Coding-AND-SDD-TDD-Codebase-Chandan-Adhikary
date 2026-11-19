@@ -32,23 +32,23 @@ flowchart TD
     classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
 
     subgraph ClientIngress ["🌐 EDUSPHERE MULTI-PORTAL INGRESS TIER"]
-        AdminWeb(["<b>🏫 District & School Admin Portal</b><br/><sub>Next.js 15 App Router • SSR Management</sub>"]):::client
-        TeacherWeb(["<b>👩‍🏫 Teacher Grading & Attendance Portal</b><br/><sub>Real-Time Classroom UI • Rapid Roster Input</sub>"]):::client
-        ParentPortal(["<b>📱 Parent & Student PWA</b><br/><sub>Mobile-Optimized • Read-Only Grades & Reports</sub>"]):::client
+        AdminWeb(["<b>🏫 District & School Admin Portal</b><br/><small>Next.js 15 App Router • SSR Management</small>"]):::client
+        TeacherWeb(["<b>👩‍🏫 Teacher Grading & Attendance Portal</b><br/><small>Real-Time Classroom UI • Rapid Roster Input</small>"]):::client
+        ParentPortal(["<b>📱 Parent & Student PWA</b><br/><small>Mobile-Optimized • Read-Only Grades & Reports</small>"]):::client
     end
 
     subgraph AppTier ["⚙️ NEXT.JS 15 APPLICATION & ENTERPRISE SERVICES"]
-        AuthModule["<b>🔑 Session & JWT Auth Guard</b><br/><sub>Role-Based Access Control • NextAuth / OIDC</sub>"]:::app
-        TenantResolver["<b>🏢 Multi-Tenant Middleware</b><br/><sub>Resolves Subdomain & Tenant ID Context</sub>"]:::app
-        StudentService["<b>🎓 Student Enrollment Service</b><br/><sub>FERPA/COPPA Compliant Admission Engine</sub>"]:::app
-        AttendanceEngine["<b>📊 Attendance Audit Ledger</b><br/><sub>Immutable Daily Attendance Records</sub>"]:::app
+        AuthModule["<b>🔑 Session & JWT Auth Guard</b><br/><small>Role-Based Access Control • NextAuth / OIDC</small>"]:::app
+        TenantResolver["<b>🏢 Multi-Tenant Middleware</b><br/><small>Resolves Subdomain & Tenant ID Context</small>"]:::app
+        StudentService["<b>🎓 Student Enrollment Service</b><br/><small>FERPA/COPPA Compliant Admission Engine</small>"]:::app
+        AttendanceEngine["<b>📊 Attendance Audit Ledger</b><br/><small>Immutable Daily Attendance Records</small>"]:::app
     end
 
     subgraph DataTier ["💾 POSTGRESQL MULTI-TENANT PERSISTENCE TIER"]
-        DBConn[["<b>🔌 Database Connection Pool</b><br/><sub>pgBouncer • Prisma ORM Session Pool</sub>"]]:::db
-        RLS{"<b>🛡️ PostgreSQL Row-Level Security (RLS)</b><br/><sub>SET LOCAL app.current_tenant_id = ?</sub>"}:::db
+        DBConn[["<b>🔌 Database Connection Pool</b><br/><small>pgBouncer • Prisma ORM Session Pool</small>"]]:::db
+        RLS["<b>🛡️ PostgreSQL Row-Level Security</b><br/><small>SET LOCAL app.current_tenant_id = ?</small>"]:::db
         TenantTables[("<b>🗄️ Multi-Tenant Tables</b><br/>• schools, students, enrollments<br/>• attendance_records, audit_logs")]:::db
-        RedisCache[("<b>⚡ Distributed Redis Cache</b><br/><sub>Session Tokens, Rate Limits, SSR Cache</sub>")]:::cache
+        RedisCache[("<b>⚡ Distributed Redis Cache</b><br/><small>Session Tokens, Rate Limits, SSR Cache</small>")]:::cache
     end
 
     ClientIngress -->|"📡 HTTPS / JSON API"| AuthModule

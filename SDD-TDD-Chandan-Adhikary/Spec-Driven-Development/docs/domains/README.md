@@ -27,14 +27,14 @@ flowchart LR
     classDef ext fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
     classDef code fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    Core[("<b>🏛️ Core Framework Baseline</b><br/><sub>docs/rules.md • constitution.md</sub>")]:::core
+    Core[("<b>🏛️ Core Framework Baseline</b><br/><small>docs/rules.md • constitution.md</small>")]:::core
 
-    Ext1["<b>🌐 Web & Frontend Domain</b><br/><sub>docs/domains/web.md • SSR, Accessibility</sub>"]:::ext
-    Ext2["<b>💳 FinTech / Regulated</b><br/><sub>docs/domains/fintech.md • PCI-DSS, Audit</sub>"]:::ext
-    Ext3["<b>🏥 HealthTech / FERPA / HIPAA</b><br/><sub>docs/domains/health.md • Privacy</sub>"]:::ext
-    Ext4["<b>🤖 AI & Machine Learning</b><br/><sub>docs/domains/aiml.md • Drift, Lineage</sub>"]:::ext
+    Ext1["<b>🌐 Web & Frontend Domain</b><br/><small>docs/domains/web.md • SSR, Accessibility</small>"]:::ext
+    Ext2["<b>💳 FinTech / Regulated</b><br/><small>docs/domains/fintech.md • PCI-DSS, Audit</small>"]:::ext
+    Ext3["<b>🏥 HealthTech / FERPA / HIPAA</b><br/><small>docs/domains/health.md • Privacy</small>"]:::ext
+    Ext4["<b>🤖 AI & Machine Learning</b><br/><small>docs/domains/aiml.md • Drift, Lineage</small>"]:::ext
 
-    ProjectCode(["<b>💻 Production Application Code</b><br/><sub>High-Assurance Verified Modules</sub>"]):::code
+    ProjectCode(["<b>💻 Production Application Code</b><br/><small>High-Assurance Verified Modules</small>"]):::code
 
     Core -->|"Extends Rules"| Ext1
     Core -->|"Extends Rules"| Ext2

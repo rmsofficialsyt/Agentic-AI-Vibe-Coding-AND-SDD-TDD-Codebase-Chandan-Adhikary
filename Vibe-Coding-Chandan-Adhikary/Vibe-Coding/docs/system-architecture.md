@@ -29,25 +29,25 @@ flowchart TD
     classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
 
     subgraph Clients ["🌐 CLIENT EXPERIENCE TIER"]
-        Browser(["<b>🖥️ Modern Web Application</b><br/><sub>Next.js 15 App Router & Tailwind CSS</sub>"]):::client
-        MobileClient(["<b>📱 Responsive Mobile Devices</b><br/><sub>Touch Targets & Fluid Breakpoints</sub>"]):::client
+        Browser(["<b>🖥️ Modern Web Application</b><br/><small>Next.js 15 App Router & Tailwind CSS</small>"]):::client
+        MobileClient(["<b>📱 Responsive Mobile Devices</b><br/><small>Touch Targets & Fluid Breakpoints</small>"]):::client
     end
 
     subgraph EdgeTier ["🛡️ EDGE & CDN INGRESS"]
-        EdgeDNS["<b>🌐 Anycast DNS & Edge CDN</b><br/><sub>Asset Delivery & Edge Caching</sub>"]:::edge
-        APIGateway["<b>🔀 API Gateway & Reverse Proxy</b><br/><sub>Rate Limiting & Header Sanitizer</sub>"]:::edge
+        EdgeDNS["<b>🌐 Anycast DNS & Edge CDN</b><br/><small>Asset Delivery & Edge Caching</small>"]:::edge
+        APIGateway["<b>🔀 API Gateway & Reverse Proxy</b><br/><small>Rate Limiting & Header Sanitizer</small>"]:::edge
     end
 
     subgraph AppTier ["⚙️ APPLICATION & REAL-TIME TIER"]
-        WebServer["<b>⚙️ Application Core Server</b><br/><sub>REST & Server Actions Route Handlers</sub>"]:::app
-        SocketServer["<b>⚡ Real-Time Engine</b><br/><sub>WebSockets & Server-Sent Events</sub>"]:::app
-        AsyncWorker["<b>🏃 Background Worker Service</b><br/><sub>Queues & Scheduled Background Jobs</sub>"]:::app
+        WebServer["<b>⚙️ Application Core Server</b><br/><small>REST & Server Actions Route Handlers</small>"]:::app
+        SocketServer["<b>⚡ Real-Time Engine</b><br/><small>WebSockets & Server-Sent Events</small>"]:::app
+        AsyncWorker["<b>🏃 Background Worker Service</b><br/><small>Queues & Scheduled Background Jobs</small>"]:::app
     end
 
     subgraph DataTier ["💾 PERSISTENCE & FAST-ACCESS TIER"]
-        PrimaryDB[("<b>🗄️ Primary Database</b><br/><sub>PostgreSQL / SQLite Storage</sub>")]:::data
-        RedisStore[("<b>⚡ Distributed In-Memory Store</b><br/><sub>Redis Pub/Sub & Session Cache</sub>")]:::cache
-        BlobStorage[("<b>📦 Media & Asset Storage</b><br/><sub>S3 / Cloud Storage Buckets</sub>")]:::data
+        PrimaryDB[("<b>🗄️ Primary Database</b><br/><small>PostgreSQL / SQLite Storage</small>")]:::data
+        RedisStore[("<b>⚡ Distributed In-Memory Store</b><br/><small>Redis Pub/Sub & Session Cache</small>")]:::cache
+        BlobStorage[("<b>📦 Media & Asset Storage</b><br/><small>S3 / Cloud Storage Buckets</small>")]:::data
     end
 
     Clients -->|"DNS Resolution"| EdgeDNS

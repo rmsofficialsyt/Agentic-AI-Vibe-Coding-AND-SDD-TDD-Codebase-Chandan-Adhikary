@@ -37,9 +37,9 @@ flowchart LR
 
     subgraph DevGate ["🚀 PROGRESSIVE 4-STAGE WEB APP DELIVERY GATES"]
         direction LR
-        StageA["<b>🎨 Stage A: Frontend Demo</b><br/><sub>/run-ca-agent -> Visual Sign-Off</sub>"]:::stage --> StageB["<b>💾 Stage B: Persistence</b><br/><sub>API Routes, PostgreSQL, RLS</sub>"]:::stage
-        StageB --> StageC["<b>🔒 Stage C: Auth & Security</b><br/><sub>RBAC, CSRF, Token Rotation</sub>"]:::stage
-        StageC --> StageD["<b>🧪 Stage D: Testing & Gate</b><br/><sub>Full TDD Suites, /release-check-ca-agent</sub>"]:::stage
+        StageA["<b>🎨 Stage A: Frontend Demo</b><br/><small>/run-ca-agent -> Visual Sign-Off</small>"]:::stage --> StageB["<b>💾 Stage B: Persistence</b><br/><small>API Routes, PostgreSQL, RLS</small>"]:::stage
+        StageB --> StageC["<b>🔒 Stage C: Auth & Security</b><br/><small>RBAC, CSRF, Token Rotation</small>"]:::stage
+        StageC --> StageD["<b>🧪 Stage D: Testing & Gate</b><br/><small>Full TDD Suites, /release-check-ca-agent</small>"]:::stage
     end
 
     TwoLayerGov ==>|"Enforces Architecture"| DevGate
@@ -53,15 +53,15 @@ flowchart TD
     classDef release fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph SDDLifecycle ["🚀 10-STEP UNIVERSAL ENTERPRISE PRODUCTION LIFECYCLE"]
-        S1(["<b>1. ⚙️ Baseline Setup & Renaming</b><br/><sub>Scaffold from Spec-Driven-Development/</sub>"]):::step --> S2["<b>2. 🔍 Verify .agents/ Slash Commands</b><br/><sub>Check Palette & Terminal Contracts</sub>"]:::step
-        S2 --> S3["<b>3. 📐 Decide Specification Format</b><br/><sub>Flat (Tier 1/2) vs. Modular (Tier 3)</sub>"]:::step
-        S3 --> S4["<b>4. 🤖 IDE Detection & Policy Discovery</b><br/><sub>Walk-Up Root & Adapter Sync</sub>"]:::step
-        S4 --> S5["<b>5. 📑 Prompt S1: Architecture R&D</b><br/><sub>Plan Mode • HLD/LLD • Domain Data Model</sub>"]:::step
-        S5 --> S6{"<b>6. 👤 Human Architecture Review</b><br/><sub>Signed Approval of System Design</sub>"}:::gate
-        S6 -->|"Approved"| S7["<b>7. 🏗️ Prompt S2: Baseline Codebase</b><br/><sub>Configure docs/, ADR-001 & Test Harness</sub>"]:::step
-        S7 --> S8["<b>8. 📋 Prompt S3: Spec Validation</b><br/><sub>Verify AC-FEAT###-## Given/When/Then</sub>"]:::step
-        S8 --> S9["<b>9. 🧪 Prompt S4: Strict TDD Implementation</b><br/><sub>Red (Fail) -> Green (Pass) -> Refactor</sub>"]:::tdd
-        S9 --> S10["<b>10. 🛡️ Prompt S5: Production Readiness Audit</b><br/><sub>SAST Scan • Release Checklist Gate</sub>"]:::release
+        S1(["<b>1. ⚙️ Baseline Setup & Renaming</b><br/><small>Scaffold from Spec-Driven-Development/</small>"]):::step --> S2["<b>2. 🔍 Verify .agents/ Slash Commands</b><br/><small>Check Palette & Terminal Contracts</small>"]:::step
+        S2 --> S3["<b>3. 📐 Decide Specification Format</b><br/><small>Flat (Tier 1/2) vs. Modular (Tier 3)</small>"]:::step
+        S3 --> S4["<b>4. 🤖 IDE Detection & Policy Discovery</b><br/><small>Walk-Up Root & Adapter Sync</small>"]:::step
+        S4 --> S5["<b>5. 📑 Prompt S1: Architecture R&D</b><br/><small>Plan Mode • HLD/LLD • Domain Data Model</small>"]:::step
+        S5 --> S6{"Architecture Approved?"}:::gate
+        S6 -->|"Approved"| S7["<b>7. 🏗️ Prompt S2: Baseline Codebase</b><br/><small>Configure docs/, ADR-001 & Test Harness</small>"]:::step
+        S7 --> S8["<b>8. 📋 Prompt S3: Spec Validation</b><br/><small>Verify AC-FEAT###-## Given/When/Then</small>"]:::step
+        S8 --> S9["<b>9. 🧪 Prompt S4: Strict TDD Implementation</b><br/><small>Red (Fail) -> Green (Pass) -> Refactor</small>"]:::tdd
+        S9 --> S10["<b>10. 🛡️ Prompt S5: Production Readiness Audit</b><br/><small>SAST Scan • Release Checklist Gate</small>"]:::release
     end
 ```
 

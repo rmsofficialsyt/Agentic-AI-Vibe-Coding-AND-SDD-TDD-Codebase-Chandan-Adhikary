@@ -29,28 +29,28 @@ flowchart TD
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
     classDef core fill:#0f172a,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
 
-    Choice{"<b>⚖️ ARCHITECTURAL EVALUATION GATE</b><br/><sub>Select Delivery & Governance Model Based on System SLA</sub>"}:::gate
+    Choice{"Select Architecture Track"}:::gate
 
     subgraph Track1 ["🌟 Track 1: Vibe-Coding Framework (High Velocity & Visual UI)"]
-        VibeCore["<b>🎨 FLUID SENSORY PROTOTYPING</b><br/><sub>Rapid UI • Instant Hot-Reload • Living Specs</sub>"]:::vibe
-        VibeSpeed["<b>⚡ SENSORY VERIFICATION LOOP</b><br/><sub>Inspect at localhost:3000 • Fluid Feedback</sub>"]:::vibe
-        VibeScope["<b>🎯 TARGET WORKLOADS</b><br/><sub>Consumer SaaS • Dynamic Dashboards • AI Creative Tools</sub>"]:::vibe
+        VibeCore["<b>🎨 FLUID SENSORY PROTOTYPING</b><br/><small>Rapid UI • Instant Hot-Reload • Living Specs</small>"]:::vibe
+        VibeSpeed["<b>⚡ SENSORY VERIFICATION LOOP</b><br/><small>Inspect at localhost:3000 • Fluid Feedback</small>"]:::vibe
+        VibeScope["<b>🎯 TARGET WORKLOADS</b><br/><small>Consumer SaaS • Dynamic Dashboards • AI Creative Tools</small>"]:::vibe
     end
 
     subgraph Track2 ["🛡️ Track 2: SDD + TDD Framework (Enterprise Core & High Assurance)"]
-        SDDCore["<b>🔒 FORMAL CONTRACT-FIRST ARCHITECTURE</b><br/><sub>Approved Specs • Failing Tests First • Zero Regression</sub>"]:::sdd
-        SDDRigor["<b>🧪 RED-GREEN-REFACTOR VERIFICATION</b><br/><sub>AC-to-Test Traceability • Strict Quality Gating</sub>"]:::sdd
-        SDDBestFor["<b>🎯 TARGET WORKLOADS</b><br/><sub>Enterprise Core • FinTech Ledger • HealthTech • Regulated</sub>"]:::sdd
+        SDDCore["<b>🔒 FORMAL CONTRACT-FIRST ARCHITECTURE</b><br/><small>Approved Specs • Failing Tests First • Zero Regression</small>"]:::sdd
+        SDDRigor["<b>🧪 RED-GREEN-REFACTOR VERIFICATION</b><br/><small>AC-to-Test Traceability • Strict Quality Gating</small>"]:::sdd
+        SDDBestFor["<b>🎯 TARGET WORKLOADS</b><br/><small>Enterprise Core • FinTech Ledger • HealthTech • Regulated</small>"]:::sdd
     end
 
     subgraph SharedCore ["🏛️ Shared Governance & Mission Control Baseline"]
-        AgentEngine["<b>🤖 .agents/ ASSET REPOSITORY</b><br/><sub>16 Collision-Free Tools & Deterministic Skills</sub>"]:::core
-        DashboardEngine["<b>🖥️ IN-IDE MISSION CONTROL</b><br/><sub>Zero-Dependency Local Daemons (Ports 4200 / 4201)</sub>"]:::core
-        DocGovernance["<b>📑 docs/ GOVERNANCE ENGINE</b><br/><sub>Constitution, PRD, Features, and ADR Decision Logs</sub>"]:::core
+        AgentEngine["<b>🤖 .agents/ ASSET REPOSITORY</b><br/><small>16 Collision-Free Tools & Deterministic Skills</small>"]:::core
+        DashboardEngine["<b>🖥️ IN-IDE MISSION CONTROL</b><br/><small>Zero-Dependency Local Daemons (Ports 4200 / 4201)</small>"]:::core
+        DocGovernance["<b>📑 docs/ GOVERNANCE ENGINE</b><br/><small>Constitution, PRD, Features, and ADR Decision Logs</small>"]:::core
     end
 
-    Choice -->|"🚀 Rapid Prototyping & Sensory UI"| Track1
-    Choice -->|"🛡️ High Assurance & Contract Integrity"| Track2
+    Choice -->|"Rapid UI Track"| Track1
+    Choice -->|"High Assurance Track"| Track2
 
     Track1 ==>|"Enforces Governance"| SharedCore
     Track2 ==>|"Enforces Governance"| SharedCore
@@ -92,40 +92,40 @@ flowchart TD
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
     subgraph P1 ["🎨 PHASE 1: DISCOVERY & AESTHETIC VIBE CHECK"]
-        Setup(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Blueprint • Rename Directory • Open IDE</sub>"]):::step
-        CmdCheck{"<b>🔍 Verify Slash Commands</b><br/><sub>Check /-ca-agent in Chat Palette & Terminal</sub>"}:::gate
-        PV1["<b>💡 Prompt V1: Discovery & Vibe Check</b><br/><sub>Plan Mode • Aesthetic Tokens • Personas • Tech Stack</sub>"]:::step
-        HumanV1{"<b>👤 Human Lead Approval</b><br/><sub>Sign-Off on Design Tokens & Stack Plan</sub>"}:::gate
+        Setup(["<b>⚙️ Pre-Development Setup</b><br/><small>Extract Blueprint • Rename Directory • Open IDE</small>"]):::step
+        CmdCheck["<b>🔍 Verify Slash Commands</b><br/><small>Check /-ca-agent in Palette & Terminal</small>"]:::gate
+        PV1["<b>💡 Prompt V1: Discovery & Vibe Check</b><br/><small>Plan Mode • Aesthetic Tokens • Personas • Tech Stack</small>"]:::step
+        HumanV1{"Lead Approved?"}:::gate
     end
 
     subgraph P2 ["🏗️ PHASE 2: LIVE INTERACTIVE UI SCAFFOLD"]
-        PV2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • /run-ca-agent</sub>"]:::step
-        LiveCheck["<b>🌐 Live Browser Verification</b><br/><sub>Tactile & Visual Inspection at http://localhost:3000</sub>"]:::live
+        PV2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • /run-ca-agent</small>"]:::step
+        LiveCheck["<b>🌐 Live Browser Verification</b><br/><small>Tactile & Visual Inspection at http://localhost:3000</small>"]:::live
     end
 
     subgraph P3 ["✨ PHASE 3: CONVERSATIONAL VIBE-TUNING LOOP"]
-        PV3["<b>🎨 Prompt V3: Conversational Vibe-Tuning</b><br/><sub>Refine Micro-Interactions • Padding • Transitions</sub>"]:::step
-        Loop{"<b>✨ Sensory Vibe Approval</b><br/><sub>Does the UX feel intuitive, elegant, and responsive?</sub>"}:::gate
+        PV3["<b>🎨 Prompt V3: Conversational Vibe-Tuning</b><br/><small>Refine Micro-Interactions • Padding • Transitions</small>"]:::step
+        Loop{"Vibe Approved?"}:::gate
     end
 
     subgraph P4 ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
-        PV4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database Schemas</sub>"]:::step
-        Audits["<b>🛡️ Pre-Flight Verification Gates</b><br/><sub>Execute /security-audit-ca-agent & /release-check-ca-agent</sub>"]:::step
-        Ship(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Enterprise Ship</sub>"]):::ship
+        PV4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><small>Zod Validation • Error Boundaries • Database Schemas</small>"]:::step
+        Audits["<b>🛡️ Pre-Flight Verification Gates</b><br/><small>Execute /security-audit-ca-agent & /release-check-ca-agent</small>"]:::step
+        Ship(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Enterprise Ship</small>"]):::ship
     end
 
     Setup -->|"Clean Workspace"| CmdCheck
     CmdCheck -->|"Contracts Verified"| PV1
     PV1 -->|"Submits Plan"| HumanV1
-    HumanV1 -->|"Revisions Needed"| PV1
+    HumanV1 -->|"Revise"| PV1
     HumanV1 -->|"Approved"| PV2
 
     PV2 -->|"Starts Dev Server"| LiveCheck
     LiveCheck -->|"Sensory Feedback"| PV3
 
     PV3 -->|"Instant Fast Refresh"| Loop
-    Loop -->|"No: Adjust Styling/Features"| PV3
-    Loop -->|"YES: Vibe Approved"| PV4
+    Loop -->|"Iterate UI"| PV3
+    Loop -->|"Approved"| PV4
 
     PV4 -->|"Automated Scans"| Audits
     Audits -->|"All Gates Passed"| Ship
@@ -144,33 +144,33 @@ flowchart TD
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
     subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
-        SetupS(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Blueprint • Rename Directory • Open IDE</sub>"]):::step
-        CmdCheckS{"<b>🔍 Verify Slash Commands</b><br/><sub>Check /-ca-agent in Chat Palette & Terminal</sub>"}:::gate
-        PS1["<b>📑 Prompt S1: Architecture R&D</b><br/><sub>Plan Mode • HLD/LLD • Domain Data Model • Contracts</sub>"]:::step
-        HumanS1{"<b>👤 Human Lead Approval</b><br/><sub>Approve Architecture & Boundary Models</sub>"}:::gate
-        PS2["<b>🏗️ Prompt S2: Configure Complete Codebase</b><br/><sub>docs/ Governance • ADR-001 • Test Harness Scaffolding</sub>"]:::step
+        SetupS(["<b>⚙️ Pre-Development Setup</b><br/><small>Extract Blueprint • Rename Directory • Open IDE</small>"]):::step
+        CmdCheckS["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
+        PS1["<b>📑 Prompt S1: Architecture R&D</b><br/><small>Plan Mode • HLD/LLD • Domain Data Model • Contracts</small>"]:::step
+        HumanS1{"Architecture Approved?"}:::gate
+        PS2["<b>🏗️ Prompt S2: Configure Complete Codebase</b><br/><small>docs/ Governance • ADR-001 • Test Harness Scaffolding</small>"]:::step
     end
 
     subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & TEST CONTRACT"]
-        PS3["<b>📋 Prompt S3: Spec Validation & Tier Decision</b><br/><sub>Flat vs. Modular Decision • AC-FEAT###-## Given/When/Then</sub>"]:::step
-        RedPhase["<b>🔴 RED PHASE: Scaffold Failing Tests</b><br/><sub>Run /testing-ca-agent -> Confirm Expected Test Failures</sub>"]:::red
+        PS3["<b>📋 Prompt S3: Spec Validation & Tier Decision</b><br/><small>Flat vs. Modular Decision • AC-FEAT###-## Given/When/Then</small>"]:::step
+        RedPhase["<b>🔴 RED PHASE: Scaffold Failing Tests</b><br/><small>Run /testing-ca-agent -> Confirm Expected Test Failures</small>"]:::red
     end
 
     subgraph S3Phase ["🧪 PHASE 3: TDD IMPLEMENTATION CYCLE"]
-        PS4["<b>🟢 GREEN PHASE: Minimal Code Implementation</b><br/><sub>Write Minimum Code -> All AC Tests PASS -> Refactor</sub>"]:::green
-        GateCheck{"<b>🛡️ AC Verification Gate</b><br/><sub>All Tests Green & /review-ca-agent Clean?</sub>"}:::gate
-        NextFeature{"<b>🔄 Specification Scope</b><br/><sub>More Features in docs/features/?</sub>"}:::gate
+        PS4["<b>🟢 GREEN PHASE: Minimal Code Implementation</b><br/><small>Write Minimum Code -> All AC Tests PASS -> Refactor</small>"]:::green
+        GateCheck{"All Tests Green?"}:::gate
+        NextFeature{"More Features?"}:::gate
     end
 
     subgraph S4Phase ["🚀 PHASE 4: PRODUCTION READINESS & SHIP"]
-        PS5["<b>🔍 Prompt S5: Production Readiness Audit</b><br/><sub>SAST Security Scan • Release Checklist Gate</sub>"]:::step
-        Release(["<b>🎉 Production Release Authorization</b><br/><sub>Signed Off in docs/approvals/release-v1.0.0.md</sub>"]):::ship
+        PS5["<b>🔍 Prompt S5: Production Readiness Audit</b><br/><small>SAST Security Scan • Release Checklist Gate</small>"]:::step
+        Release(["<b>🎉 Production Release Authorization</b><br/><small>Signed Off in docs/approvals/release-v1.0.0.md</small>"]):::ship
     end
 
     SetupS -->|"Clean Workspace"| CmdCheckS
     CmdCheckS -->|"Contracts Verified"| PS1
     PS1 -->|"Submits System Design"| HumanS1
-    HumanS1 -->|"Revise Plan"| PS1
+    HumanS1 -->|"Revise"| PS1
     HumanS1 -->|"Approved"| PS2
 
     PS2 -->|"Initializes Harness"| PS3
@@ -198,24 +198,24 @@ flowchart TD
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
 
     subgraph Root ["📁 REPOSITORY GOVERNANCE ROOT"]
-        RootDocs["<b>📑 Universal Documentation Hub</b><br/><sub>README.md • PROJECT-MANAGER-DASHBOARD-GUIDE.md • Production Guides</sub>"]:::root
-        RootGov["<b>🛡️ Policy & Security Baseline</b><br/><sub>LICENSE.md (MIT) • .github/SECURITY.md • GEMINI.md Contracts</sub>"]:::root
+        RootDocs["<b>📑 Universal Documentation Hub</b><br/><small>README.md • PROJECT-MANAGER-DASHBOARD-GUIDE.md • Production Guides</small>"]:::root
+        RootGov["<b>🛡️ Policy & Security Baseline</b><br/><small>LICENSE.md (MIT) • .github/SECURITY.md • GEMINI.md Contracts</small>"]:::root
     end
 
     subgraph StarterTemplates ["📦 CANONICAL STARTER BLUEPRINTS"]
         direction TB
         subgraph T1Template ["🌟 Track 1: Vibe-Coding Blueprint"]
-            T1Agents["<b>🤖 .agents/ Asset Store</b><br/><sub>16 Commands • 18 Skills • Hooks</sub>"]:::vibe
-            T1Docs["<b>🎨 docs/ Living Specs</b><br/><sub>PRD • System Architecture • Living Features</sub>"]:::vibe
-            T1Dash["<b>🖥️ Mission Control</b><br/><sub>Project-Manager-Dashboard (Port 4201)</sub>"]:::vibe
-            T1Tests["<b>🧪 tests/ Sanity Harness</b><br/><sub>Visual & Progressive Hardening Suites</sub>"]:::vibe
+            T1Agents["<b>🤖 .agents/ Asset Store</b><br/><small>16 Commands • 18 Skills • Hooks</small>"]:::vibe
+            T1Docs["<b>🎨 docs/ Living Specs</b><br/><small>PRD • System Architecture • Living Features</small>"]:::vibe
+            T1Dash["<b>🖥️ Mission Control</b><br/><small>Project-Manager-Dashboard (Port 4201)</small>"]:::vibe
+            T1Tests["<b>🧪 tests/ Sanity Harness</b><br/><small>Visual & Progressive Hardening Suites</small>"]:::vibe
         end
 
         subgraph T2Template ["🛡️ Track 2: SDD-TDD Blueprint"]
-            T2Agents["<b>🤖 .agents/ Asset Store</b><br/><sub>16 Commands • 18 Skills • Hooks</sub>"]:::sdd
-            T2Docs["<b>📑 docs/ Contract Store</b><br/><sub>Constitution • PRD • Formal Features • ADRs</sub>"]:::sdd
-            T2Dash["<b>🖥️ Mission Control</b><br/><sub>Project-Manager-Dashboard (Port 4200)</sub>"]:::sdd
-            T2Tests["<b>🧪 tests/ TDD Harness</b><br/><sub>Unit, Integration & E2E Suites</sub>"]:::sdd
+            T2Agents["<b>🤖 .agents/ Asset Store</b><br/><small>16 Commands • 18 Skills • Hooks</small>"]:::sdd
+            T2Docs["<b>📑 docs/ Contract Store</b><br/><small>Constitution • PRD • Formal Features • ADRs</small>"]:::sdd
+            T2Dash["<b>🖥️ Mission Control</b><br/><small>Project-Manager-Dashboard (Port 4200)</small>"]:::sdd
+            T2Tests["<b>🧪 tests/ TDD Harness</b><br/><small>Unit, Integration & E2E Suites</small>"]:::sdd
         end
     end
 
@@ -322,13 +322,13 @@ flowchart LR
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#f8fafc;
 
     subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW (VS Code / Cursor / Windsurf / Antigravity)"]
-        EditorGroup1["<b>📝 Editor Group 1</b><br/><sub>Active Source Code & Specs</sub>"]:::client
-        EditorGroup2["<b>📊 Editor Group 2 (Simple Browser)</b><br/><sub>Docked Telemetry Dashboard (127.0.0.1:4200 / 4201)</sub>"]:::client
+        EditorGroup1["<b>📝 Editor Group 1</b><br/><small>Active Source Code & Specs</small>"]:::client
+        EditorGroup2["<b>📊 Editor Group 2 (Simple Browser)</b><br/><small>Docked Telemetry Dashboard (127.0.0.1:4200 / 4201)</small>"]:::client
     end
 
     subgraph DaemonTier ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON"]
-        Daemon["<b>🔌 Node.js HTTP Server</b><br/><sub>server.js • parser.js • CSRF Guard</sub>"]:::daemon
-        FileWatchers["<b>📁 File Watchers & Git Telemetry</b><br/><sub>docs/task.md • docs/phases.md • .git/</sub>"]:::store
+        Daemon["<b>🔌 Node.js HTTP Server</b><br/><small>server.js • parser.js • CSRF Guard</small>"]:::daemon
+        FileWatchers["<b>📁 File Watchers & Git Telemetry</b><br/><small>docs/task.md • docs/phases.md • .git/</small>"]:::store
     end
 
     FileWatchers -->|"Real-time Poll (2s)"| Daemon

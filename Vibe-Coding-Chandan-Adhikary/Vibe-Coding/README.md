@@ -40,33 +40,33 @@ flowchart TD
     classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
 
     subgraph DiscoveryPhase ["🎨 1. DISCOVERY & AESTHETIC VIBE CHECK"]
-        VibePrompt["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><sub>Aesthetic Tokens • Color Palette • User Personas</sub>"]:::vibe
-        VibePlan["<b>📑 Visual & Technical Blueprint</b><br/><sub>docs/product.md • docs/design.md Tokens</sub>"]:::vibe
-        HumanSignOff{"<b>👤 Human Lead Vibe Approval</b><br/><sub>Sign-off on Aesthetic Direction</sub>"}:::gate
+        VibePrompt["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><small>Aesthetic Tokens • Color Palette • User Personas</small>"]:::vibe
+        VibePlan["<b>📑 Visual & Technical Blueprint</b><br/><small>docs/product.md • docs/design.md Tokens</small>"]:::vibe
+        HumanSignOff{"Lead Approved?"}:::gate
     end
 
     subgraph PrototypePhase ["🏗️ 2. LIVE INTERACTIVE UI SCAFFOLD"]
-        ScaffoldCode["<b>💻 Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • Dynamic Styling</sub>"]:::vibe
-        StartDevServer["<b>🔌 Run /run-ca-agent</b><br/><sub>Starts Local Server at http://localhost:3000</sub>"]:::live
-        BrowserInspect["<b>🌐 Sensory Browser Inspection</b><br/><sub>Visual Layout Check • Tactile Feel • Micro-Interactions</sub>"]:::live
+        ScaffoldCode["<b>💻 Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • Dynamic Styling</small>"]:::vibe
+        StartDevServer["<b>🔌 Run /run-ca-agent</b><br/><small>Starts Local Server at http://localhost:3000</small>"]:::live
+        BrowserInspect["<b>🌐 Sensory Browser Inspection</b><br/><small>Visual Layout Check • Tactile Feel • Micro-Interactions</small>"]:::live
     end
 
     subgraph TuningPhase ["✨ 3. CONVERSATIONAL VIBE-TUNING"]
-        FeedbackPrompt["<b>🎨 Prompt V3: Polish Micro-Interactions</b><br/><sub>Padding, Typography, Hover States, Transitions</sub>"]:::vibe
-        HotReload["<b>⚡ Instant Fast Refresh Hot-Reload</b><br/><sub>Immediate Visual Feedback in Browser</sub>"]:::live
-        VibeApproval{"<b>✨ Vibe Approval Gate</b><br/><sub>Does the UX feel intuitive, elegant, and responsive?</sub>"}:::gate
+        FeedbackPrompt["<b>🎨 Prompt V3: Polish Micro-Interactions</b><br/><small>Padding, Typography, Hover States, Transitions</small>"]:::vibe
+        HotReload["<b>⚡ Instant Fast Refresh Hot-Reload</b><br/><small>Immediate Visual Feedback in Browser</small>"]:::live
+        VibeApproval{"Vibe Approved?"}:::gate
     end
 
     subgraph HardeningPhase ["🔒 4. PROGRESSIVE PRODUCTION HARDENING"]
-        HardeningPrompt["<b>🛡️ Prompt V4: Production Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database APIs</sub>"]:::harden
-        SanityTests["<b>🧪 Execute /testing-ca-agent</b><br/><sub>Visual Sanity & Component Regression Suites</sub>"]:::harden
-        SecurityGate["<b>🛡️ /security-audit-ca-agent & /release-check-ca-agent</b><br/><sub>SAST Scan • Secret Leak Audit • Release Checklist</sub>"]:::harden
-        ShipProduction(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Ship to Production</sub>"]):::live
+        HardeningPrompt["<b>🛡️ Prompt V4: Production Hardening</b><br/><small>Zod Validation • Error Boundaries • Database APIs</small>"]:::harden
+        SanityTests["<b>🧪 Execute /testing-ca-agent</b><br/><small>Visual Sanity & Component Regression Suites</small>"]:::harden
+        SecurityGate["<b>🛡️ /security-audit-ca-agent & /release-check-ca-agent</b><br/><small>SAST Scan • Secret Leak Audit • Release Checklist</small>"]:::harden
+        ShipProduction(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Ship to Production</small>"]):::live
     end
 
     VibePrompt -->|"Architects"| VibePlan
     VibePlan -->|"Reviews"| HumanSignOff
-    HumanSignOff -->|"Revisions Needed"| VibePrompt
+    HumanSignOff -->|"Revise"| VibePrompt
     HumanSignOff -->|"APPROVED"| ScaffoldCode
 
     ScaffoldCode -->|"Launches"| StartDevServer
@@ -76,7 +76,7 @@ flowchart TD
     FeedbackPrompt -->|"Updates Code"| HotReload
     HotReload -->|"Validates"| VibeApproval
     VibeApproval -->|"No: Refine UI"| FeedbackPrompt
-    VibeApproval -->|"YES: Vibe Approved"| HardeningPrompt
+    VibeApproval -->|"Approved"| HardeningPrompt
 
     HardeningPrompt -->|"Harness Test"| SanityTests
     SanityTests -->|"Audit Scan"| SecurityGate
@@ -96,10 +96,10 @@ flowchart LR
     classDef ui fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
-    DevFeedback(["<b>👤 Developer Feedback</b><br/><sub>'Make header sticky, soften card borders'</sub>"]):::dev -->|"Direct Prompt"| AgentCode["<b>🤖 AI Agent Update</b><br/><sub>Applies Tailored JSX/CSS Diffs</sub>"]:::agent
-    AgentCode -->|"Fast Refresh"| HotReloadUI["<b>⚡ Dev Server Hot-Reload</b><br/><sub>Instant Render at localhost:3000</sub>"]:::ui
-    HotReloadUI -->|"Sensory Inspection"| SensoryCheck{"<b>✨ Vibe Check</b><br/><sub>Does it feel right?</sub>"}:::gate
-    SensoryCheck -->|"Yes: Vibe Approved"| LivingDoc["<b>📑 Update docs/features/</b><br/><sub>Living Contract Refinement</sub>"]:::ui
+    DevFeedback(["<b>👤 Developer Feedback</b><br/><small>'Make header sticky, soften card borders'</small>"]):::dev -->|"Direct Prompt"| AgentCode["<b>🤖 AI Agent Update</b><br/><small>Applies Tailored JSX/CSS Diffs</small>"]:::agent
+    AgentCode -->|"Fast Refresh"| HotReloadUI["<b>⚡ Dev Server Hot-Reload</b><br/><small>Instant Render at localhost:3000</small>"]:::ui
+    HotReloadUI -->|"Sensory Inspection"| SensoryCheck{"Vibe Approved?"}:::gate
+    SensoryCheck -->|"Yes: Vibe Approved"| LivingDoc["<b>📑 Update docs/features/</b><br/><small>Living Contract Refinement</small>"]:::ui
     SensoryCheck -->|"No: Iterate"| DevFeedback
 ```
 
@@ -167,12 +167,12 @@ flowchart TD
     classDef log fill:#1e293b,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
 
     subgraph RepoRoot ["🎨 VIBE-CODING /"]
-        AGENTS["<b>🤖 Agent Master Directives</b><br/><sub>AGENTS.md • GEMINI.md • CLAUDE.md Governance</sub>"]:::agent
-        AgentsDir["<b>🛠️ .agents/ Canonical Asset Store</b><br/><sub>16 Commands • 18 Skills • Lifecycle Hooks</sub>"]:::agent
-        DocsDir["<b>🎨 docs/ Living Specifications</b><br/><sub>design.md • PRD • Living Contracts • ADRs</sub>"]:::doc
-        DashboardDir["<b>🖥️ Project-Manager-Dashboard</b><br/><sub>In-IDE Mission Control • Local Port 4201</sub>"]:::dash
-        TestsDir["<b>🧪 tests/ Hardening Test Harness</b><br/><sub>Visual Sanity & Component Regression Suites</sub>"]:::test
-        LogsDir["<b>🪵 logs/ Audit Directory</b><br/><sub>Structured Runtime Logs • Sanitized PII</sub>"]:::log
+        AGENTS["<b>🤖 Agent Master Directives</b><br/><small>AGENTS.md • GEMINI.md • CLAUDE.md Governance</small>"]:::agent
+        AgentsDir["<b>🛠️ .agents/ Canonical Asset Store</b><br/><small>16 Commands • 18 Skills • Lifecycle Hooks</small>"]:::agent
+        DocsDir["<b>🎨 docs/ Living Specifications</b><br/><small>design.md • PRD • Living Contracts • ADRs</small>"]:::doc
+        DashboardDir["<b>🖥️ Project-Manager-Dashboard</b><br/><small>In-IDE Mission Control • Local Port 4201</small>"]:::dash
+        TestsDir["<b>🧪 tests/ Hardening Test Harness</b><br/><small>Visual Sanity & Component Regression Suites</small>"]:::test
+        LogsDir["<b>🪵 logs/ Audit Directory</b><br/><small>Structured Runtime Logs • Sanitized PII</small>"]:::log
     end
 ```
 
