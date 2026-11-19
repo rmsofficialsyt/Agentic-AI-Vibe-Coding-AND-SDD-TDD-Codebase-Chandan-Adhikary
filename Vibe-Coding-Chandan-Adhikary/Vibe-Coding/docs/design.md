@@ -30,6 +30,22 @@ Design system standards, design tokens, fluid layouts, responsive breakpoints, c
 | `--text-main` | `#f8fafc` | `#0f172a` | High-contrast body typography |
 | `--text-muted` | `#94a3b8` | `#64748b` | Secondary descriptions, captions |
 
+### 1.2 Standardized Sizing & Spacing Scale (4px/8px Grid)
+All UI components, padding, margins, card dimensions, and iconography MUST strictly adhere to the standardized 4px/8px modular scale:
+
+| Token | Dimension | Rem Equiv. | Standardized UI Application |
+|---|---|---|---|
+| `--size-1` | `4px` | `0.25rem` | Micro-spacing, inline badges, tight borders |
+| `--size-2` | `8px` | `0.50rem` | Icon gaps, compact chip padding, form field vertical gutters |
+| `--size-3` | `12px` | `0.75rem` | Mobile card gutters, button horizontal padding (compact) |
+| `--size-4` | `16px` | `1.00rem` | Standard component padding, base input height offsets |
+| `--size-5` | `20px` | `1.25rem` | Section gutters, standard icon bounding boxes |
+| `--size-6` | `24px` | `1.50rem` | Card padding, header heights, desktop grid gutters |
+| `--size-8` | `32px` | `2.00rem` | Modal dialog gutters, container padding |
+| `--size-11` | `44px` | `2.75rem` | **Minimum Touch Target** (WCAG 2.1 AA accessibility requirement) |
+| `--size-12` | `48px` | `3.00rem` | Standard button and input field height |
+| `--size-16` | `64px` | `4.00rem` | Navigation bar heights, major milestone spacing |
+
 ---
 
 ## 2. Dynamic Responsive Breakpoints Matrix
@@ -38,9 +54,16 @@ Layouts must be 100% fluid and dynamically responsive across all monitor sizes. 
 
 ```mermaid
 flowchart LR
-    Mobile["Mobile<br/>(< 640px)<br/>1 Column"] --> Tablet["Tablet<br/>(640px - 1024px)<br/>2 Columns"]
-    Tablet --> Laptop["Laptop / Desktop<br/>(1024px - 1440px)<br/>3-4 Columns Auto-Fit"]
-    Laptop --> Ultrawide["Ultra-Wide / 4K<br/>(> 1440px)<br/>Fluid Auto-Expand Grid"]
+    classDef bp fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+
+    Mobile["<b>📱 Mobile (&lt; 640px)</b><br/><sub>1-Column Stack • 12px Gutters</sub>"]:::bp
+    Tablet["<b>📟 Tablet (640px–1024px)</b><br/><sub>2-Column Bento • 16px Gutters</sub>"]:::bp
+    Desktop["<b>💻 Desktop (1024px–1440px)</b><br/><sub>3–4 Columns • 20px Gutters</sub>"]:::bp
+    Ultrawide["<b>🖥️ Ultra-Wide (&gt; 1440px)</b><br/><sub>Fluid Auto-Grid • 24px Gutters</sub>"]:::bp
+
+    Mobile -->|"Fluid Expand"| Tablet
+    Tablet -->|"Fluid Expand"| Desktop
+    Desktop -->|"Fluid Expand"| Ultrawide
 ```
 
 | Breakpoint Name | Viewport Width | Grid Behavior | Padding / Gutters |

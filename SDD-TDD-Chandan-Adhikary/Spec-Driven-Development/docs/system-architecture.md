@@ -22,57 +22,64 @@ The High-Level Design outlines the end-to-end topological boundaries, ingress tr
 
 ```mermaid
 flowchart TD
-    subgraph Clients ["Client Ingress Tier"]
-        Browser["Desktop & Mobile Web<br/>(SPA / SSR)"]
-        MobileApp["Native Mobile Apps<br/>(iOS / Android)"]
-        ExternalAPI["Third-Party Consumers<br/>(B2B Partners)"]
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef edge fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;
+    classDef gw fill:#1e293b,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
+    classDef app fill:#082f49,stroke:#0284c7,stroke-width:1.5px,color:#f0f9ff;
+    classDef data fill:#022c22,stroke:#10b981,stroke-width:1.5px,color:#d1fae5;
+    classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
+
+    subgraph Clients ["🌐 CLIENT INGRESS TIER"]
+        Browser(["<b>🖥️ Desktop & Mobile Web</b><br/><sub>Next.js / React • SPA & SSR</sub>"]):::client
+        MobileApp(["<b>📱 Native Mobile Clients</b><br/><sub>iOS / Android App Shells</sub>"]):::client
+        ExternalAPI(["<b>🏢 B2B External Consumers</b><br/><sub>Third-Party API Integrations</sub>"]):::client
     end
 
-    subgraph Edge ["Edge & Security Tier"]
-        DNS["Global Anycast DNS<br/>(Cloudflare / Route 53)"]
-        CDN["CDN & Static Edge<br/>(Assets, SSR Cache)"]
-        WAF["WAF & DDoS Shield<br/>(Rate Limiting / TLS Term)"]
+    subgraph Edge ["🛡️ EDGE & SECURITY TIER"]
+        DNS["<b>🌐 Anycast Global DNS</b><br/><sub>Cloudflare / Route 53 Routing</sub>"]:::edge
+        CDN["<b>⚡ Static & Edge CDN</b><br/><sub>Asset Caching & Edge Compute</sub>"]:::edge
+        WAF["<b>🛡️ WAF & DDoS Shield</b><br/><sub>Rate Limiting & TLS Termination</sub>"]:::edge
     end
 
-    subgraph Gateway ["Gateway & Routing Tier"]
-        APIGateway["Reverse Proxy / API Gateway<br/>(Kong / Nginx / Envoy)"]
-        AuthFilter["Auth Guard & JWT Validator<br/>(OAuth2 / OIDC / Session)"]
+    subgraph Gateway ["🔌 GATEWAY & ROUTING TIER"]
+        APIGateway["<b>🔀 Reverse Proxy Gateway</b><br/><sub>Kong / Envoy / Nginx Routing</sub>"]:::gw
+        AuthFilter["<b>🔑 Auth Guard & JWT Validator</b><br/><sub>OAuth2 / OIDC Session Filter</sub>"]:::gw
     end
 
-    subgraph AppTier ["Core Application Tier"]
-        CoreService["Core Application Server<br/>(Modular Monolith / Microservices)"]
-        AsyncWorker["Background Worker Pool<br/>(Job Queues / Cron Processors)"]
-        Telemetry["Observability Agent<br/>(OTel / Prometheus / Winston)"]
+    subgraph AppTier ["⚙️ CORE APPLICATION TIER"]
+        CoreService["<b>⚙️ Core Application Server</b><br/><sub>Modular Monolith / Microservices</sub>"]:::app
+        AsyncWorker["<b>🏃 Background Worker Pool</b><br/><sub>Job Queues & Cron Processors</sub>"]:::app
+        Telemetry["<b>📊 Observability Agent</b><br/><sub>OTel & Winston Telemetry</sub>"]:::app
     end
 
-    subgraph DataTier ["Persistence & Caching Tier"]
-        PrimaryDB[("Primary Database (RDBMS)<br/>PostgreSQL / MySQL (ACID)")]
-        ReadReplica[("Read Replicas<br/>Read-Heavy Query Offloading")]
-        RedisCache[("Distributed In-Memory Cache<br/>Redis (Sessions, Rate Limits, Cache)")]
-        MsgQueue[("Message Broker & Streaming<br/>Kafka / RabbitMQ / Redis Streams")]
-        BlobStore[("Object Storage<br/>S3 / GCS (Buckets)")]
+    subgraph DataTier ["💾 PERSISTENCE & CACHING TIER"]
+        PrimaryDB[("<b>🗄️ Primary ACID RDBMS</b><br/><sub>PostgreSQL / MySQL Core Store</sub>")]:::data
+        ReadReplica[("<b>📑 Read Replica Nodes</b><br/><sub>Read-Heavy Query Offloading</sub>")]:::data
+        RedisCache[("<b>⚡ Distributed Cache</b><br/><sub>Redis Sessions & Rate Limits</sub>")]:::cache
+        MsgQueue[("<b>📨 Message Streaming Broker</b><br/><sub>Kafka / RabbitMQ / Streams</sub>")]:::cache
+        BlobStore[("<b>📦 Object Storage</b><br/><sub>S3 / GCS Artifact Buckets</sub>")]:::data
     end
 
-    Clients --> DNS
-    DNS --> WAF
-    WAF --> CDN
-    CDN --> APIGateway
-    APIGateway --> AuthFilter
-    AuthFilter --> CoreService
+    Clients -->|"DNS Resolution"| DNS
+    DNS -->|"TLS Termination"| WAF
+    WAF -->|"Edge Cache Check"| CDN
+    CDN -->|"API Requests"| APIGateway
+    APIGateway -->|"Authenticated Token"| AuthFilter
+    AuthFilter -->|"Validated Session"| CoreService
 
-    CoreService --> PrimaryDB
-    PrimaryDB -.-> ReadReplica
-    CoreService --> ReadReplica
-    CoreService --> RedisCache
-    CoreService --> MsgQueue
+    CoreService -->|"ACID Writes"| PrimaryDB
+    PrimaryDB -.->|"Replication Sync"| ReadReplica
+    CoreService -->|"Read Queries"| ReadReplica
+    CoreService -->|"Cache Lookup"| RedisCache
+    CoreService -->|"Publish Events"| MsgQueue
 
-    MsgQueue --> AsyncWorker
-    AsyncWorker --> PrimaryDB
-    AsyncWorker --> BlobStore
-    CoreService --> BlobStore
+    MsgQueue -->|"Consume Tasks"| AsyncWorker
+    AsyncWorker -->|"Batch Updates"| PrimaryDB
+    AsyncWorker -->|"Export Assets"| BlobStore
+    CoreService -->|"Media Uploads"| BlobStore
 
-    CoreService -.-> Telemetry
-    AsyncWorker -.-> Telemetry
+    CoreService -.->|"Pipes Traces"| Telemetry
+    AsyncWorker -.->|"Pipes Metrics"| Telemetry
 ```
 
 ### 1.2 Low-Level Design (LLD)

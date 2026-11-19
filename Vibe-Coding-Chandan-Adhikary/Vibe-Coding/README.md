@@ -167,12 +167,12 @@ flowchart TD
     classDef log fill:#1e293b,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
 
     subgraph RepoRoot ["🎨 VIBE-CODING /"]
-        AGENTS["<b>🤖 AGENTS.md / GEMINI.md / CLAUDE.md</b><br/><sub>Master Autonomous Agent Instructions</sub>"]:::agent
-        AgentsDir["<b>🛠️ .agents/ Asset Store</b><br/>• 16 Commands (*-ca-agent.md)<br/>• 18 Skills (core-engineering-skills)<br/>• hooks.json & templates/"]:::agent
-        DocsDir["<b>🎨 docs/ Living Specifications</b><br/>• design.md (Tokens, Themes, Personas)<br/>• prd.md, system-architecture.md<br/>• features/ (Living Contracts)<br/>• adrs/ (Decision Records)"]:::doc
-        DashboardDir["<b>🖥️ Project-Manager-Dashboard/</b><br/>• server.js & parser.js (Port 4201)<br/>• Fluid Bento Grid Interface"]:::dash
-        TestsDir["<b>🧪 tests/ Hardening Suites</b><br/>• Visual Sanity & Component Tests<br/>• Regression Test Harness"]:::test
-        LogsDir["<b>🪵 logs/ Audit Directory</b><br/>• dev.log, test.log, server.log, error.log"]:::log
+        AGENTS["<b>🤖 Agent Master Directives</b><br/><sub>AGENTS.md • GEMINI.md • CLAUDE.md Governance</sub>"]:::agent
+        AgentsDir["<b>🛠️ .agents/ Canonical Asset Store</b><br/><sub>16 Commands • 18 Skills • Lifecycle Hooks</sub>"]:::agent
+        DocsDir["<b>🎨 docs/ Living Specifications</b><br/><sub>design.md • PRD • Living Contracts • ADRs</sub>"]:::doc
+        DashboardDir["<b>🖥️ Project-Manager-Dashboard</b><br/><sub>In-IDE Mission Control • Local Port 4201</sub>"]:::dash
+        TestsDir["<b>🧪 tests/ Hardening Test Harness</b><br/><sub>Visual Sanity & Component Regression Suites</sub>"]:::test
+        LogsDir["<b>🪵 logs/ Audit Directory</b><br/><sub>Structured Runtime Logs • Sanitized PII</sub>"]:::log
     end
 ```
 

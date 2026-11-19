@@ -34,8 +34,8 @@ flowchart TD
     DevAsk -->|"Developer Explicitly Specifies"| UserChoice["<b>🎯 Follow Explicit User Choice</b><br/><sub>Adhere strictly to chosen format</sub>"]:::start
     DevAsk -->|"Developer Defers / Leaves Open"| AutoTier{"<b>⚖️ Complexity Tier Evaluation</b><br/><sub>Evaluate Scope, Model Count & Impact</sub>"}:::gate
     
-    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Medium)<br/>1 to 6 files impacted"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><sub>docs/features/NNN-name.md<br/>(Single cohesive living contract)</sub>"]:::flat
-    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><sub>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md</sub>"]:::modular
+    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Medium)<br/>1 to 6 files impacted"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><sub>docs/features/NNN-name.md • Single Living Contract</sub>"]:::flat
+    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><sub>docs/features/NNN-name/ • Multi-File Modular Spec</sub>"]:::modular
 ```
 
 ---

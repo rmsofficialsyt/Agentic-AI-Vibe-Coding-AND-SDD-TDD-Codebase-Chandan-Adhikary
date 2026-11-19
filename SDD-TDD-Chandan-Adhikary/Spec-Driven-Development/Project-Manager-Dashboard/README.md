@@ -46,7 +46,7 @@ flowchart TD
     end
 
     subgraph UIClient ["🖥️ IN-IDE SIMPLE BROWSER (http://127.0.0.1:4200)"]
-        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/>• ⚡ Active Running Task Floated to Index 0<br/>• 📅 Pinned HEAD Git Commit (DD-MM-YYYY)<br/>• 🧪 Interactive Given/When/Then AC Engine<br/>• 🪵 Real-time Live Logs Stream Explorer<br/>• 🤖 Agent Token Consumption Gauges"]:::client
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><sub>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</sub>"]:::client
     end
 
     FilesystemState -->|"Real-Time Watch"| Watcher
@@ -107,10 +107,10 @@ flowchart TD
     subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW"]
         direction LR
         subgraph Col1 ["📝 Editor Group 1 (Active Code)"]
-            Code["<b>Active Source Code & Specs</b><br/>• src/components/auth.tsx<br/>• tests/unit/enrollment.test.ts"]:::code
+            Code["<b>Active Source Code & Specs</b><br/><sub>src/components/ • tests/unit/</sub>"]:::code
         end
         subgraph Col2 ["📊 Editor Group 2 (Simple Browser Tab)"]
-            Dash["<b>Docked Simple Browser Viewport</b><br/>• http://127.0.0.1:4200<br/>• Real-Time Task & AC Telemetry"]:::dash
+            Dash["<b>Docked Simple Browser Viewport</b><br/><sub>http://127.0.0.1:4200 • Live Telemetry</sub>"]:::dash
         end
     end
 ```

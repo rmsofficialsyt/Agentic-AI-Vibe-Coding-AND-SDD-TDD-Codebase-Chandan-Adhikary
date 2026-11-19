@@ -47,7 +47,7 @@ flowchart TD
     end
 
     subgraph ViewportTier ["🖥️ IN-IDE SIMPLE BROWSER VIEWPORT"]
-        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/>• ⚡ Active Running Task Floated to Index 0<br/>• 📅 Pinned HEAD Git Commit (DD-MM-YYYY)<br/>• 🧪 Interactive Given/When/Then AC Engine<br/>• 🪵 Real-time Live Logs Stream Explorer<br/>• 🤖 Agent Token Consumption Gauges"]:::client
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/><sub>Active Task • HEAD Commit • AC Engine • Live Logs • Gauges</sub>"]:::client
     end
 
     WorkspaceState -->|"📁 Real-Time File Watch (2s)"| Parser
@@ -174,14 +174,14 @@ flowchart TD
     subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW (VS Code / Cursor / Windsurf / Antigravity)"]
         direction LR
         subgraph Col1 ["📝 Editor Group 1 (Left 60%)"]
-            SourceCode["<b>Active Source Code & Feature Specs</b><br/>• src/auth/login.ts<br/>• docs/features/002-student-enrollment.md"]:::editor
+            SourceCode["<b>Active Source Code & Specs</b><br/><sub>src/auth/login.ts • docs/features/002-*.md</sub>"]:::editor
         end
         subgraph Col2 ["📊 Editor Group 2 (Right 40%)"]
-            SimpleBrowser["<b>Docked Simple Browser Viewport</b><br/>• http://127.0.0.1:4200 (SDD)<br/>• http://127.0.0.1:4201 (Vibe)<br/>⚡ Running Task at Index 0<br/>📅 HEAD Commit on Top"]:::dash
+            SimpleBrowser["<b>Docked Simple Browser Viewport</b><br/><sub>http://127.0.0.1:4200 (SDD) / :4201 (Vibe)</sub>"]:::dash
         end
     end
     subgraph TerminalPane ["💻 Integrated Terminal Pane (Bottom)"]
-        DevServer["<b>Active Dev Server / Test Suite / logs/ Streams</b>"]:::term
+        DevServer["<b>Integrated Terminal Execution Pane</b><br/><sub>Active Dev Server • Automated Tests • logs/*.log</sub>"]:::term
     end
 ```
 

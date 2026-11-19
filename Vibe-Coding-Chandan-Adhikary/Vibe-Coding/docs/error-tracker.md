@@ -19,10 +19,21 @@ Defect tracking, sensory glitch logging, regression prevention, and resolution h
 
 ```mermaid
 flowchart LR
-    Detect["1. Defect / Glitch Logged<br/>(ERR-###)"] --> Isolate["2. Isolate Root Cause<br/>(Console / Server Logs)"]
-    Isolate --> Patch["3. Minimal Targeted Patch<br/>(Keep fix minimal)"]
-    Patch --> Verify["4. Live Sensory & Automated Check<br/>(Verify Green)"]
-    Verify --> Close["5. Log & Close Defect<br/>(Status: RESOLVED)"]
+    classDef err fill:#4c0519,stroke:#fb7185,stroke-width:1.5px,color:#fff1f2;
+    classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef close fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
+
+    Detect(["<b>🐛 1. Defect Logged</b><br/><sub>Ingest & Assign ERR-###</sub>"]):::err
+    Isolate["<b>🔍 2. Isolate Cause</b><br/><sub>Console & Server Logs</sub>"]:::step
+    Patch["<b>🛠️ 3. Targeted Patch</b><br/><sub>Surgical Code Diff</sub>"]:::step
+    Verify["<b>🌐 4. Live Sensory Check</b><br/><sub>Verify at localhost:3000</sub>"]:::sensory
+    Close(["<b>✅ 5. Log & Close Defect</b><br/><sub>Status: RESOLVED</sub>"]):::close
+
+    Detect -->|"Isolate"| Isolate
+    Isolate -->|"Patch"| Patch
+    Patch -->|"Verify UX"| Verify
+    Verify -->|"Confirmed"| Close
 ```
 
 ---

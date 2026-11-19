@@ -19,10 +19,22 @@ Systematic tracking, root cause analysis, regression prevention, and defect hist
 
 ```mermaid
 flowchart LR
-    Detect["1. Defect Reported / Logged<br/>(ERR-###)"] --> Isolate["2. Reproduce & Isolate<br/>(Identify Root Cause)"]
-    Isolate --> RegressionTest["3. Write Failing Test<br/>(TEST-FEAT###-##)"]
-    RegressionTest --> Patch["4. Apply Minimal Fix<br/>(Code & Spec alignment)"]
-    Patch --> Verify["5. Verify Green & Close<br/>(Status: RESOLVED)"]
+    classDef err fill:#4c0519,stroke:#fb7185,stroke-width:1.5px,color:#fff1f2;
+    classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef red fill:#881337,stroke:#f43f5e,stroke-width:2px,color:#fff1f2;
+    classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef close fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
+
+    Detect(["<b>🐛 1. Defect Logged</b><br/><sub>Ingest & Assign ERR-###</sub>"]):::err
+    Isolate["<b>🔍 2. Root Cause</b><br/><sub>Reproduce Failing State</sub>"]:::step
+    RegressionTest["<b>🔴 3. Write Failing Test</b><br/><sub>Scaffold Red Contract</sub>"]:::red
+    Patch["<b>🟢 4. Minimal Code Fix</b><br/><sub>Pass Test & Refactor</sub>"]:::green
+    Verify(["<b>✅ 5. Verify & Close</b><br/><sub>Green & Status RESOLVED</sub>"]):::close
+
+    Detect -->|"Reproduce"| Isolate
+    Isolate -->|"Scaffold"| RegressionTest
+    RegressionTest -->|"Implement"| Patch
+    Patch -->|"Verify All Green"| Verify
 ```
 
 ---
