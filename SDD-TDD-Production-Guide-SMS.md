@@ -24,6 +24,58 @@
 
 This guide provides an end-to-end, production-ready blueprint for building **EduSphere Enterprise**—a secure, multi-tenant School Management System designed for strict regulatory compliance (FERPA, COPPA, GDPR) and mission-critical reliability.
 
+```mermaid
+flowchart TD
+    subgraph ClientIngress ["EduSphere Portal Ingress"]
+        AdminWeb["District & School Admin Portal<br/>(Next.js App Router / SSR)"]
+        TeacherWeb["Teacher Grading & Attendance Web<br/>(Real-Time Classroom UI)"]
+        ParentPortal["Parent & Student Mobile PWA<br/>(Read-Only Grades & Reports)"]
+    end
+
+    subgraph AppTier ["Next.js 15 Core Server Tier"]
+        AuthModule["JWT & Session Auth Guard<br/>(NextAuth / Auth0)"]
+        TenantResolver["Tenant Resolution Middleware<br/>(Extracts Subdomain / Tenant ID)"]
+        StudentService["Student Enrollment Service<br/>(FERPA-Compliant Validator)"]
+        AttendanceEngine["Attendance Ledger & Audit Engine"]
+    end
+
+    subgraph DataTier ["PostgreSQL Multi-Tenant Persistence Tier"]
+        DBConn["Database Connection Pool<br/>(Prisma Client / pgBouncer)"]
+        RLS["PostgreSQL Row-Level Security (RLS)<br/>SET LOCAL app.current_tenant_id = ?"]
+        TenantTables[("Multi-Tenant Schemas / Tables<br/>• schools, students, enrollments<br/>• attendance_records, audit_logs")]
+        RedisCache[("Redis Session & Rate Limit Cache")]
+    end
+
+    ClientIngress --> AuthModule
+    AuthModule --> TenantResolver
+    TenantResolver --> StudentService
+    TenantResolver --> AttendanceEngine
+
+    StudentService --> DBConn
+    AttendanceEngine --> DBConn
+    DBConn --> RLS
+    RLS --> TenantTables
+    AuthModule <--> RedisCache
+```
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant User as Teacher / Principal (Browser)
+    participant Server as Next.js API Route (/api/students/enroll)
+    participant DB as PostgreSQL (with RLS)
+
+    User->>Server: POST /api/students/enroll (Bearer JWT, Payload)
+    Note over Server: Validates JWT & Extracts tenant_id: "school_101"<br/>Validates Payload with Zod Schema
+    Server->>DB: BEGIN Transaction
+    Server->>DB: SET LOCAL app.current_tenant_id = 'school_101';
+    Note over DB: Enforces RLS Policy:<br/>USING (tenant_id = current_setting('app.current_tenant_id'))
+    Server->>DB: INSERT INTO students (admission_num, name, grade...)
+    DB-->>Server: 201 Created (Student Record Locked to Tenant)
+    Server->>DB: COMMIT Transaction
+    Server-->>User: 201 Created { success: true, studentId: "..." }
+```
+
 ---
 
 ## Table of Contents

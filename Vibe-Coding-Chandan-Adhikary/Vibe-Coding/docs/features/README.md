@@ -1,42 +1,41 @@
 # Feature Specifications (`docs/features/`)
+### Living Contracts & Sensory UI Specifications for Vibe-Coding
 
-> **Document class:** Controlled process guideline  
-> **Framework:** Vibe-Coding  
-> **Guideline baseline:** 2.0.0  
-> **Status:** Active Standard  
+<div align="center">
 
-## Purpose
+[![Specifications](https://img.shields.io/badge/Contracts-Living_Feature_Specs-purple?style=for-the-badge&logo=gitbook)](.)
+[![Formats](https://img.shields.io/badge/Formats-Flat_|_Modular-indigo?style=for-the-badge)](.)
+[![Lifecycle](https://img.shields.io/badge/Lifecycle-Progressive_Hardening-pink?style=for-the-badge)](.)
+[![Traceability](https://img.shields.io/badge/Traceability-FEAT_|_AC_|_SENSORY-green?style=for-the-badge)](../requirements-traceability.md)
 
-`docs/features/` is the canonical location for versioned feature specifications and UI/sensory contracts.
+[🌟 Purpose](#-purpose) • [🏛️ Format Decision Tree](#️-flat-vs-modular-decision-tree) • [📊 Complexity Tiers](#-feature-complexity-breakdown-tiers) • [🔄 Lifecycle State Machine](#-living-specification-lifecycle-state-machine) • [📋 Traceability](#-identifier-traceability-scheme)
 
-## Agent Read & Execution Triggers
-
-- **MUST** read this file before creating, modifying, or implementing any feature specification.
-- **MUST** develop features **step-by-step, spec-by-spec**: never attempt to implement all features simultaneously. Build, test, verify user sensory feedback, and update documentation before moving to the next feature.
+</div>
 
 ---
 
-## Normative Sections and Rules
+## 🌟 Purpose
 
-### 1. Mandatory Format Inquiry: Flat vs. Modular
-
-When initiating a new feature specification during `/plan-ca-agent` or vibe planning, the agent **MUST ALWAYS ask the developer first**:
-
-> *"Would you prefer this specification to be created in **Flat format** (`docs/features/NNN-name.md`) or **Modular format** (`docs/features/NNN-name/{feature,acceptance,test-plan}.md`)?"*
-
-- If the developer specifies a preference, the agent strictly follows it.
-- If the developer defers or leaves it open, the agent decides based on the complexity tier:
-  - **Easy / Intermediate Features** → **Flat Format**.
-  - **Hard / Complex Features** → **Modular Format**.
-
-| Format | Directory Layout | Criteria & Use Case |
-|---|---|---|
-| **Flat** | `docs/features/NNN-name.md`<br/>(Single file containing all sections) | Easy to Medium features (Tier 1 & Tier 2); focused scope, 1–6 files impacted. |
-| **Modular** | `docs/features/NNN-name/`<br/>├── `feature.md`<br/>├── `acceptance.md`<br/>└── `test-plan.md` | Complex features (Tier 3); multi-model relationships, payment integrations, real-time websockets. |
+`docs/features/` is the canonical location for living feature contracts within the Vibe-Coding framework. Feature specifications evolve from initial prototype notes into hardened, production-ready contracts.
 
 ---
 
-### 2. Feature Complexity Breakdown Tiers
+## 🏛️ Flat vs. Modular Decision Tree
+
+```mermaid
+flowchart TD
+    Start["Initiate New Feature Spec<br/>(/plan-ca-agent or Vibe Planning)"] --> DevAsk{"Ask Developer:<br/>'Do you prefer Flat or Modular format?'"}
+    
+    DevAsk -->|"Developer Specifies"| UserChoice["Follow Explicit User Choice"]
+    DevAsk -->|"Developer Defers / No Choice"| AutoTier{"Evaluate Complexity Tier"}
+    
+    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Intermediate)<br/>1 to 6 files impacted"| FlatFormat["Scaffold Flat Format<br/>docs/features/NNN-name.md<br/>(Single cohesive document)"]
+    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["Scaffold Modular Format<br/>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md"]
+```
+
+---
+
+## 📊 Feature Complexity Breakdown Tiers
 
 | Tier | Complexity Category | Scope & Criteria | Testing & Sensory Gate |
 |---|---|---|---|
@@ -46,16 +45,58 @@ When initiating a new feature specification during `/plan-ca-agent` or vibe plan
 
 ---
 
-### 3. Step-by-Step Spec Development Protocol
+## 🔄 Step-by-Step Spec Development Protocol
 
 ```mermaid
 flowchart TD
-    SelectSpec["1. Select Single Spec<br/>(e.g., FEAT-001)"] --> ScaffoldCode["2. Implement Layout & Logic<br/>(Satisfy requirements)"]
-    ScaffoldCode --> LiveVerify["3. Test & Sensory Check<br/>(Check UX, speed, edge cases)"]
+    SelectSpec["1. Select Single Spec<br/>(e.g., FEAT-001)"] --> ScaffoldCode["2. Implement Layout & Logic<br/>(Satisfy visual & functional needs)"]
+    ScaffoldCode --> LiveVerify["3. Test & Sensory Check<br/>(Visual inspection via /run-ca-agent)"]
     LiveVerify --> UpdateDocs["4. Update Docs & Trackers<br/>(docs/task.md, error-tracker.md)"]
     UpdateDocs --> NextSpec{"More features to build?"}
-    NextSpec -->|"Yes: Next spec"| SelectSpec
-    NextSpec -->|"No: Complete"| FinalAudit["5. Run /release-check-ca-agent"]
+    NextSpec -->|"Yes: Step-by-step next spec"| SelectSpec
+    NextSpec -->|"No: All done"| FinalAudit["5. Run /release-check-ca-agent"]
 ```
 
-- **MUST NOT** begin work on a subsequent feature until the current feature's acceptance criteria and sensory checkpoints are fully met, verified, and documented.
+> [!CRITICAL]
+> **MUST NOT** begin work on a subsequent feature until the current feature's acceptance criteria and sensory checkpoints are fully met, verified, and documented.
+
+---
+
+## 🔄 Living Specification Lifecycle State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> PROTOTYPE: Fluid Vibe Discovery
+    PROTOTYPE --> DRAFT: Living Spec Scaffolded
+    DRAFT --> IN_REVIEW: Interactive Demo Verified
+    IN_REVIEW --> APPROVED: Signed Approval for Production
+    
+    APPROVED --> SUPERSEDED: Newer Spec Iteration
+    APPROVED --> DEPRECATED: Capability Retired
+    
+    SUPERSEDED --> [*]
+    DEPRECATED --> [*]
+```
+
+| Status | Meaning | Implementation Allowed? |
+| :--- | :--- | :--- |
+| **`PROTOTYPE`** | Initial discovery notes; experimental code. | Rapid prototyping only |
+| **`DRAFT`** | Living specification draft being refined. | UI scaffolding permitted |
+| **`IN REVIEW`** | Submitted for team and visual sign-off. | Pre-deploy testing |
+| **`APPROVED`** | Formally signed off for production. | **YES** — production code |
+| **`SUPERSEDED`**| Replaced by a newer approved version. | No new work |
+| **`DEPRECATED`**| Capability retired or decommissioned. | Removal work only |
+
+---
+
+## 📋 Identifier Traceability Scheme
+
+Defined canonically in `docs/requirements-traceability.md`:
+
+| Artifact | Pattern | Concrete Example |
+| :--- | :--- | :--- |
+| **Feature Contract** | `FEAT-###` | `FEAT-002` |
+| **Functional Requirement** | `FR-FEAT###-##` | `FR-FEAT002-01` |
+| **Acceptance Criterion** | `AC-FEAT###-##` | `AC-FEAT002-03` |
+| **Sensory UI Check** | `SENSORY-FEAT###-##` | `SENSORY-FEAT002-01` |
+| **Test Case Identifier** | `TEST-FEAT###-##` | `TEST-FEAT002-03` |

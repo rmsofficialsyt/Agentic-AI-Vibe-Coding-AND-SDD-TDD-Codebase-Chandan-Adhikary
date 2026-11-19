@@ -1,188 +1,241 @@
 # AI-Powered Project Development Frameworks
-### 2-in-1 Architecture: Vibe-Coding & Spec-Driven Development (SDD + TDD)
+### 2-in-1 Enterprise Architecture: Vibe-Coding & Spec-Driven Development (SDD + TDD)
 
-**Engineering Lead:** Chandan Adhikary  
-**Version:** 2.0.0 (Production-Grade Universal Release)  
-**Supported Platforms:** Claude Code, Cursor, Windsurf, Antigravity, OpenCode, Codex, Trae, VS Code with AI Agents, Terminal CLI Agents  
-**License:** [MIT License](LICENSE.md) · **Security:** [Security Policy](.github/SECURITY.md)
+<div align="center">
+
+[![Framework](https://img.shields.io/badge/Framework-2--in--1_Dual--Track-blue?style=for-the-badge&logo=codewars)](.)
+[![Release](https://img.shields.io/badge/Version-2.0.0_Universal-indigo?style=for-the-badge)](.)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE.md)
+[![Security](https://img.shields.io/badge/Security-Enforced-red?style=for-the-badge)](.github/SECURITY.md)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-teal?style=for-the-badge)](.)
+
+**Engineering Lead:** Chandan Adhikary · **Standard:** Production-Grade Universal Release  
+**Supported Platforms:** Claude Code · Cursor · Windsurf · Antigravity · OpenCode · Codex · Trae · VS Code
+
+[🌟 Executive Overview](#-executive-overview) • [🧭 Dual-Track Decision](#-the-2-in-1-dual-workflow-framework) • [🔄 Architecture Workflows](#-prompt-workflow-diagrams) • [📁 Blueprint](#-repository-architecture-blueprint) • [⚡ Quick-Start](#-quick-start-guide-step-by-step-for-any-project) • [🖥️ Dashboard](#-in-ide-project-manager-dashboard) • [📖 Catalog](#-complete-documentation-catalog)
+
+</div>
 
 ---
 
 ## 🌟 Executive Overview
 
-This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. 
+This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. Whether you are building rapid consumer-facing SaaS products or mission-critical, enterprise multi-tenant systems, this repository enforces strict governance, zero speculative coding, and measurable quality gates.
 
-Both frameworks share the foundational rules of production-grade agentic engineering:
-> 1. **Do not ask the AI agent to start coding immediately:** First, let the agent inspect repository governance, propose an architecture, configure safe documentation, and obtain your approval.
-> 2. **Pre-Prompting Domain Knowledge & System Design Synthesis:** Before Step 5 (First Prompting), establish deep domain mastery and system design blueprints; if not manually prepared, ask the AI agent to formulate the overall system design during planning and integrate it with Prompt 1.
-> 3. **Mandatory Development Logging (`logs/` Folder):** Always maintain clean development log files (`*.log`) inside a separate, dedicated `logs/` folder (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`).
-> 4. **Staged Web Development (Frontend-First Verification):** For websites and webapps, never build all features at once. First develop the frontend, verify it completely via an interactive demo run (`/run-ca-agent`), and only after visual and functional sign-off, build backend persistence, security hardening, and maintenance.
+```mermaid
+flowchart TD
+    subgraph RepoGateway ["AI-Powered Engineering Gateway"]
+        Choice{"Select Development Paradigm"}
+    end
+
+    subgraph Track1 ["Track 1: Vibe-Coding Track"]
+        VibePhilosophy["Intuitive, Visual & Rapid Prototyping"]
+        VibeSpeed["High Velocity • Sensory Demo • Living Specs"]
+        VibeBestFor["Best For: SaaS MVPs, UI Dashboards, Creative Tools"]
+    end
+
+    subgraph Track2 ["Track 2: SDD + TDD Track"]
+        SDDPhilosophy["Contract-First & Zero-Regression TDD"]
+        SDDRigor["Formal Specs • Failing Tests First • Strict Gates"]
+        SDDBestFor["Best For: Enterprise Core, FinTech, HealthTech, Regulated Systems"]
+    end
+
+    subgraph SharedCore ["Canonical Core Governance"]
+        AgentEngine[".agents/ Commands (16 Collision-Free Tools)"]
+        DashboardEngine["In-IDE Project-Manager-Dashboard (Ports 4200 / 4201)"]
+        DocGovernance["docs/ Governance Guidelines & ADR Decision Logs"]
+    end
+
+    Choice -->|"Rapid Iteration / Visual Focus"| Track1
+    Choice -->|"High Assurance / Strict Contracts"| Track2
+
+    Track1 --> SharedCore
+    Track2 --> SharedCore
+```
+
+### The 4 Foundational Directives of Agentic Engineering:
+> 1. **Never Code Speculatively:** Autonomous agents must first inspect repository governance, synthesize domain architecture, configure living documentation, and obtain explicit human sign-off before writing production code.
+> 2. **Pre-Prompting Domain Knowledge & System Design Synthesis:** Before Step 5 (First Prompting), establish deep domain mastery and system design blueprints (HLD/LLD); if not manually prepared, instruct the AI agent to formulate the architecture during planning.
+> 3. **Mandatory Development Logging (`logs/` Folder):** Always maintain clean, sanitized development logs (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`) inside a dedicated `logs/` directory.
+> 4. **Staged Web Development (Frontend-First Verification):** For web applications, never build all features at once. First develop the frontend (UI design, layout, responsiveness, mock/client state), verify it via a live demo run (`/run-ca-agent`), and only after visual sign-off proceed to backend persistence, security, and automated tests.
 
 ---
 
 ## 🧭 The 2-in-1 Dual Workflow Framework
 
-Choose the framework that matches your project requirements. Both tracks produce strictly production-grade software:
+Choose the framework that matches your delivery model and architectural requirements:
 
-```text
-=============================================================================================
-             TRACK 1: VIBE-CODING                            TRACK 2: SDD + TDD
----------------------------------------------   ---------------------------------------------
-* Location: Vibe-Coding-Chandan-Adhikary/       * Location: SDD-TDD-Chandan-Adhikary/
-            Vibe-Coding/                                    Spec-Driven-Development/
-* Workflow: Fluid Prompts (Iterative Loops)     * Workflow: Formal Quality Gated Prompts
-* Philosophy: Intuitive, visual, rapid UI        * Philosophy: Contract-first, zero regression
-* Specs: Living 'docs/features/' contracts      * Specs: Formal 'docs/features/' (Flat/Modular)
-* Testing: Visual runtime & sanity harnesses    * Testing: Test-First (TDD Red-Green-Refactor)
-* Best For: Rapid SaaS MVPs, UI-heavy apps,     * Best For: Enterprise SaaS, multi-tenant core,
-  consumer dashboards, interactive web tools      fintech, healthcare, mission-critical systems
-=============================================================================================
-```
+| Architectural Dimension | 🌟 Track 1: Vibe-Coding | 🛡️ Track 2: SDD + TDD |
+| :--- | :--- | :--- |
+| **Workspace Location** | `Vibe-Coding-Chandan-Adhikary/Vibe-Coding/` | `SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/` |
+| **Core Workflow** | Fluid Prompts & Rapid Iterative Loops | Formal Quality-Gated Prompts & Phase Gates |
+| **Engineering Philosophy** | Intuitive, visual feedback & rapid sensory UI | Contract-first, zero regression, test-driven |
+| **Specification Model** | Living `docs/features/` contracts (Iterative) | Formal `docs/features/` (Flat vs. Modular Tiers) |
+| **Verification Strategy** | Visual runtime inspection & sanity harnesses | Test-First (TDD: Red → Green → Refactor) |
+| **In-IDE Dashboard** | Port `4201` (`http://127.0.0.1:4201`) | Port `4200` (`http://127.0.0.1:4200`) |
+| **Recommended Scope** | Rapid SaaS MVPs, interactive apps, dashboards | Enterprise core, multi-tenant fintech, healthtech |
 
 ---
 
 ## 🔄 Prompt Workflow Diagrams
 
-Here is how prompts flow through each development paradigm:
-
-### Track 1: Vibe-Coding Workflow
+### Track 1: Vibe-Coding Prompt & Sensory Loop
 
 ```mermaid
 flowchart TD
-    Setup["Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> CmdCheck{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
-    CmdCheck --> PV1["Prompt V1: Discovery & Vibe Check<br/>(Plan Mode: Aesthetic, stack, personas)"]
+    Setup["1. Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> CmdCheck{"2. Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheck --> PV1["3. Prompt V1: Discovery & Vibe Check<br/>(Plan Mode: Aesthetic, stack, personas)"]
     
     PV1 --> HumanV1{"Human Approval<br/>of V1 Plan?"}
     HumanV1 -->|"Revisions needed"| PV1
-    HumanV1 -->|"Approved"| PV2["Prompt V2: Scaffold & Working Live UI<br/>(Layout, mock data, /run-ca-agent)"]
+    HumanV1 -->|"Approved"| PV2["4. Prompt V2: Scaffold & Working Live UI<br/>(Layout, mock data, /run-ca-agent)"]
     
-    PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
+    PV2 --> LiveCheck["5. Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
     
-    LiveCheck --> PV3["Prompt V3: Conversational Vibe-Tuning<br/>(Iterate UI, polish micro-interactions)"]
+    LiveCheck --> PV3["6. Prompt V3: Conversational Vibe-Tuning<br/>(Iterate UI, polish micro-interactions)"]
     PV3 --> Loop{"Vibe feels right?"}
     Loop -->|"No: adjust styling or features"| PV3
-    Loop -->|"Yes: ready to harden"| PV4["Prompt V4: Production Hardening & Pre-Deploy<br/>(Zod validation, error boundaries, security)"]
+    Loop -->|"Yes: ready to harden"| PV4["7. Prompt V4: Production Hardening & Pre-Deploy<br/>(Zod validation, error boundaries, security)"]
     
-    PV4 --> Audits["Run /security-audit-ca-agent & /release-check-ca-agent"]
-    Audits --> Ship["Production-Ready Deployment"]
+    PV4 --> Audits["8. Run /security-audit-ca-agent & /release-check-ca-agent"]
+    Audits --> Ship["9. Production-Ready Deployment"]
 ```
 
 ---
 
-### Track 2: Spec-Driven Development + TDD Workflow
+### Track 2: Spec-Driven Development + TDD Quality-Gated Loop
 
 ```mermaid
 flowchart TD
-    SetupS["Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> CmdCheckS{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
-    CmdCheckS --> PS1["Prompt S1: Discovery & Architecture R&D<br/>(Plan Mode: System Design, HLD/LLD, models)"]
+    SetupS["1. Pre-Development Setup<br/>(Extract folder, rename, open IDE)"] --> CmdCheckS{"2. Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
+    CmdCheckS --> PS1["3. Prompt S1: Discovery & Architecture R&D<br/>(Plan Mode: System Design, HLD/LLD, models)"]
     
     PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
     HumanS1 -->|"Revise plan"| PS1
-    HumanS1 -->|"Approved"| PS2["Prompt S2: Configure Complete Codebase<br/>(docs/, ADR-001, tests/, activate -ca-agent commands)"]
+    HumanS1 -->|"Approved"| PS2["4. Prompt S2: Configure Complete Codebase<br/>(docs/, ADR-001, tests/, activate -ca-agent commands)"]
     
-    PS2 --> PS3["Prompt S3: Spec Validation & Test Scaffolding<br/>(Prompt: Flat or Modular? Easy/Med/Hard Tiers)"]
-    PS3 --> RedPhase["Scaffold Failing Tests (Red Phase)<br/>(Run /testing-ca-agent -> Confirm failures)"]
+    PS2 --> PS3["5. Prompt S3: Spec Validation & Test Scaffolding<br/>(Prompt: Flat or Modular? Easy/Med/Hard Tiers)"]
+    PS3 --> RedPhase["6. Scaffold Failing Tests (Red Phase)<br/>(Run /testing-ca-agent -> Confirm failures)"]
     
-    RedPhase --> PS4["Prompt S4: TDD Feature Implementation<br/>(Minimal code -> All tests PASS -> Refactor)"]
+    RedPhase --> PS4["7. Prompt S4: TDD Feature Implementation<br/>(Minimal code -> All tests PASS -> Refactor)"]
     PS4 --> GateCheck{"All AC Tests Green<br/>and /review-ca-agent clean?"}
     GateCheck -->|"Failing tests"| PS4
     GateCheck -->|"Passed"| NextFeature{"More features<br/>in docs/features/?"}
     NextFeature -->|"Yes: Step-by-step next spec"| PS3
-    NextFeature -->|"All complete"| PS5["Prompt S5: Production Readiness Audit<br/>(SAST scans, release checklist, signed approval)"]
+    NextFeature -->|"All complete"| PS5["8. Prompt S5: Production Readiness Audit<br/>(SAST scans, release checklist, signed approval)"]
     
-    PS5 --> Release["Production Release Authorization<br/>(docs/approvals/release-v1.0.0.md)"]
+    PS5 --> Release["9. Production Release Authorization<br/>(docs/approvals/release-v1.0.0.md)"]
 ```
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Architecture Blueprint
+
+```mermaid
+flowchart TD
+    subgraph Root ["Repository Root Structure"]
+        RootDocs["Universal Documentation<br/>• README.md<br/>• PROJECT-MANAGER-DASHBOARD-GUIDE.md<br/>• Standalone Production Guides"]
+        RootGov["Governance & Security<br/>• LICENSE.md (MIT)<br/>• .github/SECURITY.md<br/>• GEMINI.md"]
+    end
+
+    subgraph StarterTemplates ["Canonical Framework Blueprints"]
+        direction TB
+        subgraph T1Template ["Track 1: Vibe-Coding Template"]
+            T1Agents[".agents/ (Commands, Skills, Hooks)"]
+            T1Docs["docs/ (PRD, Architecture, Features)"]
+            T1Dash["Project-Manager-Dashboard (Port 4201)"]
+            T1Tests["tests/ (Visual & Sanity Harness)"]
+        end
+
+        subgraph T2Template ["Track 2: SDD-TDD Template"]
+            T2Agents[".agents/ (Commands, Skills, Hooks)"]
+            T2Docs["docs/ (Constitution, PRD, Features)"]
+            T2Dash["Project-Manager-Dashboard (Port 4200)"]
+            T2Tests["tests/ (TDD Test-First Suites)"]
+        end
+    end
+
+    Root --> StarterTemplates
+```
 
 ```text
-Guide-Github/
+SDD-Vibe/
 ├── README.md                                         # Universal overview & quick-start guide
-├── LICENSE.md                                        # MIT License (Chandan Adhikary / RMS Officials)
-├── CUSTOM-SLASH-COMMANDS-GUIDE.md                    # Universal Slash Commands & Prompting Guide
+├── LICENSE.md                                        # MIT License (Chandan Adhikary)
 ├── PROJECT-MANAGER-DASHBOARD-GUIDE.md                # In-IDE Project-Manager-Dashboard Step-by-Step Guide
-├── .gitignore                                        # Standard development ignores
+├── GEMINI.md                                         # Master Agent Configuration & Operational Contracts
 ├── .github/
 │   ├── SECURITY.md                                   # Vulnerability disclosure & security policy
 │   └── workflows/frameworks-ci.yml                   # CI pipeline validating framework packages
 │
 ├── 🌟 VIBE-CODING TRACK (STANDALONE GUIDES):
-├── Vibe-Coding-Production-Guide-Universal.md         # Universal Vibe-Coding Production Guide for ANY Project
-├── Vibe-Coding-Production-Guide-SMS.md               # Reference Vibe-Coding Production Guide (SMS Demo)
-├── Vibe-Coding-Custom-Slash-Command-Universal.md     # Universal Vibe Slash Commands Guide (16 Commands Table)
-├── Vibe-Coding-Custom-Slash-Command-SMS.md           # Reference Vibe Slash Commands Guide (SMS Demo)
+│   ├── Vibe-Coding-Production-Guide-Universal.md     # Universal Vibe-Coding Production Guide for ANY Project
+│   ├── Vibe-Coding-Production-Guide-SMS.md           # Reference Vibe-Coding Production Guide (SMS Demo)
+│   ├── Vibe-Coding-Custom-Slash-Command-Universal.md # Universal Vibe Slash Commands Guide (16 Commands Table)
+│   └── Vibe-Coding-Custom-Slash-Command-SMS.md       # Reference Vibe Slash Commands Guide (SMS Demo)
 │
 ├── 🛡️ SDD + TDD TRACK (STANDALONE GUIDES):
-├── SDD-TDD-Production-Guide-Universal.md             # Universal SDD-TDD Production Guide for ANY Project
-├── SDD-TDD-Production-Guide-SMS.md                   # Reference SDD-TDD Production Guide (SMS Demo)
-├── SDD-TDD-Custom-Slash-Command-Universal.md         # Universal SDD Slash Commands Guide (16 Commands Table)
-└── SDD-TDD-Custom-Slash-Command-SMS.md               # Reference SDD Slash Commands Guide (SMS Demo)
+│   ├── SDD-TDD-Production-Guide-Universal.md         # Universal SDD-TDD Production Guide for ANY Project
+│   ├── SDD-TDD-Production-Guide-SMS.md               # Reference SDD-TDD Production Guide (SMS Demo)
+│   ├── SDD-TDD-Custom-Slash-Command-Universal.md     # Universal SDD Slash Commands Guide (16 Commands Table)
+│   └── SDD-TDD-Custom-Slash-Command-SMS.md           # Reference SDD Slash Commands Guide (SMS Demo)
 │
-├── 📦 CANONICAL STARTER TEMPLATES:
-├── Vibe-Coding-Chandan-Adhikary/
-│   └── Vibe-Coding/                                  # Track 1 Baseline Template (Extract & Rename)
-│       ├── AGENTS.md                                 # Portable agent entry point
-│       ├── LICENSE.md                                # MIT License
-│       ├── .agents/                                  # 16 commands & core repository skills          
-│       ├── docs/                                     # PRD, System Architecture, Design Tokens, features/
-│       ├── Project-Manager-Dashboard/                # Fluid In-IDE dashboard (port 4201)
-│       ├── scripts/                                  # Conformance & verification scripts
-│       ├── playbooks/                                # 11 operational workflow playbooks
-│       └── tests/                                    # Test contracts
-│
-└── SDD-TDD-Chandan-Adhikary/
-    └── Spec-Driven-Development/                      # Track 2 Baseline Template (Extract & Rename)
-        ├── AGENTS.md                                 # Portable agent entry point
-        ├── LICENSE.md                                # MIT License
-        ├── .agents/                                  # 16 commands & core repository skills          
-        ├── docs/                                     # Constitution, PRD, System Architecture, features/
-        ├── Project-Manager-Dashboard/                # Fluid In-IDE dashboard (port 4200)
-        ├── scripts/                                  # Conformance & verification scripts
-        ├── playbooks/                                # 11 operational workflow playbooks
-        └── tests/                                    # Test harness & test-first suites
+├── 📦 CANONICAL STARTER BLUEPRINTS:
+│   ├── Vibe-Coding-Chandan-Adhikary/Vibe-Coding/     # Track 1 Starter Template (Port 4201)
+│   └── SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/ # Track 2 Starter Template (Port 4200)
 ```
 
 ---
 
 ## ⚡ Quick-Start Guide (Step-by-Step for Any Project)
 
-### Step 1: Pick & Rename Your Framework
-1. Copy or extract either `Vibe-Coding-Chandan-Adhikary/Vibe-Coding/` or `SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/` to a clean working directory.
-2. Rename the folder to your product name in lowercase `kebab-case` (e.g. `[your-project-name]/`).
-3. Open the renamed folder in your AI coding IDE (Antigravity, Cursor, Windsurf, Claude Code, OpenCode, VS Code). Ensure the editor opens at the project root so it discovers `AGENTS.md` and `.agents/`.
+### Step 1: Pick & Rename Your Framework Blueprint
+1. Copy or extract either `Vibe-Coding-Chandan-Adhikary/Vibe-Coding/` or `SDD-TDD-Chandan-Adhikary/Spec-Driven-Development/` to your clean workspace.
+2. Rename the directory to your target application name in lowercase `kebab-case` (e.g. `my-awesome-saas/`).
+3. Open the directory at the root in your AI coding IDE (Cursor, Windsurf, Claude Code, Antigravity, VS Code).
 
-### Step 2: Mandatory — Verify Custom Slash Commands (Chat Dropdown & Terminal)
-Before creating any application code or directories:
-1. **Chat Dropdown:** Focus the chat box and type `/`. Confirm all 16 `*-ca-agent` commands appear with descriptions.
-2. **Terminal / CLI:** Run `ls .agents/commands/*-ca-agent.md` to ensure contracts are present and readable.
-*(Do not scaffold code until both checks pass!)*
+### Step 2: Verify Slash Commands (Chat Palette & Terminal)
+Before generating any application code:
+1. **Chat Dropdown:** Focus your AI assistant chat box and type `/`. Verify all 16 `*-ca-agent` commands appear with descriptions.
+2. **Terminal Verification:** Run `ls .agents/commands/*-ca-agent.md` to ensure command contracts exist.
 
-### Step 3: Execute via Pure Prompts or Custom Slash Commands
-
-Choose your preferred format:
-
-#### Format 1: Pure Prompts (Brief vs. Descriptive)
-Follow the 5-step cyclic loop:
-1. **Reading Prompt:** Ingest requirements and scope.
-2. **Analysis Prompt & Plan:** Deconstruct dependencies and technical boundaries before code.
-3. **Check/Recheck docs/ & playbooks/:** Review architecture and governance.
-4. **Review `*.md` Guidelines:** Identify required project customizations.
-5. **Overwrite Full Guidelines:** Update living docs (`docs/prd.md`, `system-architecture.md`, `task.md`) before writing code.
-6. **Step-by-Step Spec Development:** Implement, test, and review one spec at a time.
-
-#### Format 2: Custom Slash Commands (`-ca-agent`) + Prompts
-Type custom slash commands directly into your AI chat prompt:
-- **Track 1 (Vibe-Coding):** `/plan-ca-agent` → `/implement-ca-agent` + `/run-ca-agent` → `/task-ca-agent` + `/review-ca-agent` → `/security-audit-ca-agent` + `/release-check-ca-agent`.
-- **Track 2 (SDD-TDD):** `/plan-ca-agent` → `/task-ca-agent` → `/spec-check-ca-agent` + `/testing-ca-agent` (Red) → `/tdd-ca-agent` + `/review-ca-agent` (Green & Refactor) → `/security-audit-ca-agent` + `/release-check-ca-agent`.
+### Step 3: Launch Local Mission Control
+Start the zero-dependency telemetry dashboard:
+- **Slash Command:** Type `/dashboard-ca-agent` in chat.
+- **Direct Terminal:** Run `open-in-ide.bat` (Windows) or `bash open-in-ide.sh` (macOS/Linux).
+- **IDE Docking:** Open `Simple Browser: Show` and navigate to `http://127.0.0.1:4200` (SDD) or `http://127.0.0.1:4201` (Vibe). Dock the tab to Editor Group 2.
 
 ---
 
-## 🛡️ Built-in Capabilities & Collision Prevention
+## 🛡️ The 16 Collision-Free Custom Slash Commands (`.agents/commands/`)
 
-### Collision-Free Agent Commands (`.agents/commands/`)
-All 16 custom commands use the explicit `-ca-agent` namespace to eliminate collisions with IDE-reserved commands:
+All custom commands carry the `-ca-agent` namespace to guarantee zero collisions with IDE-reserved tokens:
+
+```mermaid
+stateDiagram-v2
+    [*] --> PlanPhase: /plan-ca-agent
+    PlanPhase --> SpecCheck: /spec-check-ca-agent
+    SpecCheck --> TaskSetup: /task-ca-agent
+    
+    state ExecutionStage {
+        [*] --> TestingRed: /testing-ca-agent (Red Phase)
+        TestingRed --> TddGreen: /tdd-ca-agent (Green Phase)
+        TddGreen --> Implement: /implement-ca-agent
+        Implement --> RuntimeVerify: /run-ca-agent
+    }
+
+    TaskSetup --> ExecutionStage
+    
+    state QualityGates {
+        [*] --> CodeReview: /review-ca-agent
+        CodeReview --> VerifyAC: /verify-ca-agent
+        VerifyAC --> SecurityScan: /security-audit-ca-agent
+    }
+
+    ExecutionStage --> QualityGates
+    QualityGates --> ReleaseGate: /release-check-ca-agent
+    ReleaseGate --> [*]: Production Ship
+```
 
 | Category | Slash Commands Available | Operational Scope |
 | :--- | :--- | :--- |
@@ -192,36 +245,42 @@ All 16 custom commands use the explicit `-ca-agent` namespace to eliminate colli
 | **Diagnostics & Handoff** | `/errorlogs-ca-agent` · `/gitlogs-ca-agent` · `/handoff-ca-agent` | Stack trace root-cause triage, git commit audit trails, engineering handoff dossiers |
 | **Visual Mission Control** | `/dashboard-ca-agent` | Launches portable, fluid In-IDE Bento Grid dashboard across all monitor resolutions |
 
-### Developer-Choice Skills Standard
-- **No Hardcoded Third-Party Skills:** Pre-bundling arbitrary external guidelines is eliminated. `.agents/skills/` contains strictly core deterministic workspace skills.
-- **On-Demand GitHub Installation:** Developers have full sovereignty to install skills directly from GitHub repositories or user plugins as their workflow requires.
-
 ---
 
-## 🖥️ In-IDE Project-Manager-Dashboard: Portable & Dynamic
+## 🖥️ In-IDE Project-Manager-Dashboard
 
-The in-built **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear-inspired Bento Grid Mission Control running inside your IDE:
+The in-built **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear and Shadcn UI-inspired telemetry dashboard running directly inside your editor:
 
-1. **100% Fluid & Portable Across All Resolutions:**
-   - No fixed `1440px` width; dynamically expands and reflows across Ultra-wide (21:9, 32:9), 4K, 1440p, 1080p, laptop, tablet, and mobile screens.
-2. **Current Running Task Always on Top:**
-   - Whichever sequential task is in progress (`Task 1`, `Task 2`, `TASK-001`, `IN_PROGRESS`, `RED_TEST_FAIL`) dynamically floats to the top with a highlighted `⚡ CURRENT RUNNING TASK` badge. Subsequent tasks maintain natural numerical order.
-3. **HEAD Git Commit Always on Top:**
-   - The latest commit is pinned at the top of the git feed with a glowing `[HEAD / CURRENT COMMIT]` indicator.
-4. **Token Telemetry & Context Health:**
-   - Visual readout of active agent context window usage, cache hit rate, and cost savings.
+```mermaid
+flowchart LR
+    subgraph IDE ["IDE Editor Workspace"]
+        EditorGroup1["Editor Group 1<br/>Active Code & Specs"]
+        EditorGroup2["Editor Group 2<br/>Docked Simple Browser<br/>(127.0.0.1:4200 or 4201)"]
+    end
 
-### How to Launch:
-- **Slash Command:** Type `/dashboard-ca-agent` in your AI chat.
-- **One-Click Script:** Double-click `open-in-ide.bat` (Windows) or execute `./open-in-ide.sh` (Mac/Linux).
-- **Dock in IDE:** Open `http://127.0.0.1:4200` (SDD) or `http://127.0.0.1:4201` (Vibe) in an IDE browser tab.
+    subgraph DaemonTier ["Zero-Dependency Local Daemon"]
+        Daemon["Node.js HTTP Server<br/>(server.js + parser.js)"]
+        FileWatchers["File Watchers & Git Telemetry<br/>(task.md, phases.md, .git)"]
+    end
+
+    FileWatchers --> Daemon
+    Daemon -->|"Live SSE / JSON Telemetry"| EditorGroup2
+    EditorGroup1 -.->|"Writes to docs/"| FileWatchers
+```
+
+### Dashboard Core Capabilities:
+- **100% Fluid & Responsive:** Scales gracefully from split editor panes to 4K ultrawide monitors.
+- **Current Running Task Always on Top:** Actively running task (`Task 1`, `IN_PROGRESS`, `RED_TEST_FAIL`) dynamically floats to Index 0 with a highlighted `⚡ CURRENT RUNNING TASK` badge.
+- **HEAD Git Commit Pinned on Top:** Latest commit pinned at top with `[HEAD / CURRENT COMMIT]` indicator and exact `📅 DD-MM-YYYY` timestamp.
+- **Working AC Contract Engine:** Acceptance Criteria (`AC-*`) with Given/When/Then scenario inspection and live status cycling (`PENDING` → `RED` → `GREEN`).
+- **AI Token Telemetry:** Real-time token consumption, cache hit rate, and session cost savings tracking.
 
 ---
 
 ## 📖 Complete Documentation Catalog
 
-### 1. Universal Guides for ANY Project
-- **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** — Master guide for slash commands, prompt formats, activation steps, and Webdev / Data Analysis reference architectures.
+### 1. Universal Framework Master Guides
+- **[CUSTOM-SLASH-COMMANDS-GUIDE.md](CUSTOM-SLASH-COMMANDS-GUIDE.md)** — Master guide for custom slash commands, prompt formats, activation steps, and Webdev / Data Analysis reference architectures.
 - **[PROJECT-MANAGER-DASHBOARD-GUIDE.md](PROJECT-MANAGER-DASHBOARD-GUIDE.md)** — In-IDE Project-Manager-Dashboard step-by-step launch, docking, AC engine, and token telemetry guide.
 - **[Vibe-Coding-Production-Guide-Universal.md](Vibe-Coding-Production-Guide-Universal.md)** — Universal Vibe-Coding production guide with variable mapping for any SaaS, web app, or marketplace.
 - **[SDD-TDD-Production-Guide-Universal.md](SDD-TDD-Production-Guide-Universal.md)** — Universal SDD-TDD production guide with variable mapping for enterprise and regulated systems.
@@ -233,3 +292,9 @@ The in-built **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear-in
 - **[SDD-TDD-Production-Guide-SMS.md](SDD-TDD-Production-Guide-SMS.md)** — Enterprise production guide for building EduSphere with PostgreSQL RLS and FERPA compliance.
 - **[Vibe-Coding-Custom-Slash-Command-SMS.md](Vibe-Coding-Custom-Slash-Command-SMS.md)** — Dedicated Vibe-Coding slash command SMS demo.
 - **[SDD-TDD-Custom-Slash-Command-SMS.md](SDD-TDD-Custom-Slash-Command-SMS.md)** — Dedicated SDD-TDD slash command SMS demo.
+
+---
+
+## 🛡️ License & Governance
+
+This framework and its templates are distributed under the [MIT License](LICENSE.md). All projects instantiated from these templates maintain complete sovereignty to choose their own application licenses and tech stacks.

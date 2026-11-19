@@ -20,6 +20,28 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 5. **Staged Web Development (Frontend-First Verification)**: Never build all features at once. First build and visually verify the frontend during a live demo run (`/run-ca-agent`). Once design and features work completely on screen, proceed to backend persistence, security hardening, and maintenance.
 6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
+```mermaid
+flowchart TD
+    subgraph VibeProgression ["Vibe-Coding Progressive Hardening Pipeline"]
+        V1["Prompt V1: Discovery & Aesthetics<br/>(Design tokens, palette, user personas)"] --> V2["Prompt V2: Scaffold Live UI<br/>(Component layouts, mock state, /run-ca-agent)"]
+        V2 --> V3["Prompt V3: Conversational Vibe-Tuning<br/>(Micro-interactions, spacing, transitions)"]
+        V3 --> SensoryApproval{"Visual & Tactile<br/>Sign-Off?"}
+        SensoryApproval -->|"Iterate UI"| V3
+        SensoryApproval -->|"Approved"| V4["Prompt V4: Progressive Hardening<br/>(Zod schemas, error boundaries, auth guards)"]
+        V4 --> V5["Prompt V5: Security & Release Gate<br/>(/security-audit-ca-agent, /release-check-ca-agent)"]
+    end
+```
+
+```mermaid
+flowchart LR
+    subgraph StageGates ["4-Stage Progressive Web App Delivery"]
+        direction LR
+        StageA["Stage A: Frontend UI Demo<br/>• Next.js/Vite Components<br/>• Live Sensory Demo at :3000<br/>• Visual Sign-Off"] --> StageB["Stage B: Persistence<br/>• Database Schema<br/>• API Routes & DTOs<br/>• Migrations"]
+        StageB --> StageC["Stage C: Security<br/>• JWT / Session Auth<br/>• RBAC / Permissions<br/>• Input Sanitization"]
+        StageC --> StageD["Stage D: Testing & Gate<br/>• Sanity & E2E Suites<br/>• Pre-flight CI Gate<br/>• Production Ship"]
+    end
+```
+
 ---
 
 ## How to Use This Universal Guide & Variable Substitution

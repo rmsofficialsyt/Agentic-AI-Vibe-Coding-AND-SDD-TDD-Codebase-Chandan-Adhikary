@@ -21,6 +21,45 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 
 This guide provides an end-to-end, production-ready blueprint for creating **EduSphere**—a multi-tenant, cloud-based School Management SaaS Website serving Administrators, Principals, Teachers, Students, and Parents.
 
+```mermaid
+flowchart TD
+    subgraph VibePrototype ["EduSphere Vibe Prototyping Architecture"]
+        direction TB
+        subgraph SensoryTier ["Sensory UI Layer (Next.js 15 App Router)"]
+            Dashboard["Admin & Teacher Modern Bento Dashboard<br/>(Tailwind CSS + Shadcn UI Zinc Tokens)"]
+            StudentGrid["Student Roster & Quick Enrollment Cards"]
+            AttendancePills["Interactive Attendance Toggle Pills<br/>(Present, Absent, Late, Excused)"]
+        end
+
+        subgraph ClientState ["Reactive Mock & Prototype State"]
+            ClientStore["React Context / Zustand Mock Store<br/>(Instant zero-latency feedback)"]
+            LocalPersist["Local Storage Prototype Sync"]
+        end
+
+        subgraph HardenedBackend ["Progressive Backend Target"]
+            ServerAPI["Next.js Route Handlers (/api/v1)"]
+            PrismaORM["Prisma Client & PostgreSQL"]
+        end
+    end
+
+    SensoryTier <--> ClientStore
+    ClientStore -.-> LocalPersist
+    ClientStore ==>|"Hardening Phase"| ServerAPI
+    ServerAPI --> PrismaORM
+```
+
+```mermaid
+flowchart LR
+    subgraph FeedbackCycle ["Conversational Vibe-Tuning Cycle"]
+        Inspect["Run /run-ca-agent<br/>Inspect at localhost:3000"] --> PromptAgent["Chat Prompt:<br/>'Add soft shadows to student cards and smooth transitions'"]
+        PromptAgent --> ApplyDiff["Agent Applies CSS/JSX Diff"]
+        ApplyDiff --> FastRefresh["Fast Refresh Hot-Reload"]
+        FastRefresh --> VisualApproval{"Vibe Approved?"}
+        VisualApproval -->|"Iterate"| PromptAgent
+        VisualApproval -->|"Approved"| LockContract["Update Living Spec<br/>(docs/features/002-student-enrollment.md)"]
+    end
+```
+
 ---
 
 ## Table of Contents

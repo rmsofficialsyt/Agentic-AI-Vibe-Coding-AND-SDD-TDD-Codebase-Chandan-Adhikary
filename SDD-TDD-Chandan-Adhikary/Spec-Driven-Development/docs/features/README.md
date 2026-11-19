@@ -1,44 +1,44 @@
 # Feature Specifications (`docs/features/`)
+### Canonical Living Contracts & Acceptance Criteria Architecture
 
-> **Document class:** Controlled process guideline  
-> **Framework:** SDD  
-> **Guideline baseline:** 2.0.0  
-> **Status:** Active Standard  
+<div align="center">
 
-## Purpose
+[![Specifications](https://img.shields.io/badge/Contracts-Living_Feature_Specs-blue?style=for-the-badge&logo=gitbook)](.)
+[![Formats](https://img.shields.io/badge/Formats-Flat_|_Modular-indigo?style=for-the-badge)](.)
+[![Lifecycle](https://img.shields.io/badge/Lifecycle-Formal_Quality_Gates-teal?style=for-the-badge)](.)
+[![Traceability](https://img.shields.io/badge/Traceability-CAP_|_REQ_|_AC_|_TEST-green?style=for-the-badge)](../requirements-traceability.md)
 
-`docs/features/` is the **only** canonical location for versioned feature contracts. A repository-level `specs/` directory is not permitted. `docs/spec.md` indexes the current approved version of every feature; it never overrides a feature file.
+[🌟 Purpose](#-purpose) • [🏛️ Format Decision Tree](#️-flat-vs-modular-decision-tree) • [📊 Complexity Tiers](#-feature-complexity-breakdown-tiers) • [🔄 Lifecycle State Machine](#-specification-lifecycle-state-machine) • [📋 Traceability](#-identifier-traceability-scheme)
 
-Hierarchy: `docs/product.md` (capabilities `CAP-###`) → `docs/prd.md` (requirements `REQ-###`) → `docs/features/` (contracts `FEAT-###`) → tests → code.
-
-## Agent Read & Execution Triggers
-
-- **MUST** read this file before creating, renaming, versioning, or validating any feature specification.
-- **MUST** develop features **step-by-step, spec-by-spec**: never attempt to implement all features or multiple core features simultaneously. Finish one spec completely (Red → Green → Refactor → Verification → Doc Update) before progressing to the next.
+</div>
 
 ---
 
-## Normative Sections and Rules
+## 🌟 Purpose
 
-### 1. Mandatory Format Inquiry: Flat vs. Modular
+`docs/features/` is the **only** canonical location for versioned feature contracts within the repository. A root-level `specs/` directory is not permitted. `docs/spec.md` indexes the current approved version of every feature; it never overrides an individual feature file.
 
-Whenever initiating a new feature specification (during `/plan-ca-agent`, `/spec-check-ca-agent`, or planning prompts), the agent **MUST ALWAYS ask the developer first**:
-
-> *"Would you prefer this specification to be created in **Flat format** (`docs/features/NNN-name.md`) or **Modular format** (`docs/features/NNN-name/{feature,acceptance,test-plan}.md`)?"*
-
-- If the developer specifies a preference, the agent strictly follows it.
-- If the developer defers or does not specify, the agent **MUST decide autonomously** based on the Feature Complexity Tier:
-  - **Easy / Intermediate Features** → **Flat Format** (single cohesive file).
-  - **Hard / Complex Features** → **Modular Format** (separated `feature.md`, `acceptance.md`, `test-plan.md`).
-
-| Format | Directory Layout | Criteria & Use Case |
-|---|---|---|
-| **Flat** | `docs/features/NNN-name.md`<br/>(Single file containing all sections) | Easy to Medium features (Tier 1 & Tier 2); focused scope, 1–6 files impacted. |
-| **Modular** | `docs/features/NNN-name/`<br/>├── `feature.md` (sections 1–6, 9)<br/>├── `acceptance.md` (section 7)<br/>└── `test-plan.md` (section 8) | Complex features (Tier 3); multi-model relationships, payment gateways, RLS, background pipelines. |
+### Traceability Hierarchy:
+`docs/product.md` (Capabilities `CAP-###`) → `docs/prd.md` (Requirements `REQ-###`) → `docs/features/` (Contracts `FEAT-###`) → Automated Tests (`TEST-*`) → Production Code.
 
 ---
 
-### 2. Feature Complexity Breakdown Tiers
+## 🏛️ Flat vs. Modular Decision Tree
+
+```mermaid
+flowchart TD
+    Start["Initiate New Feature Spec<br/>(/plan-ca-agent or /spec-check-ca-agent)"] --> DevAsk{"Ask Developer:<br/>'Do you prefer Flat or Modular format?'"}
+    
+    DevAsk -->|"Developer Specifies"| UserChoice["Follow Explicit User Choice"]
+    DevAsk -->|"Developer Defers / No Choice"| AutoTier{"Evaluate Complexity Tier"}
+    
+    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Intermediate)<br/>1 to 6 files impacted"| FlatFormat["Scaffold Flat Format<br/>docs/features/NNN-name.md<br/>(Single cohesive document)"]
+    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["Scaffold Modular Format<br/>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md"]
+```
+
+---
+
+## 📊 Feature Complexity Breakdown Tiers
 
 Every feature must be categorized into one of three complexity tiers to drive sizing, test strategies, and implementation pacing:
 
@@ -50,52 +50,61 @@ Every feature must be categorized into one of three complexity tiers to drive si
 
 ---
 
-### 3. Step-by-Step Spec Development Protocol
+## 🔄 Step-by-Step Spec Development Protocol
 
 ```mermaid
 flowchart TD
-    SelectSpec["1. Select Single Approved Spec<br/>(e.g., FEAT-001)"] --> WriteTests["2. Write Failing Tests (Red)<br/>(Directly verify AC-FEAT001-##)"]
-    WriteTests --> ImplementCode["3. Implement Minimum Code (Green)<br/>(Satisfy test assertions only)"]
-    ImplementCode --> RefactorCode["4. Refactor & Polish<br/>(Clean architecture, zero test regressions)"]
+    SelectSpec["1. Select Single Approved Spec<br/>(e.g., FEAT-001)"] --> WriteTests["2. Write Failing Tests (Red Phase)<br/>(Directly verify AC-FEAT001-##)"]
+    WriteTests --> ImplementCode["3. Implement Minimum Code (Green Phase)<br/>(Satisfy test assertions only)"]
+    ImplementCode --> RefactorCode["4. Refactor & Clean<br/>(Clean architecture, zero test regressions)"]
     RefactorCode --> UpdateDocs["5. Update Docs & Trackers<br/>(docs/error-tracker.md, task.md, CHANGELOG.md)"]
     UpdateDocs --> NextSpec{"More features in scope?"}
-    NextSpec -->|"Yes: Select next spec"| SelectSpec
+    NextSpec -->|"Yes: Step-by-step next spec"| SelectSpec
     NextSpec -->|"No: All done"| ReleaseAudit["6. Run /release-check-ca-agent"]
 ```
 
-- **MUST NOT** begin work on a subsequent feature until the current feature's acceptance criteria are fully met, verified green by automated tests, and all relevant documentation files are updated.
+> [!CRITICAL]
+> **MUST NOT** begin work on a subsequent feature until the current feature's acceptance criteria are fully met, verified green by automated tests, and all relevant documentation files are updated.
 
 ---
 
-### 4. Status Lifecycle
+## 🔄 Specification Lifecycle State Machine
 
-```text
-DRAFT ──► IN REVIEW ──► APPROVED ──► SUPERSEDED (by newer approved version)
-  ▲            │            └──────► DEPRECATED (capability retired)
-  └── changes ─┘
+```mermaid
+stateDiagram-v2
+    [*] --> DRAFT: Author Specification
+    DRAFT --> IN_REVIEW: Submit for Lead Review
+    IN_REVIEW --> DRAFT: Revisions Requested
+    IN_REVIEW --> APPROVED: Signed Approval (docs/approvals/)
+    
+    APPROVED --> SUPERSEDED: Replaced by Newer Approved Spec
+    APPROVED --> DEPRECATED: Capability Retired / Decommissioned
+    
+    SUPERSEDED --> [*]
+    DEPRECATED --> [*]
 ```
 
-| Status | Meaning | Implementation allowed? |
-|---|---|---|
-| `DRAFT` | Initial specification draft being written. | No |
-| `IN REVIEW` | Submitted for developer/lead review. | No (tests may be drafted) |
-| `APPROVED` | Formally signed off; record exists in `docs/approvals/`. | **Yes** — strictly this version |
-| `SUPERSEDED`| Replaced by a newer approved version. | No new work |
-| `DEPRECATED`| Capability retired or decommissioned. | Removal work only |
+| Status | Meaning | Implementation Permitted? |
+| :--- | :--- | :--- |
+| **`DRAFT`** | Initial specification draft being written. | **No** |
+| **`IN REVIEW`** | Submitted for developer/lead review. | **No** (tests may be drafted) |
+| **`APPROVED`** | Formally signed off; record exists in `docs/approvals/`. | **YES** — strictly this approved version |
+| **`SUPERSEDED`** | Replaced by a newer approved version. | **No** (new work forbidden) |
+| **`DEPRECATED`** | Capability retired or decommissioned. | Removal work only |
 
 ---
 
-### 5. Identifier Traceability Scheme
+## 📋 Identifier Traceability Scheme
 
 Defined canonically in `docs/requirements-traceability.md`:
 
-| Artifact | Pattern | Example |
-|---|---|---|
-| Feature Contract | `FEAT-###` | `FEAT-002` |
-| Functional Requirement | `FR-FEAT###-##` | `FR-FEAT002-01` |
-| Non-Functional Requirement | `NFR-FEAT###-##` | `NFR-FEAT002-01` |
-| Acceptance Criterion | `AC-FEAT###-##` | `AC-FEAT002-03` |
-| Test Case Identifier | `TEST-FEAT###-##` | `TEST-FEAT002-03` |
+| Artifact | Pattern | Concrete Example |
+| :--- | :--- | :--- |
+| **Feature Contract** | `FEAT-###` | `FEAT-002` |
+| **Functional Requirement** | `FR-FEAT###-##` | `FR-FEAT002-01` |
+| **Non-Functional Requirement** | `NFR-FEAT###-##` | `NFR-FEAT002-01` |
+| **Acceptance Criterion** | `AC-FEAT###-##` | `AC-FEAT002-03` |
+| **Test Case Identifier** | `TEST-FEAT###-##` | `TEST-FEAT002-03` |
 
 - **MUST** reference the AC ID (`AC-FEAT###-##`) in the title and description of every unit/integration test.
 - **MUST** trace each feature to at least one `CAP-###` in `docs/product.md` and one `REQ-###` in `docs/prd.md`.

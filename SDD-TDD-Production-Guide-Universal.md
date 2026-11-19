@@ -24,6 +24,39 @@
 5. **Staged Web Development (Frontend-First Verification)**: For websites and web applications, never attempt to build all features at once. First develop the frontend (UI design, layout, responsiveness, mock/client state, component interactions). Verify through a live demo run (`/run-ca-agent`) that design, layout, functionalities, and features work completely and look right interactively. Only after the frontend demo run is 100% verified and approved, proceed to backend persistence, security hardening, automated test suites, and maintenance.
 6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
+```mermaid
+flowchart LR
+    subgraph TwoLayerGov ["The Two-Layer Governance Policy"]
+        direction TB
+        Layer1["Layer 1: Constitutional Guidelines (docs/)<br/>• rules.md, constitution.md, security.md<br/>• Immutable Architecture Rules & Policies"]
+        Layer2["Layer 2: Executable Specifications (docs/features/)<br/>• Living Feature Contracts (FEAT-###)<br/>• Acceptance Criteria (AC-* Given/When/Then)<br/>• Test Mapping (TEST-*)"]
+    end
+
+    subgraph DevGate ["Progressive 4-Stage Web App Gates"]
+        direction LR
+        StageA["Stage A: Frontend UI Demo<br/>(/run-ca-agent -> Visual Sign-Off)"] --> StageB["Stage B: Backend Persistence<br/>(API, PostgreSQL, RLS)"]
+        StageB --> StageC["Stage C: Auth & Security<br/>(RBAC, CSRF, Token Rotation)"]
+        StageC --> StageD["Stage D: Testing & Gate<br/>(Full TDD Suites, /release-check-ca-agent)"]
+    end
+
+    TwoLayerGov --> DevGate
+```
+
+```mermaid
+flowchart TD
+    subgraph SDDLifecycle ["10-Step Universal Production Lifecycle"]
+        S1["Step 1: Baseline Setup & Renaming"] --> S2["Step 2: Activate .agents/ Slash Commands"]
+        S2 --> S3["Step 3: Decide Spec Format (Flat vs. Modular)"]
+        S3 --> S4["Step 4: IDE Detection & Rule Discovery"]
+        S4 --> S5["Step 5 (Prompt 1): Master Architecture R&D (Plan Mode)"]
+        S5 --> S6{"Step 6: Human Review & Architecture Sign-Off"}
+        S6 -->|"Approved"| S7["Step 7 (Prompt 2): Harness & Baseline Configuration"]
+        S7 --> S8["Step 8 (Prompt 3): Spec Validation & TDD Checkpoint"]
+        S8 --> S9["Step 9 (Prompt 4): Strict TDD Implementation (Red -> Green -> Refactor)"]
+        S9 --> S10["Step 10 (Prompt 5): Production Readiness Audit & Release Gate"]
+    end
+```
+
 ---
 
 ## How to Use This Universal Guide & Variable Substitution
