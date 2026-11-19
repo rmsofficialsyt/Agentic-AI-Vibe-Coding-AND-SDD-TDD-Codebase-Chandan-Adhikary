@@ -89,24 +89,46 @@ flowchart TD
     classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    Setup(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Folder • Rename to Project • Open IDE</sub>"]):::step --> CmdCheck{"<b>🔍 Command Contract Check</b><br/><sub>Verify /-ca-agent in Palette & Terminal</sub>"}:::gate
-    
-    CmdCheck -->|"Verified"| PV1["<b>💡 Prompt V1: Discovery & Vibe Check</b><br/><sub>Plan Mode • Aesthetic Tokens • Personas • Tech Stack</sub>"]:::step
-    
-    PV1 --> HumanV1{"<b>👤 Human Lead Approval</b><br/><sub>Approve Visual & Stack Plan</sub>"}:::gate
+    subgraph P1 ["🎨 PHASE 1: DISCOVERY & AESTHETIC VIBE CHECK"]
+        Setup(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Blueprint • Rename Directory • Open IDE</sub>"]):::step
+        CmdCheck{"<b>🔍 Verify Slash Commands</b><br/><sub>Check /-ca-agent in Chat Palette & Terminal</sub>"}:::gate
+        PV1["<b>💡 Prompt V1: Discovery & Vibe Check</b><br/><sub>Plan Mode • Aesthetic Tokens • Personas • Tech Stack</sub>"]:::step
+        HumanV1{"<b>👤 Human Lead Approval</b><br/><sub>Sign-Off on Design Tokens & Stack Plan</sub>"}:::gate
+    end
+
+    subgraph P2 ["🏗️ PHASE 2: LIVE INTERACTIVE UI SCAFFOLD"]
+        PV2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • /run-ca-agent</sub>"]:::step
+        LiveCheck["<b>🌐 Live Browser Verification</b><br/><sub>Tactile & Visual Inspection at http://localhost:3000</sub>"]:::live
+    end
+
+    subgraph P3 ["✨ PHASE 3: CONVERSATIONAL VIBE-TUNING LOOP"]
+        PV3["<b>🎨 Prompt V3: Conversational Vibe-Tuning</b><br/><sub>Refine Micro-Interactions • Padding • Transitions</sub>"]:::step
+        Loop{"<b>✨ Sensory Vibe Approval</b><br/><sub>Does the UX feel intuitive, elegant, and responsive?</sub>"}:::gate
+    end
+
+    subgraph P4 ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
+        PV4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database Schemas</sub>"]:::step
+        Audits["<b>🛡️ Pre-Flight Verification Gates</b><br/><sub>Execute /security-audit-ca-agent & /release-check-ca-agent</sub>"]:::step
+        Ship(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Enterprise Ship</sub>"]):::ship
+    end
+
+    Setup -->|"Clean Workspace"| CmdCheck
+    CmdCheck -->|"Contracts Verified"| PV1
+    PV1 -->|"Submits Plan"| HumanV1
     HumanV1 -->|"Revisions Needed"| PV1
-    HumanV1 -->|"Approved"| PV2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • /run-ca-agent</sub>"]:::step
-    
-    PV2 --> LiveCheck["<b>🌐 Live Browser Verification</b><br/><sub>Sensory Inspection at http://localhost:3000</sub>"]:::live
-    
-    LiveCheck --> PV3["<b>🎨 Prompt V3: Conversational Vibe-Tuning</b><br/><sub>Refine Micro-Interactions • Padding • Transitions</sub>"]:::step
-    PV3 --> Loop{"<b>✨ Sensory Vibe Approval</b><br/><sub>Does the UX feel intuitive and responsive?</sub>"}:::gate
+    HumanV1 -->|"Approved"| PV2
+
+    PV2 -->|"Starts Dev Server"| LiveCheck
+    LiveCheck -->|"Sensory Feedback"| PV3
+
+    PV3 -->|"Instant Fast Refresh"| Loop
     Loop -->|"No: Adjust Styling/Features"| PV3
-    Loop -->|"Yes: Vibe Approved"| PV4["<b>🔒 Prompt V4: Progressive Production Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database Schemas</sub>"]:::step
-    
-    PV4 --> Audits["<b>🛡️ Pre-Flight Verification</b><br/><sub>Run /security-audit-ca-agent & /release-check-ca-agent</sub>"]:::step
-    Audits --> Ship(["<b>🚀 Production-Ready Ship</b><br/><sub>Zero-Defect Deployment</sub>"]):::live
+    Loop -->|"YES: Vibe Approved"| PV4
+
+    PV4 -->|"Automated Scans"| Audits
+    Audits -->|"All Gates Passed"| Ship
 ```
 
 ---
@@ -119,29 +141,50 @@ flowchart TD
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    SetupS(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Folder • Rename to Project • Open IDE</sub>"]):::step --> CmdCheckS{"<b>🔍 Command Contract Check</b><br/><sub>Verify /-ca-agent in Palette & Terminal</sub>"}:::gate
-    
-    CmdCheckS -->|"Verified"| PS1["<b>📑 Prompt S1: Discovery & System Design</b><br/><sub>Plan Mode • HLD/LLD • Domain Data Model • Contracts</sub>"]:::step
-    
-    PS1 --> HumanS1{"<b>👤 Human Lead Approval</b><br/><sub>Approve Architecture & Boundary Models</sub>"}:::gate
+    subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
+        SetupS(["<b>⚙️ Pre-Development Setup</b><br/><sub>Extract Blueprint • Rename Directory • Open IDE</sub>"]):::step
+        CmdCheckS{"<b>🔍 Verify Slash Commands</b><br/><sub>Check /-ca-agent in Chat Palette & Terminal</sub>"}:::gate
+        PS1["<b>📑 Prompt S1: Architecture R&D</b><br/><sub>Plan Mode • HLD/LLD • Domain Data Model • Contracts</sub>"]:::step
+        HumanS1{"<b>👤 Human Lead Approval</b><br/><sub>Approve Architecture & Boundary Models</sub>"}:::gate
+        PS2["<b>🏗️ Prompt S2: Configure Complete Codebase</b><br/><sub>docs/ Governance • ADR-001 • Test Harness Scaffolding</sub>"]:::step
+    end
+
+    subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & TEST CONTRACT"]
+        PS3["<b>📋 Prompt S3: Spec Validation & Tier Decision</b><br/><sub>Flat vs. Modular Decision • AC-FEAT###-## Given/When/Then</sub>"]:::step
+        RedPhase["<b>🔴 RED PHASE: Scaffold Failing Tests</b><br/><sub>Run /testing-ca-agent -> Confirm Expected Test Failures</sub>"]:::red
+    end
+
+    subgraph S3Phase ["🧪 PHASE 3: TDD IMPLEMENTATION CYCLE"]
+        PS4["<b>🟢 GREEN PHASE: Minimal Code Implementation</b><br/><sub>Write Minimum Code -> All AC Tests PASS -> Refactor</sub>"]:::green
+        GateCheck{"<b>🛡️ AC Verification Gate</b><br/><sub>All Tests Green & /review-ca-agent Clean?</sub>"}:::gate
+        NextFeature{"<b>🔄 Specification Scope</b><br/><sub>More Features in docs/features/?</sub>"}:::gate
+    end
+
+    subgraph S4Phase ["🚀 PHASE 4: PRODUCTION READINESS & SHIP"]
+        PS5["<b>🔍 Prompt S5: Production Readiness Audit</b><br/><sub>SAST Security Scan • Release Checklist Gate</sub>"]:::step
+        Release(["<b>🎉 Production Release Authorization</b><br/><sub>Signed Off in docs/approvals/release-v1.0.0.md</sub>"]):::ship
+    end
+
+    SetupS -->|"Clean Workspace"| CmdCheckS
+    CmdCheckS -->|"Contracts Verified"| PS1
+    PS1 -->|"Submits System Design"| HumanS1
     HumanS1 -->|"Revise Plan"| PS1
-    HumanS1 -->|"Approved"| PS2["<b>🏗️ Prompt S2: Configure Complete Codebase</b><br/><sub>docs/ Governance • ADR-001 • Test Harness Scaffolding</sub>"]:::step
-    
-    PS2 --> PS3["<b>📋 Prompt S3: Spec Validation & Tier Decision</b><br/><sub>Flat vs. Modular Decision • AC-FEAT###-## Given/When/Then</sub>"]:::step
-    
-    PS3 --> RedPhase["<b>🔴 RED PHASE: Scaffold Failing Tests</b><br/><sub>Run /testing-ca-agent -> Confirm Expected Test Failures</sub>"]:::red
-    
-    RedPhase --> PS4["<b>🟢 GREEN PHASE: TDD Minimal Implementation</b><br/><sub>Write Minimum Code -> All AC Tests PASS -> Refactor</sub>"]:::green
-    
-    PS4 --> GateCheck{"<b>🛡️ AC Verification Gate</b><br/><sub>All Tests Green & /review-ca-agent Clean?</sub>"}:::gate
+    HumanS1 -->|"Approved"| PS2
+
+    PS2 -->|"Initializes Harness"| PS3
+    PS3 -->|"Failing Test Contract"| RedPhase
+
+    RedPhase -->|"Run TDD Cycle"| PS4
+    PS4 -->|"Automated Check"| GateCheck
     GateCheck -->|"Failing Tests"| PS4
-    GateCheck -->|"Passed Green"| NextFeature{"<b>🔄 Specification Scope</b><br/><sub>More Features in docs/features/?</sub>"}:::gate
-    
+    GateCheck -->|"Passed Green"| NextFeature
+
     NextFeature -->|"Yes: Step-by-Step Next Spec"| PS3
-    NextFeature -->|"All Specs Verified"| PS5["<b>🔍 Prompt S5: Production Readiness Audit</b><br/><sub>SAST Security Scan • Release Checklist Gate</sub>"]:::step
-    
-    PS5 --> Release(["<b>🚀 Production Release Authorization</b><br/><sub>Signed Off in docs/approvals/release-v1.0.0.md</sub>"]):::green
+    NextFeature -->|"All Specs Verified"| PS5
+
+    PS5 -->|"Release Checklist Signed"| Release
 ```
 
 ---

@@ -169,24 +169,57 @@ To provide actionable guidance during active pairing sessions, the 16 commands a
 
 ```mermaid
 flowchart TD
-    SetupS["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> CmdCheckS{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
-    CmdCheckS --> PS1["Step S1: /plan-ca-agent<br/>(Plan Mode: Isolation models, compliance, System Design HLD/LLD)"]
-    
-    PS1 --> HumanS1{"Human Approval<br/>of Architecture?"}
-    HumanS1 -->|"Revise plan"| PS1
-    HumanS1 -->|"Approved"| PS2["Step S2: /task-ca-agent<br/>(Configure docs/, ADR-001, test harness in tests/)"]
-    
-    PS2 --> PS3["Step S3: /spec-check-ca-agent + /testing-ca-agent<br/>(Author docs/features/002-*, scaffold failing tests - RED PHASE)"]
-    PS3 --> RedPhase["Confirm Red Failing State<br/>(Tests fail with expected assertion errors)"]
-    
-    RedPhase --> PS4["Step S4: /tdd-ca-agent + /review-ca-agent<br/>(Minimal code -> All tests PASS -> Refactor -> Atomic commit)"]
-    PS4 --> GateCheck{"All AC Tests Green<br/>and review clean?"}
-    GateCheck -->|"Failing tests"| PS4
-    GateCheck -->|"Passed"| NextFeature{"More features<br/>in docs/features/?"}
-    NextFeature -->|"Yes"| PS3
-    NextFeature -->|"All complete"| PS5["Step S5: /security-audit-ca-agent + /release-check-ca-agent<br/>(SAST scan, compliance audit check, signed release approval)"]
-    
-    PS5 --> ReleaseS["Production Release Authorization<br/>(docs/approvals/release-v1.0.0.md)"]
+    classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
+    classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
+
+    subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
+        SetupS(["<b>⚙️ Setup & Project Renaming</b><br/><sub>Extract Template to '[your-project-name]'</sub>"]):::step
+        CmdCheckS{"<b>🔍 Verify Slash Commands</b><br/><sub>Check 16 /-ca-agent in Dropdown & CLI</sub>"}:::gate
+        PS1["<b>📑 Step S1: /plan-ca-agent</b><br/><sub>Plan Mode • Isolation Models • Compliance • HLD/LLD</sub>"]:::step
+        HumanS1{"<b>👤 Human Lead Approval</b><br/><sub>Sign-Off on Architecture & System Design</sub>"}:::gate
+        PS2["<b>🏗️ Step S2: /task-ca-agent</b><br/><sub>Configure docs/, ADR-001 & Test Harness in tests/</sub>"]:::step
+    end
+
+    subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & RED TEST CONTRACT"]
+        PS3["<b>📋 Step S3: /spec-check-ca-agent</b><br/><sub>Author docs/features/002-* • Given/When/Then AC</sub>"]:::step
+        RedPhase["<b>🔴 RED PHASE: /testing-ca-agent</b><br/><sub>Scaffold Failing Tests • Verify Expected Assertion Errors</sub>"]:::red
+    end
+
+    subgraph S3Phase ["🧪 PHASE 3: GREEN TDD IMPLEMENTATION CYCLE"]
+        PS4["<b>🟢 GREEN PHASE: /tdd-ca-agent</b><br/><sub>Write Minimal Production Code -> All AC Tests PASS</sub>"]:::green
+        ReviewS["<b>🔍 Code Quality & Diff Review</b><br/><sub>Run /review-ca-agent -> Clean Audit & Zero Scope Creep</sub>"]:::step
+        GateCheck{"<b>🛡️ AC Verification Gate</b><br/><sub>All Tests Green & Review Approved?</sub>"}:::gate
+        NextFeature{"<b>🔄 Specification Scope</b><br/><sub>More Features in docs/features/?</sub>"}:::gate
+    end
+
+    subgraph S4Phase ["🚀 PHASE 4: AUDIT, COMPLIANCE & SHIP"]
+        PS5["<b>🛡️ Step S5: /security-audit-ca-agent</b><br/><sub>SAST Scan • Dependency Vulnerability & Secret Audit</sub>"]:::step
+        ReleaseCheck["<b>📋 Execute /release-check-ca-agent</b><br/><sub>Pre-Flight Production Gate & Compliance Verification</sub>"]:::step
+        ReleaseS(["<b>🎉 Production Release Authorization</b><br/><sub>Signed Off in docs/approvals/release-v1.0.0.md</sub>"]):::ship
+    end
+
+    SetupS -->|"Workspace Ready"| CmdCheckS
+    CmdCheckS -->|"Commands Verified"| PS1
+    PS1 -->|"Submit Architecture"| HumanS1
+    HumanS1 -->|"Revise Plan"| PS1
+    HumanS1 -->|"Approved"| PS2
+
+    PS2 -->|"Baseline Configured"| PS3
+    PS3 -->|"Scaffold Test Stubs"| RedPhase
+    RedPhase -->|"Confirm Failures (RED)"| PS4
+
+    PS4 -->|"All Tests Green"| ReviewS
+    ReviewS -->|"Diff Inspected"| GateCheck
+    GateCheck -->|"Failing Tests / Issues"| PS4
+    GateCheck -->|"Passed"| NextFeature
+    NextFeature -->|"Yes: Next Spec"| PS3
+    NextFeature -->|"All Complete"| PS5
+
+    PS5 -->|"Security Clean"| ReleaseCheck
+    ReleaseCheck -->|"Release Authorized"| ReleaseS
 ```
 
 ---

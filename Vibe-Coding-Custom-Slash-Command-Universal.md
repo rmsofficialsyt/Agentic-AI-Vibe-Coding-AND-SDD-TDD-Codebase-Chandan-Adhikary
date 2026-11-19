@@ -177,22 +177,53 @@ Embedded within `core repository skills in .agents/skills/`, this skill equips t
 
 ```mermaid
 flowchart TD
-    SetupV["Setup & Project Renaming<br/>(Extract to '[your-project-name]')"] --> CmdCheckV{"Verify Slash Commands<br/>(Chat Dropdown & Terminal)"}
-    CmdCheckV --> PV1["Step V1: /plan-ca-agent<br/>(Plan Mode: Aesthetic palette, stack, Bento grid)"]
-    
-    PV1 --> HumanV1{"Human Approval<br/>of Plan & Vibe?"}
-    HumanV1 -->|"Revisions needed"| PV1
-    HumanV1 -->|"Approved"| PV2["Step V2: /implement-ca-agent + /run-ca-agent<br/>(Scaffold Next.js shell, dashboard cards, launch dev server)"]
-    
-    PV2 --> LiveCheck["Verify Live Application in Browser<br/>(Visual sensory inspection at http://localhost:3000)"]
-    
-    LiveCheck --> PV3["Step V3: /task-ca-agent + /review-ca-agent<br/>(Fluid Feedback Loops: Flagship interactive UI, 1-click pills)"]
-    
-    PV3 --> LoopV{"Vibe & speed feel right?"}
-    LoopV -->|"No: adjust styling or micro-animations"| PV3
-    LoopV -->|"Yes: ready to harden"| PV4["Step V4: /security-audit-ca-agent + /release-check-ca-agent<br/>(Zod schemas, auth route guards, 'npm run build')"]
-    
-    PV4 --> ShipV["Production-Ready Deployment"]
+    classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
+
+    subgraph V1Phase ["🎨 PHASE 1: DISCOVERY & AESTHETIC VIBE CHECK"]
+        SetupV(["<b>⚙️ Setup & Project Renaming</b><br/><sub>Extract Template to '[your-project-name]'</sub>"]):::step
+        CmdCheckV{"<b>🔍 Verify Slash Commands</b><br/><sub>Check 16 /-ca-agent in Dropdown & CLI</sub>"}:::gate
+        PV1["<b>💡 Step V1: /plan-ca-agent</b><br/><sub>Plan Mode • Aesthetic Palette • Bento Grid Tokens • Tech Stack</sub>"]:::step
+        HumanV1{"<b>👤 Human Lead Approval</b><br/><sub>Sign-Off on Design Tokens & Stack Plan</sub>"}:::gate
+    end
+
+    subgraph V2Phase ["🏗️ PHASE 2: LIVE SENSORY UI PROTOTYPING"]
+        PV2["<b>🏗️ Step V2: /implement-ca-agent</b><br/><sub>Scaffold Next.js Shell • Dashboard Cards • Mock State</sub>"]:::step
+        RunV["<b>🚀 Launch Dev Server</b><br/><sub>Execute /run-ca-agent -> http://localhost:3000</sub>"]:::step
+        LiveCheck["<b>🌐 Live Browser Verification</b><br/><sub>Tactile & Visual Inspection of Layout & Responsiveness</sub>"]:::live
+    end
+
+    subgraph V3Phase ["✨ PHASE 3: FLUID CONVERSATIONAL VIBE-TUNING"]
+        PV3["<b>🎨 Step V3: /task-ca-agent</b><br/><sub>Micro-Interactions • Fluid Animations • 1-Click Action Pills</sub>"]:::step
+        ReviewV["<b>🔍 Surgical Review</b><br/><sub>Run /review-ca-agent -> Keep Diffs Clean & Focused</sub>"]:::step
+        LoopV{"<b>✨ Sensory Vibe Approval</b><br/><sub>Does the UX feel intuitive, elegant, and responsive?</sub>"}:::gate
+    end
+
+    subgraph V4Phase ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
+        PV4["<b>🔒 Step V4: Hardening & Persistence</b><br/><sub>Zod Validation • Database Schemas • Auth Route Guards</sub>"]:::step
+        AuditsV["<b>🛡️ Pre-Flight Verification Gates</b><br/><sub>Execute /security-audit-ca-agent & /release-check-ca-agent</sub>"]:::step
+        ShipV(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Enterprise Deployment</sub>"]):::ship
+    end
+
+    SetupV -->|"Workspace Ready"| CmdCheckV
+    CmdCheckV -->|"Commands Verified"| PV1
+    PV1 -->|"Submit Architecture"| HumanV1
+    HumanV1 -->|"Revisions Needed"| PV1
+    HumanV1 -->|"Approved"| PV2
+
+    PV2 -->|"Build Shell"| RunV
+    RunV -->|"Dev Server Running"| LiveCheck
+    LiveCheck -->|"Tactile Feedback"| PV3
+
+    PV3 -->|"Apply Feedback"| ReviewV
+    ReviewV -->|"Instant Fast Refresh"| LoopV
+    LoopV -->|"No: Adjust Styling/Padding"| PV3
+    LoopV -->|"YES: Vibe Approved"| PV4
+
+    PV4 -->|"Automated Scans"| AuditsV
+    AuditsV -->|"All Gates Passed"| ShipV
 ```
 
 ---
