@@ -53,16 +53,25 @@ flowchart LR
     classDef release fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph SDDLifecycle ["🚀 10-STEP UNIVERSAL ENTERPRISE PRODUCTION LIFECYCLE"]
-        S1(["<b>1. ⚙️ Baseline Setup & Renaming</b><br/><small>Scaffold from Spec-Driven-Development/</small>"]):::step --> S2["<b>2. 🔍 Verify .agents/ Slash Commands</b><br/><small>Check Palette & Terminal Contracts</small>"]:::step
-        S2 --> S3["<b>3. 📐 Decide Specification Format</b><br/><small>Flat (Tier 1/2) vs. Modular (Tier 3)</small>"]:::step
-        S3 --> S4["<b>4. 🤖 IDE Detection & Policy Discovery</b><br/><small>Walk-Up Root & Adapter Sync</small>"]:::step
-        S4 --> S5["<b>5. 📑 Prompt S1: Architecture R&D</b><br/><small>Plan Mode • HLD/LLD • Domain Data Model</small>"]:::step
-        S5 --> S6{"Architecture Approved?"}:::gate
-        S6 -->|"Approved"| S7["<b>7. 🏗️ Prompt S2: Baseline Codebase</b><br/><small>Configure docs/, ADR-001 & Test Harness</small>"]:::step
-        S7 --> S8["<b>8. 📋 Prompt S3: Spec Validation</b><br/><small>Verify AC-FEAT###-## Given/When/Then</small>"]:::step
-        S8 --> S9["<b>9. 🧪 Prompt S4: Strict TDD Implementation</b><br/><small>Red (Fail) -> Green (Pass) -> Refactor</small>"]:::tdd
-        S9 --> S10["<b>10. 🛡️ Prompt S5: Production Readiness Audit</b><br/><small>SAST Scan • Release Checklist Gate</small>"]:::release
+        subgraph Row1 ["STAGE 1: DISCOVERY & ARCHITECTURE FOUNDATION"]
+            direction LR
+            S1(["<b>1. ⚙️ Setup</b><br/><small>Scaffold Blueprint</small>"]):::step --> S2["<b>2. 🔍 Verify Commands</b><br/><small>Check Palette & CLI</small>"]:::step
+            S2 --> S3["<b>3. 📐 Spec Format</b><br/><small>Flat vs Modular</small>"]:::step
+            S3 --> S4["<b>4. 🤖 IDE Discovery</b><br/><small>Adapter Sync</small>"]:::step
+            S4 --> S5["<b>5. 📑 Prompt S1: R&D</b><br/><small>HLD/LLD & Domain</small>"]:::step
+        end
+
+        subgraph Row2 ["STAGE 2: SPECIFICATION, TDD & PRODUCTION GATE"]
+            direction LR
+            S6{"Architecture Approved?"}:::gate -->|"Approved"| S7["<b>7. 🏗️ Prompt S2: Baseline</b><br/><small>ADR-001 & Vitest</small>"]:::step
+            S7 --> S8["<b>8. 📋 Prompt S3: Spec Check</b><br/><small>Verify AC Given/When/Then</small>"]:::step
+            S8 --> S9["<b>9. 🧪 Prompt S4: Strict TDD</b><br/><small>Red -> Green -> Refactor</small>"]:::tdd
+            S9 --> S10["<b>10. 🛡️ Prompt S5: Gate Audit</b><br/><small>SAST Scan & Release Check</small>"]:::release
+        end
     end
+
+    S5 ==>|"Submit Architecture"| S6
+    S6 -.->|"Revise"| S5
 ```
 
 ---

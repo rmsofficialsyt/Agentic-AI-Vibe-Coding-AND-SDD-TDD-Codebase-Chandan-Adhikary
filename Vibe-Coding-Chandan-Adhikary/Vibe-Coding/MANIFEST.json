@@ -420,7 +420,7 @@
     },
     {
       "path": "docs/design.md",
-      "sha256": "03cf408dff5804ae5df354f0d22259005ae92995561e58d6364533e43cdf93e6"
+      "sha256": "f0f4425f770b176196c802e1d499e41af3d87545c060eb7df75e5885833f4c2d"
     },
     {
       "path": "docs/devops.md",
@@ -448,7 +448,7 @@
     },
     {
       "path": "docs/features/README.md",
-      "sha256": "d35abfc226024636b9a3f62744babaf19067a66ffbe3b4c7b88b3927e3ccc6bc"
+      "sha256": "f744e7e96ae8e24405cbd8356abcb0225e928456aba60f1493c07ea519d95ef0"
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
@@ -528,7 +528,7 @@
     },
     {
       "path": "docs/system-architecture.md",
-      "sha256": "1e9026796447051f4829fcb139e0d34e60252ccc0caa0de219f9d733c960e386"
+      "sha256": "654225944205af26be03399e3283a55975a04183d2db38f75ddf06f335f3bd25"
     },
     {
       "path": "docs/task.md",

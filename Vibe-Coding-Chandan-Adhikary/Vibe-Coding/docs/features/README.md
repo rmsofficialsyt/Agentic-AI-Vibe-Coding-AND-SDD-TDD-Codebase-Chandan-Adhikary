@@ -58,12 +58,27 @@ flowchart LR
     classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
-    SelectSpec["<b>1. 📑 Select Living Spec</b><br/><small>e.g., FEAT-001 (Living Contract)</small>"]:::step --> ScaffoldCode["<b>2. 🎨 Implement Layout & Interaction</b><br/><small>Satisfy visual and functional needs</small>"]:::step
-    ScaffoldCode --> LiveVerify["<b>3. 🌐 Test & Sensory Verification</b><br/><small>Visual inspection via /run-ca-agent at :3000</small>"]:::sensory
-    LiveVerify --> UpdateDocs["<b>4. 📝 Update Docs & Living Trackers</b><br/><small>docs/task.md, docs/error-tracker.md</small>"]:::step
-    UpdateDocs --> NextSpec{"Next Spec?"}:::gate
-    NextSpec -->|"Next Spec"| SelectSpec
-    NextSpec -->|"All Done"| FinalAudit(["<b>5. 🚀 Run /release-check-ca-agent</b><br/><small>Pre-flight Production Release Gate</small>"]):::sensory
+    subgraph ForwardTier ["🎨 SENSORY PROTOTYPING STAGE"]
+        direction LR
+        SelectSpec["<b>1. 📑 Select Spec</b><br/><small>Living Contract Draft</small>"]:::step
+        ScaffoldCode["<b>2. 🎨 UI & Layout</b><br/><small>Interactive Components</small>"]:::step
+        LiveVerify["<b>3. 🌐 Live Verification</b><br/><small>Sensory Demo at :3000</small>"]:::sensory
+    end
+
+    subgraph HardeningTier ["🔒 PROGRESSIVE HARDENING STAGE"]
+        direction LR
+        UpdateDocs["<b>4. 📝 Update Docs</b><br/><small>Living Trackers Synced</small>"]:::step
+        NextSpec{"Next Spec?"}:::gate
+        FinalAudit(["<b>5. 🚀 Release Audit</b><br/><small>/release-check-ca-agent</small>"]):::sensory
+    end
+
+    SelectSpec -->|"Plan"| ScaffoldCode
+    ScaffoldCode -->|"Demo"| LiveVerify
+    LiveVerify ==>|"Vibe Check"| UpdateDocs
+
+    UpdateDocs -->|"Evaluate"| NextSpec
+    NextSpec -->|"Yes: Next"| SelectSpec
+    NextSpec -->|"No: Done"| FinalAudit
 ```
 
 > [!CRITICAL]

@@ -175,51 +175,57 @@ flowchart LR
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
-        SetupS(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract Template to '[your-project-name]'</small>"]):::step
-        CmdCheckS["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
-        PS1["<b>📑 Step S1: /plan-ca-agent</b><br/><small>Plan Mode • Isolation Models • Compliance • HLD/LLD</small>"]:::step
-        HumanS1{"Architecture Approved?"}:::gate
-        PS2["<b>🏗️ Step S2: /task-ca-agent</b><br/><small>Configure docs/, ADR-001 & Test Harness in tests/</small>"]:::step
+    subgraph Row1 ["DISCOVERY & SPECIFICATION TIERS"]
+        direction LR
+        subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE"]
+            SetupS(["<b>⚙️ Setup</b><br/><small>Extract Template</small>"]):::step
+            CmdCheckS["<b>🔍 Verify Commands</b><br/><small>16 Slash Contracts</small>"]:::gate
+            PS1["<b>📑 Step S1: /plan</b><br/><small>HLD/LLD & Compliance</small>"]:::step
+            HumanS1{"Architecture Approved?"}:::gate
+            PS2["<b>🏗️ Step S2: /task</b><br/><small>docs/ & Test Harness</small>"]:::step
+        end
+
+        subgraph S2Phase ["📋 PHASE 2: SPEC & RED CONTRACT"]
+            PS3["<b>📋 Step S3: /spec-check</b><br/><small>AC Given/When/Then</small>"]:::step
+            RedPhase["<b>🔴 RED: /testing</b><br/><small>Confirm Failures</small>"]:::red
+        end
     end
 
-    subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & RED TEST CONTRACT"]
-        PS3["<b>📋 Step S3: /spec-check-ca-agent</b><br/><small>Author docs/features/002-* • Given/When/Then AC</small>"]:::step
-        RedPhase["<b>🔴 RED PHASE: /testing-ca-agent</b><br/><small>Scaffold Failing Tests • Verify Expected Assertion Errors</small>"]:::red
+    subgraph Row2 ["TDD IMPLEMENTATION & SHIP TIERS"]
+        direction LR
+        subgraph S3Phase ["🧪 PHASE 3: GREEN TDD CYCLE"]
+            PS4["<b>🟢 GREEN: /tdd</b><br/><small>Pass All Tests</small>"]:::green
+            ReviewS["<b>🔍 Review: /review</b><br/><small>Clean Audit</small>"]:::step
+            GateCheck{"All Tests Green?"}:::gate
+            NextFeature{"More Features?"}:::gate
+        end
+
+        subgraph S4Phase ["🚀 PHASE 4: AUDIT & SHIP"]
+            PS5["<b>🛡️ Audit: /security-audit</b><br/><small>SAST Scan</small>"]:::step
+            ReleaseCheck["<b>📋 Gate: /release-check</b><br/><small>Sign-Off</small>"]:::step
+            ReleaseS(["<b>🎉 Production Ship</b><br/><small>docs/approvals/</small>"]):::ship
+        end
     end
 
-    subgraph S3Phase ["🧪 PHASE 3: GREEN TDD IMPLEMENTATION CYCLE"]
-        PS4["<b>🟢 GREEN PHASE: /tdd-ca-agent</b><br/><small>Write Minimal Production Code -> All AC Tests PASS</small>"]:::green
-        ReviewS["<b>🔍 Code Quality & Diff Review</b><br/><small>Run /review-ca-agent -> Clean Audit & Zero Scope Creep</small>"]:::step
-        GateCheck{"All Tests Green?"}:::gate
-        NextFeature{"More Features?"}:::gate
-    end
-
-    subgraph S4Phase ["🚀 PHASE 4: AUDIT, COMPLIANCE & SHIP"]
-        PS5["<b>🛡️ Step S5: /security-audit-ca-agent</b><br/><small>SAST Scan • Dependency Vulnerability & Secret Audit</small>"]:::step
-        ReleaseCheck["<b>📋 Execute /release-check-ca-agent</b><br/><small>Pre-Flight Production Gate & Compliance Verification</small>"]:::step
-        ReleaseS(["<b>🎉 Production Release Authorization</b><br/><small>Signed Off in docs/approvals/release-v1.0.0.md</small>"]):::ship
-    end
-
-    SetupS -->|"Workspace Ready"| CmdCheckS
-    CmdCheckS -->|"Commands Verified"| PS1
-    PS1 -->|"Submit Architecture"| HumanS1
+    SetupS -->|"Ready"| CmdCheckS
+    CmdCheckS -->|"Verified"| PS1
+    PS1 -->|"Submit"| HumanS1
     HumanS1 -->|"Revise"| PS1
     HumanS1 -->|"Approved"| PS2
 
-    PS2 -->|"Baseline Configured"| PS3
-    PS3 -->|"Scaffold Test Stubs"| RedPhase
-    RedPhase -->|"Confirm Failures (RED)"| PS4
+    PS2 -->|"Spec"| PS3
+    PS3 -->|"Failing"| RedPhase
+    RedPhase ==>|"TDD Cycle"| PS4
 
-    PS4 -->|"All Tests Green"| ReviewS
-    ReviewS -->|"Diff Inspected"| GateCheck
+    PS4 -->|"Tests Green"| ReviewS
+    ReviewS -->|"Inspected"| GateCheck
     GateCheck -->|"Failing Tests"| PS4
     GateCheck -->|"Passed"| NextFeature
     NextFeature -->|"Next Spec"| PS3
     NextFeature -->|"All Done"| PS5
 
-    PS5 -->|"Security Clean"| ReleaseCheck
-    ReleaseCheck -->|"Release Authorized"| ReleaseS
+    PS5 -->|"Clean"| ReleaseCheck
+    ReleaseCheck -->|"Authorized"| ReleaseS
 ```
 
 ---

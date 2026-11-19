@@ -56,6 +56,26 @@ All UI components, padding, margins, card dimensions, and iconography MUST stric
 | `--size-12` | `48px` | `3.00rem` | Standard button and input field height |
 | `--size-16` | `64px` | `4.00rem` | Navigation bar heights, major milestone spacing |
 
+### 1.4 Standardized Image & Media Sizing Matrix
+All imagery, illustrations, raster thumbnails, video embeds, and diagram wrappers MUST adhere strictly to the standardized aspect ratios, dimensions, and Cumulative Layout Shift (CLS) prevention rules:
+
+| Media Category | Standard Aspect Ratio | Standard Dimensions (Width × Height) | Object Fit | Bounding Container / Usage |
+|---|---|---|---|---|
+| **Avatar (Small)** | `1:1` (Square) | `32px × 32px` | `cover` | Table rows, compact author chips, comment lists |
+| **Avatar (Medium)** | `1:1` (Square) | `40px × 40px` | `cover` | Standard navigation bar, user dropdown menu, roster cards |
+| **Avatar (Large)** | `1:1` (Square) | `64px × 64px` (or `80px × 80px`) | `cover` | Profile edit pages, user header cards |
+| **Thumbnail (Square)** | `1:1` (Square) | `80px × 80px` | `cover` | Attachment previews, small list item thumbnails |
+| **Thumbnail (Standard)**| `4:3` (Standard) | `120px × 90px` | `cover` | Course catalog previews, blog list item thumbnails |
+| **Card Media / Feature** | `16:9` (Widescreen) | `320px × 180px` (or `400px × 225px`)| `cover` | Bento grid dashboard cards, feature showcase cards |
+| **Hero / Banner (Desktop)**| `16:9` (Widescreen) | `1200px × 675px` (or `1920px × 1080px`)| `cover` | Hero section backgrounds, marketing landing banners |
+| **Panoramic / Analytics**| `21:9` (Ultrawide) | `1440px × 617px` | `cover` | Ultrawide header banners, financial chart wrappers |
+| **Diagram SVG Viewport** | `16:9` or `2:1` | Max `960px` fluid width (`auto` height) | `contain` | Documentation architecture cards, workflow swimlanes |
+
+#### Cumulative Layout Shift (CLS) & Layout Rules:
+1. **Explicit Dimensions:** All `<img>` tags and Next.js `<Image />` components MUST specify explicit `width` and `height` attributes (or `fill` with an aspect-ratio container) to reserve layout space prior to asset load.
+2. **Skeleton Shimmer Loading:** Every dynamic image MUST render a background skeleton placeholder matching the exact aspect ratio during loading state to prevent jarring content reflow.
+3. **Corner Radii Tokens:** Imagery inherits consistent border radii: `--radius-sm` (`4px` for avatars), `--radius-md` (`8px` for thumbnails/cards), and `--radius-lg` (`12px` for dialogs/hero media).
+
 ---
 
 ## 2. Dynamic Responsive Breakpoints Matrix

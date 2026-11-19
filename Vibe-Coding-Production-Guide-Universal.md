@@ -28,13 +28,21 @@ flowchart LR
     classDef ship fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph VibeProgression ["🎨 VIBE-CODING PROGRESSIVE HARDENING PIPELINE"]
-        V1["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><small>Design Tokens • Color Palette • User Personas</small>"]:::vibe --> V2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • /run-ca-agent</small>"]:::vibe
-        V2 --> V3["<b>✨ Prompt V3: Conversational Vibe-Tuning</b><br/><small>Micro-Interactions • Spacing • Fluid Feedback</small>"]:::vibe
-        V3 --> SensoryApproval{"Vibe Approved?"}:::gate
-        SensoryApproval -->|"Iterate UI"| V3
-        SensoryApproval -->|"Approved"| V4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><small>Zod Validation • Error Boundaries • Database Models</small>"]:::harden
-        V4 --> V5["<b>🚀 Prompt V5: Security & Release Gate</b><br/><small>/security-audit-ca-agent • /release-check-ca-agent</small>"]:::ship
+        subgraph Row1 ["STAGE 1: SENSORY PROTOTYPING & VIBE-TUNING"]
+            direction LR
+            V1["<b>💡 Prompt V1: Aesthetics</b><br/><small>Tokens • Palette • Personas</small>"]:::vibe --> V2["<b>🏗️ Prompt V2: UI Shell</b><br/><small>Wireframes • Mock State</small>"]:::vibe
+            V2 --> V3["<b>✨ Prompt V3: Vibe-Tuning</b><br/><small>Micro-Interactions • Spacing</small>"]:::vibe
+            V3 --> SensoryApproval{"Vibe Approved?"}:::gate
+        end
+
+        subgraph Row2 ["STAGE 2: PROGRESSIVE HARDENING & PRODUCTION SHIP"]
+            direction LR
+            V4["<b>🔒 Prompt V4: Hardening</b><br/><small>Zod Validation • Error Boundaries • Database</small>"]:::harden --> V5["<b>🚀 Prompt V5: Gate & Ship</b><br/><small>/security-audit & /release-check</small>"]:::ship
+        end
     end
+
+    SensoryApproval -.->|"Iterate UI"| V3
+    SensoryApproval ==>|"Approved"| V4
 ```
 
 ```mermaid

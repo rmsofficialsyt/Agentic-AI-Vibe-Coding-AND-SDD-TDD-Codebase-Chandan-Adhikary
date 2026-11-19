@@ -91,39 +91,45 @@ flowchart LR
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    subgraph P1 ["🎨 PHASE 1: DISCOVERY & AESTHETIC VIBE CHECK"]
-        Setup(["<b>⚙️ Pre-Development Setup</b><br/><small>Extract Blueprint • Rename Directory • Open IDE</small>"]):::step
-        CmdCheck["<b>🔍 Verify Slash Commands</b><br/><small>Check /-ca-agent in Palette & Terminal</small>"]:::gate
-        PV1["<b>💡 Prompt V1: Discovery & Vibe Check</b><br/><small>Plan Mode • Aesthetic Tokens • Personas • Tech Stack</small>"]:::step
-        HumanV1{"Lead Approved?"}:::gate
+    subgraph Row1 ["DISCOVERY & PROTOTYPING TIERS"]
+        direction LR
+        subgraph P1 ["🎨 PHASE 1: DISCOVERY & VIBE CHECK"]
+            Setup(["<b>⚙️ Setup</b><br/><small>Extract Blueprint & Open IDE</small>"]):::step
+            CmdCheck["<b>🔍 Verify Commands</b><br/><small>Check /-ca-agent in Palette</small>"]:::gate
+            PV1["<b>💡 Prompt V1: Vibe Check</b><br/><small>Aesthetic Tokens & Stack</small>"]:::step
+            HumanV1{"Lead Approved?"}:::gate
+        end
+
+        subgraph P2 ["🏗️ PHASE 2: LIVE UI SHELL"]
+            PV2["<b>🏗️ Prompt V2: Scaffold UI</b><br/><small>Wireframes & Mock State</small>"]:::step
+            LiveCheck["<b>🌐 Live Browser Demo</b><br/><small>Inspect at localhost:3000</small>"]:::live
+        end
     end
 
-    subgraph P2 ["🏗️ PHASE 2: LIVE INTERACTIVE UI SCAFFOLD"]
-        PV2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • /run-ca-agent</small>"]:::step
-        LiveCheck["<b>🌐 Live Browser Verification</b><br/><small>Tactile & Visual Inspection at http://localhost:3000</small>"]:::live
+    subgraph Row2 ["TUNING & PRODUCTION HARDENING TIERS"]
+        direction LR
+        subgraph P3 ["✨ PHASE 3: CONVERSATIONAL TUNING"]
+            PV3["<b>🎨 Prompt V3: Vibe-Tuning</b><br/><small>Micro-Interactions & Spacing</small>"]:::step
+            Loop{"Vibe Approved?"}:::gate
+        end
+
+        subgraph P4 ["🔒 PHASE 4: PRODUCTION HARDENING"]
+            PV4["<b>🔒 Prompt V4: Hardening</b><br/><small>Zod Validation & Schemas</small>"]:::step
+            Audits["<b>🛡️ Pre-Flight Gates</b><br/><small>Security & Release Audits</small>"]:::step
+            Ship(["<b>🚀 Production Ship</b><br/><small>Zero-Defect Release</small>"]):::ship
+        end
     end
 
-    subgraph P3 ["✨ PHASE 3: CONVERSATIONAL VIBE-TUNING LOOP"]
-        PV3["<b>🎨 Prompt V3: Conversational Vibe-Tuning</b><br/><small>Refine Micro-Interactions • Padding • Transitions</small>"]:::step
-        Loop{"Vibe Approved?"}:::gate
-    end
-
-    subgraph P4 ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
-        PV4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><small>Zod Validation • Error Boundaries • Database Schemas</small>"]:::step
-        Audits["<b>🛡️ Pre-Flight Verification Gates</b><br/><small>Execute /security-audit-ca-agent & /release-check-ca-agent</small>"]:::step
-        Ship(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Enterprise Ship</small>"]):::ship
-    end
-
-    Setup -->|"Clean Workspace"| CmdCheck
-    CmdCheck -->|"Contracts Verified"| PV1
-    PV1 -->|"Submits Plan"| HumanV1
+    Setup -->|"Workspace Ready"| CmdCheck
+    CmdCheck -->|"Verified"| PV1
+    PV1 -->|"Submit Plan"| HumanV1
     HumanV1 -->|"Revise"| PV1
     HumanV1 -->|"Approved"| PV2
 
-    PV2 -->|"Starts Dev Server"| LiveCheck
-    LiveCheck -->|"Sensory Feedback"| PV3
+    PV2 -->|"Launch Server"| LiveCheck
+    LiveCheck ==>|"Sensory Feedback"| PV3
 
-    PV3 -->|"Instant Fast Refresh"| Loop
+    PV3 -->|"Fast Refresh"| Loop
     Loop -->|"Iterate UI"| PV3
     Loop -->|"Approved"| PV4
 
@@ -143,41 +149,54 @@ flowchart LR
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
-        SetupS(["<b>⚙️ Pre-Development Setup</b><br/><small>Extract Blueprint • Rename Directory • Open IDE</small>"]):::step
-        CmdCheckS["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
-        PS1["<b>📑 Prompt S1: Architecture R&D</b><br/><small>Plan Mode • HLD/LLD • Domain Data Model • Contracts</small>"]:::step
-        HumanS1{"Architecture Approved?"}:::gate
-        PS2["<b>🏗️ Prompt S2: Configure Complete Codebase</b><br/><small>docs/ Governance • ADR-001 • Test Harness Scaffolding</small>"]:::step
+    subgraph SRow1 ["R&D & SPECIFICATION TIERS"]
+        direction LR
+        subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE"]
+            SetupS(["<b>⚙️ Setup</b><br/><small>Extract Blueprint & Open IDE</small>"]):::step
+            CmdCheckS["<b>🔍 Verify Commands</b><br/><small>Check 16 /-ca-agent Contracts</small>"]:::gate
+            PS1["<b>📑 Prompt S1: Architecture</b><br/><small>Plan Mode • HLD/LLD • Contracts</small>"]:::step
+            HumanS1{"Architecture Approved?"}:::gate
+            PS2["<b>🏗️ Prompt S2: Baseline</b><br/><small>docs/ Governance & Test Harness</small>"]:::step
+        end
+
+        subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & RED CONTRACT"]
+            PS3["<b>📋 Prompt S3: Spec Validation</b><br/><small>Flat vs Modular • Given/When/Then</small>"]:::step
+            RedPhase["<b>🔴 RED PHASE: Failing Tests</b><br/><small>Scaffold & Confirm Failures</small>"]:::red
+        end
     end
 
-    subgraph S2Phase ["📋 PHASE 2: SPECIFICATION & TEST CONTRACT"]
-        PS3["<b>📋 Prompt S3: Spec Validation & Tier Decision</b><br/><small>Flat vs. Modular Decision • AC-FEAT###-## Given/When/Then</small>"]:::step
-        RedPhase["<b>🔴 RED PHASE: Scaffold Failing Tests</b><br/><small>Run /testing-ca-agent -> Confirm Expected Test Failures</small>"]:::red
+    subgraph SRow2 ["TDD IMPLEMENTATION & PRODUCTION TIERS"]
+        direction LR
+        subgraph S3Phase ["🧪 PHASE 3: TDD IMPLEMENTATION CYCLE"]
+            PS4["<b>🟢 GREEN PHASE: Minimal Code</b><br/><small>Pass All Tests -> Refactor</small>"]:::green
+            GateCheck{"All Tests Green?"}:::gate
+            NextFeature{"More Features?"}:::gate
+        end
+
+        subgraph S4Phase ["🚀 PHASE 4: AUDIT & SHIP"]
+            PS5["<b>🔍 Prompt S5: Pre-Flight Audit</b><br/><small>SAST Scan & Release Checklist</small>"]:::step
+            Release(["<b>🎉 Production Release</b><br/><small>Signed Off in docs/approvals/</small>"]):::ship
+        end
     end
 
-    subgraph S3Phase ["🧪 PHASE 3: TDD IMPLEMENTATION CYCLE"]
-        PS4["<b>🟢 GREEN PHASE: Minimal Code Implementation</b><br/><small>Write Minimum Code -> All AC Tests PASS -> Refactor</small>"]:::green
-        GateCheck{"All Tests Green?"}:::gate
-        NextFeature{"More Features?"}:::gate
-    end
-
-    subgraph S4Phase ["🚀 PHASE 4: PRODUCTION READINESS & SHIP"]
-        PS5["<b>🔍 Prompt S5: Production Readiness Audit</b><br/><small>SAST Security Scan • Release Checklist Gate</small>"]:::step
-        Release(["<b>🎉 Production Release Authorization</b><br/><small>Signed Off in docs/approvals/release-v1.0.0.md</small>"]):::ship
-    end
-
-    SetupS -->|"Clean Workspace"| CmdCheckS
-    CmdCheckS -->|"Contracts Verified"| PS1
-    PS1 -->|"Submits System Design"| HumanS1
+    SetupS -->|"Workspace Ready"| CmdCheckS
+    CmdCheckS -->|"Verified"| PS1
+    PS1 -->|"System Design"| HumanS1
     HumanS1 -->|"Revise"| PS1
     HumanS1 -->|"Approved"| PS2
 
-    PS2 -->|"Initializes Harness"| PS3
-    PS3 -->|"Failing Test Contract"| RedPhase
+    PS2 -->|"Scaffold Spec"| PS3
+    PS3 -->|"Failing Contract"| RedPhase
+    RedPhase ==>|"TDD Cycle"| PS4
 
-    RedPhase -->|"Run TDD Cycle"| PS4
     PS4 -->|"Automated Check"| GateCheck
+    GateCheck -->|"Failing Tests"| PS4
+    GateCheck -->|"Passed"| NextFeature
+    NextFeature -->|"Next Spec"| PS3
+    NextFeature -->|"All Done"| PS5
+
+    PS5 -->|"Gate Passed"| Release
+```
     GateCheck -->|"Failing Tests"| PS4
     GateCheck -->|"Passed Green"| NextFeature
 

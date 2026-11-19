@@ -101,30 +101,36 @@ flowchart LR
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    subgraph S1Phase ["🏛️ PHASE 1: EDUSPHERE DISCOVERY & ARCHITECTURE R&D"]
-        SetupS(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract Blueprint to 'school-management-system'</small>"]):::step
-        CmdCheckS["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
-        PS1["<b>📑 Step S1: /plan-ca-agent</b><br/><small>Plan Mode • Multi-Tenant RLS • FERPA Compliance • HLD/LLD</small>"]:::step
-        HumanS1{"Architecture Approved?"}:::gate
-        PS2["<b>🏗️ Step S2: /task-ca-agent</b><br/><small>Configure docs/, ADR-001 & Vitest Harness in tests/</small>"]:::step
+    subgraph Row1 ["🏛️ EDUSPHERE DISCOVERY & SPECIFICATION TIERS"]
+        direction LR
+        subgraph S1Phase ["🏛️ PHASE 1: DISCOVERY & ARCHITECTURE R&D"]
+            SetupS(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract to 'school-management-system'</small>"]):::step
+            CmdCheckS["<b>🔍 Verify Commands</b><br/><small>Check 16 /-ca-agent in Palette & CLI</small>"]:::gate
+            PS1["<b>📑 Step S1: /plan-ca-agent</b><br/><small>Multi-Tenant RLS • FERPA • HLD/LLD</small>"]:::step
+            HumanS1{"Architecture Approved?"}:::gate
+            PS2["<b>🏗️ Step S2: /task-ca-agent</b><br/><small>docs/, ADR-001 & Vitest Harness</small>"]:::step
+        end
+
+        subgraph S2Phase ["📋 PHASE 2: SPEC & RED CONTRACT"]
+            PS3["<b>📋 Step S3: /spec-check-ca-agent</b><br/><small>002-student-enrollment.md • Given/When/Then</small>"]:::step
+            RedPhase["<b>🔴 RED PHASE: /testing-ca-agent</b><br/><small>Scaffold Failing Vitest Stubs</small>"]:::red
+        end
     end
 
-    subgraph S2Phase ["📋 PHASE 2: STUDENT SPECIFICATION & RED TEST CONTRACT"]
-        PS3["<b>📋 Step S3: /spec-check-ca-agent</b><br/><small>Author docs/features/002-student-enrollment.md • Given/When/Then</small>"]:::step
-        RedPhase["<b>🔴 RED PHASE: /testing-ca-agent</b><br/><small>Scaffold Failing Vitest Stubs • Verify Expected Assertion Errors</small>"]:::red
-    end
+    subgraph Row2 ["🧪 TDD IMPLEMENTATION & AUDIT TIERS"]
+        direction LR
+        subgraph S3Phase ["🧪 PHASE 3: GREEN TDD CYCLE"]
+            PS4["<b>🟢 GREEN PHASE: /tdd-ca-agent</b><br/><small>Minimal Code (API Route + Prisma RLS)</small>"]:::green
+            ReviewS["<b>🔍 Code Quality & Diff Review</b><br/><small>/review-ca-agent -> Clean Audit</small>"]:::step
+            GateCheck{"All Tests Green?"}:::gate
+            NextFeature{"More Features?"}:::gate
+        end
 
-    subgraph S3Phase ["🧪 PHASE 3: GREEN TDD IMPLEMENTATION CYCLE"]
-        PS4["<b>🟢 GREEN PHASE: /tdd-ca-agent</b><br/><small>Write Minimal Code (API Route + Prisma RLS) -> All Tests PASS</small>"]:::green
-        ReviewS["<b>🔍 Code Quality & Diff Review</b><br/><small>Run /review-ca-agent -> Clean Audit & Zero Scope Creep</small>"]:::step
-        GateCheck{"All Tests Green?"}:::gate
-        NextFeature{"More Features?"}:::gate
-    end
-
-    subgraph S4Phase ["🚀 PHASE 4: AUDIT, COMPLIANCE & SHIP"]
-        PS5["<b>🛡️ Step S5: /security-audit-ca-agent</b><br/><small>SAST Scan • FERPA/COPPA Compliance Audit</small>"]:::step
-        ReleaseCheck["<b>📋 Execute /release-check-ca-agent</b><br/><small>Pre-Flight Production Gate & Deployment Sign-Off</small>"]:::step
-        ReleaseS(["<b>🎉 Production Release Authorization</b><br/><small>Signed Off in docs/approvals/release-v1.0.0.md</small>"]):::ship
+        subgraph S4Phase ["🚀 PHASE 4: AUDIT, COMPLIANCE & SHIP"]
+            PS5["<b>🛡️ Step S5: /security-audit-ca-agent</b><br/><small>SAST Scan • FERPA/COPPA Audit</small>"]:::step
+            ReleaseCheck["<b>📋 Execute /release-check-ca-agent</b><br/><small>Pre-Flight Production Gate Sign-Off</small>"]:::step
+            ReleaseS(["<b>🎉 Production Authorization</b><br/><small>docs/approvals/release-v1.0.0.md</small>"]):::ship
+        end
     end
 
     SetupS -->|"Workspace Ready"| CmdCheckS
@@ -135,7 +141,7 @@ flowchart LR
 
     PS2 -->|"Baseline Configured"| PS3
     PS3 -->|"Scaffold Test Stubs"| RedPhase
-    RedPhase -->|"Confirm Failures (RED)"| PS4
+    RedPhase ==>|"TDD Cycle"| PS4
 
     PS4 -->|"All Tests Green"| ReviewS
     ReviewS -->|"Diff Inspected"| GateCheck

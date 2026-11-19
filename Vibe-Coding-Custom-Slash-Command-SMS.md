@@ -106,29 +106,35 @@ flowchart LR
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef ship fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
 
-    subgraph V1Phase ["🎨 PHASE 1: EDUSPHERE DISCOVERY & AESTHETIC VIBE"]
-        SetupV(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract Blueprint to 'school-management-system'</small>"]):::step
-        CmdCheckV["<b>🔍 Verify Slash Commands</b><br/><small>Check 16 /-ca-agent in Dropdown & CLI</small>"]:::gate
-        PV1["<b>💡 Step V1: /plan-ca-agent</b><br/><small>Plan Mode • Zinc Palette • EduSphere Bento Grid • Next.js 15</small>"]:::step
-        HumanV1{"Lead Approved?"}:::gate
+    subgraph Row1 ["🎨 EDUSPHERE DISCOVERY & PROTOTYPING TIERS"]
+        direction LR
+        subgraph V1Phase ["🎨 PHASE 1: DISCOVERY & AESTHETIC VIBE"]
+            SetupV(["<b>⚙️ Setup & Project Renaming</b><br/><small>Extract to 'school-management-system'</small>"]):::step
+            CmdCheckV["<b>🔍 Verify Commands</b><br/><small>Check 16 /-ca-agent in Palette & CLI</small>"]:::gate
+            PV1["<b>💡 Step V1: /plan-ca-agent</b><br/><small>Zinc Palette • Bento Grid • Next.js 15</small>"]:::step
+            HumanV1{"Lead Approved?"}:::gate
+        end
+
+        subgraph V2Phase ["🏗️ PHASE 2: LIVE SENSORY UI PROTOTYPING"]
+            PV2["<b>🏗️ Step V2: /implement-ca-agent</b><br/><small>Next.js Shell • Admin Cards • Mock Store</small>"]:::step
+            RunV["<b>🚀 Launch Dev Server</b><br/><small>/run-ca-agent -> :3000</small>"]:::step
+            LiveCheck["<b>🌐 Live Browser Verification</b><br/><small>Visual Inspection of Dashboards</small>"]:::live
+        end
     end
 
-    subgraph V2Phase ["🏗️ PHASE 2: LIVE SENSORY UI PROTOTYPING"]
-        PV2["<b>🏗️ Step V2: /implement-ca-agent</b><br/><small>Scaffold Next.js Shell • Admin Cards • Mock Student Store</small>"]:::step
-        RunV["<b>🚀 Launch Dev Server</b><br/><small>Execute /run-ca-agent -> http://localhost:3000</small>"]:::step
-        LiveCheck["<b>🌐 Live Browser Verification</b><br/><small>Tactile & Visual Inspection of Admin & Teacher Dashboards</small>"]:::live
-    end
+    subgraph Row2 ["✨ VIBE-TUNING & ENTERPRISE HARDENING TIERS"]
+        direction LR
+        subgraph V3Phase ["✨ PHASE 3: FLUID VIBE-TUNING"]
+            PV3["<b>🎨 Step V3: /task-ca-agent</b><br/><small>30-Sec Attendance • Pills • Student Drawer</small>"]:::step
+            ReviewV["<b>🔍 Surgical Review</b><br/><small>/review-ca-agent -> Clean Diffs</small>"]:::step
+            LoopV{"Vibe Approved?"}:::gate
+        end
 
-    subgraph V3Phase ["✨ PHASE 3: FLUID CONVERSATIONAL VIBE-TUNING"]
-        PV3["<b>🎨 Step V3: /task-ca-agent</b><br/><small>30-Sec Attendance Sheet • Interactive Pills • Student Drawer</small>"]:::step
-        ReviewV["<b>🔍 Surgical Review</b><br/><small>Run /review-ca-agent -> Keep Diffs Clean & Focused</small>"]:::step
-        LoopV{"Vibe Approved?"}:::gate
-    end
-
-    subgraph V4Phase ["🔒 PHASE 4: PROGRESSIVE PRODUCTION HARDENING"]
-        PV4["<b>🔒 Step V4: Hardening & Persistence</b><br/><small>Zod Validation • PostgreSQL Prisma Models • Auth Route Guards</small>"]:::step
-        AuditsV["<b>🛡️ Pre-Flight Verification Gates</b><br/><small>Execute /security-audit-ca-agent & /release-check-ca-agent</small>"]:::step
-        ShipV(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Enterprise School Management SaaS Ship</small>"]):::ship
+        subgraph V4Phase ["🔒 PHASE 4: PROGRESSIVE HARDENING"]
+            PV4["<b>🔒 Step V4: Hardening & Persistence</b><br/><small>Zod Validation • Prisma RLS • Auth Guards</small>"]:::step
+            AuditsV["<b>🛡️ Pre-Flight Verification Gates</b><br/><small>/security-audit & /release-check</small>"]:::step
+            ShipV(["<b>🚀 Production Deployment</b><br/><small>Zero-Defect Enterprise SMS Ship</small>"]):::ship
+        end
     end
 
     SetupV -->|"Workspace Ready"| CmdCheckV
@@ -139,10 +145,10 @@ flowchart LR
 
     PV2 -->|"Build Shell"| RunV
     RunV -->|"Dev Server Running"| LiveCheck
-    LiveCheck -->|"Tactile Feedback"| PV3
+    LiveCheck ==>|"Tactile Feedback"| PV3
 
     PV3 -->|"Apply Feedback"| ReviewV
-    ReviewV -->|"Instant Fast Refresh"| LoopV
+    ReviewV -->|"Fast Refresh"| LoopV
     LoopV -->|"Iterate UI"| PV3
     LoopV -->|"Approved"| PV4
 

@@ -28,41 +28,47 @@ flowchart LR
     classDef data fill:#022c22,stroke:#10b981,stroke-width:1.5px,color:#d1fae5;
     classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
 
-    subgraph Clients ["🌐 CLIENT EXPERIENCE TIER"]
-        Browser(["<b>🖥️ Modern Web Application</b><br/><small>Next.js 15 App Router & Tailwind CSS</small>"]):::client
-        MobileClient(["<b>📱 Responsive Mobile Devices</b><br/><small>Touch Targets & Fluid Breakpoints</small>"]):::client
+    subgraph ClientEdge ["🌐 CLIENT & EDGE INGRESS LAYER"]
+        direction LR
+        subgraph Clients ["CLIENT EXPERIENCE"]
+            Browser(["<b>🖥️ Web Client</b><br/><small>Next.js 15 UI</small>"]):::client
+            MobileClient(["<b>📱 Mobile Devices</b><br/><small>Fluid Touch Shell</small>"]):::client
+        end
+
+        subgraph EdgeTier ["EDGE INGRESS"]
+            EdgeDNS["<b>🌐 Anycast DNS</b><br/><small>Edge CDN Cache</small>"]:::edge
+            APIGateway["<b>🔀 API Gateway</b><br/><small>Rate Limiter</small>"]:::edge
+        end
     end
 
-    subgraph EdgeTier ["🛡️ EDGE & CDN INGRESS"]
-        EdgeDNS["<b>🌐 Anycast DNS & Edge CDN</b><br/><small>Asset Delivery & Edge Caching</small>"]:::edge
-        APIGateway["<b>🔀 API Gateway & Reverse Proxy</b><br/><small>Rate Limiting & Header Sanitizer</small>"]:::edge
+    subgraph CoreStorage ["⚙️ APPLICATION & STORAGE TIERS"]
+        direction LR
+        subgraph AppTier ["APPLICATION CORE"]
+            WebServer["<b>⚙️ App Server</b><br/><small>Route Handlers</small>"]:::app
+            SocketServer["<b>⚡ Real-Time Engine</b><br/><small>WebSockets / SSE</small>"]:::app
+            AsyncWorker["<b>🏃 Worker Service</b><br/><small>Queued Jobs</small>"]:::app
+        end
+
+        subgraph DataTier ["PERSISTENCE & FAST ACCESS"]
+            PrimaryDB[("<b>🗄️ Primary DB</b><br/><small>PostgreSQL ACID</small>")]:::data
+            RedisStore[("<b>⚡ Redis Cache</b><br/><small>PubSub & Session</small>")]:::cache
+            BlobStorage[("<b>📦 Media Storage</b><br/><small>S3 Buckets</small>")]:::data
+        end
     end
 
-    subgraph AppTier ["⚙️ APPLICATION & REAL-TIME TIER"]
-        WebServer["<b>⚙️ Application Core Server</b><br/><small>REST & Server Actions Route Handlers</small>"]:::app
-        SocketServer["<b>⚡ Real-Time Engine</b><br/><small>WebSockets & Server-Sent Events</small>"]:::app
-        AsyncWorker["<b>🏃 Background Worker Service</b><br/><small>Queues & Scheduled Background Jobs</small>"]:::app
-    end
+    Clients -->|"DNS"| EdgeDNS
+    EdgeDNS -->|"Ingress"| APIGateway
+    APIGateway ==>|"HTTP / WS"| WebServer
+    APIGateway -->|"Events"| SocketServer
 
-    subgraph DataTier ["💾 PERSISTENCE & FAST-ACCESS TIER"]
-        PrimaryDB[("<b>🗄️ Primary Database</b><br/><small>PostgreSQL / SQLite Storage</small>")]:::data
-        RedisStore[("<b>⚡ Distributed In-Memory Store</b><br/><small>Redis Pub/Sub & Session Cache</small>")]:::cache
-        BlobStorage[("<b>📦 Media & Asset Storage</b><br/><small>S3 / Cloud Storage Buckets</small>")]:::data
-    end
+    WebServer -->|"ACID Writes"| PrimaryDB
+    WebServer -->|"Cache Check"| RedisStore
+    SocketServer -->|"Broadcast"| RedisStore
 
-    Clients -->|"DNS Resolution"| EdgeDNS
-    EdgeDNS -->|"Edge Ingress"| APIGateway
-    APIGateway -->|"HTTP API Request"| WebServer
-    APIGateway -->|"WebSocket Handshake"| SocketServer
-
-    WebServer -->|"ACID Mutations"| PrimaryDB
-    WebServer -->|"Session Check"| RedisStore
-    SocketServer -->|"Pub/Sub Stream"| RedisStore
-
-    RedisStore -->|"Task Queue"| AsyncWorker
-    AsyncWorker -->|"Batch Writes"| PrimaryDB
-    AsyncWorker -->|"Asset Processing"| BlobStorage
-    WebServer -->|"Direct Uploads"| BlobStorage
+    RedisStore -->|"Tasks"| AsyncWorker
+    AsyncWorker -->|"Writes"| PrimaryDB
+    AsyncWorker -->|"Assets"| BlobStorage
+    WebServer -->|"Uploads"| BlobStorage
 ```
 
 ### 1.2 Low-Level Design (LLD) & Component Modularization

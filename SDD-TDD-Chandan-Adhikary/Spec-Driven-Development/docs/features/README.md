@@ -64,13 +64,29 @@ flowchart LR
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
-    SelectSpec["<b>1. 📑 Select Approved Spec</b><br/><small>e.g., FEAT-001 (Must be APPROVED)</small>"]:::step --> WriteTests["<b>2. 🔴 Write Failing Tests (Red Phase)</b><br/><small>Directly verify AC-FEAT001-##</small>"]:::red
-    WriteTests --> ImplementCode["<b>3. 🟢 Implement Minimal Code (Green Phase)</b><br/><small>Satisfy test assertions only</small>"]:::green
-    ImplementCode --> RefactorCode["<b>4. ✨ Refactor & Polish Architecture</b><br/><small>Clean design, zero test regressions</small>"]:::green
-    RefactorCode --> UpdateDocs["<b>5. 📝 Update Docs & Living Trackers</b><br/><small>docs/error-tracker.md, task.md, CHANGELOG</small>"]:::step
-    UpdateDocs --> NextSpec{"Next Spec?"}:::gate
-    NextSpec -->|"Next Spec"| SelectSpec
-    NextSpec -->|"All Done"| ReleaseAudit(["<b>6. 🚀 Run /release-check-ca-agent</b><br/><small>Final Release Gate Verification</small>"]):::green
+    subgraph ForwardTier ["🧪 SPEC IMPLEMENTATION STAGE"]
+        direction LR
+        SelectSpec["<b>1. 📑 Select Spec</b><br/><small>Approved FEAT-###</small>"]:::step
+        WriteTests["<b>2. 🔴 Write Tests</b><br/><small>Verify AC (Red Phase)</small>"]:::red
+        ImplementCode["<b>3. 🟢 Minimal Code</b><br/><small>Pass Tests (Green Phase)</small>"]:::green
+    end
+
+    subgraph ReviewTier ["🔍 VERIFICATION & REVIEW STAGE"]
+        direction LR
+        RefactorCode["<b>4. ✨ Refactor</b><br/><small>Clean Architecture</small>"]:::green
+        UpdateDocs["<b>5. 📝 Update Docs</b><br/><small>Living Trackers Synced</small>"]:::step
+        NextSpec{"Next Spec?"}:::gate
+        ReleaseAudit(["<b>6. 🚀 Release Audit</b><br/><small>/release-check-ca-agent</small>"]):::green
+    end
+
+    SelectSpec -->|"Contract"| WriteTests
+    WriteTests -->|"Failing"| ImplementCode
+    ImplementCode ==>|"Pass All"| RefactorCode
+
+    RefactorCode -->|"Polish"| UpdateDocs
+    UpdateDocs -->|"Evaluate"| NextSpec
+    NextSpec -->|"Yes: Next"| SelectSpec
+    NextSpec -->|"No: Done"| ReleaseAudit
 ```
 
 > [!CRITICAL]
