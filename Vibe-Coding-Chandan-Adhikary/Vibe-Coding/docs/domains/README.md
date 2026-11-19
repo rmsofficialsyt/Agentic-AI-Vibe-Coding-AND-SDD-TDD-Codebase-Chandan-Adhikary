@@ -23,15 +23,28 @@ The `docs/domains/` directory allows Vibe-Coding projects to cleanly layer on sp
 
 ```mermaid
 flowchart LR
-    Core["Core Framework Baseline<br/>(docs/rules.md, design.md)"] --> Ext1["Web & Interactive UI<br/>(docs/domains/web.md)"]
-    Core --> Ext2["Mobile Applications<br/>(docs/domains/mobile.md)"]
-    Core --> Ext3["Creative & 3D WebGL<br/>(docs/domains/3d.md)"]
-    Core --> Ext4["AI Agent & LLM Interfaces<br/>(docs/domains/agents.md)"]
+    classDef core fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+    classDef ext fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
+    classDef code fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    Ext1 --> ProjectCode["Prototype & Production Code"]
-    Ext2 --> ProjectCode
-    Ext3 --> ProjectCode
-    Ext4 --> ProjectCode
+    Core[("<b>🎨 Core Framework Baseline</b><br/><sub>docs/rules.md • docs/design.md</sub>")]:::core
+
+    Ext1["<b>🌐 Web & Interactive UI</b><br/><sub>docs/domains/web.md • Micro-Interactions</sub>"]:::ext
+    Ext2["<b>📱 Mobile Applications</b><br/><sub>docs/domains/mobile.md • React Native</sub>"]:::ext
+    Ext3["<b>🎮 Creative & 3D WebGL</b><br/><sub>docs/domains/3d.md • Three.js / Canvas</sub>"]:::ext
+    Ext4["<b>🤖 AI Agent Interfaces</b><br/><sub>docs/domains/agents.md • Streaming UI</sub>"]:::ext
+
+    ProjectCode(["<b>💻 Prototype & Production Code</b><br/><sub>Responsive Application Assets</sub>"]):::code
+
+    Core -->|"Extends Rules"| Ext1
+    Core -->|"Extends Rules"| Ext2
+    Core -->|"Extends Rules"| Ext3
+    Core -->|"Extends Rules"| Ext4
+
+    Ext1 ==>|"Governs Code"| ProjectCode
+    Ext2 ==>|"Governs Code"| ProjectCode
+    Ext3 ==>|"Governs Code"| ProjectCode
+    Ext4 ==>|"Governs Code"| ProjectCode
 ```
 
 ---

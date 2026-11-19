@@ -23,12 +23,12 @@ Architecture Decision Records (ADRs) in the Vibe-Coding framework capture signif
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Proposed: Draft ADR from Template
-    Proposed --> Accepted: Team Architecture Sign-Off
-    Proposed --> Rejected: Alternative Pattern Selected
+    [*] --> Proposed: 📝 Draft ADR from Template
+    Proposed --> Accepted: 👤 Team Architecture Sign-Off
+    Proposed --> Rejected: ❌ Alternative Pattern Selected
     
-    Accepted --> Superseded: Replaced by Newer ADR-####
-    Accepted --> Deprecated: Technology Retired
+    Accepted --> Superseded: 🔄 Replaced by Newer ADR-####
+    Accepted --> Deprecated: 📦 Technology Retired / Decommissioned
     
     Superseded --> [*]
     Deprecated --> [*]

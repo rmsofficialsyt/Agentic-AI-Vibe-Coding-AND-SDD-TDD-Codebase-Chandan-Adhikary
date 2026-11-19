@@ -27,23 +27,26 @@ The `.agents/` directory is the single cross-IDE canonical source of truth for a
 
 ```mermaid
 flowchart TD
-    subgraph AgentsRoot [".agents/ Canonical Asset Store"]
+    classDef asset fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef ide fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
+
+    subgraph AgentsRoot ["🛠️ .agents/ CANONICAL ASSET STORE"]
         direction TB
-        Commands["commands/<br/>(16 Collision-Free *-ca-agent.md Commands)"]
-        Skills["skills/<br/>(18 Reusable Skills & core-engineering-skills)"]
-        Hooks["hooks/ & hooks.json<br/>(SessionStart, PreToolUse, PostToolUse)"]
-        Templates["templates/<br/>(Standardized Contracts & Completion Reports)"]
+        Commands["<b>⚡ commands/ Catalog</b><br/><sub>16 Collision-Free *-ca-agent.md Commands</sub>"]:::asset
+        Skills["<b>📚 skills/ Playbooks</b><br/><sub>18 Reusable Skills & core-engineering-skills</sub>"]:::asset
+        Hooks["<b>🪝 hooks/ & hooks.json</b><br/><sub>SessionStart, PreToolUse, PostToolUse</sub>"]:::asset
+        Templates["<b>📑 templates/ Contracts</b><br/><sub>Standardized Task & Completion Reports</sub>"]:::asset
     end
 
-    subgraph HostIDEs ["Supported AI Coding IDEs"]
+    subgraph HostIDEs ["🖥️ SUPPORTED AI CODING HOST IDES"]
         direction LR
-        IDE1["Claude Code"]
-        IDE2["Cursor / Windsurf"]
-        IDE3["Antigravity"]
-        IDE4["OpenCode / VS Code"]
+        IDE1(["<b>Claude Code</b><br/><sub>Anthropic CLI</sub>"]):::ide
+        IDE2(["<b>Cursor / Windsurf</b><br/><sub>VS Code Forks</sub>"]):::ide
+        IDE3(["<b>Antigravity</b><br/><sub>Native Engine</sub>"]):::ide
+        IDE4(["<b>OpenCode / VS Code</b><br/><sub>AI Extensions</sub>"]):::ide
     end
 
-    AgentsRoot --> HostIDEs
+    AgentsRoot ==>|"Walk-Up Directory Discovery"| HostIDEs
 ```
 
 ---
@@ -54,11 +57,15 @@ All supported IDEs discover `.agents/` by walking up the directory tree to the w
 
 ```mermaid
 flowchart LR
-    WorkspaceRoot["Workspace / Git Root<br/>(.agents/ Found)"] --> DiscoverCommands["Auto-Discover Commands<br/>(commands/*.md -> /<name>-ca-agent)"]
-    WorkspaceRoot --> DiscoverSkills["Auto-Discover Skills<br/>(skills/*/SKILL.md)"]
-    WorkspaceRoot --> DiscoverHooks["Bind Lifecycle Hooks<br/>(hooks.json -> scripts/hooks/*.py)"]
+    classDef root fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef disc fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
+    classDef ui fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    DiscoverCommands --> IDEPalette["Exposed in AI Chat Dropdown<br/>(Typing '/' shows all 16 commands)"]
+    WorkspaceRoot[("<b>📁 Workspace / Git Root</b><br/><sub>.agents/ Asset Store Located</sub>")]:::root -->|"Discovers"| DiscoverCommands["<b>⚡ Parse Commands</b><br/><sub>commands/*.md -> /<name>-ca-agent</sub>"]:::disc
+    WorkspaceRoot -->|"Discovers"| DiscoverSkills["<b>📚 Load Skills</b><br/><sub>skills/*/SKILL.md Playbooks</sub>"]:::disc
+    WorkspaceRoot -->|"Discovers"| DiscoverHooks["<b>🪝 Bind Lifecycle Hooks</b><br/><sub>hooks.json -> scripts/hooks/*.py</sub>"]:::disc
+
+    DiscoverCommands ==>|"Registers in Chat UI"| IDEPalette["<b>💬 AI Chat Palette Autocomplete</b><br/><sub>Typing '/' Displays All 16 Commands</sub>"]:::ui
 ```
 
 ---

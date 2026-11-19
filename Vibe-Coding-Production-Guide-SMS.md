@@ -23,40 +23,49 @@ This guide provides an end-to-end, production-ready blueprint for creating **Edu
 
 ```mermaid
 flowchart TD
-    subgraph VibePrototype ["EduSphere Vibe Prototyping Architecture"]
+    classDef sensory fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef store fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef backend fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+
+    subgraph VibePrototype ["🎨 EDUSPHERE VIBE PROTOTYPING ARCHITECTURE"]
         direction TB
-        subgraph SensoryTier ["Sensory UI Layer (Next.js 15 App Router)"]
-            Dashboard["Admin & Teacher Modern Bento Dashboard<br/>(Tailwind CSS + Shadcn UI Zinc Tokens)"]
-            StudentGrid["Student Roster & Quick Enrollment Cards"]
-            AttendancePills["Interactive Attendance Toggle Pills<br/>(Present, Absent, Late, Excused)"]
+        subgraph SensoryTier ["🌐 SENSORY UI LAYER (NEXT.JS 15 APP ROUTER)"]
+            Dashboard["<b>🏫 Admin & Teacher Bento Dashboard</b><br/><sub>Tailwind CSS • Shadcn UI Zinc Design Tokens</sub>"]:::sensory
+            StudentGrid["<b>🎓 Student Roster & Quick Enrollment</b><br/><sub>Interactive Cards with Dynamic Filtering</sub>"]:::sensory
+            AttendancePills["<b>📊 Interactive Attendance Pills</b><br/><sub>Present, Absent, Late, Excused Toggles</sub>"]:::sensory
         end
 
-        subgraph ClientState ["Reactive Mock & Prototype State"]
-            ClientStore["React Context / Zustand Mock Store<br/>(Instant zero-latency feedback)"]
-            LocalPersist["Local Storage Prototype Sync"]
+        subgraph ClientState ["⚡ REACTIVE MOCK & PROTOTYPE STATE"]
+            ClientStore["<b>🧠 React Context / Zustand Store</b><br/><sub>Zero-Latency Local Feedback Engine</sub>"]:::store
+            LocalPersist[("<b>💾 LocalStorage Prototype Sync</b><br/><sub>Session Survival Across Refreshes</sub>")]:::store
         end
 
-        subgraph HardenedBackend ["Progressive Backend Target"]
-            ServerAPI["Next.js Route Handlers (/api/v1)"]
-            PrismaORM["Prisma Client & PostgreSQL"]
+        subgraph HardenedBackend ["🔒 PROGRESSIVE PRODUCTION TARGET"]
+            ServerAPI["<b>🔌 Next.js Route Handlers (/api/v1)</b><br/><sub>Zod Validation & Auth Middleware</sub>"]:::backend
+            PrismaORM[("<b>🗄️ PostgreSQL Database (Prisma)</b><br/><sub>Multi-Tenant Schema with RLS</sub>")]:::backend
         end
     end
 
     SensoryTier <--> ClientStore
     ClientStore -.-> LocalPersist
-    ClientStore ==>|"Hardening Phase"| ServerAPI
+    ClientStore ==>|"Hardening Milestone"| ServerAPI
     ServerAPI --> PrismaORM
 ```
 
 ```mermaid
 flowchart LR
-    subgraph FeedbackCycle ["Conversational Vibe-Tuning Cycle"]
-        Inspect["Run /run-ca-agent<br/>Inspect at localhost:3000"] --> PromptAgent["Chat Prompt:<br/>'Add soft shadows to student cards and smooth transitions'"]
-        PromptAgent --> ApplyDiff["Agent Applies CSS/JSX Diff"]
-        ApplyDiff --> FastRefresh["Fast Refresh Hot-Reload"]
-        FastRefresh --> VisualApproval{"Vibe Approved?"}
-        VisualApproval -->|"Iterate"| PromptAgent
-        VisualApproval -->|"Approved"| LockContract["Update Living Spec<br/>(docs/features/002-student-enrollment.md)"]
+    classDef dev fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef agent fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    subgraph FeedbackCycle ["✨ CONVERSATIONAL VIBE-TUNING CYCLE"]
+        Inspect(["<b>🌐 Run /run-ca-agent</b><br/><sub>Inspect at localhost:3000</sub>"]):::live --> PromptAgent["<b>💬 Developer Chat Prompt</b><br/><sub>'Soften card borders, add micro-transitions'</sub>"]:::dev
+        PromptAgent --> ApplyDiff["<b>🤖 Agent Applies JSX/CSS Diff</b><br/><sub>Surgical Tailwind Adjustments</sub>"]:::agent
+        ApplyDiff --> FastRefresh["<b>⚡ Dev Server Fast Refresh</b><br/><sub>Sub-Second Visual Feedback</sub>"]:::live
+        FastRefresh --> VisualApproval{"<b>✨ Vibe Approved?</b><br/><sub>Tactile & Visual Sign-Off</sub>"}:::gate
+        VisualApproval -->|"No: Iterate"| PromptAgent
+        VisualApproval -->|"YES: Approved"| LockContract[("<b>📑 Update Living Spec</b><br/><sub>docs/features/002-student-enrollment.md</sub>")]:::live
     end
 ```
 

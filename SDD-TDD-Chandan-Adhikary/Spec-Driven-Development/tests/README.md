@@ -24,27 +24,35 @@ The test harness in **Spec-Driven Development (SDD-TDD)** is an immutable qualit
 
 ```mermaid
 flowchart TD
-    subgraph Pyramid ["Testing Pyramid Strategy"]
-        Unit["Unit Tests (60-70%)<br/>Pure functions, domain logic, data models<br/>tests/unit/"]
-        Integration["Integration Tests (20-30%)<br/>API routes, database queries, auth guards, RLS<br/>tests/integration/"]
-        E2E["End-to-End Tests (10%)<br/>User journeys, payment flows, browser workflows<br/>tests/e2e/"]
+    classDef spec fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
+    classDef unit fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef integ fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;
+    classDef e2e fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef runner fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef log fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
+
+    SpecAC[("<b>📑 Approved Acceptance Criteria</b><br/><sub>docs/features/**.md: AC-FEAT###-##</sub>")]:::spec
+
+    subgraph Pyramid ["🧪 TEST HARNESS PYRAMID TIERS"]
+        E2E["<b>🌐 End-to-End Tests (10%)</b><br/><sub>Full browser journeys & payment gateways (tests/e2e/)</sub>"]:::e2e
+        Integration["<b>🔌 Integration Tests (20-30%)</b><br/><sub>API routes, DB queries, auth guards, RLS (tests/integration/)</sub>"]:::integ
+        Unit["<b>⚡ Unit Tests (60-70%)</b><br/><sub>Pure domain logic, algorithms, state models (tests/unit/)</sub>"]:::unit
     end
 
-    subgraph TraceabilityEngine ["AC-to-Test Mapping Engine"]
-        SpecAC["Approved Acceptance Criteria<br/>(docs/features/**.md: AC-FEAT###-##)"]
-        TestRunner["Automated Test Suite Runner<br/>(Vitest / Jest / PyTest)"]
-        CoverageReport["Coverage & Gate Report<br/>(logs/test.log)"]
+    subgraph ExecutionGate ["⚙️ TEST RUNNER & GATE EXECUTION"]
+        TestRunner[["<b>🏃 Test Suite Runner</b><br/><sub>Vitest / Jest / PyTest Harness</sub>"]]:::runner
+        CoverageReport[("<b>🪵 Test Audit & Gate Report</b><br/><sub>logs/test.log Stream Output</sub>")]:::log
     end
 
-    SpecAC --> Unit
-    SpecAC --> Integration
-    SpecAC --> E2E
+    SpecAC -->|"AC Contract Binding"| Unit
+    SpecAC -->|"AC Contract Binding"| Integration
+    SpecAC -->|"AC Contract Binding"| E2E
 
-    Unit --> TestRunner
-    Integration --> TestRunner
-    E2E --> TestRunner
+    Unit -->|"Red/Green Assertions"| TestRunner
+    Integration -->|"Integration Assertions"| TestRunner
+    E2E -->|"Journey Assertions"| TestRunner
 
-    TestRunner --> CoverageReport
+    TestRunner ==>|"Pipes Evidence"| CoverageReport
 ```
 
 ---

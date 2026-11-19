@@ -22,23 +22,31 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 
 ```mermaid
 flowchart TD
-    subgraph VibeProgression ["Vibe-Coding Progressive Hardening Pipeline"]
-        V1["Prompt V1: Discovery & Aesthetics<br/>(Design tokens, palette, user personas)"] --> V2["Prompt V2: Scaffold Live UI<br/>(Component layouts, mock state, /run-ca-agent)"]
-        V2 --> V3["Prompt V3: Conversational Vibe-Tuning<br/>(Micro-interactions, spacing, transitions)"]
-        V3 --> SensoryApproval{"Visual & Tactile<br/>Sign-Off?"}
+    classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef ship fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+
+    subgraph VibeProgression ["🎨 VIBE-CODING PROGRESSIVE HARDENING PIPELINE"]
+        V1["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><sub>Design Tokens • Color Palette • User Personas</sub>"]:::vibe --> V2["<b>🏗️ Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • /run-ca-agent</sub>"]:::vibe
+        V2 --> V3["<b>✨ Prompt V3: Conversational Vibe-Tuning</b><br/><sub>Micro-Interactions • Spacing • Fluid Feedback</sub>"]:::vibe
+        V3 --> SensoryApproval{"<b>👤 Visual & Tactile Sign-Off</b><br/><sub>Does the user experience feel right?</sub>"}:::gate
         SensoryApproval -->|"Iterate UI"| V3
-        SensoryApproval -->|"Approved"| V4["Prompt V4: Progressive Hardening<br/>(Zod schemas, error boundaries, auth guards)"]
-        V4 --> V5["Prompt V5: Security & Release Gate<br/>(/security-audit-ca-agent, /release-check-ca-agent)"]
+        SensoryApproval -->|"Approved"| V4["<b>🔒 Prompt V4: Progressive Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database Models</sub>"]:::harden
+        V4 --> V5["<b>🚀 Prompt V5: Security & Release Gate</b><br/><sub>/security-audit-ca-agent • /release-check-ca-agent</sub>"]:::ship
     end
 ```
 
 ```mermaid
 flowchart LR
-    subgraph StageGates ["4-Stage Progressive Web App Delivery"]
+    classDef stage fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef ship fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+
+    subgraph StageGates ["🚀 PROGRESSIVE 4-STAGE WEB APP DELIVERY GATES"]
         direction LR
-        StageA["Stage A: Frontend UI Demo<br/>• Next.js/Vite Components<br/>• Live Sensory Demo at :3000<br/>• Visual Sign-Off"] --> StageB["Stage B: Persistence<br/>• Database Schema<br/>• API Routes & DTOs<br/>• Migrations"]
-        StageB --> StageC["Stage C: Security<br/>• JWT / Session Auth<br/>• RBAC / Permissions<br/>• Input Sanitization"]
-        StageC --> StageD["Stage D: Testing & Gate<br/>• Sanity & E2E Suites<br/>• Pre-flight CI Gate<br/>• Production Ship"]
+        StageA["<b>🎨 Stage A: Frontend UI Demo</b><br/>• Next.js/Vite Components<br/>• Live Sensory Demo at :3000<br/>• Visual Sign-Off"]:::stage --> StageB["<b>💾 Stage B: Persistence</b><br/>• Database Schemas<br/>• API Routes & DTOs<br/>• Safe Migrations"]:::stage
+        StageB --> StageC["<b>🔒 Stage C: Security</b><br/>• JWT / Session Auth<br/>• RBAC / Permissions<br/>• Input Sanitization"]:::stage
+        StageC --> StageD["<b>🧪 Stage D: Testing & Gate</b><br/>• Sanity & E2E Suites<br/>• Pre-flight CI Gate<br/>• Production Ship"]:::ship
     end
 ```
 

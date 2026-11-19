@@ -27,13 +27,18 @@
 
 ```mermaid
 flowchart TD
-    Start["Initiate New Feature Spec<br/>(/plan-ca-agent or /spec-check-ca-agent)"] --> DevAsk{"Ask Developer:<br/>'Do you prefer Flat or Modular format?'"}
+    classDef start fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef flat fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
+    classDef modular fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+
+    Start(["<b>🚀 Initiate New Feature Specification</b><br/><sub>Triggered via /plan-ca-agent or /spec-check-ca-agent</sub>"]):::start --> DevAsk{"<b>👤 Developer Inquiry Gate</b><br/><sub>'Would you prefer Flat or Modular format?'</sub>"}:::gate
     
-    DevAsk -->|"Developer Specifies"| UserChoice["Follow Explicit User Choice"]
-    DevAsk -->|"Developer Defers / No Choice"| AutoTier{"Evaluate Complexity Tier"}
+    DevAsk -->|"Developer Explicitly Specifies"| UserChoice["<b>🎯 Follow Explicit User Choice</b><br/><sub>Adhere strictly to chosen format</sub>"]:::start
+    DevAsk -->|"Developer Defers / Leaves Open"| AutoTier{"<b>⚖️ Complexity Tier Evaluation</b><br/><sub>Evaluate Scope, Model Count & Impact</sub>"}:::gate
     
-    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Intermediate)<br/>1 to 6 files impacted"| FlatFormat["Scaffold Flat Format<br/>docs/features/NNN-name.md<br/>(Single cohesive document)"]
-    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["Scaffold Modular Format<br/>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md"]
+    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Medium)<br/>1 to 6 files impacted"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><sub>docs/features/NNN-name.md<br/>(Single cohesive living contract)</sub>"]:::flat
+    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, webhooks"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><sub>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md</sub>"]:::modular
 ```
 
 ---
@@ -54,13 +59,18 @@ Every feature must be categorized into one of three complexity tiers to drive si
 
 ```mermaid
 flowchart TD
-    SelectSpec["1. Select Single Approved Spec<br/>(e.g., FEAT-001)"] --> WriteTests["2. Write Failing Tests (Red Phase)<br/>(Directly verify AC-FEAT001-##)"]
-    WriteTests --> ImplementCode["3. Implement Minimum Code (Green Phase)<br/>(Satisfy test assertions only)"]
-    ImplementCode --> RefactorCode["4. Refactor & Clean<br/>(Clean architecture, zero test regressions)"]
-    RefactorCode --> UpdateDocs["5. Update Docs & Trackers<br/>(docs/error-tracker.md, task.md, CHANGELOG.md)"]
-    UpdateDocs --> NextSpec{"More features in scope?"}
+    classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
+    classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    SelectSpec["<b>1. 📑 Select Approved Spec</b><br/><sub>e.g., FEAT-001 (Must be APPROVED)</sub>"]:::step --> WriteTests["<b>2. 🔴 Write Failing Tests (Red Phase)</b><br/><sub>Directly verify AC-FEAT001-##</sub>"]:::red
+    WriteTests --> ImplementCode["<b>3. 🟢 Implement Minimal Code (Green Phase)</b><br/><sub>Satisfy test assertions only</sub>"]:::green
+    ImplementCode --> RefactorCode["<b>4. ✨ Refactor & Polish Architecture</b><br/><sub>Clean design, zero test regressions</sub>"]:::green
+    RefactorCode --> UpdateDocs["<b>5. 📝 Update Docs & Living Trackers</b><br/><sub>docs/error-tracker.md, task.md, CHANGELOG</sub>"]:::step
+    UpdateDocs --> NextSpec{"<b>🔄 Next Feature In Scope?</b><br/><sub>Check Remaining Features in docs/features/</sub>"}:::gate
     NextSpec -->|"Yes: Step-by-step next spec"| SelectSpec
-    NextSpec -->|"No: All done"| ReleaseAudit["6. Run /release-check-ca-agent"]
+    NextSpec -->|"No: All Done"| ReleaseAudit(["<b>6. 🚀 Run /release-check-ca-agent</b><br/><sub>Final Release Gate Verification</sub>"]):::green
 ```
 
 > [!CRITICAL]
@@ -72,13 +82,13 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> DRAFT: Author Specification
-    DRAFT --> IN_REVIEW: Submit for Lead Review
-    IN_REVIEW --> DRAFT: Revisions Requested
-    IN_REVIEW --> APPROVED: Signed Approval (docs/approvals/)
+    [*] --> DRAFT: 📝 Author Specification
+    DRAFT --> IN_REVIEW: 🔍 Submit for Review
+    IN_REVIEW --> DRAFT: 🔄 Revisions Requested
+    IN_REVIEW --> APPROVED: 👤 Human Approval (docs/approvals/)
     
-    APPROVED --> SUPERSEDED: Replaced by Newer Approved Spec
-    APPROVED --> DEPRECATED: Capability Retired / Decommissioned
+    APPROVED --> SUPERSEDED: 📑 Replaced by Newer Approved Spec
+    APPROVED --> DEPRECATED: 📦 Capability Retired / Decommissioned
     
     SUPERSEDED --> [*]
     DEPRECATED --> [*]

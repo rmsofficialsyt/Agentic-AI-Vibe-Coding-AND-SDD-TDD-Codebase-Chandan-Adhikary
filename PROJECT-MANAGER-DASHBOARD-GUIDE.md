@@ -23,32 +23,39 @@ The **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear and Shadcn 
 
 ```mermaid
 flowchart TD
-    subgraph Workspace ["Active IDE Workspace"]
-        Tasks["docs/task.md<br/>(Task Hierarchy & State)"]
-        Phases["docs/phases.md<br/>(Milestone Gates)"]
-        Features["docs/features/**/*.md<br/>(AC Given/When/Then Specs)"]
-        Errors["docs/error-tracker.md<br/>(Defect & SLA Matrix)"]
-        GitRepo[".git Metadata<br/>(Commits, Branches, Diffs)"]
-        Logs["logs/*.log<br/>(Development & Error Streams)"]
-        Transcripts["Agent JSONL Transcripts<br/>(Token Telemetry & Cache Hits)"]
+    classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
+    classDef daemon fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    subgraph WorkspaceState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
+        Tasks[("<b>📋 docs/task.md</b><br/><sub>Sequential Task Tree & Priorities</sub>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><sub>Milestone Deliverables & Gates</sub>")]:::store
+        Specs[("<b>📑 docs/features/**/*.md</b><br/><sub>AC Given/When/Then Specs</sub>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><sub>P0-P3 Blocker Defect Matrix</sub>")]:::store
+        GitRepo[("<b>🗄️ .git/ Repository</b><br/><sub>HEAD Commit, Diffs, Branches</sub>")]:::store
+        Logs[("<b>🪵 logs/*.log Streams</b><br/><sub>dev.log, test.log, error.log</sub>")]:::store
+        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><sub>Token Health & Cache Rates</sub>")]:::store
     end
 
-    subgraph LocalDaemon ["Zero-Dependency Local Daemon (Native Node.js)"]
-        Parser["parser.js<br/>(AST & Regex Extractors)"]
-        Server["server.js<br/>(HTTP, SSE, CSRF Guard)"]
-        SecurityGuard["127.0.0.1 Binding & Host Check<br/>(DNS-Rebinding Protection)"]
+    subgraph DaemonTier ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (NATIVE NODE.JS)"]
+        Parser[["<b>🔍 parser.js AST Engine</b><br/><sub>Regex Extractors & JSON Synthesizer</sub>"]]:::daemon
+        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><sub>Port 4200 (SDD) / 4201 (Vibe)</sub>"]]:::daemon
+        SecurityGuard{"<b>🛡️ 127.0.0.1 DNS-Rebind Guard</b><br/><sub>Origin & Host Header Validation</sub>"}:::sec
+        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><sub>X-Dashboard-Token Security Guard</sub>"]:::sec
     end
 
-    subgraph ViewportTier ["In-IDE Simple Browser / Native Browser"]
-        DashboardUI["Dashboard Viewport (Fluid Bento Grid)<br/>• Active Running Task at Index 0<br/>• Pinned HEAD Git Commit (DD-MM-YYYY)<br/>• Interactive AC Engine & Prev Error Tracker<br/>• Live Logs Explorer & Token Health"]
+    subgraph ViewportTier ["🖥️ IN-IDE SIMPLE BROWSER VIEWPORT"]
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/>• ⚡ Active Running Task Floated to Index 0<br/>• 📅 Pinned HEAD Git Commit (DD-MM-YYYY)<br/>• 🧪 Interactive Given/When/Then AC Engine<br/>• 🪵 Real-time Live Logs Stream Explorer<br/>• 🤖 Agent Token Consumption Gauges"]:::client
     end
 
-    Workspace --> Parser
-    Parser --> Server
-    SecurityGuard --> Server
-    Server -->|"Live SSE Telemetry / REST API"| DashboardUI
-    DashboardUI -.->|"Interactive Toggles / CSRF Verified"| Server
-    Server -.->|"Safe Persistence"| Workspace
+    WorkspaceState -->|"📁 Real-Time File Watch (2s)"| Parser
+    Parser -->|"Synthesized State"| Server
+    SecurityGuard -->|"Enforces Local Isolation"| Server
+    CSRFManager -->|"Session Token"| Server
+    Server ==>|"⚡ Live SSE Telemetry Stream"| DashboardUI
+    DashboardUI -.->|"🔒 Interactive Action / CSRF Verified"| Server
+    Server -.->|"Safe Persistence Update"| WorkspaceState
 ```
 
 ### Core Design Principles
@@ -61,25 +68,29 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    subgraph SDDInstance ["Port 4200: SDD-TDD Track"]
-        SDDServer["SDD Daemon<br/>(server.js --port=4200)"]
-        SDDTarget["SDD Workspace<br/>(Spec-Driven-Development/)"]
+    classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
+    classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+    classDef client fill:#0f172a,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
+
+    subgraph SDDInstance ["🛡️ PORT 4200: SPEC-DRIVEN DEVELOPMENT"]
+        SDDServer[["<b>🔌 SDD Local Daemon</b><br/><sub>server.js --port=4200</sub>"]]:::sdd
+        SDDTarget[("<b>📑 SDD Workspace</b><br/><sub>Spec-Driven-Development/</sub>")]:::sdd
     end
 
-    subgraph VibeInstance ["Port 4201: Vibe-Coding Track"]
-        VibeServer["Vibe Daemon<br/>(server.js --port=4201)"]
-        VibeTarget["Vibe Workspace<br/>(Vibe-Coding/)"]
+    subgraph VibeInstance ["🌟 PORT 4201: VIBE-CODING"]
+        VibeServer[["<b>🔌 Vibe Local Daemon</b><br/><sub>server.js --port=4201</sub>"]]:::vibe
+        VibeTarget[("<b>🎨 Vibe Workspace</b><br/><sub>Vibe-Coding/</sub>")]:::vibe
     end
 
-    subgraph BrowserClient ["Localhost Clients"]
-        Client1["IDE Editor 1<br/>http://127.0.0.1:4200"]
-        Client2["IDE Editor 2<br/>http://127.0.0.1:4201"]
+    subgraph BrowserClient ["🖥️ DOCKED IN-IDE SIMPLE BROWSERS"]
+        Client1(["<b>Simple Browser 1</b><br/><sub>http://127.0.0.1:4200</sub>"]):::client
+        Client2(["<b>Simple Browser 2</b><br/><sub>http://127.0.0.1:4201</sub>"]):::client
     end
 
-    SDDServer <--> SDDTarget
-    VibeServer <--> VibeTarget
-    Client1 <--> SDDServer
-    Client2 <--> VibeServer
+    SDDServer <-->|"Watches State"| SDDTarget
+    VibeServer <-->|"Watches State"| VibeTarget
+    Client1 <==>|"Live Telemetry"| SDDServer
+    Client2 <==>|"Live Telemetry"| VibeServer
 ```
 
 ---
@@ -145,17 +156,21 @@ For the ultimate distraction-free developer experience, dock the dashboard direc
 
 ```mermaid
 flowchart TD
-    subgraph IDEWindow ["IDE Workspace Window (VS Code / Cursor / Windsurf / Antigravity)"]
+    classDef editor fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
+    classDef term fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#f8fafc;
+
+    subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW (VS Code / Cursor / Windsurf / Antigravity)"]
         direction LR
-        subgraph EditorGroup1 ["Editor Group 1 (Left 60%)"]
-            SourceCode["Active Source Code & Specs<br/>• src/auth/login.ts<br/>• docs/features/002-student-enrollment.md"]
+        subgraph Col1 ["📝 Editor Group 1 (Left 60%)"]
+            SourceCode["<b>Active Source Code & Feature Specs</b><br/>• src/auth/login.ts<br/>• docs/features/002-student-enrollment.md"]:::editor
         end
-        subgraph EditorGroup2 ["Editor Group 2 (Right 40%)"]
-            SimpleBrowser["Docked Simple Browser<br/>• http://127.0.0.1:4200 (SDD)<br/>• http://127.0.0.1:4201 (Vibe)<br/>⚡ Current Task Floating on Top<br/>📅 HEAD Commit on Top"]
+        subgraph Col2 ["📊 Editor Group 2 (Right 40%)"]
+            SimpleBrowser["<b>Docked Simple Browser Viewport</b><br/>• http://127.0.0.1:4200 (SDD)<br/>• http://127.0.0.1:4201 (Vibe)<br/>⚡ Running Task at Index 0<br/>📅 HEAD Commit on Top"]:::dash
         end
     end
-    subgraph TerminalPane ["Integrated Terminal (Bottom)"]
-        DevServer["Active Dev Server / Test Suite / logs/ Streams"]
+    subgraph TerminalPane ["💻 Integrated Terminal Pane (Bottom)"]
+        DevServer["<b>Active Dev Server / Test Suite / logs/ Streams</b>"]:::term
     end
 ```
 
@@ -201,11 +216,11 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PENDING: Ingest Spec (AC-FEAT###-##)
-    PENDING --> RED_FAIL: Test Scaffolding (/testing-ca-agent)
-    RED_FAIL --> GREEN_PASS: Implementation Satisfied (/tdd-ca-agent)
-    GREEN_PASS --> PENDING: Spec Revision / Change Request
-    GREEN_PASS --> [*]: Phase Exit Gate Approved
+    [*] --> PENDING: 📋 Ingest Feature Spec (AC-FEAT###-##)
+    PENDING --> RED_FAIL: 🔴 Scaffold Failing Tests (/testing-ca-agent)
+    RED_FAIL --> GREEN_PASS: 🟢 Implementation Satisfied (/tdd-ca-agent)
+    GREEN_PASS --> PENDING: 🔄 Spec Revision / Change Request
+    GREEN_PASS --> [*]: 🚀 Phase Exit Gate Formally Approved
 ```
 
 ### 5. AI Model Profiles & Token Telemetry
@@ -251,18 +266,18 @@ The dashboard includes a dedicated Live Development Logs Explorer integrated dir
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Client as Simple Browser (127.0.0.1)
-    participant Server as server.js (Local Daemon)
-    participant FS as Local Filesystem (docs/)
+    participant Client as 🖥️ Simple Browser (127.0.0.1)
+    participant Server as 🔌 server.js (Local Daemon)
+    participant FS as 📁 Local Filesystem (docs/)
 
-    Client->>Server: GET / (Initial Page Load)
-    Note over Server: Generates per-process CSRF token (X-Dashboard-Token)<br/>Validates Host Header: 127.0.0.1
-    Server-->>Client: 200 OK (index.html with injected session token)
+    Client->>Server: 📡 GET / (Initial Page Load)
+    Note over Server: 🔒 Generates per-process CSRF token (X-Dashboard-Token)<br/>Validates Host Header: 127.0.0.1
+    Server-->>Client: 200 OK (Injected with X-Dashboard-Token)
 
-    Client->>Server: POST /api/action { action: "run-tests" }<br/>Header: X-Dashboard-Token
-    Note over Server: Validates Token & Same-Origin<br/>Rejects non-127.0.0.1 DNS Rebinding
-    Server->>FS: Reads docs/task.md & Executes Test Runner
-    FS-->>Server: Output / Results
+    Client->>Server: 🔐 POST /api/action { action: "run-tests" }<br/>Header: X-Dashboard-Token
+    Note over Server: 🛡️ Verifies Token & Same-Origin<br/>Rejects non-127.0.0.1 DNS Rebinding
+    Server->>FS: ⚙️ Reads docs/task.md & Executes Test Runner
+    FS-->>Server: 📊 Test Suite Output
     Server-->>Client: 200 OK { success: true, output: "..." }
 ```
 

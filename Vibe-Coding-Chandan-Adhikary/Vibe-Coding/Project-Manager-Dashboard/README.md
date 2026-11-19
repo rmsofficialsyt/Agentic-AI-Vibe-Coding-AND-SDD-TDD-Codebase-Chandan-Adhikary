@@ -23,36 +23,38 @@ The **Project-Manager-Dashboard** is an embedded telemetry mission control desig
 
 ```mermaid
 flowchart TD
-    subgraph FilesystemState ["Local Filesystem Data Ingestion"]
-        Tasks["docs/task.md<br/>(Task Hierarchy & Vibe Iterations)"]
-        Phases["docs/phases.md<br/>(Milestone Gate Progress)"]
-        LivingSpecs["docs/features/**/*.md<br/>(Living Feature Contracts)"]
-        Errors["docs/error-tracker.md<br/>(Defect & Blocker Matrix)"]
-        GitMeta[".git Repository<br/>(HEAD, Log, Diff, Branches)"]
-        LogsStream["logs/*.log<br/>(dev.log, server.log, error.log)"]
-        Transcripts["Agent JSONL Transcripts<br/>(Context Tokens & Hit Rates)"]
+    classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
+    classDef daemon fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    subgraph FilesystemState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
+        Tasks[("<b>📋 docs/task.md</b><br/><sub>Sequential Task Tree & Priorities</sub>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><sub>Milestone Deliverables & Gates</sub>")]:::store
+        LivingSpecs[("<b>📑 docs/features/**/*.md</b><br/><sub>Living Feature Contracts</sub>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><sub>P0-P3 Blocker Defect Matrix</sub>")]:::store
+        GitMeta[("<b>🗄️ .git/ Repository</b><br/><sub>HEAD Commit, Diffs, Branches</sub>")]:::store
+        LogsStream[("<b>🪵 logs/*.log Streams</b><br/><sub>dev.log, server.log, error.log</sub>")]:::store
+        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><sub>Token Health & Cache Rates</sub>")]:::store
     end
 
-    subgraph DaemonEngine ["Node.js Local Daemon (server.js + parser.js)"]
-        Watcher["File Polling Engine (Every 2s)"]
-        ASTParser["parser.js AST Extractors"]
-        SecFilter["Host Header & DNS-Rebind Guard"]
-        CSRFManager["X-Dashboard-Token Injector"]
+    subgraph DaemonEngine ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (PORT 4201)"]
+        Watcher[["<b>📁 File Polling Engine</b><br/><sub>Real-Time Ingestion (Every 2s)</sub>"]]:::daemon
+        ASTParser[["<b>🔍 parser.js AST Extractors</b><br/><sub>Regex Extractors & JSON Synthesizer</sub>"]]:::daemon
+        SecFilter{"<b>🛡️ 127.0.0.1 DNS-Rebind Guard</b><br/><sub>Host Header & Origin Validation</sub>"}:::sec
+        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><sub>X-Dashboard-Token Security Guard</sub>"]:::sec
     end
 
-    subgraph UIClient ["In-IDE Simple Browser (http://127.0.0.1:4201)"]
-        TaskFloater["⚡ Active Running Task Floated to Top"]
-        CommitFeed["📅 Pinned HEAD Commit with DD-MM-YYYY Dates"]
-        ACMatrix["Interactive Living Contract Engine"]
-        ErrorInspector["Prev Error Tracker & Radix Sheet Inspector"]
-        LogViewer["Live Logs Stream Explorer & Search"]
+    subgraph UIClient ["🖥️ IN-IDE SIMPLE BROWSER (http://127.0.0.1:4201)"]
+        DashboardUI["<b>📊 Mission Control Bento Viewport</b><br/>• ⚡ Active Running Task Floated to Index 0<br/>• 📅 Pinned HEAD Git Commit (DD-MM-YYYY)<br/>• 🎨 Interactive Living Contract Engine<br/>• 🪵 Real-time Live Logs Stream Explorer<br/>• 🤖 Agent Token Consumption Gauges"]:::client
     end
 
-    FilesystemState --> Watcher
-    Watcher --> ASTParser
-    SecFilter --> DaemonEngine
-    CSRFManager --> DaemonEngine
-    ASTParser --> UIClient
+    FilesystemState -->|"Real-Time Watch"| Watcher
+    Watcher -->|"Raw Content"| ASTParser
+    SecFilter -->|"Enforces Isolation"| DaemonEngine
+    CSRFManager -->|"Session Token"| DaemonEngine
+    ASTParser ==>|"⚡ Live SSE Telemetry Stream"| DashboardUI
+    DashboardUI -.->|"🔒 Interactive Action / CSRF Verified"| DaemonEngine
 ```
 
 ---
@@ -64,14 +66,18 @@ The dashboard dynamically prioritizes the items developers care about most:
 
 ```mermaid
 flowchart LR
-    subgraph TaskStream ["Task Re-Ordering Engine"]
-        IncomingTasks["Raw Task List<br/>(Task 1, Task 2, Task 3...)"] --> StateCheck{"Is Any Task<br/>IN_PROGRESS / RUNNING<br/>or RED_TEST_FAIL?"}
-        StateCheck -->|"Yes: Match Found"| FloatTop["Float Task to Index 0<br/>Badge: ⚡ CURRENT RUNNING TASK"]
-        StateCheck -->|"No: All Idle"| NaturalOrder["Preserve Natural Order"]
+    classDef active fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef normal fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
+    classDef git fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
+
+    subgraph TaskStream ["📋 TASK STREAM RE-ORDERING ENGINE"]
+        IncomingTasks["<b>Raw Task List</b><br/><sub>Task 1, Task 2, Task 3...</sub>"]:::normal --> StateCheck{"<b>🔍 State Evaluator</b><br/><sub>Is Task IN_PROGRESS<br/>or RUNNING?</sub>"}
+        StateCheck -->|"Yes: Match Found"| FloatTop["<b>⚡ CURRENT RUNNING TASK</b><br/><sub>Dynamically Floated to Index 0</sub>"]:::active
+        StateCheck -->|"No: All Idle"| NaturalOrder["<b>Preserve Order</b><br/><sub>Sequential Numbering</sub>"]:::normal
     end
 
-    subgraph GitStream ["Git Telemetry Engine"]
-        GitLog["Raw Git Log"] --> PinHead["Pin Latest Commit to Top<br/>Badge: [HEAD / CURRENT COMMIT]<br/>Date: 📅 DD-MM-YYYY"]
+    subgraph GitStream ["🗄️ GIT TELEMETRY STREAM"]
+        GitLog["<b>Raw Git Log</b><br/><sub>Recent Commit History</sub>"]:::git --> PinHead["<b>📅 HEAD COMMIT PINNED</b><br/><sub>Index 0 • DD-MM-YYYY Date</sub>"]:::git
     end
 ```
 
@@ -95,13 +101,16 @@ node server.js
 ### 2. Dock the Dashboard in Your IDE (Side-by-Side Viewport)
 ```mermaid
 flowchart TD
-    subgraph IDEWindow ["IDE Editor Window"]
+    classDef code fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef dash fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+
+    subgraph IDEWindow ["🖥️ IDE WORKSPACE WINDOW"]
         direction LR
-        subgraph Col1 ["Editor Group 1 (Active Code)"]
-            Code["src/components/hero.tsx<br/>docs/design.md"]
+        subgraph Col1 ["📝 Editor Group 1 (Active Code)"]
+            Code["<b>Active Prototype Code & Specs</b><br/>• src/components/hero.tsx<br/>• docs/design.md"]:::code
         end
-        subgraph Col2 ["Editor Group 2 (Simple Browser Tab)"]
-            Dash["http://127.0.0.1:4201<br/>Project-Manager-Dashboard"]
+        subgraph Col2 ["📊 Editor Group 2 (Simple Browser Tab)"]
+            Dash["<b>Docked Simple Browser Viewport</b><br/>• http://127.0.0.1:4201<br/>• Real-Time Task & Living Spec Telemetry"]:::dash
         end
     end
 ```
@@ -132,18 +141,18 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     autonumber
-    participant IDE as IDE Simple Browser
-    participant Daemon as server.js (127.0.0.1:4201)
-    participant Core as docs/ & src/
+    participant IDE as 🖥️ IDE Simple Browser (127.0.0.1)
+    participant Daemon as 🔌 server.js (Local Daemon: Port 4201)
+    participant Core as 📁 docs/ & src/ Components
 
-    IDE->>Daemon: GET / (Initial Connect)
-    Note over Daemon: Validates Host Header: 127.0.0.1:4201<br/>Generates Unique Process CSRF Token
-    Daemon-->>IDE: 200 OK (Injected with X-Dashboard-Token)
+    IDE->>Daemon: 📡 GET / (Initial Connection)
+    Note over Daemon: 🔒 Validates Host: 127.0.0.1:4201<br/>Generates Unique Process CSRF Token
+    Daemon-->>IDE: 200 OK (index.html Injected with X-Dashboard-Token)
 
-    IDE->>Daemon: POST /api/action (Trigger Run / Spec Check)<br/>Header: X-Dashboard-Token
-    Note over Daemon: Checks CSRF Token & Same-Origin<br/>Blocks External Traffic
-    Daemon->>Core: Executes Action via Child Process
-    Core-->>Daemon: Command Output
+    IDE->>Daemon: 🔐 POST /api/action (Trigger Run / Spec Check)<br/>Header: X-Dashboard-Token
+    Note over Daemon: 🛡️ Verifies CSRF Token & Same-Origin<br/>Rejects External Network DNS Rebinding
+    Daemon->>Core: ⚙️ Executes Child Process Command
+    Core-->>Daemon: 📊 Command Output Streams
     Daemon-->>IDE: 200 OK { success: true, output: "..." }
 ```
 

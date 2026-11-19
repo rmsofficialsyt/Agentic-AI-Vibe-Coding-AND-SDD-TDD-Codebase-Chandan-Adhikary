@@ -24,21 +24,26 @@ In **Vibe-Coding**, testing follows a progressive hardening philosophy. During t
 
 ```mermaid
 flowchart TD
-    subgraph SensoryStage ["Stage 1: Sensory Verification"]
-        LiveDemo["Run /run-ca-agent<br/>(Live UI at http://localhost:3000)"]
-        SensoryCheck["Visual & Interaction Verification<br/>(Responsive layouts, animations, theme)"]
-        VibeSignOff{"Vibe Approved?"}
+    classDef sensory fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+    classDef pass fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+
+    subgraph SensoryStage ["🎨 STAGE 1: SENSORY UI DEMO VERIFICATION"]
+        LiveDemo["<b>🔌 Run /run-ca-agent</b><br/><sub>Starts Live Dev Server at http://localhost:3000</sub>"]:::sensory
+        SensoryCheck["<b>🌐 Sensory UX Inspection</b><br/><sub>Inspect Visual Aesthetics, Responsiveness & Animations</sub>"]:::sensory
+        VibeSignOff{"<b>✨ Vibe Approval Gate</b><br/><sub>Does the user experience feel right?</sub>"}:::gate
     end
 
-    subgraph HardeningStage ["Stage 2: Progressive Hardening"]
-        ComponentTests["Component & State Tests<br/>(tests/components/)"]
-        ValidationTests["Schema & API Validation Tests<br/>(Zod / Typed DTO tests)"]
-        RegressionTests["Regression & Integration Tests<br/>(tests/integration/)"]
+    subgraph HardeningStage ["🔒 STAGE 2: PROGRESSIVE HARNESS HARDENING"]
+        ComponentTests["<b>🧩 Component & State Tests</b><br/><sub>Header, Dialogs, Cards (tests/components/)</sub>"]:::harden
+        ValidationTests["<b>📑 Schema & DTO Tests</b><br/><sub>Zod Validation & Typed Form Inputs</sub>"]:::harden
+        RegressionTests["<b>🔌 API Regression Tests</b><br/><sub>Route Handlers & State Persistence (tests/integration/)</sub>"]:::harden
     end
 
-    subgraph ReleaseStage ["Stage 3: Production Gate"]
-        TestRun["Execute /testing-ca-agent<br/>(Output to logs/test.log)"]
-        ShipVerdict["/release-check-ca-agent Approved"]
+    subgraph ReleaseStage ["🚀 STAGE 3: PRE-DEPLOY RELEASE GATE"]
+        TestRun[["<b>🏃 Execute /testing-ca-agent</b><br/><sub>Automated Test Harness Output -> logs/test.log</sub>"]]:::harden
+        ShipVerdict(["<b>🎉 /release-check-ca-agent Passed</b><br/><sub>Zero-Defect Production Deployment Authorized</sub>"]):::pass
     end
 
     LiveDemo --> SensoryCheck

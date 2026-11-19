@@ -34,48 +34,53 @@
 
 ```mermaid
 flowchart TD
-    subgraph DiscoveryPhase ["1. Discovery & Vibe Check"]
-        VibePrompt["Prompt V1: Discovery & Aesthetic<br/>(Personas, Color Palette, Design Tokens)"]
-        VibePlan["Visual & Architectural Plan<br/>(docs/product.md, docs/design.md)"]
-        HumanSignOff{"Human Approval<br/>of Vibe Plan"}
+    classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
+
+    subgraph DiscoveryPhase ["🎨 1. DISCOVERY & AESTHETIC VIBE CHECK"]
+        VibePrompt["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><sub>Aesthetic Tokens • Color Palette • User Personas</sub>"]:::vibe
+        VibePlan["<b>📑 Visual & Technical Blueprint</b><br/><sub>docs/product.md • docs/design.md Tokens</sub>"]:::vibe
+        HumanSignOff{"<b>👤 Human Lead Vibe Approval</b><br/><sub>Sign-off on Aesthetic Direction</sub>"}:::gate
     end
 
-    subgraph PrototypePhase ["2. Live Interactive UI Scaffold"]
-        ScaffoldCode["Prompt V2: Scaffold Live UI<br/>(Next.js / Vite / Tailwind UI)"]
-        StartDevServer["Run /run-ca-agent<br/>(Start dev server at localhost:3000)"]
-        BrowserInspect["Sensory Browser Inspection<br/>(Visual layout, tactile interaction, mock state)"]
+    subgraph PrototypePhase ["🏗️ 2. LIVE INTERACTIVE UI SCAFFOLD"]
+        ScaffoldCode["<b>💻 Prompt V2: Scaffold Live UI Shell</b><br/><sub>Component Wireframes • Mock State • Dynamic Styling</sub>"]:::vibe
+        StartDevServer["<b>🔌 Run /run-ca-agent</b><br/><sub>Starts Local Server at http://localhost:3000</sub>"]:::live
+        BrowserInspect["<b>🌐 Sensory Browser Inspection</b><br/><sub>Visual Layout Check • Tactile Feel • Micro-Interactions</sub>"]:::live
     end
 
-    subgraph TuningPhase ["3. Conversational Vibe-Tuning"]
-        FeedbackPrompt["Prompt V3: Polish Micro-Interactions<br/>(Padding, contrast, transitions, flows)"]
-        HotReload["Instant Hot-Reload Feedback"]
-        VibeApproval{"Does the Vibe<br/>Feel Right?"}
+    subgraph TuningPhase ["✨ 3. CONVERSATIONAL VIBE-TUNING"]
+        FeedbackPrompt["<b>🎨 Prompt V3: Polish Micro-Interactions</b><br/><sub>Padding, Typography, Hover States, Transitions</sub>"]:::vibe
+        HotReload["<b>⚡ Instant Fast Refresh Hot-Reload</b><br/><sub>Immediate Visual Feedback in Browser</sub>"]:::live
+        VibeApproval{"<b>✨ Vibe Approval Gate</b><br/><sub>Does the UX feel intuitive, elegant, and responsive?</sub>"}:::gate
     end
 
-    subgraph HardeningPhase ["4. Progressive Production Hardening"]
-        HardeningPrompt["Prompt V4: Production Hardening<br/>(Zod validation, backend APIs, RLS)"]
-        SanityTests["Execute /testing-ca-agent<br/>(Visual sanity & regression suites)"]
-        SecurityGate["Run /security-audit-ca-agent & /release-check-ca-agent"]
-        ShipProduction["Production Release Deployment"]
+    subgraph HardeningPhase ["🔒 4. PROGRESSIVE PRODUCTION HARDENING"]
+        HardeningPrompt["<b>🛡️ Prompt V4: Production Hardening</b><br/><sub>Zod Validation • Error Boundaries • Database APIs</sub>"]:::harden
+        SanityTests["<b>🧪 Execute /testing-ca-agent</b><br/><sub>Visual Sanity & Component Regression Suites</sub>"]:::harden
+        SecurityGate["<b>🛡️ /security-audit-ca-agent & /release-check-ca-agent</b><br/><sub>SAST Scan • Secret Leak Audit • Release Checklist</sub>"]:::harden
+        ShipProduction(["<b>🚀 Production Release Deployment</b><br/><sub>Zero-Defect Ship to Production</sub>"]):::live
     end
 
-    VibePrompt --> VibePlan
-    VibePlan --> HumanSignOff
+    VibePrompt -->|"Architects"| VibePlan
+    VibePlan -->|"Reviews"| HumanSignOff
     HumanSignOff -->|"Revisions Needed"| VibePrompt
     HumanSignOff -->|"APPROVED"| ScaffoldCode
 
-    ScaffoldCode --> StartDevServer
-    StartDevServer --> BrowserInspect
-    BrowserInspect --> FeedbackPrompt
+    ScaffoldCode -->|"Launches"| StartDevServer
+    StartDevServer -->|"Inspects"| BrowserInspect
+    BrowserInspect -->|"Feedback"| FeedbackPrompt
 
-    FeedbackPrompt --> HotReload
-    HotReload --> VibeApproval
-    VibeApproval -->|"No: Adjust Styling/Features"| FeedbackPrompt
-    VibeApproval -->|"YES: Ready to Harden"| HardeningPrompt
+    FeedbackPrompt -->|"Updates Code"| HotReload
+    HotReload -->|"Validates"| VibeApproval
+    VibeApproval -->|"No: Refine UI"| FeedbackPrompt
+    VibeApproval -->|"YES: Vibe Approved"| HardeningPrompt
 
-    HardeningPrompt --> SanityTests
-    SanityTests --> SecurityGate
-    SecurityGate --> ShipProduction
+    HardeningPrompt -->|"Harness Test"| SanityTests
+    SanityTests -->|"Audit Scan"| SecurityGate
+    SecurityGate -->|"Ship Authorized"| ShipProduction
 ```
 
 ---
@@ -86,11 +91,16 @@ The developer and the AI agent collaborate in a high-speed sensory feedback loop
 
 ```mermaid
 flowchart LR
-    DevFeedback["Developer Feedback<br/>'Make header sticky, soften borders'"] --> AgentCode["AI Agent Update<br/>(Applies Tailored Changes)"]
-    AgentCode --> HotReloadUI["Dev Server Hot-Reload<br/>(localhost:3000)"]
-    HotReloadUI --> SensoryCheck["Sensory Inspection<br/>(Visual Aesthetics & Touch)"]
-    SensoryCheck -->|"Vibe Approved"| LivingDoc["Update docs/features/<br/>(Living Contract Refinement)"]
-    SensoryCheck -->|"Iterate"| DevFeedback
+    classDef dev fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef agent fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
+    classDef ui fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    DevFeedback(["<b>👤 Developer Feedback</b><br/><sub>'Make header sticky, soften card borders'</sub>"]):::dev -->|"Direct Prompt"| AgentCode["<b>🤖 AI Agent Update</b><br/><sub>Applies Tailored JSX/CSS Diffs</sub>"]:::agent
+    AgentCode -->|"Fast Refresh"| HotReloadUI["<b>⚡ Dev Server Hot-Reload</b><br/><sub>Instant Render at localhost:3000</sub>"]:::ui
+    HotReloadUI -->|"Sensory Inspection"| SensoryCheck{"<b>✨ Vibe Check</b><br/><sub>Does it feel right?</sub>"}:::gate
+    SensoryCheck -->|"Yes: Vibe Approved"| LivingDoc["<b>📑 Update docs/features/</b><br/><sub>Living Contract Refinement</sub>"]:::ui
+    SensoryCheck -->|"No: Iterate"| DevFeedback
 ```
 
 ---
@@ -150,13 +160,19 @@ All custom commands carry the `-ca-agent` namespace to guarantee zero collisions
 
 ```mermaid
 flowchart TD
-    subgraph RepoRoot ["Vibe-Coding /"]
-        AGENTS["AGENTS.md / GEMINI.md / CLAUDE.md<br/>(Autonomous Agent Instructions)"]
-        AgentsDir[".agents/<br/>• 16 Commands (*-ca-agent.md)<br/>• 18 Skills (core-engineering-skills)<br/>• hooks.json & templates/"]
-        DocsDir["docs/<br/>• design.md (Tokens, Themes, Personas)<br/>• prd.md, system-architecture.md<br/>• features/ (Living Contracts)<br/>• adrs/ (Decision Records)"]
-        DashboardDir["Project-Manager-Dashboard/<br/>• server.js & parser.js (Port 4201)<br/>• Fluid Bento Grid Interface"]
-        TestsDir["tests/<br/>• Visual Sanity & Hardening Suites"]
-        LogsDir["logs/<br/>• dev.log, test.log, server.log, error.log"]
+    classDef agent fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef doc fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
+    classDef test fill:#064e3b,stroke:#34d399,stroke-width:1.5px,color:#ecfdf5;
+    classDef log fill:#1e293b,stroke:#94a3b8,stroke-width:1.5px,color:#f8fafc;
+
+    subgraph RepoRoot ["🎨 VIBE-CODING /"]
+        AGENTS["<b>🤖 AGENTS.md / GEMINI.md / CLAUDE.md</b><br/><sub>Master Autonomous Agent Instructions</sub>"]:::agent
+        AgentsDir["<b>🛠️ .agents/ Asset Store</b><br/>• 16 Commands (*-ca-agent.md)<br/>• 18 Skills (core-engineering-skills)<br/>• hooks.json & templates/"]:::agent
+        DocsDir["<b>🎨 docs/ Living Specifications</b><br/>• design.md (Tokens, Themes, Personas)<br/>• prd.md, system-architecture.md<br/>• features/ (Living Contracts)<br/>• adrs/ (Decision Records)"]:::doc
+        DashboardDir["<b>🖥️ Project-Manager-Dashboard/</b><br/>• server.js & parser.js (Port 4201)<br/>• Fluid Bento Grid Interface"]:::dash
+        TestsDir["<b>🧪 tests/ Hardening Suites</b><br/>• Visual Sanity & Component Tests<br/>• Regression Test Harness"]:::test
+        LogsDir["<b>🪵 logs/ Audit Directory</b><br/>• dev.log, test.log, server.log, error.log"]:::log
     end
 ```
 

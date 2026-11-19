@@ -26,54 +26,59 @@ This guide provides an end-to-end, production-ready blueprint for building **Edu
 
 ```mermaid
 flowchart TD
-    subgraph ClientIngress ["EduSphere Portal Ingress"]
-        AdminWeb["District & School Admin Portal<br/>(Next.js App Router / SSR)"]
-        TeacherWeb["Teacher Grading & Attendance Web<br/>(Real-Time Classroom UI)"]
-        ParentPortal["Parent & Student Mobile PWA<br/>(Read-Only Grades & Reports)"]
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
+    classDef app fill:#082f49,stroke:#0284c7,stroke-width:1.5px,color:#f0f9ff;
+    classDef db fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
+    classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
+
+    subgraph ClientIngress ["🌐 EDUSPHERE MULTI-PORTAL INGRESS TIER"]
+        AdminWeb(["<b>🏫 District & School Admin Portal</b><br/><sub>Next.js 15 App Router • SSR Management</sub>"]):::client
+        TeacherWeb(["<b>👩‍🏫 Teacher Grading & Attendance Portal</b><br/><sub>Real-Time Classroom UI • Rapid Roster Input</sub>"]):::client
+        ParentPortal(["<b>📱 Parent & Student PWA</b><br/><sub>Mobile-Optimized • Read-Only Grades & Reports</sub>"]):::client
     end
 
-    subgraph AppTier ["Next.js 15 Core Server Tier"]
-        AuthModule["JWT & Session Auth Guard<br/>(NextAuth / Auth0)"]
-        TenantResolver["Tenant Resolution Middleware<br/>(Extracts Subdomain / Tenant ID)"]
-        StudentService["Student Enrollment Service<br/>(FERPA-Compliant Validator)"]
-        AttendanceEngine["Attendance Ledger & Audit Engine"]
+    subgraph AppTier ["⚙️ NEXT.JS 15 APPLICATION & ENTERPRISE SERVICES"]
+        AuthModule["<b>🔑 Session & JWT Auth Guard</b><br/><sub>Role-Based Access Control • NextAuth / OIDC</sub>"]:::app
+        TenantResolver["<b>🏢 Multi-Tenant Middleware</b><br/><sub>Resolves Subdomain & Tenant ID Context</sub>"]:::app
+        StudentService["<b>🎓 Student Enrollment Service</b><br/><sub>FERPA/COPPA Compliant Admission Engine</sub>"]:::app
+        AttendanceEngine["<b>📊 Attendance Audit Ledger</b><br/><sub>Immutable Daily Attendance Records</sub>"]:::app
     end
 
-    subgraph DataTier ["PostgreSQL Multi-Tenant Persistence Tier"]
-        DBConn["Database Connection Pool<br/>(Prisma Client / pgBouncer)"]
-        RLS["PostgreSQL Row-Level Security (RLS)<br/>SET LOCAL app.current_tenant_id = ?"]
-        TenantTables[("Multi-Tenant Schemas / Tables<br/>• schools, students, enrollments<br/>• attendance_records, audit_logs")]
-        RedisCache[("Redis Session & Rate Limit Cache")]
+    subgraph DataTier ["💾 POSTGRESQL MULTI-TENANT PERSISTENCE TIER"]
+        DBConn[["<b>🔌 Database Connection Pool</b><br/><sub>pgBouncer • Prisma ORM Session Pool</sub>"]]:::db
+        RLS{"<b>🛡️ PostgreSQL Row-Level Security (RLS)</b><br/><sub>SET LOCAL app.current_tenant_id = ?</sub>"}:::db
+        TenantTables[("<b>🗄️ Multi-Tenant Tables</b><br/>• schools, students, enrollments<br/>• attendance_records, audit_logs")]:::db
+        RedisCache[("<b>⚡ Distributed Redis Cache</b><br/><sub>Session Tokens, Rate Limits, SSR Cache</sub>")]:::cache
     end
 
-    ClientIngress --> AuthModule
-    AuthModule --> TenantResolver
-    TenantResolver --> StudentService
-    TenantResolver --> AttendanceEngine
+    ClientIngress -->|"📡 HTTPS / JSON API"| AuthModule
+    AuthModule -->|"Validated Context"| TenantResolver
+    TenantResolver -->|"Scoped Request"| StudentService
+    TenantResolver -->|"Scoped Request"| AttendanceEngine
 
-    StudentService --> DBConn
-    AttendanceEngine --> DBConn
-    DBConn --> RLS
-    RLS --> TenantTables
-    AuthModule <--> RedisCache
+    StudentService -->|"SQL Transaction"| DBConn
+    AttendanceEngine -->|"SQL Transaction"| DBConn
+    DBConn -->|"Session Context"| RLS
+    RLS ==>|"Strict Tenant Isolation"| TenantTables
+    AuthModule <-->|"Cache Lookup"| RedisCache
 ```
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant User as Teacher / Principal (Browser)
-    participant Server as Next.js API Route (/api/students/enroll)
-    participant DB as PostgreSQL (with RLS)
+    participant User as 👩‍🏫 Teacher (Browser Viewport)
+    participant Server as ⚙️ Next.js API (/api/students/enroll)
+    participant DB as 💾 PostgreSQL (with RLS Enabled)
 
-    User->>Server: POST /api/students/enroll (Bearer JWT, Payload)
-    Note over Server: Validates JWT & Extracts tenant_id: "school_101"<br/>Validates Payload with Zod Schema
-    Server->>DB: BEGIN Transaction
-    Server->>DB: SET LOCAL app.current_tenant_id = 'school_101';
-    Note over DB: Enforces RLS Policy:<br/>USING (tenant_id = current_setting('app.current_tenant_id'))
-    Server->>DB: INSERT INTO students (admission_num, name, grade...)
-    DB-->>Server: 201 Created (Student Record Locked to Tenant)
-    Server->>DB: COMMIT Transaction
-    Server-->>User: 201 Created { success: true, studentId: "..." }
+    User->>Server: 📡 POST /api/students/enroll (Bearer JWT, Payload)
+    Note over Server: 🔑 Validates JWT & Extracts tenant_id: 'school_101'<br/>📑 Validates Input with Zod Schema
+    Server->>DB: 🔄 BEGIN Transaction
+    Server->>DB: 🔒 SET LOCAL app.current_tenant_id = 'school_101';
+    Note over DB: 🛡️ Enforces PostgreSQL RLS Policy:<br/>USING (tenant_id = current_setting('app.current_tenant_id'))
+    Server->>DB: 📝 INSERT INTO students (admission_num, name, grade...)
+    DB-->>Server: 201 Created (Row Locked to Tenant school_101)
+    Server->>DB: 💾 COMMIT Transaction
+    Server-->>User: 🎉 201 Created { success: true, studentId: 'stu_991' }
 ```
 
 ---

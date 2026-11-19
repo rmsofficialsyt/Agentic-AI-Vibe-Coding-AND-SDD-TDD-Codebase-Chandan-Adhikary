@@ -23,12 +23,12 @@ Architecture Decision Records (ADRs) capture significant architectural choices, 
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Proposed: Draft ADR from Template
-    Proposed --> Accepted: Human Architecture Sign-Off
-    Proposed --> Rejected: Alternative Pattern Selected
+    [*] --> Proposed: 📝 Draft ADR from Template
+    Proposed --> Accepted: 👤 Human Architecture Sign-Off
+    Proposed --> Rejected: ❌ Alternative Pattern Selected
     
-    Accepted --> Superseded: Replaced by Newer ADR-####
-    Accepted --> Deprecated: Architecture Retired
+    Accepted --> Superseded: 🔄 Replaced by Newer ADR-####
+    Accepted --> Deprecated: 📦 Architecture Retired / Decommissioned
     
     Superseded --> [*]
     Deprecated --> [*]

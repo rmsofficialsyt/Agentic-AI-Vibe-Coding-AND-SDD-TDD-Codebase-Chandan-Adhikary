@@ -31,35 +31,35 @@ Every custom command in this framework uses the explicit `-ca-agent` namespace s
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PlanPhase: /plan-ca-agent
-    PlanPhase --> SpecCheck: /spec-check-ca-agent
-    SpecCheck --> TaskSetup: /task-ca-agent
+    [*] --> PlanPhase: 💡 /plan-ca-agent (Vibe Discovery)
+    PlanPhase --> SpecCheck: 📋 /spec-check-ca-agent (Living Specs)
+    SpecCheck --> TaskSetup: 📌 /task-ca-agent (Task Init)
     
     state ExecutionPhase {
-        [*] --> ImplementUI: /implement-ca-agent
-        ImplementUI --> RuntimeCheck: /run-ca-agent (Sensory UI)
-        RuntimeCheck --> TestingSanity: /testing-ca-agent
-        TestingSanity --> TddHarden: /tdd-ca-agent (Hardening)
+        [*] --> ImplementUI: 🎨 /implement-ca-agent (UI Prototype)
+        ImplementUI --> RuntimeCheck: 🌐 /run-ca-agent (Sensory UI Check)
+        RuntimeCheck --> TestingSanity: 🧪 /testing-ca-agent (Sanity Check)
+        TestingSanity --> TddHarden: 🔒 /tdd-ca-agent (Hardening Cycle)
     }
 
     TaskSetup --> ExecutionPhase
 
     state QualityPhase {
-        [*] --> ReviewDiff: /review-ca-agent
-        ReviewDiff --> VerifyScore: /verify-ca-agent
-        VerifyScore --> SecAudit: /security-audit-ca-agent
+        [*] --> ReviewDiff: 🔍 /review-ca-agent (Clean Diff)
+        ReviewDiff --> VerifyScore: 📊 /verify-ca-agent (Living Scorecard)
+        VerifyScore --> SecAudit: 🛡️ /security-audit-ca-agent (SAST Scan)
     }
 
     ExecutionPhase --> QualityPhase
-    QualityPhase --> ReleaseGate: /release-check-ca-agent
-    ReleaseGate --> [*]: Production Ship
+    QualityPhase --> ReleaseGate: 🚀 /release-check-ca-agent (Release Gate)
+    ReleaseGate --> [*]: 🎉 Production Ship
 
     state SupportTools {
-        Dashboard: /dashboard-ca-agent (Port 4201)
-        ErrorTriage: /errorlogs-ca-agent
-        GitAudit: /gitlogs-ca-agent
-        HandoffDossier: /handoff-ca-agent
-        ChangeImpact: /change-request-ca-agent
+        Dashboard: 🖥️ /dashboard-ca-agent (Port 4201)
+        ErrorTriage: 🐛 /errorlogs-ca-agent (RCA Analysis)
+        GitAudit: 🗄️ /gitlogs-ca-agent (Traceability)
+        HandoffDossier: 📑 /handoff-ca-agent (Engineering Dossier)
+        ChangeImpact: 🔄 /change-request-ca-agent (Pivot Impact)
     }
 ```
 
@@ -69,11 +69,17 @@ stateDiagram-v2
 
 ```mermaid
 flowchart LR
-    DevPrompt["Developer Invocation<br/>'/<name>-ca-agent [args]'"] --> Validator["Contract Parser<br/>(Reads YAML Frontmatter)"]
-    Validator --> HumanGate{"Human Authorization<br/>Check"}
-    HumanGate -->|"Authorized"| Execution["Agent Executes Command Steps<br/>(Deterministic Tool Calls)"]
-    Execution --> DevLog["Record Output in logs/<br/>(dev.log, server.log, error.log)"]
-    DevLog --> ReportResult["Return Standardized Evidence<br/>to Chat & Dashboard"]
+    classDef dev fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef exec fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef log fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
+    classDef report fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+
+    DevPrompt(["<b>👤 Developer Invocation</b><br/><sub>'/<name>-ca-agent [args]'</sub>"]):::dev -->|"Parses Contract"| Validator["<b>📑 Contract Validator</b><br/><sub>Reads YAML Frontmatter</sub>"]:::exec
+    Validator -->|"Requires Gate"| HumanGate{"<b>👤 Human Lead Gate</b><br/><sub>Authorizes Execution</sub>"}:::gate
+    HumanGate -->|"Authorized"| Execution[["<b>⚙️ Agent Execution</b><br/><sub>Deterministic Tool Calls</sub>"]]:::exec
+    Execution -->|"Pipes Output"| DevLog[("<b>🪵 Audit Trail in logs/</b><br/><sub>dev.log, server.log, error.log</sub>")]:::log
+    DevLog ==>|"Evidence Returned"| ReportResult(["<b>📊 Return Evidence</b><br/><sub>Standardized Report to Chat & UI</sub>"]):::report
 ```
 
 ---

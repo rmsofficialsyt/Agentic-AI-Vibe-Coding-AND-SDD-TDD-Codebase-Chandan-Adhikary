@@ -23,15 +23,28 @@ The core framework provides universal software engineering rules. The `docs/doma
 
 ```mermaid
 flowchart LR
-    Core["Core Framework Baseline<br/>(docs/rules.md, constitution.md)"] --> Ext1["Web & Frontend Domain<br/>(docs/domains/web.md)"]
-    Core --> Ext2["FinTech / Regulated<br/>(docs/domains/fintech.md)"]
-    Core --> Ext3["HealthTech / FERPA / HIPAA<br/>(docs/domains/health.md)"]
-    Core --> Ext4["AI & Machine Learning<br/>(docs/domains/aiml.md)"]
+    classDef core fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef ext fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc;
+    classDef code fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    Ext1 --> ProjectCode["Production Application Code"]
-    Ext2 --> ProjectCode
-    Ext3 --> ProjectCode
-    Ext4 --> ProjectCode
+    Core[("<b>🏛️ Core Framework Baseline</b><br/><sub>docs/rules.md • constitution.md</sub>")]:::core
+
+    Ext1["<b>🌐 Web & Frontend Domain</b><br/><sub>docs/domains/web.md • SSR, Accessibility</sub>"]:::ext
+    Ext2["<b>💳 FinTech / Regulated</b><br/><sub>docs/domains/fintech.md • PCI-DSS, Audit</sub>"]:::ext
+    Ext3["<b>🏥 HealthTech / FERPA / HIPAA</b><br/><sub>docs/domains/health.md • Privacy</sub>"]:::ext
+    Ext4["<b>🤖 AI & Machine Learning</b><br/><sub>docs/domains/aiml.md • Drift, Lineage</sub>"]:::ext
+
+    ProjectCode(["<b>💻 Production Application Code</b><br/><sub>High-Assurance Verified Modules</sub>"]):::code
+
+    Core -->|"Extends Rules"| Ext1
+    Core -->|"Extends Rules"| Ext2
+    Core -->|"Extends Rules"| Ext3
+    Core -->|"Extends Rules"| Ext4
+
+    Ext1 ==>|"Governs Code"| ProjectCode
+    Ext2 ==>|"Governs Code"| ProjectCode
+    Ext3 ==>|"Governs Code"| ProjectCode
+    Ext4 ==>|"Governs Code"| ProjectCode
 ```
 
 ---

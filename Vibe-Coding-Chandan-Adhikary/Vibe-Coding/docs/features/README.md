@@ -24,13 +24,18 @@
 
 ```mermaid
 flowchart TD
-    Start["Initiate New Feature Spec<br/>(/plan-ca-agent or Vibe Planning)"] --> DevAsk{"Ask Developer:<br/>'Do you prefer Flat or Modular format?'"}
+    classDef start fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+    classDef flat fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef modular fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
+
+    Start(["<b>🚀 Initiate New Feature Specification</b><br/><sub>Triggered via /plan-ca-agent or Vibe Planning</sub>"]):::start --> DevAsk{"<b>👤 Developer Inquiry Gate</b><br/><sub>'Would you prefer Flat or Modular format?'</sub>"}:::gate
     
-    DevAsk -->|"Developer Specifies"| UserChoice["Follow Explicit User Choice"]
-    DevAsk -->|"Developer Defers / No Choice"| AutoTier{"Evaluate Complexity Tier"}
+    DevAsk -->|"Developer Explicitly Specifies"| UserChoice["<b>🎯 Follow Explicit User Choice</b><br/><sub>Adhere strictly to chosen format</sub>"]:::start
+    DevAsk -->|"Developer Defers / Leaves Open"| AutoTier{"<b>⚖️ Complexity Tier Evaluation</b><br/><sub>Evaluate Scope, Model Count & Impact</sub>"}:::gate
     
-    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Intermediate)<br/>1 to 6 files impacted"| FlatFormat["Scaffold Flat Format<br/>docs/features/NNN-name.md<br/>(Single cohesive document)"]
-    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["Scaffold Modular Format<br/>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md"]
+    AutoTier -->|"Tier 1 (Easy) or Tier 2 (Medium)<br/>1 to 6 files impacted"| FlatFormat["<b>📄 Scaffold Flat Format</b><br/><sub>docs/features/NNN-name.md<br/>(Single cohesive living contract)</sub>"]:::flat
+    AutoTier -->|"Tier 3 (Complex / Distributed)<br/>7+ files, RLS, queues, payments"| ModularFormat["<b>📁 Scaffold Modular Format</b><br/><sub>docs/features/NNN-name/<br/>├── feature.md<br/>├── acceptance.md<br/>└── test-plan.md</sub>"]:::modular
 ```
 
 ---
@@ -49,12 +54,16 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    SelectSpec["1. Select Single Spec<br/>(e.g., FEAT-001)"] --> ScaffoldCode["2. Implement Layout & Logic<br/>(Satisfy visual & functional needs)"]
-    ScaffoldCode --> LiveVerify["3. Test & Sensory Check<br/>(Visual inspection via /run-ca-agent)"]
-    LiveVerify --> UpdateDocs["4. Update Docs & Trackers<br/>(docs/task.md, error-tracker.md)"]
-    UpdateDocs --> NextSpec{"More features to build?"}
+    classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
+    classDef sensory fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+    classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
+
+    SelectSpec["<b>1. 📑 Select Living Spec</b><br/><sub>e.g., FEAT-001 (Living Contract)</sub>"]:::step --> ScaffoldCode["<b>2. 🎨 Implement Layout & Interaction</b><br/><sub>Satisfy visual and functional needs</sub>"]:::step
+    ScaffoldCode --> LiveVerify["<b>3. 🌐 Test & Sensory Verification</b><br/><sub>Visual inspection via /run-ca-agent at :3000</sub>"]:::sensory
+    LiveVerify --> UpdateDocs["<b>4. 📝 Update Docs & Living Trackers</b><br/><sub>docs/task.md, docs/error-tracker.md</sub>"]:::step
+    UpdateDocs --> NextSpec{"<b>🔄 More Features in Scope?</b><br/><sub>Check Remaining Features in docs/features/</sub>"}:::gate
     NextSpec -->|"Yes: Step-by-step next spec"| SelectSpec
-    NextSpec -->|"No: All done"| FinalAudit["5. Run /release-check-ca-agent"]
+    NextSpec -->|"No: All Done"| FinalAudit(["<b>5. 🚀 Run /release-check-ca-agent</b><br/><sub>Pre-flight Production Release Gate</sub>"]):::sensory
 ```
 
 > [!CRITICAL]
@@ -66,13 +75,13 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PROTOTYPE: Fluid Vibe Discovery
-    PROTOTYPE --> DRAFT: Living Spec Scaffolded
-    DRAFT --> IN_REVIEW: Interactive Demo Verified
-    IN_REVIEW --> APPROVED: Signed Approval for Production
+    [*] --> PROTOTYPE: 🎨 Fluid Vibe Discovery
+    PROTOTYPE --> DRAFT: 📝 Living Spec Scaffolded
+    DRAFT --> IN_REVIEW: 🌐 Interactive Demo Verified
+    IN_REVIEW --> APPROVED: 👤 Human Approval for Production
     
-    APPROVED --> SUPERSEDED: Newer Spec Iteration
-    APPROVED --> DEPRECATED: Capability Retired
+    APPROVED --> SUPERSEDED: 📑 Newer Spec Iteration
+    APPROVED --> DEPRECATED: 📦 Capability Retired
     
     SUPERSEDED --> [*]
     DEPRECATED --> [*]

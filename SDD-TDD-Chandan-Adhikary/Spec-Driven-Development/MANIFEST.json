@@ -8,11 +8,11 @@
   "files": [
     {
       "path": ".agents/README.md",
-      "sha256": "5869ba092711cfb81dc70646146911ec99b8fb5b678fa3ff83fe903af3d50649"
+      "sha256": "981e0613659349950a8bd9dc00893deaf1698223ccb685937e74a6dab6379e0f"
     },
     {
       "path": ".agents/commands/README.md",
-      "sha256": "0cf88baa5e196aeb6b8e4eca1ef97168a32b5bd3f31d84dd2ad2073d9ec49c64"
+      "sha256": "681763af8abec78de983cf069b40b1414e6d4277fce2a5a1be753f85c24e5802"
     },
     {
       "path": ".agents/commands/change-request-ca-agent.md",
@@ -304,7 +304,7 @@
     },
     {
       "path": "Project-Manager-Dashboard/README.md",
-      "sha256": "9b0a72d3ddb2e537590169ee5897d0d877028e9f1ae3ad6bc123a52a55b9d7cc"
+      "sha256": "c3b6a5c0aef0ba6654f05393e7e8e0bac62fa135032e51d4bef595c072da105a"
     },
     {
       "path": "Project-Manager-Dashboard/assets/anime.min.js",
@@ -344,7 +344,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "8fae18b9abcdb4f4e4d5654eb03c4a74262ee1a5a1f987f9e651f1e49bd0d16f"
+      "sha256": "356ca2ab5f0dd4f55821ea925f704d6a2af369e5244666c4c02609d15ebc9e1c"
     },
     {
       "path": "SOURCE-NOTES.md",
@@ -376,7 +376,7 @@
     },
     {
       "path": "docs/adrs/README.md",
-      "sha256": "7c7ebfbd79e9a6382d27ebad8c72dc023e876e96932f811d1e53aae9a8cbf1bc"
+      "sha256": "54c83c2f730e2066d0b18c622715ae113ca2c2502840db63c49ca4f65b4f0f08"
     },
     {
       "path": "docs/agents.md",
@@ -444,7 +444,7 @@
     },
     {
       "path": "docs/domains/README.md",
-      "sha256": "c80aaa1ef55830bad34977cae0a92a4d4c69fb021535e58437d326e80c013791"
+      "sha256": "48ccfa9f5b84a5cf1a0d64a0b4ed981cfd941b0cb69f468b5bab5a99244c5e7a"
     },
     {
       "path": "docs/environments.md",
@@ -476,7 +476,7 @@
     },
     {
       "path": "docs/features/README.md",
-      "sha256": "83f575f0082e8e5fd296313a938fc487e7d058ff28193c7f788591d524a18664"
+      "sha256": "b2d952fa19243be623a65a40fc0c6579bd8299549b74126dc02547b28c8ceac0"
     },
     {
       "path": "docs/guideline-CHANGELOG.md",
@@ -640,7 +640,7 @@
     },
     {
       "path": "tests/README.md",
-      "sha256": "c8be6b5c28fbd67da7660eccdd2f1e6c851fe3f76841f7192d697284277e9cc1"
+      "sha256": "ac08a784117910c8b445f69ff29a6c364e0d2bbc3513ed892eb8f8013681c503"
     },
     {
       "path": "tests/test_ac_contracts.js",
