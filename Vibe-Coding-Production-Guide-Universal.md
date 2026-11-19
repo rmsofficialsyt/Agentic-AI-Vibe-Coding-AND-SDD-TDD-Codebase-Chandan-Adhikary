@@ -21,7 +21,7 @@ However, **professional Vibe Coding is not reckless hacking**. True production-g
 6. **Mandatory Development Logging (`logs/` Folder)**: Always maintain proper log files (`*.log`) during all development, test runs, and server executions inside a separate, dedicated `logs/` directory (`logs/dev.log`, `logs/test.log`, `logs/server.log`, `logs/error.log`). Never scatter loose log files in project root or source directories. Sensitive credentials and PII must be sanitized before writing to disk.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;

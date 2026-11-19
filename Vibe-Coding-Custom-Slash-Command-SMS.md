@@ -100,7 +100,7 @@ Embedded within `core repository skills in .agents/skills/`, this skill equips t
 ## 5. Visual Workflow Diagram: The Vibe-Coding Flow
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;

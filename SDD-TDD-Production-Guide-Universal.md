@@ -46,7 +46,7 @@ flowchart LR
 ```
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef tdd fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;

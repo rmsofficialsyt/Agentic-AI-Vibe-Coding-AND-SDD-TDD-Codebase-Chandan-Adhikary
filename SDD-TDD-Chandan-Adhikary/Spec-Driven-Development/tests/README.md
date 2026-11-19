@@ -23,7 +23,7 @@ The test harness in **Spec-Driven Development (SDD-TDD)** is an immutable qualit
 ## 🏛️ Testing Pyramid & AC Traceability Pipeline
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef spec fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
     classDef unit fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef integ fill:#1e1b4b,stroke:#818cf8,stroke-width:1.5px,color:#e0e7ff;
@@ -34,12 +34,14 @@ flowchart LR
     SpecAC[("<b>📑 Approved Acceptance Criteria</b><br/><small>docs/features/**.md: AC-FEAT###-##</small>")]:::spec
 
     subgraph Pyramid ["🧪 TEST HARNESS PYRAMID TIERS"]
-        E2E["<b>🌐 End-to-End Tests (10%)</b><br/><small>Full browser journeys & payment gateways (tests/e2e/)</small>"]:::e2e
-        Integration["<b>🔌 Integration Tests (20-30%)</b><br/><small>API routes, DB queries, auth guards, RLS (tests/integration/)</small>"]:::integ
-        Unit["<b>⚡ Unit Tests (60-70%)</b><br/><small>Pure domain logic, algorithms, state models (tests/unit/)</small>"]:::unit
+        direction LR
+        Unit["<b>⚡ Unit Tests (60-70%)</b><br/><small>Pure domain logic (tests/unit/)</small>"]:::unit
+        Integration["<b>🔌 Integration Tests (20-30%)</b><br/><small>API routes & DB (tests/integration/)</small>"]:::integ
+        E2E["<b>🌐 End-to-End Tests (10%)</b><br/><small>Browser journeys (tests/e2e/)</small>"]:::e2e
     end
 
     subgraph ExecutionGate ["⚙️ TEST RUNNER & GATE EXECUTION"]
+        direction LR
         TestRunner[["<b>🏃 Test Suite Runner</b><br/><small>Vitest / Jest / PyTest Harness</small>"]]:::runner
         CoverageReport[("<b>🪵 Test Audit & Gate Report</b><br/><small>logs/test.log Stream Output</small>")]:::log
     end

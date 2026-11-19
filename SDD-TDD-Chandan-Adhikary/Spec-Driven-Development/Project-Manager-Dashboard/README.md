@@ -22,28 +22,30 @@
 The **Project-Manager-Dashboard** is an embedded telemetry mission control designed exclusively for local IDE development within the **Spec-Driven Development (SDD-TDD)** framework. It runs side-by-side with your source code in an IDE split tab (Simple Browser), providing immediate, real-time visibility into task execution, acceptance criteria contracts, git commits, milestone gates, defect triage, and agent token usage.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
     classDef daemon fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
     classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
     subgraph FilesystemState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
-        Tasks[("<b>📋 docs/task.md</b><br/><small>Sequential Task Tree & Priorities</small>")]:::store
-        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestone Deliverables & Gates</small>")]:::store
-        Specs[("<b>📑 docs/features/**/*.md</b><br/><small>AC Given/When/Then Specs</small>")]:::store
-        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>P0-P3 Blocker Defect Matrix</small>")]:::store
-        GitMeta[("<b>🗄️ .git/ Repository</b><br/><small>HEAD Commit, Diffs, Branches</small>")]:::store
-        LogsStream[("<b>🪵 logs/*.log Streams</b><br/><small>dev.log, test.log, error.log</small>")]:::store
-        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><small>Token Health & Cache Rates</small>")]:::store
+        direction LR
+        Tasks[("<b>📋 docs/task.md</b><br/><small>Tasks</small>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestones</small>")]:::store
+        Specs[("<b>📑 docs/features/</b><br/><small>AC Specs</small>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>Defects</small>")]:::store
+        GitMeta[("<b>🗄️ .git/ Repo</b><br/><small>HEAD Commit</small>")]:::store
+        LogsStream[("<b>🪵 logs/*.log</b><br/><small>Log Streams</small>")]:::store
+        Transcripts[("<b>🤖 JSONL Logs</b><br/><small>Tokens</small>")]:::store
     end
 
     subgraph DaemonEngine ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (PORT 4200)"]
-        Watcher[["<b>📁 File Polling Engine</b><br/><small>Real-Time Ingestion (Every 2s)</small>"]]:::daemon
-        ASTParser[["<b>🔍 parser.js AST Extractors</b><br/><small>Regex Extractors & JSON Synthesizer</small>"]]:::daemon
-        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><small>Native Node.js Server on Port 4200</small>"]]:::daemon
-        SecFilter["<b>🛡️ DNS-Rebind Guard</b><br/><small>Host Header & Origin Validation</small>"]:::sec
-        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><small>X-Dashboard-Token Security Guard</small>"]:::sec
+        direction LR
+        Watcher[["<b>📁 File Watcher</b><br/><small>Poll 2s</small>"]]:::daemon
+        ASTParser[["<b>🔍 parser.js AST</b><br/><small>JSON Synthesizer</small>"]]:::daemon
+        Server[["<b>🔌 server.js Daemon</b><br/><small>Port 4200</small>"]]:::daemon
+        SecFilter["<b>🛡️ DNS-Rebind</b><br/><small>Host Guard</small>"]:::sec
+        CSRFManager["<b>🔑 CSRF Guard</b><br/><small>Token Injector</small>"]:::sec
     end
 
     subgraph UIClient ["🖥️ IN-IDE SIMPLE BROWSER (http://127.0.0.1:4200)"]

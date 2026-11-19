@@ -25,19 +25,21 @@
 This guide provides an end-to-end, production-ready blueprint for building **EduSphere Enterprise**—a secure, multi-tenant School Management System designed for strict regulatory compliance (FERPA, COPPA, GDPR) and mission-critical reliability.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef app fill:#082f49,stroke:#0284c7,stroke-width:1.5px,color:#f0f9ff;
     classDef db fill:#022c22,stroke:#10b981,stroke-width:2px,color:#d1fae5;
     classDef cache fill:#451a03,stroke:#fbbf24,stroke-width:1.5px,color:#fffbeb;
 
     subgraph ClientIngress ["🌐 EDUSPHERE MULTI-PORTAL INGRESS TIER"]
+        direction LR
         AdminWeb(["<b>🏫 District & School Admin Portal</b><br/><small>Next.js 15 App Router • SSR Management</small>"]):::client
         TeacherWeb(["<b>👩‍🏫 Teacher Grading & Attendance Portal</b><br/><small>Real-Time Classroom UI • Rapid Roster Input</small>"]):::client
         ParentPortal(["<b>📱 Parent & Student PWA</b><br/><small>Mobile-Optimized • Read-Only Grades & Reports</small>"]):::client
     end
 
     subgraph AppTier ["⚙️ NEXT.JS 15 APPLICATION & ENTERPRISE SERVICES"]
+        direction LR
         AuthModule["<b>🔑 Session & JWT Auth Guard</b><br/><small>Role-Based Access Control • NextAuth / OIDC</small>"]:::app
         TenantResolver["<b>🏢 Multi-Tenant Middleware</b><br/><small>Resolves Subdomain & Tenant ID Context</small>"]:::app
         StudentService["<b>🎓 Student Enrollment Service</b><br/><small>FERPA/COPPA Compliant Admission Engine</small>"]:::app
@@ -45,6 +47,7 @@ flowchart LR
     end
 
     subgraph DataTier ["💾 POSTGRESQL MULTI-TENANT PERSISTENCE TIER"]
+        direction LR
         DBConn[["<b>🔌 Database Connection Pool</b><br/><small>pgBouncer • Prisma ORM Session Pool</small>"]]:::db
         RLS["<b>🛡️ PostgreSQL Row-Level Security</b><br/><small>SET LOCAL app.current_tenant_id = ?</small>"]:::db
         TenantTables[("<b>🗄️ Multi-Tenant Tables</b><br/>• schools, students, enrollments<br/>• attendance_records, audit_logs")]:::db

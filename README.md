@@ -23,7 +23,7 @@
 This repository provides two standardized, battle-tested engineering frameworks for developing **production-grade software** using autonomous AI coding agents. Whether you are building rapid consumer-facing SaaS products or mission-critical, enterprise multi-tenant systems, this repository enforces strict governance, zero speculative coding, and measurable quality gates.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:2px,color:#faf5ff;
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:2px,color:#f0f9ff;
@@ -31,19 +31,23 @@ flowchart LR
 
     Choice{"Select Architecture Track"}:::gate
 
-    subgraph Track1 ["🌟 Track 1: Vibe-Coding Framework (High Velocity & Visual UI)"]
-        VibeCore["<b>🎨 FLUID SENSORY PROTOTYPING</b><br/><small>Rapid UI • Instant Hot-Reload • Living Specs</small>"]:::vibe
-        VibeSpeed["<b>⚡ SENSORY VERIFICATION LOOP</b><br/><small>Inspect at localhost:3000 • Fluid Feedback</small>"]:::vibe
-        VibeScope["<b>🎯 TARGET WORKLOADS</b><br/><small>Consumer SaaS • Dynamic Dashboards • AI Creative Tools</small>"]:::vibe
-    end
+    subgraph Tracks ["ENGINEERING BLUEPRINTS"]
+        direction LR
+        subgraph Track1 ["🌟 Track 1: Vibe-Coding Framework (High Velocity & Visual UI)"]
+            VibeCore["<b>🎨 FLUID SENSORY PROTOTYPING</b><br/><small>Rapid UI • Instant Hot-Reload • Living Specs</small>"]:::vibe
+            VibeSpeed["<b>⚡ SENSORY VERIFICATION LOOP</b><br/><small>Inspect at localhost:3000 • Fluid Feedback</small>"]:::vibe
+            VibeScope["<b>🎯 TARGET WORKLOADS</b><br/><small>Consumer SaaS • Dynamic Dashboards • AI Creative Tools</small>"]:::vibe
+        end
 
-    subgraph Track2 ["🛡️ Track 2: SDD + TDD Framework (Enterprise Core & High Assurance)"]
-        SDDCore["<b>🔒 FORMAL CONTRACT-FIRST ARCHITECTURE</b><br/><small>Approved Specs • Failing Tests First • Zero Regression</small>"]:::sdd
-        SDDRigor["<b>🧪 RED-GREEN-REFACTOR VERIFICATION</b><br/><small>AC-to-Test Traceability • Strict Quality Gating</small>"]:::sdd
-        SDDBestFor["<b>🎯 TARGET WORKLOADS</b><br/><small>Enterprise Core • FinTech Ledger • HealthTech • Regulated</small>"]:::sdd
+        subgraph Track2 ["🛡️ Track 2: SDD + TDD Framework (Enterprise Core & High Assurance)"]
+            SDDCore["<b>🔒 FORMAL CONTRACT-FIRST ARCHITECTURE</b><br/><small>Approved Specs • Failing Tests First • Zero Regression</small>"]:::sdd
+            SDDRigor["<b>🧪 RED-GREEN-REFACTOR VERIFICATION</b><br/><small>AC-to-Test Traceability • Strict Quality Gating</small>"]:::sdd
+            SDDBestFor["<b>🎯 TARGET WORKLOADS</b><br/><small>Enterprise Core • FinTech Ledger • HealthTech • Regulated</small>"]:::sdd
+        end
     end
 
     subgraph SharedCore ["🏛️ Shared Governance & Mission Control Baseline"]
+        direction LR
         AgentEngine["<b>🤖 .agents/ ASSET REPOSITORY</b><br/><small>16 Collision-Free Tools & Deterministic Skills</small>"]:::core
         DashboardEngine["<b>🖥️ IN-IDE MISSION CONTROL</b><br/><small>Zero-Dependency Local Daemons (Ports 4200 / 4201)</small>"]:::core
         DocGovernance["<b>📑 docs/ GOVERNANCE ENGINE</b><br/><small>Constitution, PRD, Features, and ADR Decision Logs</small>"]:::core
@@ -85,7 +89,7 @@ Choose the framework that matches your delivery model and architectural requirem
 ### Track 1: Vibe-Coding Prompt & Sensory Loop
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef step fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
@@ -142,7 +146,7 @@ flowchart LR
 ### Track 2: Spec-Driven Development + TDD Quality-Gated Loop
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
@@ -197,48 +201,41 @@ flowchart LR
 
     PS5 -->|"Gate Passed"| Release
 ```
-    GateCheck -->|"Failing Tests"| PS4
-    GateCheck -->|"Passed Green"| NextFeature
-
-    NextFeature -->|"Yes: Step-by-Step Next Spec"| PS3
-    NextFeature -->|"All Specs Verified"| PS5
-
-    PS5 -->|"Release Checklist Signed"| Release
-```
 
 ---
 
 ## 📁 Repository Architecture Blueprint
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef root fill:#0f172a,stroke:#94a3b8,stroke-width:2px,color:#f8fafc;
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef sdd fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
 
     subgraph Root ["📁 REPOSITORY GOVERNANCE ROOT"]
-        RootDocs["<b>📑 Universal Documentation Hub</b><br/><small>README.md • PROJECT-MANAGER-DASHBOARD-GUIDE.md • Production Guides</small>"]:::root
-        RootGov["<b>🛡️ Policy & Security Baseline</b><br/><small>LICENSE.md (MIT) • .github/SECURITY.md • GEMINI.md Contracts</small>"]:::root
+        direction LR
+        RootDocs["<b>📑 Universal Documentation Hub</b><br/><small>README.md • Dashboard Guide • Production Guides</small>"]:::root
+        RootGov["<b>🛡️ Policy & Security Baseline</b><br/><small>LICENSE.md (MIT) • SECURITY.md • GEMINI.md</small>"]:::root
     end
 
     subgraph StarterTemplates ["📦 CANONICAL STARTER BLUEPRINTS"]
-        direction TB
+        direction LR
         subgraph T1Template ["🌟 Track 1: Vibe-Coding Blueprint"]
             T1Agents["<b>🤖 .agents/ Asset Store</b><br/><small>16 Commands • 18 Skills • Hooks</small>"]:::vibe
-            T1Docs["<b>🎨 docs/ Living Specs</b><br/><small>PRD • System Architecture • Living Features</small>"]:::vibe
-            T1Dash["<b>🖥️ Mission Control</b><br/><small>Project-Manager-Dashboard (Port 4201)</small>"]:::vibe
-            T1Tests["<b>🧪 tests/ Sanity Harness</b><br/><small>Visual & Progressive Hardening Suites</small>"]:::vibe
+            T1Docs["<b>🎨 docs/ Living Specs</b><br/><small>PRD • Architecture • Features</small>"]:::vibe
+            T1Dash["<b>🖥️ Mission Control</b><br/><small>Dashboard (Port 4201)</small>"]:::vibe
+            T1Tests["<b>🧪 tests/ Sanity Harness</b><br/><small>Visual & Hardening Suites</small>"]:::vibe
         end
 
         subgraph T2Template ["🛡️ Track 2: SDD-TDD Blueprint"]
             T2Agents["<b>🤖 .agents/ Asset Store</b><br/><small>16 Commands • 18 Skills • Hooks</small>"]:::sdd
-            T2Docs["<b>📑 docs/ Contract Store</b><br/><small>Constitution • PRD • Formal Features • ADRs</small>"]:::sdd
-            T2Dash["<b>🖥️ Mission Control</b><br/><small>Project-Manager-Dashboard (Port 4200)</small>"]:::sdd
+            T2Docs["<b>📑 docs/ Contract Store</b><br/><small>Constitution • PRD • Specs • ADRs</small>"]:::sdd
+            T2Dash["<b>🖥️ Mission Control</b><br/><small>Dashboard (Port 4200)</small>"]:::sdd
             T2Tests["<b>🧪 tests/ TDD Harness</b><br/><small>Unit, Integration & E2E Suites</small>"]:::sdd
         end
     end
 
-    Root --> StarterTemplates
+    Root ==>|"Enforces Architecture"| StarterTemplates
 ```
 
 ```text
@@ -335,7 +332,7 @@ stateDiagram-v2
 The in-built **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear and Shadcn UI-inspired telemetry dashboard running directly inside your editor:
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef daemon fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#f8fafc;

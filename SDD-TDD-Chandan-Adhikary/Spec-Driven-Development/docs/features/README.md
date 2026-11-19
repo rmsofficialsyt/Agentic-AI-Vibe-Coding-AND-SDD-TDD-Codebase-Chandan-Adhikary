@@ -58,7 +58,7 @@ Every feature must be categorized into one of three complexity tiers to drive si
 ## 🔄 Step-by-Step Spec Development Protocol
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef step fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;

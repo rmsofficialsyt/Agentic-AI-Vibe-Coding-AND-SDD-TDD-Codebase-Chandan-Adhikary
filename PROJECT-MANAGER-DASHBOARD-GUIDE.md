@@ -23,27 +23,29 @@
 The **Project-Manager-Dashboard** is a zero-dependency, Apple/Linear and Shadcn UI-inspired telemetry dashboard designed specifically for local development workflows. It runs side-by-side with your code inside the IDE, providing live visibility into tasks, acceptance criteria contracts, git commits, milestones, error triage, logs, and AI agent token consumption.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef store fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc;
     classDef daemon fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
     classDef sec fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
     subgraph WorkspaceState ["📁 LOCAL WORKSPACE ARTIFACTS & DATA STREAMS"]
-        Tasks[("<b>📋 docs/task.md</b><br/><small>Sequential Task Tree & Priorities</small>")]:::store
-        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestone Deliverables & Gates</small>")]:::store
-        Specs[("<b>📑 docs/features/**/*.md</b><br/><small>AC Given/When/Then Specs</small>")]:::store
-        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>P0-P3 Blocker Defect Matrix</small>")]:::store
-        GitRepo[("<b>🗄️ .git/ Repository</b><br/><small>HEAD Commit, Diffs, Branches</small>")]:::store
-        Logs[("<b>🪵 logs/*.log Streams</b><br/><small>dev.log, test.log, error.log</small>")]:::store
-        Transcripts[("<b>🤖 Agent JSONL Logs</b><br/><small>Token Health & Cache Rates</small>")]:::store
+        direction LR
+        Tasks[("<b>📋 docs/task.md</b><br/><small>Tasks</small>")]:::store
+        Phases[("<b>🏁 docs/phases.md</b><br/><small>Milestones</small>")]:::store
+        Specs[("<b>📑 docs/features/</b><br/><small>Specs</small>")]:::store
+        Errors[("<b>🐛 docs/error-tracker.md</b><br/><small>Defects</small>")]:::store
+        GitRepo[("<b>🗄️ .git/ Repo</b><br/><small>HEAD Commit</small>")]:::store
+        Logs[("<b>🪵 logs/*.log</b><br/><small>Log Streams</small>")]:::store
+        Transcripts[("<b>🤖 JSONL Logs</b><br/><small>Tokens</small>")]:::store
     end
 
     subgraph DaemonTier ["⚙️ ZERO-DEPENDENCY LOCAL DAEMON (NATIVE NODE.JS)"]
-        Parser[["<b>🔍 parser.js AST Engine</b><br/><small>Regex Extractors & JSON Synthesizer</small>"]]:::daemon
-        Server[["<b>🔌 server.js HTTP & SSE Daemon</b><br/><small>Port 4200 (SDD) / 4201 (Vibe)</small>"]]:::daemon
-        SecurityGuard["<b>🛡️ DNS-Rebind Guard</b><br/><small>Origin & Host Header Validation</small>"]:::sec
-        CSRFManager["<b>🔑 CSRF Token Injector</b><br/><small>X-Dashboard-Token Security Guard</small>"]:::sec
+        direction LR
+        Parser[["<b>🔍 parser.js AST Engine</b><br/><small>Regex & JSON Synthesizer</small>"]]:::daemon
+        Server[["<b>🔌 server.js Daemon</b><br/><small>Port 4200 (SDD) / 4201 (Vibe)</small>"]]:::daemon
+        SecurityGuard["<b>🛡️ DNS-Rebind Guard</b><br/><small>Origin & Host Guard</small>"]:::sec
+        CSRFManager["<b>🔑 CSRF Guard</b><br/><small>Token Injector</small>"]:::sec
     end
 
     subgraph ViewportTier ["🖥️ IN-IDE SIMPLE BROWSER VIEWPORT"]
@@ -166,7 +168,7 @@ node Vibe-Coding-Chandan-Adhikary/Vibe-Coding/Project-Manager-Dashboard/server.j
 For the ultimate distraction-free developer experience, dock the dashboard directly inside your IDE alongside your code.
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef editor fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef dash fill:#082f49,stroke:#0284c7,stroke-width:2px,color:#f0f9ff;
     classDef term fill:#1e293b,stroke:#64748b,stroke-width:1px,color:#f8fafc;

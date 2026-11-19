@@ -23,25 +23,28 @@ In **Vibe-Coding**, testing follows a progressive hardening philosophy. During t
 ## 🏛️ Vibe Hardening Pipeline
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef sensory fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
     classDef pass fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
     subgraph SensoryStage ["🎨 STAGE 1: SENSORY UI DEMO VERIFICATION"]
+        direction LR
         LiveDemo["<b>🔌 Run /run-ca-agent</b><br/><small>Starts Live Dev Server at http://localhost:3000</small>"]:::sensory
         SensoryCheck["<b>🌐 Sensory UX Inspection</b><br/><small>Inspect Visual Aesthetics, Responsiveness & Animations</small>"]:::sensory
         VibeSignOff{"Vibe Approved?"}:::gate
     end
 
     subgraph HardeningStage ["🔒 STAGE 2: PROGRESSIVE HARNESS HARDENING"]
+        direction LR
         ComponentTests["<b>🧩 Component & State Tests</b><br/><small>Header, Dialogs, Cards (tests/components/)</small>"]:::harden
         ValidationTests["<b>📑 Schema & DTO Tests</b><br/><small>Zod Validation & Typed Form Inputs</small>"]:::harden
         RegressionTests["<b>🔌 API Regression Tests</b><br/><small>Route Handlers & State Persistence (tests/integration/)</small>"]:::harden
     end
 
     subgraph ReleaseStage ["🚀 STAGE 3: PRE-DEPLOY RELEASE GATE"]
+        direction LR
         TestRun[["<b>🏃 Execute /testing-ca-agent</b><br/><small>Automated Test Harness Output -> logs/test.log</small>"]]:::harden
         ShipVerdict(["<b>🎉 /release-check-ca-agent Passed</b><br/><small>Zero-Defect Production Deployment Authorized</small>"]):::pass
     end

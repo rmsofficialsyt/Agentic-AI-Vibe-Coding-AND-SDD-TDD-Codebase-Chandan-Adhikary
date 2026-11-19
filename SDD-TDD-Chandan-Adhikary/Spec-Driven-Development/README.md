@@ -35,57 +35,63 @@
 The end-to-end SDD-TDD lifecycle follows a strict contract-first progression:
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef gov fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc;
     classDef spec fill:#172554,stroke:#60a5fa,stroke-width:1.5px,color:#eff6ff;
     classDef red fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#fff1f2;
     classDef green fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
 
-    subgraph GovernancePhase ["🏛️ 1. GOVERNANCE & ARCHITECTURE SYNTHESIS"]
-        ProductVision["<b>💡 Product Vision & Capabilities</b><br/><small>docs/product.md • CAP-### Taxonomy</small>"]:::gov
-        PRD["<b>📑 System Requirements (PRD)</b><br/><small>docs/prd.md • REQ-### Requirements</small>"]:::gov
-        SysArch["<b>🏛️ System Architecture & HLD/LLD</b><br/><small>docs/system-architecture.md • Boundaries</small>"]:::gov
+    subgraph Row1 ["🏛️ GOVERNANCE & SPECIFICATION TIERS"]
+        direction LR
+        subgraph GovernancePhase ["🏛️ 1. GOVERNANCE & ARCHITECTURE SYNTHESIS"]
+            ProductVision["<b>💡 Product Vision</b><br/><small>CAP-### Taxonomy</small>"]:::gov
+            PRD["<b>📑 System Requirements</b><br/><small>REQ-### Requirements</small>"]:::gov
+            SysArch["<b>🏛️ System Architecture</b><br/><small>HLD/LLD Boundaries</small>"]:::gov
+        end
+
+        subgraph SpecPhase ["📋 2. EXECUTABLE SPEC CONTRACT"]
+            SpecFormat{"Spec Format?"}:::gate
+            SpecDraft["<b>📝 Feature Spec</b><br/><small>FEAT-### Drafting</small>"]:::spec
+            ACDefine["<b>🧪 Acceptance Criteria</b><br/><small>Given/When/Then</small>"]:::spec
+            HumanReview{"Architecture Approved?"}:::gate
+        end
     end
 
-    subgraph SpecPhase ["📋 2. EXECUTABLE SPECIFICATION CONTRACT"]
-        SpecFormat{"Spec Format?"}:::gate
-        SpecDraft["<b>📝 Feature Specification Drafting</b><br/><small>docs/features/NNN-name.md (FEAT-###)</small>"]:::spec
-        ACDefine["<b>🧪 Acceptance Criteria (AC-*)</b><br/><small>Given / When / Then Scenario Modeling</small>"]:::spec
-        HumanReview{"Architecture Approved?"}:::gate
-    end
+    subgraph Row2 ["🧪 TDD CYCLE & PRODUCTION RELEASE TIERS"]
+        direction LR
+        subgraph TDDPhase ["🧪 3. TEST-DRIVEN IMPLEMENTATION (TDD)"]
+            RedTest["<b>🔴 RED PHASE: Failing Tests</b><br/><small>Confirm Expected Failures</small>"]:::red
+            GreenCode["<b>🟢 GREEN PHASE: Minimal Code</b><br/><small>All Tests Pass</small>"]:::green
+            Refactor["<b>✨ REFACTOR: Polish</b><br/><small>Clean Architecture</small>"]:::green
+        end
 
-    subgraph TDDPhase ["🧪 3. TEST-DRIVEN IMPLEMENTATION (TDD)"]
-        RedTest["<b>🔴 RED PHASE: Failing Tests First</b><br/><small>Run /testing-ca-agent -> Confirm Fail</small>"]:::red
-        GreenCode["<b>🟢 GREEN PHASE: Minimal Code</b><br/><small>Satisfy Assertions -> All Tests Pass</small>"]:::green
-        Refactor["<b>✨ REFACTOR PHASE: Architecture Polish</b><br/><small>Eliminate Duplication • Zero Regression</small>"]:::green
-    end
-
-    subgraph GatePhase ["🚀 4. QUALITY AUDIT & RELEASE GATE"]
-        CodeReview["<b>🔍 /review-ca-agent & /verify-ca-agent</b><br/><small>Diff Inspection & AC Scorecard Check</small>"]:::gov
-        SecurityScan["<b>🛡️ /security-audit-ca-agent</b><br/><small>SAST, Secret Leaks & Dependency Scan</small>"]:::gov
-        ReleaseGate{"Release Gate Passed?"}:::gate
-        ProductionDeploy(["<b>🎉 Production-Ready Release</b><br/><small>Zero-Defect Enterprise Deployment</small>"]):::green
+        subgraph GatePhase ["🚀 4. QUALITY AUDIT & SHIP"]
+            CodeReview["<b>🔍 Review & Verify</b><br/><small>/review & /verify Scorecard</small>"]:::gov
+            SecurityScan["<b>🛡️ Security Audit</b><br/><small>SAST Scan & Secret Leaks</small>"]:::gov
+            ReleaseGate{"Release Gate Passed?"}:::gate
+            ProductionDeploy(["<b>🎉 Production Ship</b><br/><small>Zero-Defect Release</small>"]):::green
+        end
     end
 
     ProductVision -->|"Refines"| PRD
     PRD -->|"Architects"| SysArch
-    SysArch -->|"Defines Bounds"| SpecFormat
-    SpecFormat -->|"Tier 1/2 (1-6 files)"| SpecDraft
-    SpecFormat -->|"Tier 3 (7+ files / RLS)"| SpecDraft
+    SysArch -->|"Bounds"| SpecFormat
+    SpecFormat -->|"Tier 1/2"| SpecDraft
+    SpecFormat -->|"Tier 3"| SpecDraft
     SpecDraft -->|"Specifies"| ACDefine
-    ACDefine -->|"Submits for Sign-off"| HumanReview
+    ACDefine -->|"Submits"| HumanReview
 
     HumanReview -->|"Revise"| SpecDraft
-    HumanReview -->|"APPROVED"| RedTest
+    HumanReview ==>|"APPROVED"| RedTest
 
-    RedTest -->|"Write Production Code"| GreenCode
-    GreenCode -->|"Refactor & Optimize"| Refactor
-    Refactor -->|"Triggers Verification"| CodeReview
+    RedTest -->|"Code"| GreenCode
+    GreenCode -->|"Optimize"| Refactor
+    Refactor -->|"Verify"| CodeReview
 
     CodeReview -->|"Pass"| SecurityScan
-    SecurityScan -->|"Clean Audit"| ReleaseGate
-    ReleaseGate -->|"Ship Authorized"| ProductionDeploy
+    SecurityScan -->|"Clean"| ReleaseGate
+    ReleaseGate -->|"Authorized"| ProductionDeploy
 ```
 
 ---

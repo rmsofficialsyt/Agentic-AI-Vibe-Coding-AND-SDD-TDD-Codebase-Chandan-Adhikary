@@ -33,35 +33,41 @@
 ## 🏛️ Vibe-Coding Architecture & Sensory Loop
 
 ```mermaid
-flowchart LR
+flowchart TB
     classDef vibe fill:#2e1065,stroke:#c084fc,stroke-width:1.5px,color:#faf5ff;
     classDef gate fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#fffbeb;
     classDef live fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
     classDef harden fill:#082f49,stroke:#38bdf8,stroke-width:1.5px,color:#f0f9ff;
 
-    subgraph DiscoveryPhase ["🎨 1. DISCOVERY & AESTHETIC VIBE CHECK"]
-        VibePrompt["<b>💡 Prompt V1: Discovery & Aesthetics</b><br/><small>Aesthetic Tokens • Color Palette • User Personas</small>"]:::vibe
-        VibePlan["<b>📑 Visual & Technical Blueprint</b><br/><small>docs/product.md • docs/design.md Tokens</small>"]:::vibe
-        HumanSignOff{"Lead Approved?"}:::gate
+    subgraph Row1 ["🎨 DISCOVERY & SENSORY PROTOTYPING TIERS"]
+        direction LR
+        subgraph DiscoveryPhase ["🎨 1. DISCOVERY & AESTHETIC VIBE"]
+            VibePrompt["<b>💡 Prompt V1: Aesthetics</b><br/><small>Tokens • Palettes • Personas</small>"]:::vibe
+            VibePlan["<b>📑 Visual Blueprint</b><br/><small>docs/product.md & design.md</small>"]:::vibe
+            HumanSignOff{"Lead Approved?"}:::gate
+        end
+
+        subgraph PrototypePhase ["🏗️ 2. LIVE INTERACTIVE UI SHELL"]
+            ScaffoldCode["<b>💻 Prompt V2: Scaffold UI</b><br/><small>Wireframes • Mock State</small>"]:::vibe
+            StartDevServer["<b>🔌 Run /run-ca-agent</b><br/><small>Dev Server at :3000</small>"]:::live
+            BrowserInspect["<b>🌐 Sensory Inspection</b><br/><small>Visual & Tactile Check</small>"]:::live
+        end
     end
 
-    subgraph PrototypePhase ["🏗️ 2. LIVE INTERACTIVE UI SCAFFOLD"]
-        ScaffoldCode["<b>💻 Prompt V2: Scaffold Live UI Shell</b><br/><small>Component Wireframes • Mock State • Dynamic Styling</small>"]:::vibe
-        StartDevServer["<b>🔌 Run /run-ca-agent</b><br/><small>Starts Local Server at http://localhost:3000</small>"]:::live
-        BrowserInspect["<b>🌐 Sensory Browser Inspection</b><br/><small>Visual Layout Check • Tactile Feel • Micro-Interactions</small>"]:::live
-    end
+    subgraph Row2 ["✨ CONVERSATIONAL TUNING & HARDENING TIERS"]
+        direction LR
+        subgraph TuningPhase ["✨ 3. CONVERSATIONAL VIBE-TUNING"]
+            FeedbackPrompt["<b>🎨 Prompt V3: Polish</b><br/><small>Micro-Interactions • Transitions</small>"]:::vibe
+            HotReload["<b>⚡ Fast Refresh</b><br/><small>Immediate Feedback</small>"]:::live
+            VibeApproval{"Vibe Approved?"}:::gate
+        end
 
-    subgraph TuningPhase ["✨ 3. CONVERSATIONAL VIBE-TUNING"]
-        FeedbackPrompt["<b>🎨 Prompt V3: Polish Micro-Interactions</b><br/><small>Padding, Typography, Hover States, Transitions</small>"]:::vibe
-        HotReload["<b>⚡ Instant Fast Refresh Hot-Reload</b><br/><small>Immediate Visual Feedback in Browser</small>"]:::live
-        VibeApproval{"Vibe Approved?"}:::gate
-    end
-
-    subgraph HardeningPhase ["🔒 4. PROGRESSIVE PRODUCTION HARDENING"]
-        HardeningPrompt["<b>🛡️ Prompt V4: Production Hardening</b><br/><small>Zod Validation • Error Boundaries • Database APIs</small>"]:::harden
-        SanityTests["<b>🧪 Execute /testing-ca-agent</b><br/><small>Visual Sanity & Component Regression Suites</small>"]:::harden
-        SecurityGate["<b>🛡️ /security-audit-ca-agent & /release-check-ca-agent</b><br/><small>SAST Scan • Secret Leak Audit • Release Checklist</small>"]:::harden
-        ShipProduction(["<b>🚀 Production Release Deployment</b><br/><small>Zero-Defect Ship to Production</small>"]):::live
+        subgraph HardeningPhase ["🔒 4. PRODUCTION HARDENING"]
+            HardeningPrompt["<b>🛡️ Prompt V4: Hardening</b><br/><small>Zod Validation • DB APIs</small>"]:::harden
+            SanityTests["<b>🧪 /testing-ca-agent</b><br/><small>Sanity & Regression</small>"]:::harden
+            SecurityGate["<b>🛡️ /security-audit</b><br/><small>SAST Scan & Release Check</small>"]:::harden
+            ShipProduction(["<b>🚀 Production Ship</b><br/><small>Zero-Defect Release</small>"]):::live
+        end
     end
 
     VibePrompt -->|"Architects"| VibePlan
@@ -71,16 +77,16 @@ flowchart LR
 
     ScaffoldCode -->|"Launches"| StartDevServer
     StartDevServer -->|"Inspects"| BrowserInspect
-    BrowserInspect -->|"Feedback"| FeedbackPrompt
+    BrowserInspect ==>|"Feedback"| FeedbackPrompt
 
-    FeedbackPrompt -->|"Updates Code"| HotReload
+    FeedbackPrompt -->|"Updates"| HotReload
     HotReload -->|"Validates"| VibeApproval
-    VibeApproval -->|"No: Refine UI"| FeedbackPrompt
+    VibeApproval -->|"Refine UI"| FeedbackPrompt
     VibeApproval -->|"Approved"| HardeningPrompt
 
-    HardeningPrompt -->|"Harness Test"| SanityTests
-    SanityTests -->|"Audit Scan"| SecurityGate
-    SecurityGate -->|"Ship Authorized"| ShipProduction
+    HardeningPrompt -->|"Test"| SanityTests
+    SanityTests -->|"Audit"| SecurityGate
+    SecurityGate -->|"Authorized"| ShipProduction
 ```
 
 ---
